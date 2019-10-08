@@ -12,11 +12,8 @@ import javax.swing.ImageIcon;
  *
  * @author Alex
  */
-public class CopiasSeguridad extends javax.swing.JFrame {
+public class CopiasSeguridad extends javax.swing.JFrame {//permite crear o restaurar copias de seguridad
 
-    /**
-     * Creates new form CopiasSeguridad
-     */
     public CopiasSeguridad() {
         initComponents();
         this.setIconImage (new ImageIcon(getClass().getResource("/Images/iconoCab.png")).getImage());
@@ -32,8 +29,8 @@ public class CopiasSeguridad extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        hacerCop = new javax.swing.JButton();
+        restaurarCop = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -45,17 +42,17 @@ public class CopiasSeguridad extends javax.swing.JFrame {
 
         jPanel1.setName(""); // NOI18N
 
-        jButton1.setText("Crear copia de seguridad");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        hacerCop.setText("Crear copia de seguridad");
+        hacerCop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                hacerCopActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Restaurar copia de seguridad");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        restaurarCop.setText("Restaurar copia de seguridad");
+        restaurarCop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                restaurarCopActionPerformed(evt);
             }
         });
 
@@ -81,8 +78,8 @@ public class CopiasSeguridad extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1)
+                    .addComponent(restaurarCop)
+                    .addComponent(hacerCop)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(21, Short.MAX_VALUE))
@@ -97,11 +94,11 @@ public class CopiasSeguridad extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(hacerCop)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addComponent(restaurarCop)
                 .addGap(5, 5, 5)
                 .addComponent(regresar)
                 .addContainerGap())
@@ -121,48 +118,55 @@ public class CopiasSeguridad extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void hacerCopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hacerCopActionPerformed
         hacerCopia();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_hacerCopActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void restaurarCopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurarCopActionPerformed
         restaurarCopia();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_restaurarCopActionPerformed
 
     private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
+       //se muestra la pantalla principal y quita la actual
        Inicio.prin.setLocationRelativeTo(null);
        Inicio.prin.setVisible(true);
        this.dispose(); 
     }//GEN-LAST:event_regresarActionPerformed
 
+    //crea una copia de seguridad
     private void hacerCopia()
     {
-        try{
-        Runtime.getRuntime().exec("C:\\windows\\System32\\cmd.exe /k start hacerCopia.bat");
+        try
+        {
+            Runtime.getRuntime().exec("C:\\windows\\System32\\cmd.exe /k start hacerCopia.bat");//ejecuta con cmd el archivo hacerCopia que debe estar en la carpeta raiz del programa 
         }
-        catch(IOException Error){
-            System.out.println(Error);
+        catch(IOException Error)
+        {
+            Error.printStackTrace();
         }
-        }
+    }
     
+    //restaura la copia de seguridad en el escritorio
     private void restaurarCopia()
     {
-        try{
-        Runtime.getRuntime().exec("C:\\windows\\System32\\cmd.exe /k start restaurarCopia.bat");
+        try
+        {
+            Runtime.getRuntime().exec("C:\\windows\\System32\\cmd.exe /k start restaurarCopia.bat");//ejecuta con cmd el archivo restaurarCopia que debe estar en la carpeta raiz del programa
         }
-        catch(IOException Error){
-            System.out.println(Error);
+        catch(IOException Error)
+        {
+            Error.printStackTrace();
         }
-        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton hacerCop;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTextPane jTextPane2;
     private javax.swing.JButton regresar;
+    private javax.swing.JButton restaurarCop;
     // End of variables declaration//GEN-END:variables
 }
