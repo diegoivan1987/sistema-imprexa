@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 
-public class Cliente extends javax.swing.JFrame {
+public class Cliente extends javax.swing.JFrame {//guardar los datos del cliente
     Inicio in;
     Principal prin;
     Pedido ped;

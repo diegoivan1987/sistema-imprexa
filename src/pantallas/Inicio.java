@@ -5,10 +5,10 @@ import connect.Connect;
 import java.sql.Connection;
 import javax.swing.ImageIcon;
 
-public class Inicio extends javax.swing.JFrame {
+public class Inicio extends javax.swing.JFrame {//es el loggin del programa
 
     Connect c;
-    
+    //se crean las variables para las pantallas
     public static Cliente cl;
     public static Pedido pd;
     public static Principal prin;
@@ -20,7 +20,6 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         barra.setValue(0);
-
         this.setIconImage (new ImageIcon(getClass().getResource("/Images/iconoCab.png")).getImage());
     }
 
@@ -231,8 +230,9 @@ public class Inicio extends javax.swing.JFrame {
         setBarra(17);
         Connection con = c.conectar();
         
-        if(con != null){
-            
+        if(con != null)//si hubo una conexion
+        {
+            //comienzan a instanciar las pantalas
             prin = new Principal(con);
             setBarra(17);
             cl = new Cliente(con);
@@ -243,15 +243,18 @@ public class Inicio extends javax.swing.JFrame {
             setBarra(17);
             vis = new Visualizacion(con);
             setBarra(15);
-            
+            //muestra la pantalla principal y desaparece la actual
             prin.setLocationRelativeTo(null);
             prin.setVisible(true);
             dispose();
-        }else{
+        }
+        else
+        {
             resetBarra();
         }
     }//GEN-LAST:event_btnActionPerformed
 
+    //hace que la barra aumente
     private void setBarra(int avance){
         
         int progreso = barra.getValue() + avance;
@@ -260,6 +263,7 @@ public class Inicio extends javax.swing.JFrame {
         barra.update(barra.getGraphics());
     }
     
+    //regresa la barra de carga a 0
     private void resetBarra(){
         barra.setValue(0);
         barra.update(barra.getGraphics());
