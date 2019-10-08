@@ -28,12 +28,8 @@ import javax.swing.table.JTableHeader;
 import lu.tudor.santec.jtimechooser.JTimeChooser;
 import org.joda.time.DateTime;
 import org.joda.time.Hours;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
-import org.joda.time.LocalTime;
 import org.joda.time.Minutes;
 import org.joda.time.Period;
-import static org.joda.time.PeriodType.time;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 

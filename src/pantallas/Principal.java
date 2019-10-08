@@ -4,11 +4,8 @@ package pantallas;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 import java.sql.Connection;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import org.omg.SendingContext.RunTime;
 
 public class Principal extends javax.swing.JFrame {
 
