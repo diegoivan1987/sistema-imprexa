@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 
-public class GastosFijos extends javax.swing.JFrame {
+public class GastosFijos extends javax.swing.JFrame {//permite guardar los gastos fijos de pedidos dentro de un rango de fechas
     
     Connection con;
     Statement st;
@@ -30,13 +30,14 @@ public class GastosFijos extends javax.swing.JFrame {
     int hg = 0;
     
     DefaultTableModel modeloAf;
-     JTableHeader thAf;
-     Font fuenteTablas;
+    JTableHeader thAf;
+    Font fuenteTablas;
     
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
     public GastosFijos(Connection con, Pedido pd) {
         initComponents();
+        
         this.setIconImage (new ImageIcon(getClass().getResource("/Images/iconoCab.png")).getImage());
         fuenteTablas = new Font("Dialog", Font.BOLD, 12);
         wd = this.getWidth();
@@ -48,21 +49,25 @@ public class GastosFijos extends javax.swing.JFrame {
         this.con = con;
         this.pd = pd;
         
+        //establece que no se pueden modificar las celdas de la tabla
         modeloAf = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        modeloAf.setColumnIdentifiers(new Object[]{"Folio", "Impresion", "Fecha Pago", "GastosFijos"});
-        tablaAf.setModel(modeloAf);
+        
+        modeloAf.setColumnIdentifiers(new Object[]{"Folio", "Impresion", "Fecha Pago", "GastosFijos"});//se establecen los titulos de las columnas
+        tablaAf.setModel(modeloAf);//se le asigna un modelo a la tabla
         
         
-        thAf = tablaAf.getTableHeader();
+        thAf = tablaAf.getTableHeader();//se le asigna el valor del encabezado de la tabla
+        //se le da formato al encabezado
         thAf.setFont(fuenteTablas);
         thAf.setBackground(Color.black);
         thAf.setForeground(Color.white);
         
+        //se le da formato a las fechas
         fMenorQue.setDateFormat(df);
         fMayorQue.setDateFormat(df);
     }
@@ -82,11 +87,11 @@ public class GastosFijos extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         gfField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        guardar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        cerrar = new javax.swing.JButton();
+        verAfectados = new javax.swing.JButton();
         panAfectado = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -146,12 +151,12 @@ public class GastosFijos extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(51, 51, 51));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Guadar Gastos");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        guardar.setBackground(new java.awt.Color(51, 51, 51));
+        guardar.setForeground(new java.awt.Color(255, 255, 255));
+        guardar.setText("Guadar Gastos");
+        guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                guardarActionPerformed(evt);
             }
         });
 
@@ -162,21 +167,21 @@ public class GastosFijos extends javax.swing.JFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Gastos");
 
-        jButton2.setBackground(new java.awt.Color(51, 51, 51));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Cerrar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        cerrar.setBackground(new java.awt.Color(51, 51, 51));
+        cerrar.setForeground(new java.awt.Color(255, 255, 255));
+        cerrar.setText("Cerrar");
+        cerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                cerrarActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(51, 51, 51));
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Ver Afectados");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        verAfectados.setBackground(new java.awt.Color(51, 51, 51));
+        verAfectados.setForeground(new java.awt.Color(255, 255, 255));
+        verAfectados.setText("Ver Afectados");
+        verAfectados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                verAfectadosActionPerformed(evt);
             }
         });
 
@@ -203,11 +208,11 @@ public class GastosFijos extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(cerrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                        .addComponent(jButton3)
+                        .addComponent(verAfectados)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(guardar)))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(146, 146, 146)
@@ -239,9 +244,9 @@ public class GastosFijos extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(guardar)
+                    .addComponent(cerrar)
+                    .addComponent(verAfectados))
                 .addContainerGap())
         );
 
@@ -330,44 +335,51 @@ public class GastosFijos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        jButton2.setSelected(false);
+    private void cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarActionPerformed
+        cerrar.setSelected(false);
         pd.setEnabled(true);
         pd.setLocationRelativeTo(null);
         dispose(); 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_cerrarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jButton1.setSelected(false);
-        String sql = "select folio from pedido where fIngreso >= '"+fMayorQue.getText()+"' AND fIngreso <= '"+fMenorQue.getText()+"' "
-                + "AND pagado = 'Si'";
+    private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
+        guardar.setSelected(false);
         Statement st1;
         Statement st2;
-        comprobarVacio();
-        float sumatoriaRango = calculaKgFRango();
-        try {
+        
+        comprobarVacio();//compueba que no haya campos vacios
+        
+        float sumatoriaRango = calculaKgFRango();//se calcula la sumatoria de los kg finales de los pedidos dentro del rango
+        //se seleccionan los pedidos dentro del rango de fechas tomando en cuenta su fecha de ingreso y si estan pagados
+        String sql = "select folio from pedido where fIngreso >= '"+fMayorQue.getText()+"' AND fIngreso <= '"+fMenorQue.getText()+"' "
+                + "AND pagado = 'Si'";
+        try 
+        {
             st1 = con.createStatement();
             st2 = con.createStatement();
             rs = st1.executeQuery(sql);
             while(rs.next())
             {
+                //se guardan los gastos fijos y la sumatoria de kg en cada pedido
                 sql = "update pedido set gastosFijos = "+gfField.getText()+", kgFinalesRango = "+sumatoriaRango+" "
                         + "where folio = "+rs.getInt("folio")+"";
                 st2.execute(sql);
-                calculaPyG(rs.getInt("folio"));
+                calculaPyG(rs.getInt("folio"));//se calculan las perdidas y ganancias de cada pedido
             }
-            
             rs.close();
             st1.close();
             st2.close();
             JOptionPane.showMessageDialog(null, "Se han actualizado los gastos", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-            mostrarTablaAfectados();
-        } catch (SQLException ex) {
+            mostrarTablaAfectados();//se muestran los pedidos que fueron afectados por esta accion
+        } 
+        catch (SQLException ex) 
+        {
             Logger.getLogger(GastosFijos.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_guardarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        //vuelve a aparecer la ventana de pedido
         pd.setEnabled(true);
         pd.setVisible(true);
         pd.setLocationRelativeTo(null);
@@ -377,199 +389,40 @@ public class GastosFijos extends javax.swing.JFrame {
         soloFlotantes(evt, gfField);
     }//GEN-LAST:event_gfFieldKeyTyped
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        jButton3.setSelected(false);
+    private void verAfectadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verAfectadosActionPerformed
+        verAfectados.setSelected(false);
         mostrarTablaAfectados();
         
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_verAfectadosActionPerformed
 
+    //muestra pedidos en la tabla
     private void mostrarTablaAfectados(){
-        this.setSize(wd, hg);
-        panAfectado.setVisible(true);
-        modeloAf.setRowCount(0);
-        this.setLocationRelativeTo(null);
-        
+        this.setSize(wd, hg);//se aumenta el tamaño de la ventana
+        panAfectado.setVisible(true);//se muestra el panel donde esta la tabla
+        modeloAf.setRowCount(0);//se borran las filas anteriores
+        this.setLocationRelativeTo(null);//se centra la ventana
+        //se seleccionan los pedidos dentro del rango de fechas de acuerdo a su fecha de ingreso
         String sql = "select folio, impresion, fIngreso, gastosFijos from pedido where fIngreso >= '"+fMayorQue.getText()+"' "
                 + "AND fIngreso <= '"+fMenorQue.getText()+"' AND pagado = 'Si'";
-        
-        try {
+        try 
+        {
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            
-            while(rs.next()){
+            while(rs.next())//se agregan filas a la tabla
+            {
                  modeloAf.addRow(new Object[]{rs.getString("folio"), rs.getString("impresion"), rs.getString("fIngreso"), 
-                     rs.getString("gastosFijos")});
+                 rs.getString("gastosFijos")});
             }
-            tablaAf.setModel(modeloAf);
-            st.close();
-            rs.close();     
-        } catch (SQLException ex) {
+            rs.close(); 
+            st.close();    
+        } 
+        catch (SQLException ex) 
+        {
             Logger.getLogger(GastosFijos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    /**perdidas y ganancias**/
-    
-      //calcula la sumatoria de kg comprados y producidos de bolseo del pedido
-      private void calculaSumatoriaKgBolseoPe(int folio)
-      {
-          String sql = "select idPar from partida where folio_fk = "+folio+"";
-          int idPartida = 0;
-          float sumatoria = 0f;
-          Statement st;
-          ResultSet rs;
-          Statement st2;
-          ResultSet rs2;
-          int idBo2 = 0;
-          Statement st3;
-          ResultSet rs3;
-          try
-          {
-              st = con.createStatement();
-              rs = st.executeQuery(sql);
-              while(rs.next())
-              {
-                  idPartida = Integer.parseInt(rs.getString("idPar"));
-                  //suma de lo comprado
-                  String sql2 = "select produccion from bolseo where idPar_fk = "+idPartida+"";
-                  try
-                  {
-                      st2 = con.createStatement();
-                      rs2 = st2.executeQuery(sql2);
-                      while(rs2.next())
-                      {
-                          sumatoria = sumatoria + Float.parseFloat(rs2.getString("produccion"));
-                      }
-                      rs2.close();
-                      st2.close();
-                    }
-                    catch(SQLException ex)
-                    {
-                        Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-                        System.out.println("calculaSumatoriaKgBolseoPe: error al sumar los kg comprados");
-                    }
-                  
-                    //obtiene el idBo
-                    sql2 = "select idBol from bolseo where idPar_fk = "+idPartida+"";
-                    try
-                    {
-                        st2 = con.createStatement();
-                        rs2 = st2.executeQuery(sql2);
-                        while(rs2.next())
-                        {
-                            idBo2 = Integer.parseInt(rs2.getString("idBol"));
-                            //suma de lo producido
-                            String sql3 = "select kgUniB from operadorBol where idBol_fk = "+idBo2+"";
-                            try
-                            {
-                                st3 = con.createStatement();
-                                rs3 = st3.executeQuery(sql3);
-                                while(rs3.next())
-                                {
-                                    sumatoria = sumatoria + (Float.parseFloat(rs3.getString("kgUniB")));
-                                }
-                                rs3.close();
-                                st3.close();
-                            }
-                            catch(SQLException ex)
-                            {
-                                Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-                                System.out.println("calculaSumatoriaKgBolseoPe:error al sumar los kg producidos y la grenia");
-                            }
-                        }
-                        rs2.close();
-                        st2.close();
-                    }
-                    catch(SQLException ex)
-                    {
-                        Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-                        System.out.println("calculaSumatoriaKgBolseoPe: error al obtener el idBo2");
-                    }
-                }
-                rs.close();
-            }
-            catch(SQLException ex)
-            {
-                Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("calculaSumatoriaKgBolseoPe : error al sacar la sumatoria");
-            }
-          
-            sql = "update pedido set sumatoriaBolseoP = "+sumatoria+"where folio = "+folio+"";
-            try
-            {
-                st = con.createStatement();
-                st.execute(sql);
-                st.close();
-            }
-            catch(SQLException ex)
-            {
-                ex.printStackTrace();
-                System.out.println("calculaSumatoriaKgBolseoPe: Error al insertar la sumatoria de bolseo en pedido");
-            }
-            calculaPerdidasYGanancias(sumatoria, folio);
-      }
-      
-      // calcula e inseeta perdidas y ganancias en pedido
-      private void calculaPerdidasYGanancias(float sumatoria, int folio)
-      {
-          float subtotal = 0f, gf = 0f, costoTotal = 0f, descuentos = 0f, resta = 0f, pyg = 0f;
-          Statement st;
-          ResultSet rs;
-          String sql = "select subtotal,costoTotal,descuento from pedido where folio = "+folio+"";
-          try
-          {
-              st = con.createStatement();
-              rs = st.executeQuery(sql);
-              while(rs.next())
-              {
-                  subtotal = Float.parseFloat(rs.getString("subtotal"));
-                  costoTotal = Float.parseFloat(rs.getString("costoTotal"));
-                  descuentos = Float.parseFloat(rs.getString("descuento"));
-              }
-              rs.close();
-          }
-          catch(SQLException ex)
-          {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-              System.out.println("calculaPerdidasYGanancias:error al obtener el subtotal, el costo total o los descuentos");
-          }
-         
-          sql = "select gastosFijos from pedido where folio = "+folio+"";
-          try
-          {
-              st = con.createStatement();
-              rs = st.executeQuery(sql);
-              while(rs.next())
-              {
-                  gf = Float.parseFloat(rs.getString("gastosFijos"));
-              }
-              rs.close();
-          }
-          catch(SQLException ex)
-          {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("calculaPerdidasYGanancias:error al obtener los gf");
-          }
-          
-          resta = (sumatoria*gf) + costoTotal + descuentos;
-          pyg = subtotal - resta;
-          
-          sql = "update pedido set perdidasYGanancias = "+pyg+" where folio = "+folio+"";
-          try
-          {
-              st = con.createStatement();
-              st.execute(sql);
-              st.close();
-          }
-          catch(SQLException ex)
-          {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("calculaPerdidasYGanancias: error al insertar pyg");
-          }
-      }
-    
-      
-      //Funcion para que solo se ingresen numeros flotantes en campos
+    //Funcion para que solo se ingresen numeros flotantes en campos
     private void soloFlotantes(KeyEvent evt, JTextField campo){
         
         char c = evt.getKeyChar();//Obtener el caracter de la tecla presionada
@@ -833,8 +686,10 @@ public class GastosFijos extends javax.swing.JFrame {
         return sumatoria;
     }
     
+    //hace la sumatoria de los kg finales de los pedidos dentro del rango de fechas
     private float calculaKgFRango()
     {
+        //se seleccionan los que esten dentro del rango
         String sql = "select folio from pedido where fIngreso >= '"+fMayorQue.getText()+"' AND fIngreso <= '"+fMenorQue.getText()+"' "
                 + "AND pagado = 'Si'";
         float sumatoria = 0f;
@@ -846,7 +701,7 @@ public class GastosFijos extends javax.swing.JFrame {
             rs3 = st3.executeQuery(sql);
             while(rs3.next())
             {
-                sumatoria = sumatoria + calculaKgFinalesPedido(Integer.parseInt(rs3.getString("folio")));
+                sumatoria = sumatoria + calculaKgFinalesPedido(Integer.parseInt(rs3.getString("folio")));//hace la sumatoria
             }
         }
         catch(SQLException ex)
@@ -885,12 +740,13 @@ public class GastosFijos extends javax.swing.JFrame {
             return 0;
     }
     
+    //calcula las perdidas y ganancias de un pedido
     private void calculaPyG(int folio)
     {
         Statement st4;
         ResultSet rs4;
         float subtotal = 0f, costoTotal = 0f, descuento = 0f;
-        String sql = "select pagado from pedido where folio = "+folio+"";
+        String sql = "select pagado from pedido where folio = "+folio+"";//se verifica que haya sido pagado
         try
         {
             Statement st3 = con.createStatement();
@@ -916,10 +772,11 @@ public class GastosFijos extends javax.swing.JFrame {
                     {
                         ex.printStackTrace();
                     }
+                    //se hacen calculos para poder determinar las perdidas y ganancias
                     float kgFnPe = calculaKgFinalesPedido(folio);
                     float gf = calculaGfKg(folio);
                     float PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
-        
+                    //se ingresan las perdidas y ganancias
                     sql2 = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+folio+"";
                     try
                     {
@@ -932,13 +789,13 @@ public class GastosFijos extends javax.swing.JFrame {
                         ex.printStackTrace();
                     }
                 }
-                else
+                else//si no esta pagado las PYG se establecen en 0
                 {
                     String sql2 = "update pedido set perdidasYGanancias = 0 where folio = "+folio+"";
                     try
                     {
                         st4 = con.createStatement();
-                        st4.execute(sql);
+                        st4.execute(sql2);
                         st4.close();
                     }
                     catch(SQLException ex)
@@ -958,12 +815,11 @@ public class GastosFijos extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cerrar;
     private datechooser.beans.DateChooserCombo fMayorQue;
     private datechooser.beans.DateChooserCombo fMenorQue;
     private javax.swing.JTextField gfField;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton guardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -979,5 +835,6 @@ public class GastosFijos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panAfectado;
     private javax.swing.JTable tablaAf;
+    private javax.swing.JButton verAfectados;
     // End of variables declaration//GEN-END:variables
 }
