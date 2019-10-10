@@ -9,31 +9,35 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class CostoMaterial extends javax.swing.JFrame {
+public class CostoMaterial extends javax.swing.JFrame {//permite cambiarle el precio a los materiales utilizados en producion
 
     Connection con;
     ResultSet rs;
     Statement st;
     Principal prin;
     
-    String tipo;
+    String tipo;//guardara el tipo de material cada que se le de clic a la tabla
     
-    DefaultTableModel modPart;
+    DefaultTableModel modPart;//modelo de la tabla
     
     public CostoMaterial(Connection con) {
         initComponents();
+        
         this.setIconImage (new ImageIcon(getClass().getResource("/Images/iconoCab.png")).getImage());
         this.con = con;
         this.setResizable(false);
+        
+        //se indica que las celdas no son editables
         modPart = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        modPart.setColumnIdentifiers(new Object[]{"Tipo", "Precio"});
-        tablaMat.setModel(modPart);
-        tipo = "";
+        //llena la tabla desde el principio
+        modPart.setColumnIdentifiers(new Object[]{"Tipo", "Precio"});//agrega los titulos a las columnas
+        tablaMat.setModel(modPart);//establece el modelo de la tabla
+        tipo = "";//inicialisa el tipo en nada
         
         String sql = "select * from costosMaterial";
         try
@@ -51,14 +55,14 @@ public class CostoMaterial extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         
-        jButton2.setEnabled(false);
+        guardar.setEnabled(false);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        cerrar = new javax.swing.JButton();
+        guardar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaMat = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -69,21 +73,21 @@ public class CostoMaterial extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Costo de material");
 
-        jButton1.setBackground(new java.awt.Color(51, 51, 51));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Cerrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        cerrar.setBackground(new java.awt.Color(51, 51, 51));
+        cerrar.setForeground(new java.awt.Color(255, 255, 255));
+        cerrar.setText("Cerrar");
+        cerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                cerrarActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(51, 51, 51));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Guardar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        guardar.setBackground(new java.awt.Color(51, 51, 51));
+        guardar.setForeground(new java.awt.Color(255, 255, 255));
+        guardar.setText("Guardar");
+        guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                guardarActionPerformed(evt);
             }
         });
 
@@ -117,9 +121,9 @@ public class CostoMaterial extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jButton1)
+                .addComponent(cerrar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(guardar)
                 .addGap(33, 33, 33))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(15, Short.MAX_VALUE)
@@ -150,42 +154,42 @@ public class CostoMaterial extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(cerrar)
+                    .addComponent(guardar))
                 .addGap(24, 24, 24))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jButton1.setSelected(false);
+    private void cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarActionPerformed
+        cerrar.setSelected(false);
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+    }//GEN-LAST:event_cerrarActionPerformed
+    //obtiene el tipo de material cuando le dan clic a la tabla
     private void tablaMatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMatMouseClicked
-
-        
-        try{
+        try
+        {
             tipo = modPart.getValueAt(tablaMat.getSelectedRow(), 0).toString();
-            jButton2.setEnabled(true);
-        }catch (ArrayIndexOutOfBoundsException ex){
+            guardar.setEnabled(true);
+        }
+        catch (ArrayIndexOutOfBoundsException ex)
+        {
             JOptionPane.showMessageDialog(null, "Selecciona con el boton izquierdo del raton", "Avertencia", JOptionPane.WARNING_MESSAGE);
         }    
     }//GEN-LAST:event_tablaMatMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         // TODO add your handling code here:
-        jButton2.setSelected(false);
+        guardar.setSelected(false);
+        guardar();
         actualizar();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_guardarActionPerformed
 
-    //inserta el nuevo precio en la base de datos y actualiza la tabla
-    private void actualizar()
-    {
-        //insercion
-        String nuevo = nPrecio.getText();
-        Float fNuevo = Float.parseFloat(nuevo);
+    //inserta el nuevo precio en la base de datos
+    private void guardar(){
+        String nuevo = nPrecio.getText();//nuevo precio en cadena
+        Float fNuevo = Float.parseFloat(nuevo);//nuevo precio en flotante
         String sql = "update costosMaterial set precio = "+fNuevo+" where tipo = '"+tipo+"'";
         try
         {
@@ -196,12 +200,16 @@ public class CostoMaterial extends javax.swing.JFrame {
         }
         catch(SQLException ex)
         {
-            System.out.println("actualizar:error al insertar el nuevo precio");
             ex.printStackTrace();
         }
-        
-        //actualizacion de tabla
-        modPart.setRowCount(0);
+    }
+    
+    //actuaiza la tabla
+    private void actualizar()
+    {
+        String sql = "";
+        modPart.setRowCount(0);//vacia la tabla
+        //llena la tabla
         sql = "select * from costosMaterial";
         try
         {
@@ -225,8 +233,8 @@ public class CostoMaterial extends javax.swing.JFrame {
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton cerrar;
+    private javax.swing.JButton guardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
