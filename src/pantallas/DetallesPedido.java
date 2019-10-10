@@ -17,13 +17,15 @@ import javax.swing.JTextField;
 import report.PedidoATT;
 
 
-public class DetallesPedido extends javax.swing.JFrame {
+public class DetallesPedido extends javax.swing.JFrame {//permite cambiar algunos datos del pedido
     Connection con;
     Statement st;
     DatosPedido dp;
     Visualizacion vis;
+    
     float respaldoSub;
-    boolean indicadorCambios = false;
+    
+    boolean indicadorCambios = false;//indica si hubo cambios
     
     ArrayList<PedidoATT> datosReporte = new ArrayList<PedidoATT>();
     
@@ -37,8 +39,8 @@ public class DetallesPedido extends javax.swing.JFrame {
         this.setIconImage (new ImageIcon(getClass().getResource("/Images/iconoCab.png")).getImage());
         this.setResizable(false);
         
-        llenarCampos();
-        desactivarCampos();
+        llenarCampos();//llena la pantalla con los datos del pedido
+        desactivarCampos();//inhabilita los campos que no deben modificarse
     }
 
     @SuppressWarnings("unchecked")
@@ -644,11 +646,12 @@ public class DetallesPedido extends javax.swing.JFrame {
     private void gCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gCambiosActionPerformed
        
         gCambios.setSelected(false);
+        
         float subtotal = respaldoSub + Float.parseFloat(grab.getText());
         float subiva = subtotal * 0.16f;
         float total = subtotal + subiva;
         float resto = total - (Float.parseFloat(anti.getText()) + Float.parseFloat(desc.getText()));
-        
+        //guardara esos campos en la base de datos
         String sql = "update pedido set impresion = '"+imp.getText()+"', "
                 + "autorizo = '"+au.getText()+"', "
                 + "devolucion = '"+dev.getText()+"', "
@@ -665,6 +668,7 @@ public class DetallesPedido extends javax.swing.JFrame {
             st.execute(sql);
             
             indicadorCambios = true;
+            //se insertan los datos que se cambiaron en el arreglo de pedidos
             dp.setImp(imp.getText());
             dp.setAuto(au.getText());
             dp.setDev(dev.getText());
@@ -674,10 +678,10 @@ public class DetallesPedido extends javax.swing.JFrame {
             dp.setSub(String.valueOf(subtotal));
             dp.setTot(String.valueOf(total));
             dp.setRes(String.valueOf(resto));
-            //funciones antonio
+            
             calculaPyG(Integer.parseInt(dp.getFolio().replace("A", "")));
             st.close();
-            llenarCampos();
+            llenarCampos();//se actualizan los datos mostrados en pantalla
             actualizarDatosReporte(subtotal, subiva, resto, total);
             JOptionPane.showMessageDialog(null, "Se han guardado los cambios", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
@@ -686,6 +690,7 @@ public class DetallesPedido extends javax.swing.JFrame {
         }  
     }//GEN-LAST:event_gCambiosActionPerformed
 
+    //actualiza los datos del pedido en el reporte
     private void actualizarDatosReporte(float sub, float iva, float resto, float total){
         
         for(int i = 0; i < datosReporte.size(); i++){
@@ -746,8 +751,7 @@ public class DetallesPedido extends javax.swing.JFrame {
         
     }//GEN-LAST:event_formWindowClosed
 
-    
-    
+    //llena la pantalla con los datos del pedido
     private void llenarCampos(){
         
         folio.setText(dp.getFolio());
@@ -773,6 +777,7 @@ public class DetallesPedido extends javax.swing.JFrame {
         respaldoSub = Float.parseFloat(dp.getSub()) - Float.parseFloat(dp.getGrab());
     }
     
+    //desactiva los campos que no deben modificarse
     private void desactivarCampos(){
         
         folio.setEditable(false);
@@ -792,6 +797,7 @@ public class DetallesPedido extends javax.swing.JFrame {
         
     }
     
+    //calcula las perdidas y ganancias con los nuevos datos ingresados
     private void calculaPyG(int folio)
     {
         Statement st2;
