@@ -17,28 +17,31 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import report.PedidoATT;
 
-public class DetallesPartida extends javax.swing.JFrame {
-    int indicadorParaImporte = 0;
+public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambios en algunos datos de las partidas
+    int indicadorParaImporte = 0;//indica la manera en la que se calcula el importe
 
     ArrayList<DatosPartida> dp = new ArrayList<DatosPartida>();
     ArrayList<PedidoATT> datosReporte = new ArrayList<PedidoATT>();
+    
     int indicePartida = 0;
+    
     Statement st;
     ResultSet rs;
     Connection con;
     Visualizacion vis;
     
+    //se utilizaran para ser mandadas al reporte de produccion
     float sub = 0f;
     float iva = 0f;
     float total = 0f;
     float resto = 0f;
     
-    boolean indicadorCambios = false;
+    boolean indicadorCambios = false;//indica si se cambiaron datos
     
     public DetallesPartida(ArrayList<DatosPartida> dp, Connection con, ArrayList<PedidoATT> datosReporte, Visualizacion vis) {
         initComponents();
-        llenarListas();
-        
+        llenarListas();//llenamos las listas desplegables
+        //se activan si llega a haber cambios en los checkbox
         onChangePU();
         onChangeKilos();
         onChangePz();
@@ -51,6 +54,7 @@ public class DetallesPartida extends javax.swing.JFrame {
         this.setIconImage (new ImageIcon(getClass().getResource("/Images/iconoCab.png")).getImage());
         this.setResizable(false);
         
+        //se establecen los campos que no se podran modificar
         folio.setEditable(false);
         hj.setEditable(false);
         de.setEditable(false);
@@ -63,27 +67,27 @@ public class DetallesPartida extends javax.swing.JFrame {
         mat1.setEditable(false);
         mat2.setEditable(false);
 
-        mostrarPartida(indicePartida);
+        mostrarPartida(indicePartida);//muestra los datos de la partida actua
     }
     
+    //llena las listas desplegables
     private void llenarListas(){
         sta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DISEÑO", "PROCESO", "COBRANZA", "PAGADO"}));
         sello.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FONDO", "LATERAL", "TRASLAPE"}));
     }
 
     private void mostrarPartida(int indice){
-        
-        try{
-            
-            //dp.get(indicePartida).getId();
+        //se obtienen los datos del arreglo
+        try
+        {
             folio.setText(dp.get(indice).getFolio());
             hj.setText(dp.get(indice).getHoja());
             de.setText(dp.get(indice).getDe());
             modoPart.setText(dp.get(indice).getModopart());
             desa.setText(dp.get(indice).getDesa());
             tipo.setText(dp.get(indice).getTipo());
-            setLista(sta,indice,dp.get(indice).getEstatus());
-            setLista(sello,indice,dp.get(indice).getSello());
+            setLista(sta,dp.get(indice).getEstatus());
+            setLista(sello,dp.get(indice).getSello());
             med.setText(dp.get(indice).getMedida());
             pig.setText(dp.get(indice).getPig());
             mat1.setText(dp.get(indice).getMat1());
@@ -99,26 +103,29 @@ public class DetallesPartida extends javax.swing.JFrame {
             kg.setText(dp.get(indice).getKgs());
             imp.setText(dp.get(indice).getImporte());
             pzFinales.setText(dp.get(indice).getPzFinales());
-            
-            if(Float.parseFloat(dp.get(indice).getPuni()) * Integer.parseInt(dp.get(indice).getPzs()) == Float.parseFloat(dp.get(indice).getImporte())){
+            //si el precio unitario por el numero de piezas es igual al importe, se selecciona el chechkbox de pz
+            if(Float.parseFloat(dp.get(indice).getPuni()) * Integer.parseInt(dp.get(indice).getPzs()) == Float.parseFloat(dp.get(indice).getImporte()))
+            {
                 checkPz.setSelected(true);
-            }else  if(Float.parseFloat(dp.get(indice).getPuni()) * Float.parseFloat(dp.get(indice).getKgs()) == Float.parseFloat(dp.get(indice).getImporte())){
+            }//si el precio unitario por el numero de kg es igual al importe, se selecciona el chechkbox de kg
+            else  if(Float.parseFloat(dp.get(indice).getPuni()) * Float.parseFloat(dp.get(indice).getKgs()) == Float.parseFloat(dp.get(indice).getImporte()))
+            {
                 checkKg.setSelected(true);
-            }else
+            }//si el precio unitario por el numero de piezas finales es igual al importe, se selecciona el chechkbox de pz finales
+            else
             {
                 checkPzFinales.setSelected(true);
             }
-            
-            
-        }catch(IndexOutOfBoundsException ex){
+        }
+        catch(IndexOutOfBoundsException ex)
+        {
             JOptionPane.showMessageDialog(null, "No hay partidas en este pedido", "Avertencia", JOptionPane.WARNING_MESSAGE);
             
         }
-
     }
     
-    
-    private void setLista(JComboBox lista, int indice, String campo){
+    //muestra el elemento que selecciono el usuario en las listas desplegables
+    private void setLista(JComboBox lista, String campo){
         for(int in = 0; in<lista.getItemCount();in++)
             {
                 if(campo.equals(lista.getItemAt(in)))
@@ -832,25 +839,33 @@ public class DetallesPartida extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //cambia los datos de los campos cada que avanzamos de partida
     private void sigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sigActionPerformed
         
         indicePartida++;
         sig.setSelected(false);
-        if(indicePartida <= (dp.size() - 1)){
+        if(indicePartida <= (dp.size() - 1))//hasta la penultima partida
+        {
             mostrarPartida(indicePartida);
-        }else{
+        }
+        else
+        {
             indicePartida=0;
             mostrarPartida(indicePartida);
         }
     }//GEN-LAST:event_sigActionPerformed
 
+    //cambia los datos de los campos cada que retrocedemos de partida
     private void antActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_antActionPerformed
         
         indicePartida--;
         ant.setSelected(false);
-        if(indicePartida >= 0){
+        if(indicePartida >= 0)//hasta la segunda partida
+        {
             mostrarPartida(indicePartida);
-        }else{
+        }
+        else
+        {
             indicePartida = (dp.size() - 1);
             mostrarPartida(indicePartida);
         }
@@ -877,6 +892,7 @@ public class DetallesPartida extends javax.swing.JFrame {
         saveMod.setSelected(false);
         comprobarVacio();
         String manera = determinaManera();
+        //se ingresan los cambios en la base de datos
         String sql = "update partida set desarrollo = '"+desa.getText()+"',"
                 + "tipo = '"+tipo.getText()+"', "
                 + "estatus = '"+sta.getSelectedItem()+"',"
@@ -896,13 +912,12 @@ public class DetallesPartida extends javax.swing.JFrame {
                 + "where idPar = "+dp.get(indicePartida).getId()+"";
                 try 
                 {
-                    Statement st2 = con.createStatement();
                     st = con.createStatement();
                     st.execute(sql);
-                    indicadorCambios = true;
-                    establecerSubtotalPedido(st2);
-                    calculaPyG();
-                    //setHojas();
+                    indicadorCambios = true;//se indica que hubo cambios
+                    Statement st2 = con.createStatement();
+                    establecerSubtotalPedido(st2);//calcula el nuevo subtotal del pedido
+                    calculaPyG();//calcula las perdidas y ganancias
                     st.close();
                     actualizarArreglo();
                     actualizarDatosParaReporte();
@@ -915,7 +930,7 @@ public class DetallesPartida extends javax.swing.JFrame {
                 
     }//GEN-LAST:event_saveModActionPerformed
 
-    
+    //devuelve la manera en la que se calculo el importe
     private String determinaManera()
     {
         if(checkPz.isSelected())
@@ -931,12 +946,13 @@ public class DetallesPartida extends javax.swing.JFrame {
     }
     
     private void actualizarArreglo(){
+        //se consultan los datos actualizados de la base de datos
         String sql = "select * from partida where idPar = "+dp.get(indicePartida).getId()+"";
         try
         {
             st = con.createStatement();
             this.rs = st.executeQuery(sql);
-            while(this.rs.next())
+            while(this.rs.next())//se llena la lista de datos de una partida especifica con los datos de la base de datos
             {
                 dp.get(indicePartida).setDesa(rs.getString("desarrollo"));
                 dp.get(indicePartida).setTipo(rs.getString("tipo"));
@@ -963,7 +979,7 @@ public class DetallesPartida extends javax.swing.JFrame {
       }
     
     private void actualizarDatosParaReporte(){
-        
+        //llena los datos del reporte con los de la lista de partidas
         for(int i = 0; i < datosReporte.size(); i++){
             datosReporte.get(i).setImporte(dp.get(i).getImporte());
             datosReporte.get(i).setpUni(dp.get(i).getPuni());
@@ -974,6 +990,7 @@ public class DetallesPartida extends javax.swing.JFrame {
             datosReporte.get(i).setSello(dp.get(i).getSello());
             datosReporte.get(i).setTipo(dp.get(i).getTipo());
             datosReporte.get(i).setImporte(dp.get(i).getImporte());
+            //manda los datos del final del reporte con las variables globales
             datosReporte.get(i).setSub(String.valueOf(this.sub));
             datosReporte.get(i).setIva(String.valueOf(this.iva));
             datosReporte.get(i).setTotal(String.valueOf(this.total));
@@ -987,7 +1004,7 @@ public class DetallesPartida extends javax.swing.JFrame {
         Statement st2;
         ResultSet rs2;
         float subtotal = 0f, costoTotal = 0f, descuento = 0f;
-        String sql = "select pagado from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
+        String sql = "select pagado from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";//si esta pagado el pedido continua
         try
         {
             Statement st3 = con.createStatement();
@@ -1311,98 +1328,63 @@ public class DetallesPartida extends javax.swing.JFrame {
         return sumatoria;
     }
     
+    //habilita el boton el boton de guardado cuando ya se ingresaron los datos necesarios
     public void comprobarCondPed(){
         
         if(!(folio.getText().equals("")) && (checkPz.isSelected() || checkKg.isSelected() || checkPzFinales.isSelected())){
             saveMod.setEnabled(true);
-        }else{
-             saveMod.setEnabled(true);
+        }
+        else
+        {
+             saveMod.setEnabled(false);
         }
     }
     
     private void checkPzItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkPzItemStateChanged
 
-        comprobarCondPed();
-        if(checkPz.isSelected()){
+        if(checkPz.isSelected())
+        {
+            //habilita todo lo relacionado con pz
             checkPz.setSelected(true);
             pz.setEnabled(true);
-            
+            //deshabilita todo lo que no esta relacionado con pz
             checkKg.setSelected(false);
             kg.setEnabled(false);
-            
             pzFinales.setEnabled(false);
             checkPzFinales.setSelected(false);
-            
-            calcularImportePiezas();
-            
             indicadorParaImporte = 1;
-            
-        }else{
+            calcularEnCampoPU(pz);
+        }
+        else
+        {
             pz.setEnabled(false);
         }
+        comprobarCondPed();
     }//GEN-LAST:event_checkPzItemStateChanged
 
-    private void calcularImportePiezas(){
-        float pUni;
-        int pzs;
-        float total;
-        
-        if(pUnit.getText().equals("") || pUnit.getText().equals(".")){
-            pUni = 0;
-        }else{
-            pUni = Float.parseFloat(pUnit.getText());
-        }
-        
-        if(pz.getText().equals("")){
-            pzs = 0; 
-        }else{
-            pzs = Integer.parseInt(pz.getText());
-        }
-        total = pUni * pzs;
-        imp.setText(String.valueOf(total));
-    }
     
     private void checkKgItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkKgItemStateChanged
 
-        comprobarCondPed();
-        if(checkKg.isSelected()){
-            checkPz.setSelected(false);
-            pz.setEnabled(false);
-            
+        if(checkKg.isSelected())
+        {
+            //habilita todo lo relacionado con kg
             checkKg.setSelected(true);
             kg.setEnabled(true);
-            
+            //deshabilita todo lo no relacionado con kg
+            checkPz.setSelected(false);
+            pz.setEnabled(false);
             pzFinales.setEnabled(false);
             checkPzFinales.setSelected(false);
-            
-            calcularImporteKilos();
-            
             indicadorParaImporte = 2;
-        }else{
+            calcularEnCampoPU(pz);
+        }
+        else
+        {
             kg.setEnabled(false);
         }
+        comprobarCondPed();
     }//GEN-LAST:event_checkKgItemStateChanged
 
-    private void calcularImportePiezasFinales(){
-        float pUni;
-        int pzs;
-        float total;
-        
-        if(pUnit.getText().equals("") || pUnit.getText().equals(".")){
-            pUni = 0;
-        }else{
-            pUni = Float.parseFloat(pUnit.getText());
-        }
-        
-        if(pzFinales.getText().equals("")){
-            pzs = 0; 
-        }else{
-            pzs = Integer.parseInt(pzFinales.getText());
-        }
-        total = pUni * pzs;
-        imp.setText(String.valueOf(total));
-    }
-    
     private void pzFinalesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pzFinalesKeyTyped
         limitarInsercion(10, evt, pz);
         soloEnteros(evt);
@@ -1444,7 +1426,7 @@ public class DetallesPartida extends javax.swing.JFrame {
     }//GEN-LAST:event_mat2KeyTyped
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-
+        //si hubo cambios en las partidas se vuelven a llenar las tablas de la pantalla de visualizacion
         if(indicadorCambios == true){
             vis.llenarTablaPedido();
             vis.llenarTablaPartidas();
@@ -1458,23 +1440,25 @@ public class DetallesPartida extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void checkPzFinalesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkPzFinalesItemStateChanged
-        comprobarCondPed();
-        if(checkPzFinales.isSelected()){
-            checkPz.setSelected(false);
-            pz.setEnabled(false);
-            
-            checkKg.setSelected(false);
-            kg.setEnabled(false);
-            
+        
+        if(checkPzFinales.isSelected())
+        {
+            //se habilita todo lo relacionado con piezas finales
             pzFinales.setEnabled(true);
             checkPzFinales.setSelected(true);
-            
-            calcularImportePiezasFinales();
-            
+            //se deshabilita todo lo no relacionado con piezas finales
+            checkPz.setSelected(false);
+            pz.setEnabled(false);
+            checkKg.setSelected(false);
+            kg.setEnabled(false);
             indicadorParaImporte = 3;
-        }else{
+            calcularEnCampoPU(pz);
+        }
+        else
+        {
              pzFinales.setEnabled(false);
         }
+        comprobarCondPed();
     }//GEN-LAST:event_checkPzFinalesItemStateChanged
 
     private void onChangePU(){
@@ -1501,12 +1485,12 @@ public class DetallesPartida extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularImporteKilos();
+                calcularEnCampoPU(pz);
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) { 
-                calcularImporteKilos();
+                calcularEnCampoPU(pz);
             }
             @Override
             public void changedUpdate(DocumentEvent e) {
@@ -1520,13 +1504,13 @@ public class DetallesPartida extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularImportePiezas(pz);
+                calcularEnCampoPU(pz);
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) { 
                 
-                calcularImportePiezas(pz);
+                calcularEnCampoPU(pz);
             }
             @Override
             public void changedUpdate(DocumentEvent e) {
@@ -1540,12 +1524,12 @@ public class DetallesPartida extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularImportePiezas(pzFinales);
+                calcularEnCampoPU(pz);
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                calcularImportePiezas(pzFinales);
+                calcularEnCampoPU(pz);
             }
 
             @Override
@@ -1594,95 +1578,78 @@ public class DetallesPartida extends javax.swing.JFrame {
         if(c < '0' || c > '9') evt.consume();
     }
     
+    //calcula el importe dependiendo de que checkboz se seleccione
     private void calcularEnCampoPU(JTextField pzLocal){
         float pUni;
         int pzs;
         float kgPartida;
         float total;
         
-        if(indicadorParaImporte == 1){
-                    if(pUnit.getText().equals("") || pUnit.getText().equals(".")){
+        if(indicadorParaImporte == 1)//hace calculos si se seleccionaron las piezas
+        {
+            if(pUnit.getText().equals("") || pUnit.getText().equals("."))
+            {
+                pUni = 0;
+            }
+            else
+            {
+                pUni = Float.parseFloat(pUnit.getText());
+            }
+
+            if(pzLocal.getText().equals("") || pzLocal.getText().equals("")){
+                pzs = 0;
+            }
+            else
+            {
+                pzs = Integer.parseInt(pzLocal.getText());
+            }
+            total = pUni * pzs;
+            imp.setText(String.valueOf(total));
+        }
+        else if(indicadorParaImporte == 2)//hace calculos si se seleccionaron los kg
+        {
+                    if(pUnit.getText().equals("") || pUnit.getText().equals("."))
+                    {
                         pUni = 0;
-                    }else{
+                    }
+                    else
+                    {
                         pUni = Float.parseFloat(pUnit.getText());
                     }
 
-                    if(pzLocal.getText().equals("") || pzLocal.getText().equals("")){
-                        pzs = 0;
-                    }else{
-                        pzs = Integer.parseInt(pzLocal.getText());
-                    }
-                    total = pUni * pzs;
-                    imp.setText(String.valueOf(total));
-                }else if(indicadorParaImporte == 2){
-                    if(pUnit.getText().equals("") || pUnit.getText().equals(".")){
-                        pUni = 0;
-                    }else{
-                        pUni = Float.parseFloat(pUnit.getText());
-                    }
-
-                    if(kg.getText().equals("") || kg.getText().equals(".")){
+                    if(kg.getText().equals("") || kg.getText().equals("."))
+                    {
                         kgPartida = 0;
-                    }else{
+                    }
+                    else
+                    {
                         kgPartida = Float.parseFloat(kg.getText());
                     }
                     total = pUni * kgPartida;
                     imp.setText(String.valueOf(total));
-                }else if(indicadorParaImporte == 3){
-                    if(pUnit.getText().equals("") || pUnit.getText().equals(".")){
+        }
+        else if(indicadorParaImporte == 3)//hace calculos si se seleccionaron las piezas finales
+        {
+                    if(pUnit.getText().equals("") || pUnit.getText().equals("."))
+                    {
                         pUni = 0;
-                    }else{
+                    }
+                    else
+                    {
                         pUni = Float.parseFloat(pUnit.getText());
                     }
 
-                    if(pzFinales.getText().equals("") || pzFinales.getText().equals("")){
+                    if(pzFinales.getText().equals("") || pzFinales.getText().equals(""))
+                    {
                         pzs = 0;
-                    }else{
+                    }
+                    else
+                    {
                         pzs = Integer.parseInt(pzFinales.getText());
                     }
                     total = pUni * pzs;
                     imp.setText(String.valueOf(total));
-                }  
-    }
-    
-    private void calcularImporteKilos(){
-        float pUni;
-        float kgPa;
-        float total;
-        
-        if(pUnit.getText().equals("") || pUnit.getText().equals(".")){
-            pUni = 0;
-        }else{
-            pUni = Float.parseFloat(pUnit.getText());
-        }
-        
-        if(kg.getText().equals("") || kg.getText().equals(".")){
-            kgPa = 0; 
-        }else{
-            kgPa = Float.parseFloat(kg.getText());
-        }
-        total = pUni * kgPa;
-        imp.setText(String.valueOf(total));
-    }
-    
-    private void calcularImportePiezas(JTextField pzLocal){
-        float pUni;
-        int pzs;
-        float total;
-        
-        if(pUnit.getText().equals("") || pUnit.getText().equals(".")){
-            pUni = 0;
-        }else{
-            pUni = Float.parseFloat(pUnit.getText());
-        }
-        
-        if(pzLocal.getText().equals("")){
-            pzs = 0; 
-        }else{
-            pzs = Integer.parseInt(pzLocal.getText());
-        }
-        total = pUni * pzs;
-        imp.setText(String.valueOf(total));
+        }  
     }
     
     private void comprobarVacio(){
@@ -1712,18 +1679,18 @@ public class DetallesPartida extends javax.swing.JFrame {
         
         String sql = "select importe from partida where folio_fk = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
         float subtotalVar = 0;
-        
-        try {
-            
+        try
+        {
             this.rs = st.executeQuery(sql);
-            
-            while(this.rs.next()){
+            while(this.rs.next())
+            {
                 //Aqui se empiezan a acumular los importes de las partidas
                 subtotalVar = subtotalVar + Float.parseFloat(this.rs.getString("importe"));
             } 
-            //System.out.println("Subtotal directo de importe: " + subtotalVar);
             actualizarSubtotalPedido(subtotalVar, st);//Update al campo subtotal para ingresar el nuevo monto
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             JOptionPane.showMessageDialog(null, "Error al buscar la partida (sub)" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -1739,11 +1706,12 @@ public class DetallesPartida extends javax.swing.JFrame {
         //Consulta para obtener los valores de: grabados, anticipo y descuento. Se realizaran operaciones
         String sql = "select grabados, anticipo, descuento from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
         
-        try {
+        try 
+        {
            
             this.rs = st.executeQuery(sql);
-            
-            while(this.rs.next()){
+            while(this.rs.next())
+            {
                 //Se le suma el coste de grabados al subtotal
                 subGrab = subGrab + Float.parseFloat(this.rs.getString("grabados"));
                 //System.out.println("Grabados: "+this.rs.getString("grabados"));
@@ -1752,25 +1720,26 @@ public class DetallesPartida extends javax.swing.JFrame {
                 //Se guarda el vlor de descuento para uso posterior
                 descuento = Float.parseFloat(this.rs.getString("descuento"));
             }
-            
-           
             this.rs.close();
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             JOptionPane.showMessageDialog(null, "Error al obtener los datos de costos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         
         //Cuando ya se sumaron los grabados y el subtotal ahora se guarda en la base de datos
         sql = "update pedido set subtotal = "+subGrab+" where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
         this.sub = subGrab;//Global
-        try {
+        try 
+        {
             st.execute(sql);
-            
-            //System.out.println("Subtotal mas los grabados: " + subGrab);
             //Ahora paso por parametros el subtotal con grabados, anticipo y descuento
             calcularCostosDeSub(subGrab, anti, descuento, st);
             st.close();
             
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             JOptionPane.showMessageDialog(null, "Error al actualizar el subtotal", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -1792,17 +1761,13 @@ public class DetallesPartida extends javax.swing.JFrame {
         rest = rest - descuento;//Se le resta el descuento al resto
         this.resto = rest;//Global
         
-        //total = (total - anticipo) - descuento;
-        
-        //System.out.println("Descuento: " + descuento);
-        //System.out.println("Aniticipo: " + anticipo);
-        //System.out.println("Total: "+total);
-        //System.out.println("Resto: " + rest);
         String sql= "update pedido set total = "+total+", resto = "+rest+" where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
         
-        try {
+        try 
+        {
             st.execute(sql);
-        } catch (SQLException ex) {
+        } catch (SQLException ex) 
+        {
             JOptionPane.showMessageDialog(null, "Error al actualizar el total y resto", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
