@@ -410,7 +410,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
             rs = st.executeQuery(sql);
             while(rs.next())//se agregan filas a la tabla
             {
-                 modeloAf.addRow(new Object[]{rs.getString("folio"), rs.getString("impresion"), rs.getString("fIngreso"), 
+                 modeloAf.addRow(new Object[]{rs.getString("folio")+"A", rs.getString("impresion"), rs.getString("fIngreso"), 
                  rs.getString("gastosFijos")});
             }
             rs.close(); 
