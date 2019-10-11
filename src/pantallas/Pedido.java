@@ -2157,7 +2157,7 @@ public class Pedido extends javax.swing.JFrame {
             rs = st.executeQuery(sql);
             
             while(rs.next()){
-                modeloMod.addRow(new Object[]{rs.getString("folio"), rs.getString("impresion"), rs.getString("nom"), rs.getString("fIngreso")});
+                modeloMod.addRow(new Object[]{rs.getString("folio")+"A", rs.getString("impresion"), rs.getString("nom"), rs.getString("fIngreso")});
             }
             tablaModPed.setModel(modeloMod);
             st.close();
@@ -2176,7 +2176,7 @@ public class Pedido extends javax.swing.JFrame {
         int folioMod = 0;
         
             try{    
-                folioMod = Integer.parseInt(modeloMod.getValueAt(tablaModPed.getSelectedRow(), 0).toString());
+                folioMod = Integer.parseInt(modeloMod.getValueAt(tablaModPed.getSelectedRow(), 0).toString().replace("A", ""));
         
                 llenarCamposMod(folioMod);
                 this.folioMod = folioMod;
