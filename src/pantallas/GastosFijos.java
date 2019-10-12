@@ -755,7 +755,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
             {
                 if(rs3.getString("pagado").equals("Si"))
                 {
-                    String sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+folio+"";
+                    String sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+folio+" and pagado = 'Si'";//seleccionar esos datos si el pedido esta pagado
                     try
                     {
                         st4 = con.createStatement();

@@ -27,15 +27,16 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-public class Pedido extends javax.swing.JFrame { 
+public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un pedido y agregarle partidas
     
     
-    //Variables
-    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    //Variables de pantallas
     Principal prin;
     Procesos pro;
     GastosFijos gf;
     Connection con;
+    //variables globales
+    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");//formato general de fechas
     ResultSet rs;
     Statement st;
     Font fuenteTablas;
@@ -58,12 +59,12 @@ public class Pedido extends javax.swing.JFrame {
     
     String PocM1St=null, PocM2St = null, opeExtSt=null, greniaExtSt, maquinaExtSt, horaIniExtSt, fechaIniExtSt;
     
-    DefaultTableModel modelo, modeloP, modeloMod;
-    JTableHeader thCli, thMod, thPed;
+    DefaultTableModel modelo, modeloP, modeloMod;//se crean los modelos de las tablas
+    JTableHeader thCli, thMod, thPed;//se crean los encabezados de las tablass
     
     int indicadorParaImporte = 0;
     
-    int ancho, alto;
+    int ancho, alto;//son las medidas de la ventana
     
     public Pedido(Connection con) {
         initComponents();
@@ -81,64 +82,63 @@ public class Pedido extends javax.swing.JFrame {
         onChangePzFinales();
         onChangeFini();
         
-        llenarListas();
-        //Tabla que muestra los clientes buscados
+        llenarListas();//se llenan las listas desplegables
+        //Tabla que muestra los clientes buscados, se establece que no es editable
         modelo = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        modelo.setColumnIdentifiers(new Object[]{"Id", "Nombre"});
-        tablaC.setModel(modelo);
+        modelo.setColumnIdentifiers(new Object[]{"Id", "Nombre"});//se establecen los titulos de las columnas
+        tablaC.setModel(modelo);//se le asigna el modelo a la tabla de clientes
         
-        //Tabla que muestra los pedidos en cuanto a su nombre de impresion
+        //Tabla que muestra los pedidos en cuanto a su nombre de impresion, se etablece que no es editable
         modeloP = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        modeloP.setColumnIdentifiers(new Object[]{"Folio", "Impresion", "Cliente", "Fecha Ingreso"});
-        tablaP.setModel(modeloP);
+        modeloP.setColumnIdentifiers(new Object[]{"Folio", "Impresion", "Cliente", "Fecha Ingreso"});//se le asignan nombres a las columnas
+        tablaP.setModel(modeloP);//se le asigna modelo a la tabla de modelos
         
-        //
+        //tabla de modificacion de pedidos, se establece que no es editable
         modeloMod = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        modeloMod.setColumnIdentifiers(new Object[]{"Folio", "Impresion", "Cliente", "Fecha Ingreso"});
-        tablaModPed.setModel(modeloMod);
+        modeloMod.setColumnIdentifiers(new Object[]{"Folio", "Impresion", "Cliente", "Fecha Ingreso"});//se le asignan titulos a las columnas
+        tablaModPed.setModel(modeloMod);//se le asigna un modelo a la tabla de modificacion de pedidos
         
-        disenoTablas();
+        disenoTablas();//se le asigna un diseño a las tablas
         
         //Se establece un formato de fecha
         fIn2.setDateFormat(df);
         fC2.setDateFormat(df);
         fP2.setDateFormat(df);
-        importe.setEditable(false);
+        importe.setEditable(false);//no se podran ingresar datos en el campo importe
         
         this.con = con;
-        
-        //comprobarVacio();//Comprobar si los campos que requieren valores flotantes o enteros estan vacios, en ese caso lon inicializa
-        
+        //se deshabilitan los botones de guardado al principio
         saveP.setEnabled(false);
         savePart.setEnabled(false);
-        
+        //elementos de la modificacion de pedido
         tablaModPed.setVisible(false);
         btnBusPed.setEnabled(false);
         textBusPed.setEnabled(false);
         btnMod.setVisible(false);
         btnMod.setEnabled(false);
-        cliente.setEditable(false);
-        folioVis.setEditable(false);
-        
-        panelCliente.setVisible(true);
         panelMod.setVisible(false);
+        
+        cliente.setEditable(false);//evita que el campo que muestra el cliente seleccionado sea editado
+        folioVis.setEditable(false);
+        panelCliente.setVisible(true);
+        
         fP2.setEnabled(false);
-        boxPago.setSelectedIndex(1);
+        boxPago.setSelectedIndex(1);//se inicializa el pagado en Si
         
     }
 
@@ -257,7 +257,7 @@ public class Pedido extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         regP = new javax.swing.JButton();
-        jToggleButton3 = new javax.swing.JToggleButton();
+        abreProcesos = new javax.swing.JToggleButton();
         modPed = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
 
@@ -1352,12 +1352,12 @@ public class Pedido extends javax.swing.JFrame {
             }
         });
 
-        jToggleButton3.setBackground(new java.awt.Color(51, 51, 51));
-        jToggleButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jToggleButton3.setText("Procesos");
-        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+        abreProcesos.setBackground(new java.awt.Color(51, 51, 51));
+        abreProcesos.setForeground(new java.awt.Color(255, 255, 255));
+        abreProcesos.setText("Procesos");
+        abreProcesos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton3ActionPerformed(evt);
+                abreProcesosActionPerformed(evt);
             }
         });
 
@@ -1390,7 +1390,7 @@ public class Pedido extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton3)
+                .addComponent(abreProcesos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(regP)
                 .addContainerGap())
@@ -1401,7 +1401,7 @@ public class Pedido extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(regP, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(abreProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, Short.MAX_VALUE)
                         .addComponent(modPed))
@@ -1438,15 +1438,15 @@ public class Pedido extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     
-    
+    //llena las listas desplegables
     private void llenarListas(){
-        
         mat1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALTA", "BAJA", "BOPP", "CPP","BOPP/BOPP","BAJA/BOPP","BAJA/PET","BOPP/PET","CPP/PET"}));
         mat2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NO APLICA","ALTA", "BAJA", "BOPP", "CPP","BOPP/BOPP","BAJA/BOPP","BAJA/PET","BOPP/PET","CPP/PET"}));
         sta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DISEÑO", "PROCESO", "COBRANZA", "PAGADO"}));
         sello.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FONDO", "LATERAL", "TRASLAPE"}));
     }
     
+    //le da un diseño a las tablas
     private void disenoTablas(){
         
         thCli = tablaC.getTableHeader();
@@ -1471,11 +1471,6 @@ public class Pedido extends javax.swing.JFrame {
         Inicio.prin.setLocationRelativeTo(null);
         Inicio.prin.setVisible(true);
         this.dispose();
-        
-        /*prin = new Principal(con);
-        prin.setLocationRelativeTo(null);
-        prin.setVisible(true);
-        dispose();*/
     }//GEN-LAST:event_regPActionPerformed
     
     //Boton: Guardar un pedido
@@ -1500,20 +1495,22 @@ public class Pedido extends javax.swing.JFrame {
 
         descuSt = decu.getText();
         descuF = Float.parseFloat(descuSt);
-
+        //se guardan los datos en la base
         String sql = " insert into pedido(impresion, fIngreso, fCompromiso, fPago, grabados, subtotal, total, anticipo, resto, devolucion," +
         " descuento, idC_fk, kgDesperdicioPe, porcentajeDespPe, costoTotal, gastosFijos, perdidasYGanancias, autorizo, sumatoriaBolseoP, "
                 + "matComPe, matProPe, pagado) "
         + "values('"+impSt+"', '"+fInSt+"', '"+fComSt+"', '"+fPagoSt+"', "+grabados+", 0, 0, "+antiF+", 0, '"+devSt+"'," +
         " "+descuF+", "+idCliente+", 0, 0, 0, 0, 0, '"+auto.getText()+"', 0, 0, 0, '"+boxPago.getSelectedItem().toString()+"')";
 
-        try {
+        try 
+        {
             st = con.createStatement();
             st.execute(sql);
             st.close();
-
             JOptionPane.showMessageDialog(null, "Se ha guardado el pedido", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             JOptionPane.showMessageDialog(null, "Hay un error con los datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_savePActionPerformed
@@ -1521,54 +1518,48 @@ public class Pedido extends javax.swing.JFrame {
    
     //Evento: cuando la tabla de clientes es cliqueada
     private void tablaCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCMouseClicked
-        
-            obtenerSeleccionTablaCliente();
+        obtenerSeleccionTablaCliente();
     }//GEN-LAST:event_tablaCMouseClicked
    
-    
+    //obtiene el id y el nombre del cliente seleccionado
     private void obtenerSeleccionTablaCliente(){
-            String nom;
-            String id;
-            
-            try{
-
-                nom = modelo.getValueAt(tablaC.getSelectedRow(), 1).toString();//Se guarda el campo ubicado en la fila presionada y en la columna 1(Que es nombre)
-                id = modelo.getValueAt(tablaC.getSelectedRow(), 0).toString();//Lo mismo, pero ahora se guarda la columna 0(Id)
-
-                idCliente = Integer.parseInt(id);//Se transforma el id a entero para poder guardarlo en la base de datos, pues es un entero
-
-                cliente.setText(nom);//Se establece el noimbre de cliente en un textField, con fines visuales
-                saveP.setEnabled(true);
-                
-            }catch(ArrayIndexOutOfBoundsException ex){
-                JOptionPane.showMessageDialog(null, "Selecciona con el boton izquierdo del raton", "Avertencia", JOptionPane.WARNING_MESSAGE);
-            } 
+        String nom;
+        String id;
+        try
+        {
+            id = modelo.getValueAt(tablaC.getSelectedRow(), 0).toString();//Lo mismo, pero ahora se guarda la columna 0(Id)
+            nom = modelo.getValueAt(tablaC.getSelectedRow(), 1).toString();//Se guarda el campo ubicado en la fila presionada y en la columna 1(Que es nombre)
+            idCliente = Integer.parseInt(id);//Se transforma el id a entero para poder guardarlo en la base de datos, pues es un entero
+            cliente.setText(nom);//Se establece el noimbre de cliente en un textField, con fines visuales
+            saveP.setEnabled(true);//se habilita el boton de guardado
+        }
+        catch(ArrayIndexOutOfBoundsException ex)
+        {
+            JOptionPane.showMessageDialog(null, "Selecciona con el boton izquierdo del raton", "Avertencia", JOptionPane.WARNING_MESSAGE);
+        } 
     }
         
     //Evento: Cuando un caracter es ingresado al textField de busqueda de clientes e insercion a la tabla de clientes
     private void nomCliCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_nomCliCaretUpdate
-        
         modelo.setRowCount(0);//Borrar resultados anteriores
         String nomcliente;
-        
         nomcliente = nomCli.getText().toString();//Se obtiene el texto ingresado para busqueda
         String sql = "select idC, nom from cliente where nom like '%"+nomcliente+"%' limit 0,30";//Se realiza la busqueda en la base de datos con el nombre ya obtenido
-        
-        try {
+        try 
+        {
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            
-            while(rs.next()){
+            while(rs.next())
+            {
                 //Se añaden los datos a la tabla de clientes
                 modelo.addRow(new Object[]{rs.getString("idC"), rs.getString("nom")});
             }
-           
             tablaC.setModel(modelo);
-            
             st.close();
             rs.close();
-           
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             JOptionPane.showMessageDialog(null, "No se ha podido establecer la tabla: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_nomCliCaretUpdate
@@ -1578,22 +1569,18 @@ public class Pedido extends javax.swing.JFrame {
         busPedido.setSelected(false);
         llenarTablaPedido();
     }//GEN-LAST:event_busPedidoActionPerformed
-    
+    //se llena la tabla de pedidos
     public void llenarTablaPedido(){
         //Lo mismo que la tabla de clientes
-        modeloP.setRowCount(0);
+        modeloP.setRowCount(0);//se vacía
         String nompedido;
-        
         nompedido = nomImpresion.getText().toString();
         //Se utiliza join para que tambien se muestren los datos de clientes relacionados con el pedido
         String sql = "select folio, impresion, nom, fIngreso from pedido join cliente on idC_fk = idC where impresion like '%"+nompedido+"%' "
                 + "order by fIngreso desc limit 0, 30";
-        
-        
         try {
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            
             while(rs.next()){
                 modeloP.addRow(new Object[]{rs.getString("folio")+"A", rs.getString("impresion"), rs.getString("nom"), rs.getString("fIngreso")});
             }
@@ -1610,14 +1597,14 @@ public class Pedido extends javax.swing.JFrame {
         savePart.setSelected(false);
         comprobarVacio();
         String sql;
-            medSt = med.getText();//
+            medSt = med.getText();
             estSt = sta.getSelectedItem().toString();
-            pigSt = pig.getText();//
-            tipoSt = tp.getText();//
+            pigSt = pig.getText();
+            tipoSt = tp.getText();
             selloSt = sello.getSelectedItem().toString();
-            cal1St = cal1.getText();//
+            cal1St = cal1.getText();
             mat1St = mat1.getSelectedItem().toString();
-            cal2St = cal2.getText();//
+            cal2St = cal2.getText();
             mat2St = mat2.getSelectedItem().toString();
 
             pUnitSt = precioUni.getText();
@@ -1631,139 +1618,168 @@ public class Pedido extends javax.swing.JFrame {
             pzFinalesSt = pzFinales.getText();
             pzFinalesI = Integer.parseInt(pzFinalesSt);
             
-            String manera = determinaManera();
-            
+            String manera = determinaManera();//obtiene la manera como se calculo el importe
+            //se insertara en la base de datos
             sql = "insert into partida(estatus, medida, piezas, tipo, sello, pigmento, mat1, calibre1, mat2, calibre2, precioUnitaro," +
             "importe, kgPartida, folio_fk, c1t1, c1t2, c1t3, c1t4, c1t5, c1t6, c2t1, c2t2, c2t3, c2t4, c2t5, c2t6, desarrollo, kgDesperdicio, porcentajeDesp, "
             + "costoMaterialTotal, costoPartida, pzFinales, manera) "
-            + "values('"+estSt+"', '"+medSt+"', "+piezasI+", '"+tipoSt+"', '"+selloSt+"', '"+pigSt+"', '"+mat1St+"', '"+cal1St+"', '"+mat2St+"', '"+cal2St+"'," +
-            ""+pUnitSt+", "+importe.getText()+", "+kgParidaSt+", "+folioId+", '"+c11.getText()+"', '"+c12.getText()+"', '"+c13.getText()+"'"
-            + ", '"+c14.getText()+"', '"+c15.getText()+"', '"+c16.getText()+"', '"+c21.getText()+"', '"+c22.getText()+"', '"+c23.getText()+"'"
-            + ", '"+c24.getText()+"', '"+c25.getText()+"', '"+c26.getText()+"', "+desa.getText()+", 0, 0, 0, 0, "+pzFinalesI+",'"+manera+"')";
-            
-            
-            try {
+            + "values('"+estSt+"', "
+                    + "'"+medSt+"', "
+                    + ""+piezasI+", "
+                    + "'"+tipoSt+"', "
+                    + "'"+selloSt+"', "
+                    + "'"+pigSt+"', "
+                    + "'"+mat1St+"', "
+                    + "'"+cal1St+"', "
+                    + "'"+mat2St+"', "
+                    + "'"+cal2St+"',"
+                    + ""+pUnitSt+", "
+                    + ""+importe.getText()+", "
+                    + ""+kgParidaSt+", "
+                    + ""+folioId+", "
+                    + "'"+c11.getText()+"', "
+                    + "'"+c12.getText()+"', "
+                    + "'"+c13.getText()+"', "
+                    + "'"+c14.getText()+"', "
+                    + "'"+c15.getText()+"', "
+                    + "'"+c16.getText()+"', "
+                    + "'"+c21.getText()+"', "
+                    + "'"+c22.getText()+"', "
+                    + "'"+c23.getText()+"', "
+                    + "'"+c24.getText()+"', "
+                    + "'"+c25.getText()+"', "
+                    + "'"+c26.getText()+"', "
+                    + ""+desa.getText()+", "
+                    + "0, "//kgDesperdicio
+                    + "0, "//porcentajeDesp
+                    + "0, "//costoMaterialTotal
+                    + "0, "//ostoPartida
+                    + ""+pzFinalesI+","
+                    + "'"+manera+"')";
+            try 
+            {
                 st = con.createStatement();
                 st.execute(sql);
-
-                setHojas();
+                setHojas();//enumera la partida
                 establecerSubtotalPedido(st);//Para sumar todos los importes de las partidas y guargar el total en pedido
-                
                 JOptionPane.showMessageDialog(null, "Se ha guardado la partida", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-            } catch (SQLException ex) {
+            } 
+            catch (SQLException ex) 
+            {
                 JOptionPane.showMessageDialog(null, "Error al guardar la partida: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
     }//GEN-LAST:event_savePartActionPerformed
-    
+    //determina la manera como se calculo el importe
     private String determinaManera()
     {
         if(checkPz.isSelected())
         {
             return "pz";
-        }else if(checkKg.isSelected())
+        }
+        else if(checkKg.isSelected())
         {
             return "kg";
-        }else
+        }
+        else
         {
             return "pzF";
         }
     }
     
-    //Enumerar las opartidas existentes con los datos Hojas y De
+    //Actualiza el numero se hoja y De de las partidas de un pedido
     private void setHojas(){
         
         String sql = "select idPar from partida where folio_fk = "+folioId+"";
         String sql1;
-        int contadorRs = 0;
+        int contadorRs = 0;//contador para las hojas
         int idPartida;
         
         Statement stAux;
-        ResultSet rsAux;
-        
-        try {
+        try 
+        {
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            
-            while(rs.next()){
+            stAux = con.createStatement();
+            while(rs.next())
+            {
                 contadorRs++;
                 idPartida = rs.getInt("idPar");
-                sql1 = "update partida set hoja = "+contadorRs+" where idPar = "+idPartida+"";
-                
-                stAux = con.createStatement();
+                sql1 = "update partida set hoja = "+contadorRs+" where idPar = "+idPartida+"";//se inserta el numero de hoja de la partida
                 stAux.execute(sql1);            
             }
             
             rs = st.executeQuery(sql);
-            while(rs.next()){
+            while(rs.next())
+            {
                 idPartida = rs.getInt("idPar");               
-                sql1 = "update partida set de = "+contadorRs+" where idPar = "+idPartida+"";
-                
-                stAux = con.createStatement();
+                sql1 = "update partida set de = "+contadorRs+" where idPar = "+idPartida+"";//se inserta el numero De de la partida
                 stAux.execute(sql1);
             }
-            //JOptionPane.showMessageDialog(null, "Las hojas se han actualizado", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException ex) {
+            stAux.close();
+        } 
+        catch (SQLException ex) 
+        {
             JOptionPane.showMessageDialog(null, "Error al actualizar las hojas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }   
     }
     
     
-    //Calcular monto total del pedido a base de los importes de todas las partidas
+    //Calcula el monto del pedido a base de los importes de todas las partidas, no es el subtotal
     private void establecerSubtotalPedido(Statement st){
         
         String sql = "select importe from partida where folio_fk = "+folioId+"";
         float subtotalVar = 0;
-        
-        try {
+        try 
+        {
             rs = st.executeQuery(sql);
-            
-            while(rs.next()){
+            while(rs.next())
+            {
                 //Aqui se empiezan a acumular los importes de las partidas
                 subtotalVar = subtotalVar + Float.parseFloat(rs.getString("importe"));
             } 
-            //System.out.println("Subtotal directo de importe: " + subtotalVar);
             actualizarSubtotalPedido(subtotalVar, st);//Update al campo subtotal para ingresar el nuevo monto
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             JOptionPane.showMessageDialog(null, "Error al buscar la partida (sub)" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
-    //Se actualiza el subtotal de pedido
+    //Se calcula e ingresa el subtotal de pedido en la base de datos
     private void actualizarSubtotalPedido(float sub, Statement st){
-        
-        float iva = 0.16f;
         float subGrab = sub;
-        float anti  = 0f;
+        float antif  = 0f;
         float descuento = 0f;
         
         //Consulta para obtener los valores de: grabados, anticipo y descuento. Se realizaran operaciones
         String sql = "select grabados, anticipo, descuento from pedido where folio = "+folioId+"";
         
-        try {
+        try 
+        {
             rs = st.executeQuery(sql);
-            
-            while(rs.next()){
+            while(rs.next())
+            {
                 //Se le suma el coste de grabados al subtotal
                 subGrab = subGrab + Float.parseFloat(rs.getString("grabados"));
-                //System.out.println("Grabados: "+rs.getString("grabados"));
-                //Se guarda el valor de anticipo para usu posterior
-                anti = Float.parseFloat(rs.getString("anticipo"));
-                //Se guarda el vlor de descuento para uso posterior
+                //Se guarda el valor de anticipo para uso posterior
+                antif = Float.parseFloat(rs.getString("anticipo"));
+                //Se guarda el valor de descuento para uso posterior
                 descuento = Float.parseFloat(rs.getString("descuento"));
             }
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             JOptionPane.showMessageDialog(null, "Error al obtener los datos de costos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         
         //Cuando ya se sumaron los grabados y el subtotal ahora se guarda en la base de datos
         sql = "update pedido set subtotal = "+subGrab+" where folio = "+folioId+"";
         
-        try {
+        try 
+        {
             st.execute(sql);
-            
-            //System.out.println("Subtotal mas los grabados: " + subGrab);
-            //Ahora paso por parametros el subtotal con grabados, anticipo y descuento
-            calcularCostosDeSub(subGrab, anti, descuento, st);
+            //Ahora paso por parametros el subtotal con grabados, anticipo y descuento para calcular el total
+            calcularTotalPed(subGrab, antif, descuento, st);
             st.close();
             rs.close();
             
@@ -1772,56 +1788,47 @@ public class Pedido extends javax.swing.JFrame {
         }
     }
     
-    //Aqui se reciben todos los valores necesarios para realizar los calculos y actualizar la base de datos
-    private void calcularCostosDeSub(float sub, float anticipo, float descuento, Statement st){
+    //Aqui se reciben todos los valores necesarios para calcular el total y el resto y actualizar la base de datos
+    private void calcularTotalPed(float sub, float anticipo, float descuento, Statement st){
         
         float total = 0f;
-        float iva = 0.16f;
+        float ivaf = 0.16f;
         float subIva = 0f;
         float rest = 0f;
         
-        subIva = sub * iva;//Se obtiene el iva del subtotal
+        subIva = sub * ivaf;//Se obtiene el iva del subtotal
         total = sub + subIva;//Se suma el iva y el subtotal para obtener el total
         
         rest = total - anticipo;//Se le resta el anticipo al total para obtener el resto
         rest = rest - descuento;//Se le resta el descuento al resto
-        
-        //total = (total - anticipo) - descuento;
-        
-        //System.out.println("Descuento: " + descuento);
-        //System.out.println("Aniticipo: " + anticipo);
-        //System.out.println("Total: "+total);
-        //System.out.println("Resto: " + rest);
+        //se inserta en la base de datos
         String sql= "update pedido set total = "+total+", resto = "+rest+" where folio = "+folioId+"";
-        
-        try {
+        try 
+        {
             st.execute(sql);
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             JOptionPane.showMessageDialog(null, "Error al actualizar el total y resto", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }
     
     private void tablaPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPMouseClicked
-        
-        obtenerSeleccionTablaPedido();
-
+        obtenerSeleccionTablaPedido();//se inserte al folio de la partida en un campo
     }//GEN-LAST:event_tablaPMouseClicked
     
     private void obtenerSeleccionTablaPedido(){
-        String imp;
-        String folioSinA = "";
-            try{
-                imp = modeloP.getValueAt(tablaP.getSelectedRow(), 1).toString();//Se guarda el campo ubicado en la fila presionada y en la columna 1(Que es nombre)
-                folioSinA = modeloP.getValueAt(tablaP.getSelectedRow(), 0).toString().replace("A", "");
+        String folioSinA;
+            try
+            {
+                folioSinA = modeloP.getValueAt(tablaP.getSelectedRow(), 0).toString().replace("A", "");//se guarda la columna 0(Id)
                 folioId = Integer.parseInt(folioSinA);
-                //Lo mismo, pero ahora se guarda la columna 0(Id)
-
-                folioVis.setText(String.valueOf(folioId)+"A");//Se establece el noimbre de cliente en un textField, con fines visuales
-
-                comprobarCondPed();  
-                
-            }catch(ArrayIndexOutOfBoundsException ex){
+                folioVis.setText(String.valueOf(folioId)+"A");//Se establece el folio del pedido en un textField, con fines visuales
+                comprobarCondPed();//se comrpueba si se puede habilitar el boton de guardado
+            }
+            catch(ArrayIndexOutOfBoundsException ex)
+            {
                 JOptionPane.showMessageDialog(null, "Selecciona con el boton izquierdo del raton", "Avertencia", JOptionPane.WARNING_MESSAGE);
             }
     }
@@ -1838,17 +1845,12 @@ public class Pedido extends javax.swing.JFrame {
     
     
     //Boton a procesos
-    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
-        jToggleButton3.setSelected(false);
+    private void abreProcesosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abreProcesosActionPerformed
+        abreProcesos.setSelected(false);
         Inicio.pro.setLocationRelativeTo(null);
         Inicio.pro.vacearComponentes();
-        Inicio.pro.setVisible(true);
-        
-        /*pro = new Procesos(con);
-        pro.setLocationRelativeTo(null);
-        pro.setVisible(true);*/
-        
-    }//GEN-LAST:event_jToggleButton3ActionPerformed
+        Inicio.pro.setVisible(true);   
+    }//GEN-LAST:event_abreProcesosActionPerformed
     
     //Funcion para que solo se ingresen numeros flotantes en campos
     private void soloFlotantes(KeyEvent evt, JTextField campo){
@@ -1914,7 +1916,7 @@ public class Pedido extends javax.swing.JFrame {
     private void importeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_importeKeyTyped
         soloFlotantes(evt, importe);
     }//GEN-LAST:event_importeKeyTyped
-
+    //calcula el importe deacuerdo a el checkbox que se haya marcado
     private void calcularEnCampoPU(){
         float pUni;
         int pzs;
@@ -1922,44 +1924,67 @@ public class Pedido extends javax.swing.JFrame {
         float kgPartida;
         float total;
         
-        if(indicadorParaImporte == 1){
-                    if(precioUni.getText().equals("") || precioUni.getText().equals(".")){
+        if(indicadorParaImporte == 1)//si se calculo utilizando las pz
+        {
+                    if(precioUni.getText().equals("") || precioUni.getText().equals("."))
+                    {
                         pUni = 0;
-                    }else{
+                    }
+                    else
+                    {
                         pUni = Float.parseFloat(precioUni.getText());
                     }
 
-                    if(pz.getText().equals("") || pz.getText().equals("")){
+                    if(pz.getText().equals("") || pz.getText().equals(""))
+                    {
                         pzs = 0;
-                    }else{
+                    }
+                    else
+                    {
                         pzs = Integer.parseInt(pz.getText());
                     }
                     total = pUni * pzs;
                     importe.setText(String.valueOf(total));
-                }else if(indicadorParaImporte == 2){
-                    if(precioUni.getText().equals("") || precioUni.getText().equals(".")){
+                }
+        else if(indicadorParaImporte == 2)//si se utilizo utilizando los kg
+        {
+                    if(precioUni.getText().equals("") || precioUni.getText().equals("."))
+                    {
                         pUni = 0;
-                    }else{
+                    }
+                    else
+                    {
                         pUni = Float.parseFloat(precioUni.getText());
                     }
 
-                    if(kgPart.getText().equals("") || kgPart.getText().equals(".")){
+                    if(kgPart.getText().equals("") || kgPart.getText().equals("."))
+                    {
                         kgPartida = 0;
-                    }else{
+                    }
+                    else
+                    {
                         kgPartida = Float.parseFloat(kgPart.getText());
                     }
                     total = pUni * kgPartida;
                     importe.setText(String.valueOf(total));
-                }else if(indicadorParaImporte == 3){
-                    if(precioUni.getText().equals("") || precioUni.getText().equals(".")){
+                }
+        else if(indicadorParaImporte == 3)//si se utilizaron las pz finales
+        {
+                    if(precioUni.getText().equals("") || precioUni.getText().equals("."))
+                    {
                         pUni = 0;
-                    }else{
+                    }
+                    else
+                    {
                         pUni = Float.parseFloat(precioUni.getText());
                     }
 
-                    if(pzFinales.getText().equals("") || pzFinales.getText().equals("")){
+                    if(pzFinales.getText().equals("") || pzFinales.getText().equals(""))
+                    {
                         pzsf = 0;
-                    }else{
+                    }
+                    else
+                    {
                         pzsf = Integer.parseInt(pzFinales.getText());
                     }
                     total = pUni * pzsf;
@@ -1985,48 +2010,7 @@ public class Pedido extends javax.swing.JFrame {
             }
         });
     }
-    
-    private void calcularImportePiezas(){
-        float pUni;
-        int pzs;
-        float total;
-        
-        if(precioUni.getText().equals("") || precioUni.getText().equals(".")){
-            pUni = 0;
-        }else{
-            pUni = Float.parseFloat(precioUni.getText());
-        }
-        
-        if(pz.getText().equals("")){
-            pzs = 0; 
-        }else{
-            pzs = Integer.parseInt(pz.getText());
-        }
-        total = pUni * pzs;
-        importe.setText(String.valueOf(total));
-    }
-    
-    private void calcularImportePiezasFinales(){
-        float pUni;
-        int pzs;
-        float total;
-        
-        if(precioUni.getText().equals("") || precioUni.getText().equals(".")){
-            pUni = 0;
-        }else{
-            pUni = Float.parseFloat(precioUni.getText());
-        }
-        
-        if(pzFinales.getText().equals("")){
-            pzs = 0; 
-        }else{
-            pzs = Integer.parseInt(pzFinales.getText());
-        }
-        total = pUni * pzs;
-        importe.setText(String.valueOf(total));
-    }
-    
-    
+
     private void antiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_antiKeyTyped
         soloFlotantes(evt, anti);
     }//GEN-LAST:event_antiKeyTyped
@@ -2036,50 +2020,47 @@ public class Pedido extends javax.swing.JFrame {
         soloFlotantes(evt, grab);
     }//GEN-LAST:event_grabKeyTyped
 
-    //Eventos cuando la casilla de las checkbox es cambiada. Para elegir el resultado de importe a partir de piezas o kilos
+    //cuando el estado del checkbox de pz cambia
     private void checkPzItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkPzItemStateChanged
-        
-        comprobarCondPed();
         if(checkPz.isSelected()){
+            //se habilia todo lo relacionado con pz
             checkPz.setSelected(true);
             pz.setEnabled(true);
-            
+            //se deshabilita lo que no este relacionado con pz
             checkKg.setSelected(false);
             kgPart.setEnabled(false);
-            
             pzFinales.setEnabled(false);
             checkPzFinales.setSelected(false);
             
-            calcularImportePiezas();
-            
-            indicadorParaImporte = 1;
-            
-        }else{
+            indicadorParaImporte = 1;//se cambia el indicador de importe
+            calcularEnCampoPU();//se calcula el importe
+        }
+        else
+        {
             pz.setEnabled(false);
         }
+        comprobarCondPed();//se comprueba si se debe habilitar el boton de guardado
     }//GEN-LAST:event_checkPzItemStateChanged
 
     private void checkKgItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkKgItemStateChanged
-        
-        comprobarCondPed();
         if(checkKg.isSelected()){
-            
-            checkPz.setSelected(false);
-            pz.setEnabled(false);
-            
+            //se habilita todo lo relacionado con kg
             checkKg.setSelected(true);
             kgPart.setEnabled(true);
-            
+            //se deshabilita todo lo que no esta relacionado con kg
+            checkPz.setSelected(false);
+            pz.setEnabled(false);
             pzFinales.setEnabled(false);
             checkPzFinales.setSelected(false);
             
-            calcularImporteKilos();
-            
-            
-            indicadorParaImporte = 2;
-        }else{
+            indicadorParaImporte = 2;//se cambia el indicador de importe
+            calcularEnCampoPU();//se calcula el subtotal
+        }
+        else
+        {
             kgPart.setEnabled(false);
         }
+        comprobarCondPed();//se comprueba si se debe habilitar el boton de guardado
     }//GEN-LAST:event_checkKgItemStateChanged
 
     private void kgPartKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgPartKeyTyped
@@ -2089,102 +2070,104 @@ public class Pedido extends javax.swing.JFrame {
     private void nomCliMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nomCliMousePressed
         nomCli.setText("");
     }//GEN-LAST:event_nomCliMousePressed
-
+    
     private void modPedItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_modPedItemStateChanged
         
-        if(modPed.isSelected()){
-            saveP.setEnabled(false);
-            //panelMod.setVisible(true);
+        if(modPed.isSelected())
+        {
+            //se habilita todo lo relacionado con la modificacion del pedido
             tablaModPed.setVisible(true);
             btnBusPed.setEnabled(true);
             textBusPed.setEnabled(true);
-            
+            btnMod.setVisible(true);
+            panelMod.setVisible(true);
+            //se deshabilita todo lo no relacionado con la modificacion del pedido
+            saveP.setEnabled(false);
             tablaC.setVisible(false);
             nomCli.setEnabled(false);
-            btnMod.setVisible(true);
             saveP.setVisible(false);
-            
-            llenarCamposMod(folioMod);
             panelCliente.setVisible(false);
-            panelMod.setVisible(true);
-        }else{
-            
-            if(cliente.getText().equals("Selecciona un Cliente")){
-                saveP.setEnabled(false);
-            }else{
-                saveP.setEnabled(true);
+            llenarCamposMod(folioMod);
+        }
+        else
+        {
+            if(cliente.getText().equals("Selecciona un Cliente"))//si no se ha seleccionado un cliente
+            {
+                saveP.setEnabled(false);//se deshabilita el boton de guardado
             }
-            //panelMod.setVisible(false);
+            else
+            {
+                saveP.setEnabled(true);//se habilita
+            }
+            //se habilita todo lo que no esta relacionado con la modificacion del pedido
+            tablaC.setVisible(true);
+            nomCli.setEnabled(true);
+            saveP.setVisible(true);
+            panelCliente.setVisible(true);
+            //se deshabilita todo lo que esta relacionado con la modificacion del pedido
             tablaModPed.setVisible(false);
             btnBusPed.setEnabled(false);
             textBusPed.setEnabled(false);
-            
-            tablaC.setVisible(true);
-            nomCli.setEnabled(true);
             btnMod.setVisible(false);
-            saveP.setVisible(true);
-            
+            panelMod.setVisible(false);
+            //se vuelven a inicializar los campos en vacio
             imp.setText("");
             auto.setText("");
             dev.setText("");
             grab.setText("");
             anti.setText("");
             decu.setText("");
-            
-            panelMod.setVisible(false);
-            panelCliente.setVisible(true);
         }
     }//GEN-LAST:event_modPedItemStateChanged
 
     //Boton Para buscar pedido al querer modificar datos
     private void btnBusPedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusPedActionPerformed
         btnBusPed.setSelected(false);
-        llenarTablaModPedido();
+        llenarTablaModPedido();//se buscan los pedidos
     }//GEN-LAST:event_btnBusPedActionPerformed
 
     public void llenarTablaModPedido(){
-        modeloMod.setRowCount(0);
+        modeloMod.setRowCount(0);//se vacia la tabla
         String nompedido;
-        
-        nompedido = textBusPed.getText().toString();
+        nompedido = textBusPed.getText().toString();//se obtiene el nombre de impresion del pedido
         //Se utiliza join para que tambien se muestren los datos de clientes relacionados con el pedido
         String sql = "select folio, impresion, nom, fIngreso from pedido join cliente on idC_fk = idC where impresion like '%"+nompedido+"%' "
                 + "order by fIngreso desc limit 0, 30";
-        
-        
-        try {
+        try 
+        {
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            
-            while(rs.next()){
+            while(rs.next())
+            {
                 modeloMod.addRow(new Object[]{rs.getString("folio")+"A", rs.getString("impresion"), rs.getString("nom"), rs.getString("fIngreso")});
             }
-            tablaModPed.setModel(modeloMod);
+            tablaModPed.setModel(modeloMod);//se establece un modelo para la tabla
             st.close();
             rs.close();
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             JOptionPane.showMessageDialog(null, "No se ha podido establecer la tabla de pedidos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
     private void tablaModPedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaModPedMouseClicked
-        obtenerSeleccionTablaPedidoMod();
-        
+        obtenerSeleccionTablaPedidoMod();//se obtienen los datos del pedido   
     }//GEN-LAST:event_tablaModPedMouseClicked
 
     private void obtenerSeleccionTablaPedidoMod(){
-        int folioMod = 0;
-        
-            try{    
-                folioMod = Integer.parseInt(modeloMod.getValueAt(tablaModPed.getSelectedRow(), 0).toString().replace("A", ""));
-        
-                llenarCamposMod(folioMod);
-                this.folioMod = folioMod;
-                btnMod.setEnabled(true);  
-                
-            }catch(ArrayIndexOutOfBoundsException ex){
-                JOptionPane.showMessageDialog(null, "Selecciona con el boton izquierdo del raton", "Avertencia", JOptionPane.WARNING_MESSAGE);
-            }
+        int folioModInt;
+        try
+        {    
+            folioModInt = Integer.parseInt(modeloMod.getValueAt(tablaModPed.getSelectedRow(), 0).toString().replace("A", ""));//se optiene el folio del pedido a modificar
+            llenarCamposMod(folioMod);//se llenan los campos con los datos del pedido
+            this.folioMod = folioModInt;
+            btnMod.setEnabled(true);  
+        }
+        catch(ArrayIndexOutOfBoundsException ex)
+        {
+            JOptionPane.showMessageDialog(null, "Selecciona con el boton izquierdo del raton", "Avertencia", JOptionPane.WARNING_MESSAGE);
+        }
     }
     
     private void btnModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModActionPerformed
@@ -2196,9 +2179,14 @@ public class Pedido extends javax.swing.JFrame {
         float total = subtotal + subiva;
         
         float resto = total - (Float.parseFloat(anti.getText()) + Float.parseFloat(decu.getText()));
-        
-        String sql = "update pedido set impresion = '"+imp.getText()+"', autorizo = '"+auto.getText()+"', devolucion = '"+dev.getText()+"', "
-                + "fIngreso = '"+fIn2.getText()+"', fCompromiso = '"+fC2.getText()+"', fPago = '"+fP2.getText()+"', grabados = "+grab.getText()+", "
+        //se guardan los datos actualizados
+        String sql = "update pedido set impresion = '"+imp.getText()+"', "
+                + "autorizo = '"+auto.getText()+"', "
+                + "devolucion = '"+dev.getText()+"', "
+                + "fIngreso = '"+fIn2.getText()+"', "
+                + "fCompromiso = '"+fC2.getText()+"', "
+                + "fPago = '"+fP2.getText()+"', "
+                + "grabados = "+grab.getText()+", "
         + "anticipo = "+anti.getText()+", descuento = "+decu.getText()+", subtotal = "+subtotal+", total = "+total+", resto = "+resto+", "
                 + "pagado = '"+boxPago.getSelectedItem().toString()+"'"
                 + "where folio = "+folioMod+"";
@@ -2413,23 +2401,25 @@ public class Pedido extends javax.swing.JFrame {
     }*/
     
     private void checkPzFinalesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkPzFinalesItemStateChanged
-        comprobarCondPed();
+        
         if(checkPzFinales.isSelected()){
+            //se habilita todo lo relacionado con pz finales
+            pzFinales.setEnabled(true);
+            checkPzFinales.setSelected(true);
+            //se deshabilita todo lo que no esta relacionado con las pz finales
             checkPz.setSelected(false);
             pz.setEnabled(false);
-            
             checkKg.setSelected(false);
             kgPart.setEnabled(false);
             
-            pzFinales.setEnabled(true);
-            checkPzFinales.setSelected(true);
-            
-            calcularImportePiezasFinales();
-            
-            indicadorParaImporte = 3;
-        }else{
+            indicadorParaImporte = 3;//se cambia el indicador de importe
+            calcularEnCampoPU();//se calcula el importe
+        }
+        else
+        {
            pzFinales.setEnabled(false);
         }
+        comprobarCondPed();//comprobamos si se debe de habilita el boton de guardado
     }//GEN-LAST:event_checkPzFinalesItemStateChanged
 
     private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
@@ -2573,12 +2563,12 @@ public class Pedido extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularImporteKilos();
+                calcularEnCampoPU();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) { 
-                calcularImporteKilos();
+                calcularEnCampoPU();
             }
             @Override
             public void changedUpdate(DocumentEvent e) {
@@ -2593,13 +2583,12 @@ public class Pedido extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularImportePiezas();
+                calcularEnCampoPU();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) { 
-                
-                calcularImportePiezas();
+                calcularEnCampoPU();
             }
             @Override
             public void changedUpdate(DocumentEvent e) {
@@ -2613,13 +2602,12 @@ public class Pedido extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularImportePiezasFinales();
+                calcularEnCampoPU();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) { 
-                
-                calcularImportePiezasFinales();
+                calcularEnCampoPU();
             }
             @Override
             public void changedUpdate(DocumentEvent e) {
@@ -3080,6 +3068,7 @@ public class Pedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton abreProcesos;
     private javax.swing.JTextField anti;
     private javax.swing.JTextField auto;
     private javax.swing.JComboBox boxPago;
@@ -3166,7 +3155,6 @@ public class Pedido extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField84;
     private javax.swing.JTextField jTextField85;
     private lu.tudor.santec.jtimechooser.JTimeChooser jTimeChooser1;
-    private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JTextField kgPart;
     private javax.swing.JButton limpiar;
     private javax.swing.JComboBox mat1;
