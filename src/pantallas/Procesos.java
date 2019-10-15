@@ -4843,9 +4843,7 @@ public class Procesos extends javax.swing.JFrame {
     private void btnCostosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCostosActionPerformed
         
         comprobarVacio();
-        String sql = "update impreso set sticky = "+stc.getText()+", costoDiseno = "+costoDise.getText()+", costoGrab = "+costoGrab.getText()+" "
-                + "where idPar_fk = "+idPart+"";
-        float sumatoria = 0;
+        String sql = "update impreso set sticky = "+stc.getText()+", costoDiseno = "+costoDise.getText()+" where idPar_fk = "+idPart+"";
         try {
             st = con.createStatement();
             st.execute(sql);
@@ -4855,45 +4853,7 @@ public class Procesos extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Error al guardar costos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        
-        sql = "select idPar from partida where folio_fk = "+folio+"";
-        try
-        {
-            st = con.createStatement();
-            rs = st.executeQuery(sql);
-            int idCadaPartida;
-            
-            while(rs.next())
-            {
-                idCadaPartida = Integer.parseInt(rs.getString("idPar"));
-                String sql2 = "select costoGrab from impreso where idPar_fk = "+idCadaPartida+"";
-                
-                Statement st2 = con.createStatement();
-                ResultSet rs2 = st2.executeQuery(sql2);
-                while(rs2.next())
-                {
-                    sumatoria+=Float.parseFloat(rs2.getString("costoGrab"));
-                }
-                st2.close();
-            }
-            st.close();
-        }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
         }    
-        sql = "update pedido set grabados = "+sumatoria+" where folio = "+folio+"";
-        try
-        {
-            st = con.createStatement();
-            st.execute(sql);
-            st.close();
-        }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
-        }
     }//GEN-LAST:event_btnCostosActionPerformed
 
     private void impBusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_impBusKeyPressed
