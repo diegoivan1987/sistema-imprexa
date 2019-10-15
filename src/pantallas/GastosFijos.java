@@ -350,9 +350,8 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
         comprobarVacio();//compueba que no haya campos vacios
         
         float sumatoriaRango = calculaKgFRango();//se calcula la sumatoria de los kg finales de los pedidos dentro del rango
-        //se seleccionan los pedidos dentro del rango de fechas tomando en cuenta su fecha de ingreso y si estan pagados
-        String sql = "select folio from pedido where fIngreso >= '"+fMayorQue.getText()+"' AND fIngreso <= '"+fMenorQue.getText()+"' "
-                + "AND pagado = 'Si'";
+        //se seleccionan los pedidos dentro del rango de fechas tomando en cuenta su fecha de termino
+        String sql = "select folio from pedido where fTermino >= '"+fMayorQue.getText()+"' AND fTermino <= '"+fMenorQue.getText()+"' ";
         try 
         {
             st1 = con.createStatement();
@@ -402,15 +401,15 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
         modeloAf.setRowCount(0);//se borran las filas anteriores
         this.setLocationRelativeTo(null);//se centra la ventana
         //se seleccionan los pedidos dentro del rango de fechas de acuerdo a su fecha de ingreso
-        String sql = "select folio, impresion, fIngreso, gastosFijos from pedido where fIngreso >= '"+fMayorQue.getText()+"' "
-                + "AND fIngreso <= '"+fMenorQue.getText()+"' AND pagado = 'Si'";
+        String sql = "select folio, impresion, fTermino, gastosFijos from pedido where fTermino >= '"+fMayorQue.getText()+"' "
+                + "AND fTermino <= '"+fMenorQue.getText()+"'";
         try 
         {
             st = con.createStatement();
             rs = st.executeQuery(sql);
             while(rs.next())//se agregan filas a la tabla
             {
-                 modeloAf.addRow(new Object[]{rs.getString("folio")+"A", rs.getString("impresion"), rs.getString("fIngreso"), 
+                 modeloAf.addRow(new Object[]{rs.getString("folio")+"A", rs.getString("impresion"), rs.getString("fTermino"), 
                  rs.getString("gastosFijos")});
             }
             rs.close(); 
@@ -460,229 +459,209 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
     private float calculaKgFinalesPedido(int folio)
     {
         //entra al pedido
-        String sql = "select pagado from pedido where folio = "+folio+"";
         float sumatoria = 0f;
+        String sql2 = "select idPar from partida where folio_fk = "+folio+"";//obtiene el folio de cada partida
         try
         {
-            Statement st6 = con.createStatement();
-            ResultSet rs6 = st6.executeQuery(sql);
-            while(rs6.next())
+            Statement st7 = con.createStatement();
+            ResultSet rs7 = st7.executeQuery(sql2);
+            while(rs7.next())
             {
-                String pagado = rs6.getString("pagado");
-                if(pagado.equals("Si"))//verifica que este pagado
+                int idPart2 =   Integer.parseInt(rs7.getString("idPar"));
+                
+                if(sumatoria <= 0)
                 {
-                    String sql2 = "select idPar from partida where folio_fk = "+folio+"";//obtiene el folio de cada partida
+                    String sql3 = "select produccion from bolseo where idPar_fk = "+idPart2+"";//obtiene lo comprado de bolseo
                     try
                     {
-                        Statement st7 = con.createStatement();
-                        ResultSet rs7 = st7.executeQuery(sql2);
-                        while(rs7.next())
+                        Statement st3 = con.createStatement();
+                        ResultSet rs3 = st3.executeQuery(sql3);
+                        while(rs3.next())
                         {
-                            int idPart2 =   Integer.parseInt(rs7.getString("idPar"));
-                            
-                            if(sumatoria <= 0)
+                            float comprado = Float.parseFloat(rs3.getString("produccion"));
+                            if(comprado > 0)//verifica que lo comprado no sea null
                             {
-                                String sql3 = "select produccion from bolseo where idPar_fk = "+idPart2+"";//obtiene lo comprado de bolseo
-                                try
-                                {
-                                    Statement st3 = con.createStatement();
-                                    ResultSet rs3 = st3.executeQuery(sql3);
-                                    while(rs3.next())
-                                    {
-                                        float comprado = Float.parseFloat(rs3.getString("produccion"));
-                                        if(comprado > 0)//verifica que lo comprado no sea null
-                                        {
-                                            sumatoria = sumatoria + comprado;//hace la sumatoria de lo comprado de bolseo 
-                                        }
-                                
-                                        String sql4 = "select idBol from bolseo where idPar_fk = "+idPart2+"";//selecciona el id de bolseo del proceso
-                                        try
-                                        {
-                                            Statement st4 = con.createStatement();
-                                            ResultSet rs4 = st4.executeQuery(sql4);
-                                            while(rs4.next())
-                                            {
-                                                int idBo2 = Integer.parseInt(rs4.getString("idBol"));
-                                                
-                                                String sql5 = "select kgUniB from operadorBol where idBol_fk = "+idBo2+"";//selecciona lo producido de bolseo
-                                                try
-                                                {
-                                                    Statement st5 = con.createStatement();
-                                                    ResultSet rs5 = st5.executeQuery(sql5);
-                                                    while(rs5.next())
-                                                    {
-                                                        float producido = Float.parseFloat(rs5.getString("kgUniB"));
-                                                        if(producido > 0)//verifica que lo producido no sea null
-                                                        {
-                                                            sumatoria = sumatoria + producido;//hace la sumatoria de lo producido
-                                                        }
-                                                    }
-                                                    rs5.close();
-                                                    st5.close();
-                                                }
-                                                catch(SQLException ex)
-                                                {
-                                                    ex.printStackTrace();
-                                                }
-                                            }
-                                            rs4.close();
-                                            st4.close();
-                                        }
-                                        catch(SQLException ex)
-                                        {
-                                            ex.printStackTrace();
-                                        }
-                                
-                                    }
-                                    rs3.close();
-                                    st3.close();
-                                }
-                                catch(SQLException ex)
-                                {
-                                    ex.printStackTrace();
-                                }
+                                sumatoria = sumatoria + comprado;//hace la sumatoria de lo comprado de bolseo 
                             }
-                            if(sumatoria <= 0)
-                            {
-                                String sql3 = "select produccion from impreso where idPar_fk = "+idPart2+"";//obtiene lo comprado de impreso
-                                try
-                                {
-                                    Statement st3 = con.createStatement();
-                                    ResultSet rs3 = st3.executeQuery(sql3);
-                                    while(rs3.next())
-                                    {
-                                        float comprado = Float.parseFloat(rs3.getString("produccion"));
-                                        if(comprado > 0)//verifica que lo comprado no sea null
-                                        {
-                                            sumatoria = sumatoria + comprado;//hace la sumatoria de lo comprado de impreso 
-                                        }
                                 
-                                        String sql4 = "select idImp from impreso where idPar_fk = "+idPart2+"";//selecciona el id de impreso del proceso
-                                        try
-                                        {
-                                            Statement st4 = con.createStatement();
-                                            ResultSet rs4 = st4.executeQuery(sql4);
-                                            while(rs4.next())
-                                            {
-                                                int idIm2 = Integer.parseInt(rs4.getString("idImp"));
-                                                
-                                                String sql5 = "select kgUniI from operadorImp where idImp_fk = "+idIm2+"";//selecciona lo producido de impreso
-                                                try
-                                                {
-                                                    Statement st5 = con.createStatement();
-                                                    ResultSet rs5 = st5.executeQuery(sql5);
-                                                    while(rs5.next())
-                                                    {
-                                                        float producido = Float.parseFloat(rs5.getString("kgUniI"));
-                                                        if(producido > 0)//verifica que lo producido no sea null
-                                                        {
-                                                            sumatoria = sumatoria + producido;//hace la sumatoria de lo producido
-                                                        }
-                                                    }
-                                                    rs5.close();
-                                                    st5.close();
-                                                }
-                                                catch(SQLException ex)
-                                                {
-                                                    ex.printStackTrace();
-                                                }
-                                            }
-                                            rs4.close();
-                                            st4.close();
-                                        }
-                                        catch(SQLException ex)
-                                        {
-                                            ex.printStackTrace();
-                                        }
-                                    }
-                                    rs3.close();
-                                    st3.close();
-                                }
-                                catch(SQLException ex)
+                            String sql4 = "select idBol from bolseo where idPar_fk = "+idPart2+"";//selecciona el id de bolseo del proceso
+                            try
+                            {
+                                Statement st4 = con.createStatement();
+                                ResultSet rs4 = st4.executeQuery(sql4);
+                                while(rs4.next())
                                 {
-                                    ex.printStackTrace();
+                                    int idBo2 = Integer.parseInt(rs4.getString("idBol"));
+                                                
+                                    String sql5 = "select kgUniB from operadorBol where idBol_fk = "+idBo2+"";//selecciona lo producido de bolseo
+                                    try
+                                    {
+                                        Statement st5 = con.createStatement();
+                                        ResultSet rs5 = st5.executeQuery(sql5);
+                                        while(rs5.next())
+                                        {
+                                            float producido = Float.parseFloat(rs5.getString("kgUniB"));
+                                            if(producido > 0)//verifica que lo producido no sea null
+                                            {
+                                                sumatoria = sumatoria + producido;//hace la sumatoria de lo producido
+                                            }
+                                        }
+                                        rs5.close();
+                                        st5.close();
+                                    }
+                                    catch(SQLException ex)
+                                    {
+                                        ex.printStackTrace();
+                                    }
                                 }
+                                rs4.close();
+                                st4.close();
                             }
-                            if(sumatoria <= 0)
+                            catch(SQLException ex)
                             {
-                                String sql3 = "select pocM1,pocM2 from extrusion where idPar_fk = "+idPart2+"";//obtiene lo comprado de extrusion
-                                try
-                                {
-                                    Statement st3 = con.createStatement();
-                                    ResultSet rs3 = st3.executeQuery(sql3);
-                                    while(rs3.next())
-                                    {
-                                        float comprado1 = Float.parseFloat(rs3.getString("pocM1"));
-                                        float comprado2 = Float.parseFloat(rs3.getString("pocM2"));
-                                        if(comprado1 > 0 || comprado2 > 0)//verifica que lo comprado no sea null
-                                        {
-                                            sumatoria = sumatoria + (comprado1 + comprado2);//hace la sumatoria de lo comprado de extrusion 
-                                        }
-                                
-                                        String sql4 = "select idExt from extrusion where idPar_fk = "+idPart2+"";//selecciona el id de extrusion del proceso
-                                        try
-                                        {
-                                            Statement st4 = con.createStatement();
-                                            ResultSet rs4 = st4.executeQuery(sql4);
-                                            while(rs4.next())
-                                            {
-                                                int idEx2 = Integer.parseInt(rs4.getString("idExt"));
-                                                
-                                                String sql5 = "select kgUniE from operadorExt where idExt_fk = "+idEx2+"";//selecciona lo producido de extrusion
-                                                try
-                                                {
-                                                    Statement st5 = con.createStatement();
-                                                    ResultSet rs5 = st5.executeQuery(sql5);
-                                                    while(rs5.next())
-                                                    {
-                                                        float producido = Float.parseFloat(rs5.getString("kgUniE"));
-                                                        if(producido > 0)//verifica que lo producido no sea null
-                                                        {
-                                                            sumatoria = sumatoria + producido;//hace la sumatoria de lo producido
-                                                        }
-                                                    }
-                                                    rs5.close();
-                                                    st5.close();
-                                                }
-                                                catch(SQLException ex)
-                                                {
-                                                    ex.printStackTrace();
-                                                }
-                                            }
-                                            rs4.close();
-                                            st4.close();
-                                        }
-                                        catch(SQLException ex)
-                                        {
-                                            ex.printStackTrace();
-                                        }
-                                    }
-                                    rs3.close();
-                                    st3.close();
-                                }
-                                catch(SQLException ex)
-                                {
-                                    ex.printStackTrace();
-                                }
+                                ex.printStackTrace();
                             }
                         }
-                        rs7.close();
-                        st7.close();
+                        rs3.close();
+                        st3.close();
                     }
                     catch(SQLException ex)
                     {
                         ex.printStackTrace();
                     }
                 }
-                else
-                    sumatoria = 0;
+                if(sumatoria <= 0)
+                {
+                    String sql3 = "select produccion from impreso where idPar_fk = "+idPart2+"";//obtiene lo comprado de impreso
+                    try
+                    {
+                        Statement st3 = con.createStatement();
+                        ResultSet rs3 = st3.executeQuery(sql3);
+                        while(rs3.next())
+                        {
+                            float comprado = Float.parseFloat(rs3.getString("produccion"));
+                            if(comprado > 0)//verifica que lo comprado no sea null
+                            {
+                                sumatoria = sumatoria + comprado;//hace la sumatoria de lo comprado de impreso 
+                            }
+                                
+                            String sql4 = "select idImp from impreso where idPar_fk = "+idPart2+"";//selecciona el id de impreso del proceso
+                            try
+                            {
+                                Statement st4 = con.createStatement();
+                                ResultSet rs4 = st4.executeQuery(sql4);
+                                while(rs4.next())
+                                {
+                                    int idIm2 = Integer.parseInt(rs4.getString("idImp"));
+                                                
+                                    String sql5 = "select kgUniI from operadorImp where idImp_fk = "+idIm2+"";//selecciona lo producido de impreso
+                                    try
+                                    {
+                                        Statement st5 = con.createStatement();
+                                        ResultSet rs5 = st5.executeQuery(sql5);
+                                        while(rs5.next())
+                                        {
+                                            float producido = Float.parseFloat(rs5.getString("kgUniI"));
+                                            if(producido > 0)//verifica que lo producido no sea null
+                                            {
+                                                sumatoria = sumatoria + producido;//hace la sumatoria de lo producido
+                                            }
+                                        }
+                                        rs5.close();
+                                        st5.close();
+                                        }
+                                    catch(SQLException ex)
+                                    {
+                                        ex.printStackTrace();
+                                    }
+                                }
+                                rs4.close();
+                                st4.close();
+                            }
+                            catch(SQLException ex)
+                            {
+                                ex.printStackTrace();
+                            }
+                        }
+                        rs3.close();
+                        st3.close();
+                    }
+                    catch(SQLException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+                }
+                if(sumatoria <= 0)
+                {
+                    String sql3 = "select pocM1,pocM2 from extrusion where idPar_fk = "+idPart2+"";//obtiene lo comprado de extrusion
+                    try
+                    {
+                        Statement st3 = con.createStatement();
+                        ResultSet rs3 = st3.executeQuery(sql3);
+                        while(rs3.next())
+                        {
+                            float comprado1 = Float.parseFloat(rs3.getString("pocM1"));
+                            float comprado2 = Float.parseFloat(rs3.getString("pocM2"));
+                            if(comprado1 > 0 || comprado2 > 0)//verifica que lo comprado no sea null
+                            {
+                                sumatoria = sumatoria + (comprado1 + comprado2);//hace la sumatoria de lo comprado de extrusion 
+                            }
+                                
+                            String sql4 = "select idExt from extrusion where idPar_fk = "+idPart2+"";//selecciona el id de extrusion del proceso
+                            try
+                            {
+                                Statement st4 = con.createStatement();
+                                ResultSet rs4 = st4.executeQuery(sql4);
+                                while(rs4.next())
+                                {
+                                    int idEx2 = Integer.parseInt(rs4.getString("idExt"));
+                                                
+                                    String sql5 = "select kgUniE from operadorExt where idExt_fk = "+idEx2+"";//selecciona lo producido de extrusion
+                                    try
+                                    {
+                                        Statement st5 = con.createStatement();
+                                        ResultSet rs5 = st5.executeQuery(sql5);
+                                        while(rs5.next())
+                                        {
+                                            float producido = Float.parseFloat(rs5.getString("kgUniE"));
+                                            if(producido > 0)//verifica que lo producido no sea null
+                                            {
+                                                sumatoria = sumatoria + producido;//hace la sumatoria de lo producido
+                                            }
+                                        }
+                                        rs5.close();
+                                        st5.close();
+                                    }
+                                    catch(SQLException ex)
+                                    {
+                                        ex.printStackTrace();
+                                    }
+                                }
+                                rs4.close();
+                                st4.close();
+                            }
+                            catch(SQLException ex)
+                            {
+                                ex.printStackTrace();
+                            }
+                        }
+                        rs3.close();
+                        st3.close();
+                    }
+                    catch(SQLException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+                }
             }
-            rs6.close();
-            st6.close();
+            rs7.close();
+            st7.close();
         }
-        catch(SQLException ex){
+        catch(SQLException ex)
+        {
             ex.printStackTrace();
         }
+                
         return sumatoria;
     }
     
@@ -690,8 +669,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
     private float calculaKgFRango()
     {
         //se seleccionan los que esten dentro del rango
-        String sql = "select folio from pedido where fIngreso >= '"+fMayorQue.getText()+"' AND fIngreso <= '"+fMenorQue.getText()+"' "
-                + "AND pagado = 'Si'";
+        String sql = "select folio from pedido where fTermino >= '"+fMayorQue.getText()+"' AND fTermino <= '"+fMenorQue.getText()+"' ";
         float sumatoria = 0f;
         Statement st3;
         ResultSet rs3;
@@ -746,74 +724,44 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
         Statement st4;
         ResultSet rs4;
         float subtotal = 0f, costoTotal = 0f, descuento = 0f;
-        String sql = "select pagado from pedido where folio = "+folio+"";//se verifica que haya sido pagado
+        float PyG = 0f;
+        String sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+folio+"";//seleccionar esos datos
         try
         {
-            Statement st3 = con.createStatement();
-            ResultSet rs3 = st3.executeQuery(sql);
-            while(rs3.next())
+            st4 = con.createStatement();
+            rs4 = st4.executeQuery(sql2);
+            while(rs4.next())
             {
-                if(rs3.getString("pagado").equals("Si"))
-                {
-                    String sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+folio+" and pagado = 'Si'";//seleccionar esos datos si el pedido esta pagado
-                    try
-                    {
-                        st4 = con.createStatement();
-                        rs4 = st4.executeQuery(sql2);
-                        while(rs4.next())
-                        {
-                            subtotal = Float.parseFloat(rs4.getString("subtotal"));
-                            costoTotal = Float.parseFloat(rs4.getString("costoTotal"));
-                            descuento = Float.parseFloat(rs4.getString("descuento"));
-                        }
-                        rs4.close();
-                    }
-                    catch(SQLException ex)
-                    {
-                        ex.printStackTrace();
-                    }
-                    //se hacen calculos para poder determinar las perdidas y ganancias
-                    float kgFnPe = calculaKgFinalesPedido(folio);
-                    float gf = calculaGfKg(folio);
-                    float PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
-                    //se ingresan las perdidas y ganancias
-                    sql2 = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+folio+"";
-                    try
-                    {
-                        st4 = con.createStatement();
-                        st4.execute(sql2);
-                        st4.close();
-                    }
-                    catch(SQLException ex)
-                    {
-                        ex.printStackTrace();
-                    }
-                }
-                else//si no esta pagado las PYG se establecen en 0
-                {
-                    String sql2 = "update pedido set perdidasYGanancias = 0 where folio = "+folio+"";
-                    try
-                    {
-                        st4 = con.createStatement();
-                        st4.execute(sql2);
-                        st4.close();
-                    }
-                    catch(SQLException ex)
-                    {
-                        ex.printStackTrace();
-                    }
-                }
+                subtotal = Float.parseFloat(rs4.getString("subtotal"));
+                costoTotal = Float.parseFloat(rs4.getString("costoTotal"));
+                descuento = Float.parseFloat(rs4.getString("descuento"));
             }
-            rs3.close();
-            st3.close();
+            rs4.close();
         }
         catch(SQLException ex)
         {
             ex.printStackTrace();
         }
+                    
+        //se hacen calculos para poder determinar las perdidas y ganancias
+        float kgFnPe = calculaKgFinalesPedido(folio);
+        float gf = calculaGfKg(folio);
+        PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
         
+        //se ingresan las perdidas y ganancias
+        sql2 = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+folio+"";
+        try
+        {
+            st4 = con.createStatement();
+            st4.execute(sql2);
+            st4.close();
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
     }
-    
+              
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cerrar;
     private datechooser.beans.DateChooserCombo fMayorQue;

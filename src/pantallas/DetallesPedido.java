@@ -786,7 +786,6 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
         cli.setText(dp.getCli());
         au.setText(dp.getAuto());
         dev.setText(dp.getDev());
-        pag.setText(dp.getPag());
         fin.setText(dp.getFin());
         fcom.setText(dp.getFcom());
         fpa.setText(dp.getFpag());

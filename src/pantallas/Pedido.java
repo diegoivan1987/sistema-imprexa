@@ -2719,17 +2719,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private float calculaKgFinalesPedido(int folio)
     {
         //entra al pedido
-        String sql = "select pagado from pedido where folio = "+folio+"";
         float sumatoria = 0f;
-        try
-        {
-            st = con.createStatement();
-            rs = st.executeQuery(sql);
-            while(rs.next())
-            {
-                String pagado = rs.getString("pagado");
-                if(pagado.equals("Si"))//verifica que este pagado
-                {
                     String sql2 = "select idPar from partida where folio_fk = "+folio+"";//obtiene el folio de cada partida
                     try
                     {
@@ -2932,16 +2922,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     {
                         ex.printStackTrace();
                     }
-                }
-                else
-                    sumatoria = 0;
-            }
-            rs.close();
-            st.close();
-        }
-        catch(SQLException ex){
-            ex.printStackTrace();
-        }
+                
         return sumatoria;
     }
     
@@ -2979,15 +2960,8 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         Statement st2;
         ResultSet rs2;
         float subtotal = 0f, costoTotal = 0f, descuento = 0f;
-        String sql = "select pagado from pedido where folio = "+folio+"";
-        try
-        {
-            Statement st3 = con.createStatement();
-            ResultSet rs3 = st3.executeQuery(sql);
-            while(rs3.next())
-            {
-                if(rs3.getString("pagado").equals("Si"))
-                {
+        Float PyG = 0f;
+        
                     String sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+folio+"";
                     try
                     {
@@ -3007,7 +2981,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     }
                     float kgFnPe = calculaKgFinalesPedido(folio);
                     float gf = calculaGfKg(folio);
-                    float PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
+                    PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
         
                     sql2 = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+folio+"";
                     try
@@ -3019,31 +2993,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     catch(SQLException ex)
                     {
                         ex.printStackTrace();
-                    }
-                }
-                else
-                {
-                    String sql2 = "update pedido set perdidasYGanancias = 0 where folio = "+folio+"";
-                    try
-                    {
-                        st2 = con.createStatement();
-                        st2.execute(sql2);
-                        st2.close();
-                    }
-                    catch(SQLException ex)
-                    {
-                        ex.printStackTrace();
-                    }
-                }
-            }
-            rs3.close();
-            st3.close();
-        }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
-        }
-        
+                    }   
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

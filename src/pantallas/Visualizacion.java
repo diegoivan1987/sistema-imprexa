@@ -885,7 +885,6 @@ public class Visualizacion extends javax.swing.JFrame {
                 dp.setImp(rs.getString("impresion"));
                 dp.setAuto(rs.getString("autorizo"));
                 dp.setDev(rs.getString("devolucion"));
-                dp.setPag(rs.getString("pagado"));
                 dp.setFin(rs.getString("fIngreso"));
                 dp.setFcom(rs.getString("fCompromiso"));
                 dp.setFpag(rs.getString("fPago"));

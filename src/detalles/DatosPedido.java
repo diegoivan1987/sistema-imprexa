@@ -8,7 +8,6 @@ public class DatosPedido {
     String cli;
     String auto;
     String dev;
-    String pag;
     String fin;
     String fcom;
     String fpag;
@@ -63,14 +62,6 @@ public class DatosPedido {
 
     public void setDev(String dev) {
         this.dev = dev;
-    }
-
-    public String getPag() {
-        return pag;
-    }
-
-    public void setPag(String pag) {
-        this.pag = pag;
     }
 
     public String getFin() {
