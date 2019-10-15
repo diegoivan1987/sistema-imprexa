@@ -31,6 +31,7 @@ create table pedido(folio int not null auto_increment, impresion varchar(40), de
  alter table pedido add column matComPe float; 
  alter table pedido add column matProPe float;
  alter table pedido add column pagado varchar(3);
+ alter table pedido drop column pagado;
  alter table pedido add column kgFinalesRango float;
  alter table pedido add column fTermino date;
 
