@@ -12,6 +12,7 @@ public class DatosPedido {
     String fin;
     String fcom;
     String fpag;
+    String fterm;
     String grab;
     String anti;
     String desc;
@@ -95,7 +96,15 @@ public class DatosPedido {
     public void setFpag(String fpag) {
         this.fpag = fpag;
     }
+    
+    public String getFterm() {
+        return fterm;
+    }
 
+    public void setFterm(String fterm) {
+        this.fterm = fterm;
+    }
+    
     public String getGrab() {
         return grab;
     }

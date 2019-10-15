@@ -416,6 +416,10 @@
                                                   <EmptySpace min="-2" pref="182" max="-2" attributes="0"/>
                                                   <Component id="sug" min="-2" pref="195" max="-2" attributes="0"/>
                                               </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
+                                                  <Component id="fT" min="-2" pref="83" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
@@ -490,8 +494,8 @@
                               <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="10" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel95" min="-2" max="-2" attributes="0"/>
@@ -513,11 +517,13 @@
                                   <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                                   <Component id="boxPago" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                                   <Component id="jLabel157" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="fC2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="fT" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -759,6 +765,8 @@
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="Pagado"/>
                   </Properties>
+                </Component>
+                <Component class="datechooser.beans.DateChooserCombo" name="fT">
                 </Component>
               </SubComponents>
             </Container>

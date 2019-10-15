@@ -889,6 +889,7 @@ public class Visualizacion extends javax.swing.JFrame {
                 dp.setFin(rs.getString("fIngreso"));
                 dp.setFcom(rs.getString("fCompromiso"));
                 dp.setFpag(rs.getString("fPago"));
+                dp.setFterm(rs.getString("fTermino"));
                 dp.setGrab(rs.getString("grabados"));
                 dp.setAnti(rs.getString("anticipo"));
                 dp.setDesc(rs.getString("descuento"));

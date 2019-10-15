@@ -44,7 +44,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     
     String impSt=null, desSt=null, kgSt=null, medSt=null, estSt=null, devSt=null, disSt=null, pigSt=null, tipoSt=null, selloSt=null, 
             hojaSt=null, deSt=null, mat1St=null, cal1St=null, mat2St=null, cal2St=null, tinta1St=null, tinta2St=null, fInSt=null, fComSt=null, 
-            fPagoSt=null, grabSt=null, pUnitSt=null, subSt=null, totSt=null, antiSt=null, restoSt=null, descuSt=null, costeGrabSt=null, 
+            fPagoSt=null, fTerminoSt = null, grabSt=null, pUnitSt=null, subSt=null, totSt=null, antiSt=null, restoSt=null, descuSt=null, costeGrabSt=null, 
             costeDisSt=null, piezasSt=null, importeSt=null, kgParidaSt=null, pzFinalesSt = null;
     
     float grabados = 0, precioUnitario=0, kilos=0, totalF=0, restoF=0, subF=0, iva=0 ,antiF=0, descuF=0;
@@ -115,10 +115,11 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         
         disenoTablas();//se le asigna un diseño a las tablas
         
-        //Se establece un formato de fecha
+        //Se establece un formato de fecha a los campos de la ventana
         fIn2.setDateFormat(df);
         fC2.setDateFormat(df);
         fP2.setDateFormat(df);
+        fT.setDateFormat(df);
         importe.setEditable(false);//no se podran ingresar datos en el campo importe
         
         this.con = con;
@@ -196,6 +197,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         saveP = new javax.swing.JButton();
         boxPago = new javax.swing.JComboBox();
         jLabel12 = new javax.swing.JLabel();
+        fT = new datechooser.beans.DateChooserCombo();
         jPanel2 = new javax.swing.JPanel();
         panPart = new javax.swing.JPanel();
         busPedido = new javax.swing.JToggleButton();
@@ -593,7 +595,10 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                                             .addComponent(jLabel157, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addGap(182, 182, 182)
-                                        .addComponent(sug, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(sug, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addGap(160, 160, 160)
+                                        .addComponent(fT, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -646,7 +651,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                             .addComponent(jLabel97)))
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
@@ -668,7 +673,9 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                         .addGap(5, 5, 5)
                         .addComponent(jLabel157)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fC2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(fC2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(fT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
@@ -1486,6 +1493,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         fInSt = fIn2.getText();//
         fComSt = fC2.getText();//
         fPagoSt = fP2.getText();//
+        fTerminoSt = fT.getText();
 
         grabSt = grab.getText();
         grabados = Float.parseFloat(grabSt);//
@@ -1496,10 +1504,10 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         descuSt = decu.getText();
         descuF = Float.parseFloat(descuSt);
         //se guardan los datos en la base
-        String sql = " insert into pedido(impresion, fIngreso, fCompromiso, fPago, grabados, subtotal, total, anticipo, resto, devolucion," +
+        String sql = " insert into pedido(impresion, fIngreso, fCompromiso, fPago, fTermino, grabados, subtotal, total, anticipo, resto, devolucion," +
         " descuento, idC_fk, kgDesperdicioPe, porcentajeDespPe, costoTotal, gastosFijos, perdidasYGanancias, autorizo, sumatoriaBolseoP, "
                 + "matComPe, matProPe, pagado) "
-        + "values('"+impSt+"', '"+fInSt+"', '"+fComSt+"', '"+fPagoSt+"', "+grabados+", 0, 0, "+antiF+", 0, '"+devSt+"'," +
+        + "values('"+impSt+"', '"+fInSt+"', '"+fComSt+"', '"+fPagoSt+"', '"+fTerminoSt+"', "+grabados+", 0, 0, "+antiF+", 0, '"+devSt+"'," +
         " "+descuF+", "+idCliente+", 0, 0, 0, 0, 0, '"+auto.getText()+"', 0, 0, 0, '"+boxPago.getSelectedItem().toString()+"')";
 
         try 
@@ -3099,6 +3107,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private datechooser.beans.DateChooserCombo fC2;
     private datechooser.beans.DateChooserCombo fIn2;
     private datechooser.beans.DateChooserCombo fP2;
+    private datechooser.beans.DateChooserCombo fT;
     private javax.swing.JTextField folioVis;
     private javax.swing.JTextField grab;
     private javax.swing.JTextArea imp;
