@@ -2194,6 +2194,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 + "fIngreso = '"+fIn2.getText()+"', "
                 + "fCompromiso = '"+fC2.getText()+"', "
                 + "fPago = '"+fP2.getText()+"', "
+                + "fTermino = '"+fT.getText()+"', "
                 + "grabados = "+grab.getText()+", "
         + "anticipo = "+anti.getText()+", descuento = "+decu.getText()+", subtotal = "+subtotal+", total = "+total+", resto = "+resto+", "
                 + "pagado = '"+boxPago.getSelectedItem().toString()+"'"
@@ -2501,7 +2502,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     //Se llenan los campos de pedido para modificacion
     public void llenarCamposMod(int folio) {
         
-        String sql = "select impresion, autorizo, devolucion, fIngreso, fCompromiso, fPago, grabados, anticipo, descuento, "
+        String sql = "select impresion, autorizo, devolucion, fIngreso, fCompromiso, fPago, fTermino, grabados, anticipo, descuento, "
                 + "gastosFijos, subtotal, pagado"
                 + " from pedido where folio = "+folio+"";
         java.util.Date date = null;
@@ -2543,6 +2544,13 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 cal.setTime(date);
                 fP2.setSelectedDate(cal);
                 
+                try {
+                    date = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("fTermino"));
+                } catch (ParseException ex) {
+                    Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                cal.setTime(date);
+                fT.setSelectedDate(cal);
                 
                 grab.setText(rs.getString("grabados"));
                 anti.setText(rs.getString("anticipo"));
