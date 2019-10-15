@@ -102,6 +102,8 @@ public class Procesos extends javax.swing.JFrame {
         
         initComponents();
         
+        costoGrab.setEditable(false);//no se podra escribir sobre el recuaddro que muestra los costos de grabados
+        
         cambioMod.setVisible(false);
         
         this.setIconImage (new ImageIcon(getClass().getResource("/Images/iconoCab.png")).getImage());
@@ -2742,7 +2744,7 @@ public class Procesos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al establecer los datos de extrusion: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         
-        sql = "select produccion, prov1, precioKg1, sticky, costoDiseno, costoGrab, idImp from impreso where idPar_fk = "+idPart+"";
+        sql = "select produccion, prov1, precioKg1, sticky, costoDiseno, idImp from impreso where idPar_fk = "+idPart+"";
         
         try {
             rs = st.executeQuery(sql);
@@ -2753,7 +2755,6 @@ public class Procesos extends javax.swing.JFrame {
                 porKgImp.setText(rs.getString("precioKg1"));
                 stc.setText(rs.getString("sticky"));
                 costoDise.setText(rs.getString("costoDiseno"));
-                costoGrab.setText(rs.getString("costoGrab"));
                 idIm = rs.getInt("idImp");
             }
             
@@ -2820,7 +2821,21 @@ public class Procesos extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al establecer los campos de las tintas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+        //se muestra los costos de grabados del pedido en impresion
+        sql = "select grabados from pedido where folio = "+folio+"";
+        try
+        {
+           st = con.createStatement();
+           rs = st.executeQuery(sql);
+           while(rs.next())
+           {
+               costoGrab.setText(rs.getString("grabados"));
+           }
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
         
         
     }
