@@ -120,6 +120,9 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         fC2.setDateFormat(df);
         fP2.setDateFormat(df);
         fT.setDateFormat(df);
+        //se inicializan en una fecha imposible, para diferencias cuando se cambian
+        setFechaImposible();
+        
         importe.setEditable(false);//no se podran ingresar datos en el campo importe
         
         this.con = con;
@@ -1550,6 +1553,27 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             JOptionPane.showMessageDialog(null, "No se ha podido establecer la tabla: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_nomCliCaretUpdate
+    
+    //selecciona una fecha de los datechooser
+    private void setFechaImposible()
+    {
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MMMM-dd");
+        DateTime date = new DateTime("0000-01-01");//esta es la fecha que se establecera
+        java.util.Date dtUtil = null;
+        Calendar cal = Calendar.getInstance(); 
+        dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
+        try 
+        {
+            dtUtil = new SimpleDateFormat("yyyy-MM-dd").parse(dtf.print(date));
+        } 
+        catch (ParseException ex) 
+        {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cal.setTime(dtUtil);
+        fP2.setSelectedDate(cal);
+        fT.setSelectedDate(cal);
+    }
     
     //Boton: Busqueda de pedido e insercion en la tabla.
     private void busPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busPedidoActionPerformed
