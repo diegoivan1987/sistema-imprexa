@@ -1,4 +1,4 @@
-//totalHrExt
+
 package pantallas;
 
 import datechooser.beans.DateChooserCombo;
@@ -3902,17 +3902,8 @@ public class Procesos extends javax.swing.JFrame {
     private float calculaKgFinalesPedido()
     {
         //entra al pedido
-        String sql = "select pagado from pedido where folio = "+folio+"";
         float sumatoria = 0f;
-        try
-        {
-            st = con.createStatement();
-            rs = st.executeQuery(sql);
-            while(rs.next())
-            {
-                String pagado = rs.getString("pagado");
-                if(pagado.equals("Si"))//verifica que este pagado
-                {
+        
                     String sql2 = "select idPar from partida where folio_fk = "+folio+"";//obtiene el folio de cada partida
                     try
                     {
@@ -4116,16 +4107,6 @@ public class Procesos extends javax.swing.JFrame {
                     {
                         ex.printStackTrace();
                     }
-                }
-                else
-                    sumatoria = 0;
-            }
-            rs.close();
-            st.close();
-        }
-        catch(SQLException ex){
-            ex.printStackTrace();
-        }
         return sumatoria;
     }
     
@@ -4165,15 +4146,8 @@ public class Procesos extends javax.swing.JFrame {
         Statement st2;
         ResultSet rs2;
         float subtotal = 0f, costoTotal = 0f, descuento = 0f;
-        String sql3 = "select pagado from pedido where folio = "+folio+"";
-        try
-        {
-            Statement st3 = con.createStatement();
-            ResultSet rs3 = st3.executeQuery(sql3);
-            while(rs3.next())
-            {
-                if(rs3.getString("pagado").equals("Si"))
-                {
+        float PyG = 0;
+        
                     String sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+folio+"";
                     try
                     {
@@ -4193,7 +4167,7 @@ public class Procesos extends javax.swing.JFrame {
                     }
                     float kgFnPe = calculaKgFinalesPedido();
                     float gf = calculaGfKg();
-                    float PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
+                    PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
         
                     sql2 = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+folio+"";
                     try
@@ -4206,87 +4180,9 @@ public class Procesos extends javax.swing.JFrame {
                     {
                         ex.printStackTrace();
                     }
-                }
-                else
-                {
-                    String sql2 = "update pedido set perdidasYGanancias = 0 where folio = "+folio+"";
-                    try
-                    {
-                        st2 = con.createStatement();
-                        st2.execute(sql2);
-                        st2.close();
-                    }
-                    catch(SQLException ex)
-                    {
-                        ex.printStackTrace();
-                    }
-                }
-            }
-            rs3.close();
-            st3.close();
-        }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
-        }
-        
     }
       
-      private void establecerCero()
-      {
-        String sql = "update partida set kgDesperdicio = 0, porcentajeDesp = 0,costoMaterialTotal = 0, "
-        + "costoPartida = 0 where idPar = "+idPart+"";
-        try
-        {
-            st = con.createStatement();
-            st.execute(sql);
-        }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
-        }
-        
-        sql = "update extrusion set costoUnitarioExt = 0, costoOpTotalExt = 0 where idExt = "+idEx+"";
-        try
-        {
-            st.execute(sql);
-        }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
-        }
-        
-        sql = "update impreso set costoUnitarioImp = 0, costoOpTotalImp = 0 where idImp = "+idIm+"";
-        try
-        {
-            st.execute(sql);
-        }
-        catch(SQLException ex){
-            ex.printStackTrace();
-        }
-        
-        sql = "update bolseo set costoUnitarioBol = 0, costoOpTotalBol = 0 where idBol = "+idBo+"";
-        try
-        {
-            st.execute(sql);
-        }
-        catch(SQLException ex){
-            ex.printStackTrace();
-        }
-        
-        sql = "update pedido set kgDesperdicioPe = 0, porcentajeDespPe = 0, costoTotal = 0, sumatoriaBolseoP = 0,"
-                + "perdidasYGanancias = 0, matComPe = 0, matProPe = 0, gastosFijos = 0 where folio = "+folio+"";
-        try
-        {
-            st.execute(sql);
-        }
-        catch(SQLException ex){
-            ex.printStackTrace();
-        }
-      }
-      
-      
-      private void eliminarPartida()
+    private void eliminarPartida()
     {
         String sql = "select idPar from partida where folio_fk = "+folio+"";
         try
