@@ -1557,14 +1557,14 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     //selecciona una fecha de los datechooser
     private void setFechaImposible()
     {
-        DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MMMM-dd");
-        DateTime date = new DateTime("0000-01-01");//esta es la fecha que se establecera
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy");
+        DateTime date = new DateTime("2018");//esta es la fecha que se establecera
         java.util.Date dtUtil = null;
         Calendar cal = Calendar.getInstance(); 
-        dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
+        dtf = DateTimeFormat.forPattern("yyyy");
         try 
         {
-            dtUtil = new SimpleDateFormat("yyyy-MM-dd").parse(dtf.print(date));
+            dtUtil = new SimpleDateFormat("yyyy").parse(dtf.print(date));
         } 
         catch (ParseException ex) 
         {
