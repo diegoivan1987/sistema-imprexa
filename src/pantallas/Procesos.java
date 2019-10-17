@@ -34,7 +34,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 public class Procesos extends javax.swing.JFrame {
-    
+    //medidas de la ventana
     private int WD = 0;
     private int HG = 0;
     
@@ -44,19 +44,7 @@ public class Procesos extends javax.swing.JFrame {
     Statement st;
     Pedido pd;
     
-    ArrayList<String> matNoms = new ArrayList<String>(){{
-        add("ALTA");
-        add("BAJA");
-        add("BOPP");
-        add("CPP");
-        add("BOPP/BOPP");
-        add("BAJA/BOPP");
-        add("BAJA/PET");
-        add("BOPP/PET");
-        add("CPP/PET");
-    }};
-    
-    String[] modoMaterial = {"Produccion", "Compra", "Ambos"}; 
+    String[] modoMaterial = {"Produccion", "Compra", "Ambos"}; //arreglo con las maneras de generar procesos
     
     //Variables de extrusion
     String pM1St=null, pM2St=null, provE1St=null, precioKgE1St=null, prov2St=null, precioKg2St=null;
@@ -97,14 +85,14 @@ public class Procesos extends javax.swing.JFrame {
     Font fuenteTablas;
     
     ArrayList<String> datosImpreso;
-    //foVis
+    
     public Procesos(Connection con) {
         
         initComponents();
         
-        costoGrab.setEditable(false);//no se podra escribir sobre el recuaddro que muestra los costos de grabados
+        costoGrab.setEditable(false);//no se podra escribir sobre el recuadro que muestra los costos de grabados
         
-        cambioMod.setVisible(false);
+        cambioMod.setVisible(false);//se hace invisible el boton para añadir mas campos al generar procesos
         
         this.setIconImage (new ImageIcon(getClass().getResource("/Images/iconoCab.png")).getImage());
         this.setResizable(false);
@@ -112,11 +100,10 @@ public class Procesos extends javax.swing.JFrame {
         //Tamaño de la pantalla
         WD = this.getSize().width;
         HG = this.getSize().height;
-        this.setSize(new Dimension(WD/2, HG));
+        this.setSize(new Dimension(WD/2, HG));//se establece el tamaño de la pantalla a la mitad
         
-        //comprobarVacio();//Establecer en 0 los datos enterios y flotantes
         onChangeTextField();//Creacion del listener para el campo de folio
-        listenersJTime();
+        listenersJTime();//agrupa los listeners de los jtime
         
         //Se desactivan los botones de guardar procesos y de agegar
         savePro.setEnabled(false);
@@ -139,7 +126,7 @@ public class Procesos extends javax.swing.JFrame {
                 return false;
             }
         };
-        modPed.setColumnIdentifiers(new Object[]{"Folio", "Impresion", "Cliente", "Fecha Ingreso"});
+        modPed.setColumnIdentifiers(new Object[]{"Folio", "Impresion", "Cliente", "Fecha Ingreso"});//titulos de la tabla pedido
         tablaPed.setModel(modPed);
         
         //Tabla que muestra partidas
@@ -149,7 +136,7 @@ public class Procesos extends javax.swing.JFrame {
                 return false;
             }
         };
-        modPart.setColumnIdentifiers(new Object[]{"Id", "Pz", "Medida", "Material 1","Material 2","Pigmento","Tipo","Precio Unitario"});
+        modPart.setColumnIdentifiers(new Object[]{"Id", "Pz", "Medida", "Material 1","Material 2","Pigmento","Tipo","Precio Unitario"});//titulos tabla partidas
         tablaPart.setModel(modPart);
         
         //Se estalece un formato a campos de fechas
@@ -2513,7 +2500,7 @@ public class Procesos extends javax.swing.JFrame {
     }
     
     
-    //Escuchador on change para el campo de folio
+    //si cambia el folio, se muestran las partidas de ese pedido en la tabla
     public void onChangeTextField(){
         foVis.getDocument().addDocumentListener(new DocumentListener() {
 
@@ -5392,7 +5379,6 @@ public class Procesos extends javax.swing.JFrame {
         fIniBolChange();
         fFinBolChange();
         extraBChange();
-
     }
     
     //timechosers de extrusion
