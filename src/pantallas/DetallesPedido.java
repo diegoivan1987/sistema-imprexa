@@ -58,13 +58,11 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
         folio = new javax.swing.JTextField();
         imp = new javax.swing.JTextField();
         cli = new javax.swing.JTextField();
         au = new javax.swing.JTextField();
         dev = new javax.swing.JTextField();
-        pag = new javax.swing.JTextField();
         fin = new javax.swing.JTextField();
         fcom = new javax.swing.JTextField();
         fpa = new javax.swing.JTextField();
@@ -157,10 +155,6 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
         jLabel7.setForeground(new java.awt.Color(0, 102, 102));
         jLabel7.setText("*Devolucion:");
 
-        jLabel19.setFont(new java.awt.Font("Gulim", 1, 11)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel19.setText("Pagado:");
-
         folio.setBackground(new java.awt.Color(0, 153, 153));
         folio.setFont(new java.awt.Font("Gulim", 1, 12)); // NOI18N
         folio.setForeground(new java.awt.Color(255, 255, 255));
@@ -200,11 +194,6 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                 devKeyTyped(evt);
             }
         });
-
-        pag.setBackground(new java.awt.Color(0, 153, 153));
-        pag.setFont(new java.awt.Font("Gulim", 1, 12)); // NOI18N
-        pag.setForeground(new java.awt.Color(255, 255, 255));
-        pag.setBorder(null);
 
         fin.setBackground(new java.awt.Color(0, 153, 153));
         fin.setFont(new java.awt.Font("Gulim", 1, 12)); // NOI18N
@@ -246,10 +235,6 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pag))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dev))
@@ -269,7 +254,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cli)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -332,11 +317,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                             .addComponent(fT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel21)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19)
-                    .addComponent(pag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 204));
@@ -813,7 +794,6 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
         fcom.setEditable(false);
         fpa.setEditable(false);
         fT.setEditable(false);
-        pag.setEditable(false);
         sub.setEditable(false);
         tot.setEditable(false);
         resto.setEditable(false);
@@ -831,15 +811,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
         Statement st2;
         ResultSet rs2;
         float subtotal = 0f, costoTotal = 0f, descuento = 0f;
-        String sql = "select pagado from pedido where folio = "+folio+"";
-        try
-        {
-            Statement st3 = con.createStatement();
-            ResultSet rs3 = st3.executeQuery(sql);
-            while(rs3.next())
-            {
-                if(rs3.getString("pagado").equals("Si"))
-                {
+        float PyG = 0;
                     String sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+folio+"";
                     try
                     {
@@ -859,7 +831,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                     }
                     float kgFnPe = calculaKgFinalesPedido(folio);
                     float gf = calculaGfKg(folio);
-                    float PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
+                    PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
         
                     sql2 = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+folio+"";
                     try
@@ -871,48 +843,14 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                     catch(SQLException ex)
                     {
                         ex.printStackTrace();
-                    }
-                }
-                else
-                {
-                    String sql2 = "update pedido set perdidasYGanancias = 0 where folio = "+folio+"";
-                    try
-                    {
-                        st2 = con.createStatement();
-                        st2.execute(sql2);
-                        st2.close();
-                    }
-                    catch(SQLException ex)
-                    {
-                        ex.printStackTrace();
-                    }
-                }
-            }
-            rs3.close();
-            st3.close();
-        }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
-        }
-        
+                    }   
     }
     
     //calcula los kg finales del pedido
     private float calculaKgFinalesPedido(int folio)
     {
         //entra al pedido
-        String sql = "select pagado from pedido where folio = "+folio+"";
         float sumatoria = 0f;
-        try
-        {
-            st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while(rs.next())
-            {
-                String pagado = rs.getString("pagado");
-                if(pagado.equals("Si"))//verifica que este pagado
-                {
                     String sql2 = "select idPar from partida where folio_fk = "+folio+"";//obtiene el folio de cada partida
                     try
                     {
@@ -1115,16 +1053,6 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                     {
                         ex.printStackTrace();
                     }
-                }
-                else
-                    sumatoria = 0;
-            }
-            rs.close();
-            st.close();
-        }
-        catch(SQLException ex){
-            ex.printStackTrace();
-        }
         return sumatoria;
     }
     
@@ -1215,7 +1143,6 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -1236,7 +1163,6 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
     private javax.swing.JPanel jPanel7;
     private lu.tudor.santec.jtimechooser.demo.JTimeChooserDemo jTimeChooserDemo1;
     private javax.swing.JTextField kgdes;
-    private javax.swing.JTextField pag;
     private javax.swing.JTextField pordes;
     private javax.swing.JTextField pyg;
     private javax.swing.JTextField resto;
