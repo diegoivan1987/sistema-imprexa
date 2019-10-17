@@ -1004,15 +1004,8 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         Statement st2;
         ResultSet rs2;
         float subtotal = 0f, costoTotal = 0f, descuento = 0f;
-        String sql = "select pagado from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";//si esta pagado el pedido continua
-        try
-        {
-            Statement st3 = con.createStatement();
-            ResultSet rs3 = st3.executeQuery(sql);
-            while(rs3.next())
-            {
-                if(rs3.getString("pagado").equals("Si"))
-                {
+        float PyG = 0;
+        
                     String sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
                     try
                     {
@@ -1032,7 +1025,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                     }
                     float kgFnPe = calculaKgFinalesPedido();
                     float gf = calculaGfKg();
-                    float PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
+                    PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
         
                     sql2 = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
                     try
@@ -1045,29 +1038,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                     {
                         ex.printStackTrace();
                     }
-                }
-                else
-                {
-                    String sql2 = "update pedido set perdidasYGanancias = 0 where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
-                    try
-                    {
-                        st2 = con.createStatement();
-                        st2.execute(sql2);
-                        st2.close();
-                    }
-                    catch(SQLException ex)
-                    {
-                        ex.printStackTrace();
-                    }
-                }
-            }
-            rs3.close();
-            st3.close();
-        }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
-        }
+                
         
     }
     
@@ -1102,17 +1073,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
     private float calculaKgFinalesPedido()
     {
         //entra al pedido
-        String sql = "select pagado from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
         float sumatoria = 0f;
-        try
-        {
-            st = con.createStatement();
-            this.rs = st.executeQuery(sql);
-            while(this.rs.next())
-            {
-                String pagado = this.rs.getString("pagado");
-                if(pagado.equals("Si"))//verifica que este pagado
-                {
                     String sql2 = "select idPar from partida where folio_fk = "+dp.get(indicePartida).getFolio().replace("A", "")+"";//obtiene el folio de cada partida
                     try
                     {
@@ -1315,16 +1276,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                     {
                         ex.printStackTrace();
                     }
-                }
-                else
-                    sumatoria = 0;
-            }
-            this.rs.close();
-            st.close();
-        }
-        catch(SQLException ex){
-            ex.printStackTrace();
-        }
+                
         return sumatoria;
     }
     
