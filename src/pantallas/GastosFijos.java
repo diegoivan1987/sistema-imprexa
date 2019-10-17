@@ -57,7 +57,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
             }
         };
         
-        modeloAf.setColumnIdentifiers(new Object[]{"Folio", "Impresion", "Fecha Pago", "GastosFijos"});//se establecen los titulos de las columnas
+        modeloAf.setColumnIdentifiers(new Object[]{"Folio", "Impresion", "Fecha Termino", "GastosFijos"});//se establecen los titulos de las columnas
         tablaAf.setModel(modeloAf);//se le asigna un modelo a la tabla
         
         
