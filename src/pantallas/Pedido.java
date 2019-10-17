@@ -2208,7 +2208,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         try {
             st = con.createStatement();
             st.execute(sql);
-            calculaPyG(folioMod);
+            calculaPyG(folioMod);//se vuelven a calcular las pyg de la partida modificada
             st.close();
             
             JOptionPane.showMessageDialog(null, "Se han guardado los cambios", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
@@ -2255,7 +2255,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         gf.setVisible(true);
         
         
-        this.setEnabled(false);
+        this.setEnabled(false);//se deshabilita est ventana
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tablaCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaCKeyPressed
@@ -2393,18 +2393,8 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private void pzFinalesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pzFinalesKeyTyped
         soloEnteros(evt);
         limitarInsercion(10, evt, pzFinales);
-        //cambiaImporteSoloPzFinales();
     }//GEN-LAST:event_pzFinalesKeyTyped
 
-    /*funcion auxiliar para resolver el porque el importe no cambia al cambiar las pz finales
-    private void cambiaImporteSoloPzFinales()
-    {
-        pzfGlobal = Integer.parseInt(pzFinales.getText());;
-        float puni = Float.parseFloat(precioUni.getText());;
-        float importef = pzfGlobal * puni;
-        importe.setText(String.valueOf(importef));
-    }*/
-    
     private void checkPzFinalesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkPzFinalesItemStateChanged
         
         if(checkPzFinales.isSelected()){
@@ -2427,6 +2417,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         comprobarCondPed();//comprobamos si se debe de habilita el boton de guardado
     }//GEN-LAST:event_checkPzFinalesItemStateChanged
 
+    //establece todos los campos de texto en vacio
     private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
         folioVis.setText("Folio");
         pig.setText("");
@@ -2458,6 +2449,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         sello.setSelectedIndex(0);
     }//GEN-LAST:event_limpiarActionPerformed
     
+    //cuando cambia la fecha inicial, tambien la sugerencia de fecha de compromiso
     private void onChangeFini(){
         
         
@@ -2465,21 +2457,21 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
 
             @Override
             public void onCommit(CommitEvent ce) {
-                sugerenciaFecha();
+                sugerenciaFecha();//establece la fecha de compromiso
             }
         });
     }
     
-    
+    //establece la fecha de compromiso
     public void sugerenciaFecha(){
         
-                DateTime date = new DateTime(fIn2.getText()); 
+                DateTime date = new DateTime(fIn2.getText()); //se obtiene la fecha inicial
                 DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MMMM-dd");
                 
                 java.util.Date dtUtil = null;
                 Calendar cal = Calendar.getInstance(); 
                 
-                date = date.plusWeeks(3);
+                date = date.plusWeeks(3);//se le suman las tres semanas
                 sug.setText("Sugerencia: "+dtf.print(date));
                 
                 
@@ -2490,7 +2482,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 cal.setTime(dtUtil);
-                fC2.setSelectedDate(cal);
+                fC2.setSelectedDate(cal);//se establece la fecha de compromiso
     }
     
     
@@ -2498,8 +2490,18 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     //Se llenan los campos de pedido para modificacion
     public void llenarCamposMod(int folio) {
         
-        String sql = "select impresion, autorizo, devolucion, fIngreso, fCompromiso, fPago, fTermino, grabados, anticipo, descuento, "
-                + "gastosFijos, subtotal"
+        String sql = "select impresion, "
+                + "autorizo, "
+                + "devolucion, "
+                + "fIngreso, "
+                + "fCompromiso, "
+                + "fPago, "
+                + "fTermino, "
+                + "grabados, "
+                + "anticipo, "
+                + "descuento, "
+                + "gastosFijos, "
+                + "subtotal"
                 + " from pedido where folio = "+folio+"";
         java.util.Date date = null;
         Calendar cal = Calendar.getInstance();   
@@ -2509,7 +2511,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             rs = st.executeQuery(sql);
             
             
-            while(rs.next()){
+            while(rs.next()){//a la vez que se hace la consulta se establecen los datos en la ventana
                 
                 imp.setText(rs.getString("impresion"));
                 auto.setText(rs.getString("autorizo"));
@@ -2622,27 +2624,6 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         });
     }
     
-    
-    private void calcularImporteKilos(){
-        float pUni;
-        float kgPa;
-        float total;
-        
-        if(precioUni.getText().equals("") || precioUni.getText().equals(".")){
-            pUni = 0;
-        }else{
-            pUni = Float.parseFloat(precioUni.getText());
-        }
-        
-        if(kgPart.getText().equals("") || kgPart.getText().equals(".")){
-            kgPa = 0; 
-        }else{
-            kgPa = Float.parseFloat(kgPart.getText());
-        }
-        total = pUni * kgPa;
-        importe.setText(String.valueOf(total));
-    }
-    
     //Comprobar si ciertos campos estan vacios, los inicializa
     private void comprobarVacio(){
         
@@ -2676,6 +2657,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
     }
   
+    //establece todos los campos y opciones en un estado de default
     public void vacearComponentes(){
         
         modPed.setSelected(false);
@@ -2721,18 +2703,18 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         pzFinales.setText("0");
         kgPart.setText("0.0");
         importe.setText("0.0");
-         
+        //se vacian las tablas
         modelo.setRowCount(0);
         modeloMod.setRowCount(0);
         modeloP.setRowCount(0);
-        
+        //se hace invisible lo que tiene que ver con la modificacion del pedido
         panelMod.setVisible(false); 
         btnMod.setEnabled(false);
         btnMod.setVisible(false);
         saveP.setVisible(true);
         saveP.setEnabled(false);
         savePart.setEnabled(false);
-       
+       //se reinician estas varibles globales
         idCliente = 0;
         folioId = 0;
         folioMod = 0;
@@ -2742,8 +2724,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     //calcula los kg finales del pedido
     private float calculaKgFinalesPedido(int folio)
     {
-        //entra al pedido
-        float sumatoria = 0f;
+        float sumatoria = 0f;//se inicializ en 0 para que si no hace calculos se retorna 0
                     String sql2 = "select idPar from partida where folio_fk = "+folio+"";//obtiene el folio de cada partida
                     try
                     {
@@ -2753,7 +2734,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                         {
                             int idPart2 =   Integer.parseInt(rs2.getString("idPar"));
                             
-                            if(sumatoria <= 0)
+                            if(sumatoria <= 0)//si aun no se hace la sumatoria de una partida anterior, entra
                             {
                                 String sql3 = "select produccion from bolseo where idPar_fk = "+idPart2+"";//obtiene lo comprado de bolseo
                                 try
@@ -2815,7 +2796,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                                     ex.printStackTrace();
                                 }
                             }
-                            if(sumatoria <= 0)
+                            if(sumatoria <= 0)//si aun no se hace la sumatoria de una partida anterior, entra
                             {
                                 String sql3 = "select produccion from impreso where idPar_fk = "+idPart2+"";//obtiene lo comprado de impreso
                                 try
@@ -2876,7 +2857,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                                     ex.printStackTrace();
                                 }
                             }
-                            if(sumatoria <= 0)
+                            if(sumatoria <= 0)//si aun no se hace la sumatoria de una partida anterior, entra
                             {
                                 String sql3 = "select pocM1,pocM2 from extrusion where idPar_fk = "+idPart2+"";//obtiene lo comprado de extrusion
                                 try
@@ -2953,6 +2934,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     //calcula los gastos fijos por kg del pedido
     private float calculaGfKg(int folio)
     {
+        //gastosFijosPorKg,gastosFijosDelRango, SumatoriaDeKgFinalesDelRango
         float gfkg = 0f, gfr = 0f, sumatoriaRango = 0f;
         String sql = "select gastosFijos,kgFinalesRango from pedido where folio = "+folio+" and gastosFijos is not null and kgFinalesRango is not null";
         try
@@ -2961,9 +2943,9 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             rs = st.executeQuery(sql);
             while(rs.next())
             {
-                gfr = Float.parseFloat(rs.getString("gastosFijos"));
+                gfr = Float.parseFloat(rs.getString("gastosFijos"));//se guardan los gastos fijos del rango
                 sumatoriaRango = Float.parseFloat(rs.getString("kgFinalesRango"));
-                if(sumatoriaRango != 0)
+                if(sumatoriaRango != 0)//si el denominador es diferente de 0, se hace el calculo
                     gfkg = gfr / sumatoriaRango;
             }
             rs.close();
@@ -2973,9 +2955,9 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         {
             ex.printStackTrace();
         }
-        if(gfkg != 0)
+        if(gfkg != 0)//si se hizo el calculo correctamente, retorana los gastos fijos por kg
             return gfkg;
-        else
+        else//si no, retorna 0
             return 0;
     }
     
@@ -2983,8 +2965,8 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     {
         Statement st2;
         ResultSet rs2;
-        float subtotal = 0f, costoTotal = 0f, descuento = 0f;
-        Float PyG = 0f;
+        float subtotal = 0f, costoTotal = 0f, descuento = 0f;//datos de la formula en la base de datos
+        Float PyG = 0f;//se inicializa en 0 para que si hay un error de calculo, ingrese 0
         
                     String sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+folio+"";
                     try
@@ -3003,10 +2985,11 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     {
                         ex.printStackTrace();
                     }
-                    float kgFnPe = calculaKgFinalesPedido(folio);
-                    float gf = calculaGfKg(folio);
-                    PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
-        
+                    
+                    float kgFnPe = calculaKgFinalesPedido(folio);//se obtienen los kg finales del pedido para la formula
+                    float gf = calculaGfKg(folio);//se obtienen los gastos fijos por kg para la formula
+                    PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);//se calculan las perdidas y ganancias con la formula mas nueva
+                    //se guarda en la base de datos
                     sql2 = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+folio+"";
                     try
                     {
