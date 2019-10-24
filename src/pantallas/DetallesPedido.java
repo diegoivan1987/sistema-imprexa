@@ -810,9 +810,21 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
     {
         Statement st2;
         ResultSet rs2;
+        Statement st3;
+        ResultSet rs3;
         float subtotal = 0f, costoTotal = 0f, descuento = 0f;
         float PyG = 0;
-                    String sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+folio+"";
+        String sql = "select fTermino from pedido where folio = "+folio+"";
+        String sql2 = "";
+        try
+        {
+            st3 = con.createStatement();
+            rs3 = st3.executeQuery(sql);
+            while(rs3.next())
+            {
+                if(rs3.getString("fTermino").equals("2018-01-01") == false)
+                {
+                    sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+folio+"";
                     try
                     {
                         st2 = con.createStatement();
@@ -824,6 +836,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                             descuento = Float.parseFloat(rs2.getString("descuento"));
                         }
                         rs2.close();
+                        st2.close();
                     }
                     catch(SQLException ex)
                     {
@@ -832,18 +845,27 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                     float kgFnPe = calculaKgFinalesPedido(folio);
                     float gf = calculaGfKg(folio);
                     PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
-        
-                    sql2 = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+folio+"";
-                    try
-                    {
-                        st2 = con.createStatement();
-                        st2.execute(sql2);
-                        st2.close();
-                    }
-                    catch(SQLException ex)
-                    {
-                        ex.printStackTrace();
-                    }   
+                }
+            }
+            rs3.close();
+            st3.close();
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+                    
+        sql2 = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+folio+"";
+        try
+        {
+            st2 = con.createStatement();
+            st2.execute(sql2);
+            st2.close();
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }   
     }
     
     //calcula los kg finales del pedido
@@ -851,6 +873,16 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
     {
         //entra al pedido
         float sumatoria = 0f;
+        ResultSet rs;
+        String sql = "select fTermino from pedido wher folio = "+folio+"";
+        try
+        {
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                if(rs.getString("fTermino").equals("2018-01-01") == false)
+                {
                     String sql2 = "select idPar from partida where folio_fk = "+folio+"";//obtiene el folio de cada partida
                     try
                     {
@@ -1053,6 +1085,13 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                     {
                         ex.printStackTrace();
                     }
+                }
+            }
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
         return sumatoria;
     }
     
@@ -1060,25 +1099,44 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
     private float calculaGfKg(int folio)
     {
         float gfkg = 0f, gfr = 0f, sumatoriaRango = 0f;
-        String sql = "select gastosFijos,kgFinalesRango from pedido where folio = "+folio+" and gastosFijos is not null and kgFinalesRango is not null";
+        Statement st2;
+        ResultSet rs2;
+        String sql2 = "select fTermino from pedido where folio = "+folio+"";
         try
         {
-            st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while(rs.next())
+            st2 = con.createStatement();
+            rs2 = st2.executeQuery(sql2);
+            while(rs2.next())
             {
-                gfr = Float.parseFloat(rs.getString("gastosFijos"));
-                sumatoriaRango = Float.parseFloat(rs.getString("kgFinalesRango"));
-                if(sumatoriaRango != 0)
-                    gfkg = gfr / sumatoriaRango;
+                if(rs2.getString("fTermino").equals("2018-01-01") == false)
+                {
+                    String sql = "select gastosFijos,kgFinalesRango from pedido where folio = "+folio+" and gastosFijos is not null and kgFinalesRango is not null";
+                    try
+                    {
+                        st = con.createStatement();
+                        ResultSet rs = st.executeQuery(sql);
+                        while(rs.next())
+                        {
+                            gfr = Float.parseFloat(rs.getString("gastosFijos"));
+                            sumatoriaRango = Float.parseFloat(rs.getString("kgFinalesRango"));
+                            if(sumatoriaRango != 0)
+                                gfkg = gfr / sumatoriaRango;
+                        }
+                        rs.close();
+                        st.close();
+                    }
+                    catch(SQLException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+                }
             }
-            rs.close();
-            st.close();
         }
         catch(SQLException ex)
         {
             ex.printStackTrace();
         }
+        
         if(gfkg != 0)
             return gfkg;
         else
