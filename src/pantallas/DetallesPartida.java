@@ -1003,10 +1003,21 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
     {
         Statement st2;
         ResultSet rs2;
+        Statement st3;
+        ResultSet rs3;
         float subtotal = 0f, costoTotal = 0f, descuento = 0f;
         float PyG = 0;
-        
-                    String sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
+        String sql = "select fTermino from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
+        String sql2 =  "";
+        try
+        {
+            st3 = con.createStatement();
+            rs3 = st3.executeQuery(sql);
+            while(rs3.next())
+            {
+                if(rs3.getString("fTermino").equals("2018-01-01") == false)
+                {
+                    sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
                     try
                     {
                         st2 = con.createStatement();
@@ -1018,52 +1029,82 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                             descuento = Float.parseFloat(rs2.getString("descuento"));
                         }
                         rs2.close();
-                    }
-                    catch(SQLException ex)
-                    {
-                        ex.printStackTrace();
-                    }
-                    float kgFnPe = calculaKgFinalesPedido();
-                    float gf = calculaGfKg();
-                    PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
-        
-                    sql2 = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
-                    try
-                    {
-                        st2 = con.createStatement();
-                        st2.execute(sql2);
                         st2.close();
                     }
                     catch(SQLException ex)
                     {
                         ex.printStackTrace();
                     }
-                
-        
-    }
-    
-    private float calculaGfKg()
-    {
-        float gfkg = 0f, gfr = 0f, sumatoriaRango = 0f;
-        String sql = "select gastosFijos,kgFinalesRango from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+" and gastosFijos is not null and kgFinalesRango is not null";
-        try
-        {
-            st = con.createStatement();
-            this.rs = st.executeQuery(sql);
-            while(this.rs.next())
-            {
-                gfr = Float.parseFloat(this.rs.getString("gastosFijos"));
-                sumatoriaRango = Float.parseFloat(this.rs.getString("kgFinalesRango"));
-                if(sumatoriaRango != 0)
-                    gfkg = gfr / sumatoriaRango;
+                    
+                    float kgFnPe = calculaKgFinalesPedido();
+                    float gf = calculaGfKg();
+                    PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
+                }
             }
-            this.rs.close();
-            st.close();
+            rs3.close();
+            st3.close();
         }
         catch(SQLException ex)
         {
             ex.printStackTrace();
         }
+                    
+        sql2 = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
+        try
+        {
+            st2 = con.createStatement();
+            st2.execute(sql2);
+            st2.close();
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+    
+    private float calculaGfKg()
+    {
+        Statement st2;
+        ResultSet rs2;
+        float gfkg = 0f, gfr = 0f, sumatoriaRango = 0f;
+        String sql = "select fTermino from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
+        try
+        {
+            st2 = con.createStatement();
+            rs2 = st2.executeQuery(sql);
+            while(rs2.next())
+            {
+                if(rs.getString("fTermino").equals("2018-01-01") == false)
+                {
+                    sql = "select gastosFijos,kgFinalesRango from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+" and gastosFijos is not null and kgFinalesRango is not null";
+                    try
+                    {
+                        st = con.createStatement();
+                        this.rs = st.executeQuery(sql);
+                        while(this.rs.next())
+                        {
+                            gfr = Float.parseFloat(this.rs.getString("gastosFijos"));
+                            sumatoriaRango = Float.parseFloat(this.rs.getString("kgFinalesRango"));
+                            if(sumatoriaRango != 0)
+                                gfkg = gfr / sumatoriaRango;
+                        }
+                        this.rs.close();
+                        st.close();
+                    }
+                    catch(SQLException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+            rs2.close();
+            st2.close();
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        
         if(gfkg != 0)
             return gfkg;
         else
@@ -1074,6 +1115,15 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
     {
         //entra al pedido
         float sumatoria = 0f;
+        String sql = "select fTermino from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
+        try
+        {
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                if(rs.getString("fTermino").equals("2018-01-01") == false)
+                {
                     String sql2 = "select idPar from partida where folio_fk = "+dp.get(indicePartida).getFolio().replace("A", "")+"";//obtiene el folio de cada partida
                     try
                     {
@@ -1276,7 +1326,15 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                     {
                         ex.printStackTrace();
                     }
-                
+                }
+            }
+            rs.close();
+            st.close();
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
         return sumatoria;
     }
     
