@@ -2205,7 +2205,8 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 + "total = "+total+", "
                 + "resto = "+resto+" where folio = "+folioMod+"";
         
-        try {
+        try 
+        {
             st = con.createStatement();
             st.execute(sql);
             calculaPyG(folioMod);//se vuelven a calcular las pyg de la partida modificada
@@ -2965,10 +2966,21 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     {
         Statement st2;
         ResultSet rs2;
+        Statement st3;
+        ResultSet rs3;
         float subtotal = 0f, costoTotal = 0f, descuento = 0f;//datos de la formula en la base de datos
         Float PyG = 0f;//se inicializa en 0 para que si hay un error de calculo, ingrese 0
-        
-                    String sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+folio+"";
+        String sql = "select fTermino from pedido where folio = "+folio+"";//entra solo a los pedidos que ya hayan sido terminados
+        String sql2 = "";
+        try
+        {
+            st3 = con.createStatement();
+            rs3 = st3.executeQuery(sql);
+            while(rs3.next())
+            {
+                if(rs3.getString("fTermino").equals("2018-01-01") == false)
+                {
+                    sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+folio+"";
                     try
                     {
                         st2 = con.createStatement();
@@ -2989,18 +3001,27 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     float kgFnPe = calculaKgFinalesPedido(folio);//se obtienen los kg finales del pedido para la formula
                     float gf = calculaGfKg(folio);//se obtienen los gastos fijos por kg para la formula
                     PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);//se calculan las perdidas y ganancias con la formula mas nueva
-                    //se guarda en la base de datos
-                    sql2 = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+folio+"";
-                    try
-                    {
-                        st2 = con.createStatement();
-                        st2.execute(sql2);
-                        st2.close();
-                    }
-                    catch(SQLException ex)
-                    {
-                        ex.printStackTrace();
-                    }   
+                }
+            }
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+                    
+                    
+        //se guarda en la base de datos
+        sql2 = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+folio+"";
+        try
+        {
+            st2 = con.createStatement();
+            st2.execute(sql2);
+            st2.close();
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }   
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
