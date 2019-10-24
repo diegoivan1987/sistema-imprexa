@@ -4115,10 +4115,21 @@ public class Procesos extends javax.swing.JFrame {
     {
         Statement st2;
         ResultSet rs2;
+        Statement st3;
+        ResultSet rs3;
         float subtotal = 0f, costoTotal = 0f, descuento = 0f;
         float PyG = 0;
-        
-                    String sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+folio+"";
+        String sql2 = "";
+        String sql = "select fTermino from pedido where folio = "+folio+"";//busca si ya fueron terminados los pedidos
+        try
+        {
+            st3 = con.createStatement();
+            rs3 = st3.executeQuery(sql);
+            while(rs3.next())
+            {
+                if(rs3.getString("fTermino").equals("2018-01-01") == false)//solo lo hara con pedidos que ya hayan sido terminados
+                {
+                    sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+folio+"";
                     try
                     {
                         st2 = con.createStatement();
@@ -4138,18 +4149,25 @@ public class Procesos extends javax.swing.JFrame {
                     float kgFnPe = calculaKgFinalesPedido();
                     float gf = calculaGfKg();
                     PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
+                }
+            }
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
         
-                    sql2 = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+folio+"";
-                    try
-                    {
-                        st2 = con.createStatement();
-                        st2.execute(sql2);
-                        st2.close();
-                    }
-                    catch(SQLException ex)
-                    {
-                        ex.printStackTrace();
-                    }
+        sql2 = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+folio+"";
+        try
+        {
+            st2 = con.createStatement();
+            st2.execute(sql2);
+            st2.close();
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
     }
       
     private void eliminarPartida()
