@@ -126,7 +126,7 @@ create table tintas(idTinta int not null auto_increment,
  create table costosMaterial(idMaterial int not null primary key auto_increment, tipo varchar(10), precio float);
  insert into costosMaterial values(null,'ALTA',25);
  insert into costosMaterial values(null,'BAJA',25);
- insert into costosMaterial values(null,'BOPP',45);
+ /*insert into costosMaterial values(null,'BOPP',45);
  insert into costosMaterial values(null,'CPP',45);
  insert into costosMaterial values(null,'BOPP/BOPP',45);
  insert into costosMaterial values(null,'BAJA/BOPP',35);
@@ -135,7 +135,10 @@ create table tintas(idTinta int not null auto_increment,
  insert into costosMaterial values(null,'CPP/PET',50); 
  insert into costosMaterial values(null,'prueba',1);
  delete from costosMaterial where tipo = "prueba";
- SET SQL_SAFE_UPDATES = 0;
+ SET SQL_SAFE_UPDATES = 0;*/
+ 
+ create table operadores(nombre varchar(20) primary key not null, sueldo_48_hrs float not null, sueldo_hr float not null, 
+ maquina int, ayudante bool);
 
 /*Eliminar todas la tablas*/
  drop table tintas cascade;
