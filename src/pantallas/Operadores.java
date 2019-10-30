@@ -105,6 +105,11 @@ public class Operadores extends javax.swing.JFrame {
         jPanel1.add(btnMod, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 340, -1, -1));
 
         regresar.setText("Regresar");
+        regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regresarActionPerformed(evt);
+            }
+        });
         jPanel1.add(regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 340, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -156,6 +161,12 @@ public class Operadores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_guardarActionPerformed
 
+    private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
+        Inicio.prin.setLocationRelativeTo(null);
+        Inicio.prin.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_regresarActionPerformed
+
     private void vaciar()//inicializa todo en el default
     {
         nombre.setText("");
@@ -179,7 +190,7 @@ public class Operadores extends javax.swing.JFrame {
     private void llenarTabla()//llena la tabla de operadores
     {
         String ayudanteSt = "";//servira para mostrar si o no en ayudante
-        String sql = "select * from operador";
+        String sql = "select * from operador where nombre is not null";
         try
         {
             st = con.createStatement();
