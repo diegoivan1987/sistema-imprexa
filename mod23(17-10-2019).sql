@@ -138,7 +138,7 @@ create table tintas(idTinta int not null auto_increment,
  SET SQL_SAFE_UPDATES = 0;*/
  
  create table operadores(nombre varchar(20) primary key not null, sueldo_48_hrs float not null, sueldo_hr float not null, 
- maquina int, ayudante bool);
+ maquina int, ayudante bool);/*guardara el nombre, en que maquina trabajara y si sera ayudante de impresion*/
 
 /*Eliminar todas la tablas*/
  drop table tintas cascade;
