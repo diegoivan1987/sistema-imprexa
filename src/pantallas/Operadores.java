@@ -1,11 +1,13 @@
 
 package pantallas;
 
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class Operadores extends javax.swing.JFrame {
@@ -71,9 +73,19 @@ public class Operadores extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 490, 210));
 
         sueldo_48_hrs.setText("jTextField1");
+        sueldo_48_hrs.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                sueldo_48_hrsKeyTyped(evt);
+            }
+        });
         jPanel1.add(sueldo_48_hrs, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 300, 100, -1));
 
         nombre.setText("jTextField1");
+        nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombreKeyTyped(evt);
+            }
+        });
         jPanel1.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, 190, -1));
 
         listAyudante.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "si", "no" }));
@@ -89,6 +101,11 @@ public class Operadores extends javax.swing.JFrame {
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, -1, -1));
 
         checkboxMod.setText("Modificar datos");
+        checkboxMod.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                checkboxModItemStateChanged(evt);
+            }
+        });
         jPanel1.add(checkboxMod, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
 
         guardar.setText("Guardar");
@@ -100,6 +117,11 @@ public class Operadores extends javax.swing.JFrame {
         jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 340, -1, -1));
 
         btnMod.setText("Guardar cambios");
+        btnMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnMod, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 340, -1, -1));
 
         regresar.setText("Regresar");
@@ -165,12 +187,77 @@ public class Operadores extends javax.swing.JFrame {
 
     //cuando le dan clic a la tabla
     private void tablaOpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaOpMouseClicked
-        if(checkboxMod.isEnabled())//si el checkbox de modificar los datos esta activado
+        if(checkboxMod.isSelected())//si el checkbox de modificar los datos esta activado
         {
             mostrarDatosOperador();//se muestran los datos del operador seleccionado
+            //habilitamos el boton de guardar cambios
+            btnMod.setVisible(true);
+            btnMod.setEnabled(true);
+            //inhabilitamos el boton guardar
+            guardar.setVisible(false);
+            guardar.setEnabled(false);
         }
     }//GEN-LAST:event_tablaOpMouseClicked
 
+    private void checkboxModItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkboxModItemStateChanged
+        if(checkboxMod.isSelected()== false)//si deshabilitasmos el checkbox, me aparece denuevo el boton de guardar
+        {
+            //inhabilitamos el boton de guardar cambios
+            btnMod.setVisible(false);
+            btnMod.setEnabled(false);
+            //habilitamos el boton guardar
+            guardar.setVisible(true);
+            guardar.setEnabled(true);
+        }
+        //no pongo el caso en el que este en verdadero para no habilitar el boton cunando no ha seleccionado un operador
+        //es decir, el boton se habilita hasta que dio clic en un operador
+    }//GEN-LAST:event_checkboxModItemStateChanged
+
+    private void btnModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModActionPerformed
+        guardarModificaciones();//se guardan los cambios
+    }//GEN-LAST:event_btnModActionPerformed
+
+    private void nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyTyped
+        limitarInsercion(20, evt, nombre);
+    }//GEN-LAST:event_nombreKeyTyped
+
+    private void sueldo_48_hrsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sueldo_48_hrsKeyTyped
+        soloFlotantes(evt, sueldo_48_hrs);
+    }//GEN-LAST:event_sueldo_48_hrsKeyTyped
+
+    private void guardarModificaciones()
+    {
+        String nombreOLD = modOp.getValueAt(tablaOp.getSelectedRow(), 0).toString();//obtenemos el nombre del operador seleccionado
+        float sueldo48 = Float.parseFloat(sueldo_48_hrs.getText());
+        float sueldoHr = sueldo48 / 48;//sueldo por hora
+        String ayudanteSt = listAyudante.getSelectedItem().toString();//obtiene si o no
+        boolean ayudante = false;
+        if(ayudanteSt.equals("si"))//si sera ayudante, asigna true, si no, asigna false
+        {
+            ayudante = true;
+        }
+        else
+        {
+            ayudante = false;
+        }
+        //datos a guardar
+        String sql = "update operadores set sueldo_48_hrs = "+sueldo48+", sueldo_hr = "+sueldoHr+", ayudante = "+ayudante+" where "
+                + "nombre = '"+nombreOLD+"'";
+        try
+        {
+            st = con.createStatement();
+            st.execute(sql);//guardamos en la base de datos
+            st.close();
+            JOptionPane.showMessageDialog(null, "Se guardaron los cambios");
+            vaciar();//se establecen los campos por default
+            actualizarTabla();//se actualiza la tabla de operadores
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+    
     private void mostrarDatosOperador()
     {
         String nombreOLD = modOp.getValueAt(tablaOp.getSelectedRow(), 0).toString();//obtenemos el nombre del operador seleccionado
@@ -185,6 +272,14 @@ public class Operadores extends javax.swing.JFrame {
                 nombre.setText(rs.getString("nombre"));
                 sueldo_48_hrs.setText(rs.getString("sueldo_48_hrs").toString());
                 ayudanteOLD = rs.getBoolean("ayudante");
+                if(ayudanteOLD == false)//si no es ayudante se selecciona el segundo elemento de la lista, osea "no"
+                {
+                    listAyudante.setSelectedIndex(1);
+                }
+                else
+                {
+                    listAyudante.setSelectedIndex(0);
+                }
             }
         }
         catch(SQLException ex)
@@ -268,6 +363,40 @@ public class Operadores extends javax.swing.JFrame {
         catch(SQLException ex)
         {
             ex.printStackTrace();
+        }
+    }
+    
+    //Limitacion de logitud de datos
+    private void limitarInsercion(int tamSQL, KeyEvent evt, JTextField campo){
+        int tamCampo = campo.getText().length() + 1;
+
+        if(tamCampo > tamSQL){
+            evt.consume();
+        }
+    }
+    
+    //Funcion para que solo se ingresen numeros flotantes en campos
+    private void soloFlotantes(KeyEvent evt, JTextField campo){
+        
+        char c = evt.getKeyChar();//Obtener el caracter de la tecla presionada
+        int contPuntos = 0;// contador de los ".", pues solo debe de haber uno en un numero flotante
+        String cadena = campo.getText();//Guardar la cadena del campo para contar los puntos que contiene
+        char aux = 0;//Para ir comprobando cada caracter de la cadena
+        
+        if((c < '0' || c > '9') && c != '.') {
+            evt.consume();//Si el caracter recibido es una letra o caracter, exepto puntos, lo comsume
+        }else{//Si es un numero o punto
+            for(int i = 0; i < cadena.length(); i++){
+                aux = cadena.charAt(i);//Recorre la cadena para contar los puntos
+                if(aux == '.'){
+                    contPuntos++;//Si encuentra un punto se suma el contadorPuntos
+                }
+            }
+            if(contPuntos == 1 && c == '.'){
+                    evt.consume();//Si el contador de puntos es 1, significa que ya hay un punto y consumira cualquier otro
+                                  //Tambien es importante detectar si se recibe un punto, ya que tambien se reciben numeros en el else,
+                                  //los numeros no se consumen, con c == '.' confirmo de que solo consumira puntos
+            }
         }
     }
     
