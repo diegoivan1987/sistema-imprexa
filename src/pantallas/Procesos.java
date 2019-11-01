@@ -5655,7 +5655,7 @@ public class Procesos extends javax.swing.JFrame {
     Period diff;
        
     private void calcularTotalhr(JTimeChooser tIni, JTimeChooser tFin, JTimeChooser total, JTimeChooser muerto, DateChooserCombo fini, DateChooserCombo fFin,
-            JTimeChooser extra, float costoPorHr, JTextField costo){
+            JTimeChooser extra, float sueldoOperador, JTextField costo){
          
         dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
         dtIni= new DateTime(fini.getText() + "T" + tIni.getTimeField().getText());
@@ -5761,7 +5761,7 @@ public class Procesos extends javax.swing.JFrame {
             tiempoExtra = 0;
         }
         
-        calcularCostoOpMinutos(minutosMenosExtra, costoPorHr, tiempoExtra, minutos, costo);
+        calcularCostoOpMinutos(minutosMenosExtra, sueldoOperador, tiempoExtra, minutos, costo);
         
     }
     
@@ -5838,7 +5838,7 @@ public class Procesos extends javax.swing.JFrame {
     }
     
     
-    private void calcularCostoOpMinutos(int minutos, float costoPorHora, int minutosExtra, int minutosTotales, JTextField costoField){
+    private void calcularCostoOpMinutos(int minutos, float sueldoOperador, int minutosExtra, int minutosTotales, JTextField costoField){
         
         float costoPorMinutos = 0f;
         float costoTotal = 0f;
@@ -5846,7 +5846,7 @@ public class Procesos extends javax.swing.JFrame {
         if(minutosExtra > minutosTotales){
             costoTotal = 0;
         }else{
-            costoPorMinutos = costoPorHora / 60;
+            costoPorMinutos = sueldoOperador / 60;
             //System.out.println("__________________________");
             //System.out.println(costoPorHora + " = " + costoPorHora + " / " + minutos);
             costoTotal = (costoPorMinutos * minutos) + ((costoPorMinutos * minutosExtra) * 2);
