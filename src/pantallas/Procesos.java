@@ -183,7 +183,6 @@ public class Procesos extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         panEx = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
-        opExt = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
         greExt = new javax.swing.JTextField();
         maqExt = new javax.swing.JTextField();
@@ -210,6 +209,7 @@ public class Procesos extends javax.swing.JFrame {
         listaMat = new javax.swing.JComboBox();
         jLabel11 = new javax.swing.JLabel();
         agE = new javax.swing.JButton();
+        listOperadorE = new javax.swing.JComboBox();
         panMaqExt = new javax.swing.JPanel();
         jLabel47 = new javax.swing.JLabel();
         jLabel50 = new javax.swing.JLabel();
@@ -229,7 +229,6 @@ public class Procesos extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         panImp = new javax.swing.JPanel();
         jLabel134 = new javax.swing.JLabel();
-        opImp = new javax.swing.JTextField();
         jLabel133 = new javax.swing.JLabel();
         greImp = new javax.swing.JTextField();
         jLabel135 = new javax.swing.JLabel();
@@ -254,6 +253,7 @@ public class Procesos extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         extHrImp = new lu.tudor.santec.jtimechooser.JTimeChooser();
         jLabel143 = new javax.swing.JLabel();
+        listOperadorI = new javax.swing.JComboBox();
         panMaqImp = new javax.swing.JPanel();
         jLabel144 = new javax.swing.JLabel();
         jLabel145 = new javax.swing.JLabel();
@@ -333,7 +333,6 @@ public class Procesos extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         panBol = new javax.swing.JPanel();
         jLabel69 = new javax.swing.JLabel();
-        opBol = new javax.swing.JTextField();
         jLabel68 = new javax.swing.JLabel();
         greBol = new javax.swing.JTextField();
         jLabel70 = new javax.swing.JLabel();
@@ -360,6 +359,7 @@ public class Procesos extends javax.swing.JFrame {
         costoOpBol = new javax.swing.JTextField();
         jLabel78 = new javax.swing.JLabel();
         extBol = new lu.tudor.santec.jtimechooser.JTimeChooser();
+        listOperadorB = new javax.swing.JComboBox();
         panMaqBol = new javax.swing.JPanel();
         jLabel79 = new javax.swing.JLabel();
         jLabel80 = new javax.swing.JLabel();
@@ -403,19 +403,11 @@ public class Procesos extends javax.swing.JFrame {
 
         paPro.setBackground(new java.awt.Color(51, 51, 51));
         paPro.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        paPro.setForeground(new java.awt.Color(0, 0, 0));
 
         panEx.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel36.setForeground(new java.awt.Color(0, 102, 153));
         jLabel36.setText("Operador:");
-
-        opExt.setForeground(new java.awt.Color(0, 153, 153));
-        opExt.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                opExtKeyTyped(evt);
-            }
-        });
 
         jLabel35.setForeground(new java.awt.Color(0, 102, 153));
         jLabel35.setText("Greña:");
@@ -512,14 +504,15 @@ public class Procesos extends javax.swing.JFrame {
                         .addGroup(panExLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel36)
                             .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panExLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panExLayout.createSequentialGroup()
-                                .addComponent(opExt)
-                                .addGap(18, 18, 18))
-                            .addGroup(panExLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(kgOpExt, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(141, 141, 141)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panExLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(listOperadorE, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(panExLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panExLayout.createSequentialGroup()
                                 .addComponent(jLabel35)
@@ -588,7 +581,7 @@ public class Procesos extends javax.swing.JFrame {
                             .addComponent(maqExt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(panExLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel36)
-                            .addComponent(opExt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(listOperadorE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel35)
                     .addComponent(greExt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(panExLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -816,13 +809,6 @@ public class Procesos extends javax.swing.JFrame {
         jLabel134.setForeground(new java.awt.Color(0, 102, 153));
         jLabel134.setText("Operador:");
 
-        opImp.setForeground(new java.awt.Color(0, 153, 153));
-        opImp.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                opImpKeyTyped(evt);
-            }
-        });
-
         jLabel133.setForeground(new java.awt.Color(0, 102, 153));
         jLabel133.setText("Greña:");
 
@@ -914,15 +900,15 @@ public class Procesos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panImpLayout.createSequentialGroup()
-                                .addComponent(opImp)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel133))
+                                .addComponent(kgOpIm, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panImpLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jLabel136))
-                            .addGroup(panImpLayout.createSequentialGroup()
-                                .addComponent(kgOpIm, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panImpLayout.createSequentialGroup()
+                                .addComponent(listOperadorI, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel133)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(greImp, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -951,7 +937,7 @@ public class Procesos extends javax.swing.JFrame {
                             .addComponent(hrFinImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(hrMuertoImp, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(hrIniImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                         .addGroup(panImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panImpLayout.createSequentialGroup()
                                 .addGroup(panImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -985,7 +971,7 @@ public class Procesos extends javax.swing.JFrame {
                             .addComponent(greImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel134)
-                        .addComponent(opImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(listOperadorI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(kgOpIm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1766,13 +1752,6 @@ public class Procesos extends javax.swing.JFrame {
         jLabel69.setForeground(new java.awt.Color(0, 102, 153));
         jLabel69.setText("Operador:");
 
-        opBol.setForeground(new java.awt.Color(0, 153, 153));
-        opBol.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                opBolKeyTyped(evt);
-            }
-        });
-
         jLabel68.setForeground(new java.awt.Color(0, 102, 153));
         jLabel68.setText("Greña:");
 
@@ -1875,7 +1854,8 @@ public class Procesos extends javax.swing.JFrame {
                             .addGroup(panBolLayout.createSequentialGroup()
                                 .addComponent(jLabel69)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(opBol, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(listOperadorB, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                         .addComponent(jLabel70)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1917,7 +1897,7 @@ public class Procesos extends javax.swing.JFrame {
                                 .addGroup(panBolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(hrIniBol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(hrFinBol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addGroup(panBolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panBolLayout.createSequentialGroup()
                         .addComponent(jLabel75)
@@ -1943,9 +1923,9 @@ public class Procesos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panBolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel69)
-                    .addComponent(opBol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel70)
-                    .addComponent(maqBol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(maqBol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(listOperadorB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panBolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel68)
@@ -2635,6 +2615,7 @@ public class Procesos extends javax.swing.JFrame {
                 
             }
             else{//Si ya fueron generados los procesos
+                llenarListasOperadores();//se llenan las listas de operadores
                 //Si hay, la pantalla se agrandara para mostrarlos
                 this.setSize(new Dimension(WD, HG));
                 paPro.setVisible(true);
@@ -2896,6 +2877,7 @@ public class Procesos extends javax.swing.JFrame {
     
     //Generar procesos
     private void saveProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveProActionPerformed
+        crearListasOperadores();//se crean el contenido de las listas desplegables
         savePro.setSelected(false);
         String elegido = (String) JOptionPane.showInputDialog(null, "Compra o Produccion de Material?", "Modo de generacion", 
                 JOptionPane.QUESTION_MESSAGE, null, modoMaterial,  modoMaterial[0]);
@@ -3078,7 +3060,7 @@ public class Procesos extends javax.swing.JFrame {
             comprobarVacio();
             kgISt = kgOpIm.getText();
             greniaISt = greImp.getText();
-            opISt = opImp.getText();
+            opISt = listOperadorI.getSelectedItem().toString();
             nMISt = maqImp.getText();
             hIniISt = hrIniImp.getTimeField().getText();
             fIniISt = fIniImp.getText();
@@ -4303,7 +4285,7 @@ public class Procesos extends javax.swing.JFrame {
         kgBSt = kgOpBol.getText();
         greniaBSt = greBol.getText();
         suajeBSt = suaje.getText();
-        opBSt = opBol.getText();
+        opBSt = listOperadorB.getSelectedItem().toString();
         nMBSt = maqBol.getText();
         hIniBSt = hrIniBol.getTimeField().getText();
         fIniBSt = fIniBol.getText();
@@ -4969,10 +4951,6 @@ public class Procesos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_eliminarPActionPerformed
 
-    private void opExtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_opExtKeyTyped
-        limitarInsercion(45, evt, opExt);
-    }//GEN-LAST:event_opExtKeyTyped
-
     private void prov1ExtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_prov1ExtKeyTyped
         limitarInsercion(40, evt, prov1Ext);
     }//GEN-LAST:event_prov1ExtKeyTyped
@@ -4981,17 +4959,9 @@ public class Procesos extends javax.swing.JFrame {
         limitarInsercion(40, evt, prov2Ext);
     }//GEN-LAST:event_prov2ExtKeyTyped
 
-    private void opImpKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_opImpKeyTyped
-        limitarInsercion(45, evt, opImp);
-    }//GEN-LAST:event_opImpKeyTyped
-
     private void provImpKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_provImpKeyTyped
         limitarInsercion(40, evt, provImp);
     }//GEN-LAST:event_provImpKeyTyped
-
-    private void opBolKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_opBolKeyTyped
-        limitarInsercion(45, evt, opBol);
-    }//GEN-LAST:event_opBolKeyTyped
 
     private void provBolKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_provBolKeyTyped
         limitarInsercion(40, evt, provBol);
@@ -5081,7 +5051,7 @@ public class Procesos extends javax.swing.JFrame {
         comprobarVacio();
         kgESt = kgOpExt.getText();
         greniaESt = greExt.getText();
-        opESt = opExt.getText();
+        opESt = listOperadorE.getSelectedItem().toString();
         nMESt = maqExt.getText();
         hIniESt = hrIni.getTimeField().getText();
         fIniESt = fIniExt.getText();
@@ -5161,7 +5131,6 @@ public class Procesos extends javax.swing.JFrame {
         Calendar cal = Calendar.getInstance(); 
         kgOpExt.setText("0");
         greExt.setText("0");
-        opExt.setText("");
         maqExt.setText("0");
         hrIni.getTimeField().setText("00:00:00");
         hrFin.getTimeField().setText("00:00:00");
@@ -5177,7 +5146,6 @@ public class Procesos extends javax.swing.JFrame {
         Calendar cal = Calendar.getInstance(); 
         kgOpIm.setText("0");
         greImp.setText("0");
-        opImp.setText("");
         maqImp.setText("0");
         hrIniImp.getTimeField().setText("00:00:00");
         hrFinImp.getTimeField().setText("00:00:00");
@@ -5194,7 +5162,6 @@ public class Procesos extends javax.swing.JFrame {
         kgOpBol.setText("0");
         greBol.setText("0");
         suaje.setText("0");
-        opBol.setText("");
         maqBol.setText("0");
         hrIniBol.getTimeField().setText("00:00:00");
         hrFinBol.getTimeField().setText("00:00:00");
@@ -5856,12 +5823,55 @@ public class Procesos extends javax.swing.JFrame {
         costoField.setText(String.valueOf(costoTotal));
     }
     
+    //llena las listas de operadores al crear los procesos
+    private void crearListasOperadores()
+    {
+        String sql = "select nombre from operadores";
+        try
+        {
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                listOperadorE.addItem(rs.getString("nombre"));
+                listOperadorI.addItem(rs.getString("nombre"));
+                listOperadorB.addItem(rs.getString("nombre"));
+            }
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+    
+    //llena las listas de operadores cuando ya se crearon los procesos
+    private void llenarListasOperadores()
+    {
+        //borramos los elementos que ya tenian las listas
+        listOperadorE.removeAllItems();
+        listOperadorI.removeAllItems();
+        listOperadorB.removeAllItems();
+        //las volvemos a llenar
+        String sql = "select nombre from operadores";
+        try
+        {
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                listOperadorE.addItem(rs.getString("nombre"));
+                listOperadorI.addItem(rs.getString("nombre"));
+                listOperadorB.addItem(rs.getString("nombre"));
+            }
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
     
     public void vacearComponentes(){
         
-        opExt.setText("");
-        opImp.setText("");
-        opBol.setText("");
         greExt.setText("");
         greImp.setText("");
         greBol.setText("");
@@ -6130,15 +6140,15 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JTextField kgOpExt;
     private javax.swing.JTextField kgOpIm;
     private javax.swing.JLabel labelxd;
+    private javax.swing.JComboBox listOperadorB;
+    private javax.swing.JComboBox listOperadorE;
+    private javax.swing.JComboBox listOperadorI;
     private javax.swing.JComboBox listaMat;
     private javax.swing.JTextField maqBol;
     private javax.swing.JTextField maqExt;
     private javax.swing.JTextField maqImp;
     private javax.swing.JTextField mezFin;
     private javax.swing.JTextField mezIni;
-    private javax.swing.JTextField opBol;
-    private javax.swing.JTextField opExt;
-    private javax.swing.JTextField opImp;
     private javax.swing.JTabbedPane paIm;
     private javax.swing.JTabbedPane paPro;
     private javax.swing.JPanel panBol;

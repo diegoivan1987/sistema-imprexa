@@ -133,9 +133,6 @@
             <BevelBorder/>
           </Border>
         </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
@@ -195,15 +192,16 @@
                                       <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="opExt" max="32767" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="kgOpExt" min="-2" pref="69" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
+                                          <EmptySpace pref="158" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="listOperadorE" min="-2" pref="220" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -295,7 +293,7 @@
                                   </Group>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="opExt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="listOperadorE" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="jLabel35" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -380,16 +378,6 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Operador:"/>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="opExt">
-                  <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="99" green="99" red="0" type="rgb"/>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="opExtKeyTyped"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel35">
                   <Properties>
@@ -597,6 +585,13 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="agEActionPerformed"/>
                   </Events>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="listOperadorE">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="0"/>
+                    </Property>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
@@ -910,18 +905,18 @@
                                           <Component id="jLabel134" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="opImp" max="32767" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="jLabel133" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="kgOpIm" min="-2" pref="68" max="-2" attributes="0"/>
+                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
                                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                                   <Component id="jLabel136" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="kgOpIm" min="-2" pref="68" max="-2" attributes="0"/>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="listOperadorI" min="-2" pref="220" max="-2" attributes="0"/>
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <Component id="jLabel133" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -959,7 +954,7 @@
                                               <Component id="hrMuertoImp" min="-2" pref="52" max="-2" attributes="0"/>
                                               <Component id="hrIniImp" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
+                                          <EmptySpace pref="109" max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -1005,7 +1000,7 @@
                                       </Group>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel134" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="opImp" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="listOperadorI" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -1083,16 +1078,6 @@
                             </Property>
                             <Property name="text" type="java.lang.String" value="Operador:"/>
                           </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="opImp">
-                          <Properties>
-                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                              <Color blue="99" green="99" red="0" type="rgb"/>
-                            </Property>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="opImpKeyTyped"/>
-                          </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel133">
                           <Properties>
@@ -1281,6 +1266,13 @@
                               <Color blue="99" green="66" red="0" type="rgb"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="De las cuales son extras:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JComboBox" name="listOperadorI">
+                          <Properties>
+                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                              <StringArray count="0"/>
+                            </Property>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -2439,7 +2431,8 @@
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel69" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="opBol" min="-2" pref="240" max="-2" attributes="0"/>
+                                          <Component id="listOperadorB" min="-2" pref="220" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace pref="97" max="32767" attributes="0"/>
@@ -2495,7 +2488,7 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="90" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="jLabel75" min="-2" max="-2" attributes="0"/>
@@ -2528,9 +2521,9 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel69" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="opBol" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel70" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="maqBol" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="listOperadorB" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -2604,16 +2597,6 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Operador:"/>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="opBol">
-                  <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="99" green="99" red="0" type="rgb"/>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="opBolKeyTyped"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel68">
                   <Properties>
@@ -2819,6 +2802,13 @@
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="99" green="99" red="0" type="rgb"/>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="listOperadorB">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="0"/>
                     </Property>
                   </Properties>
                 </Component>
