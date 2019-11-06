@@ -86,10 +86,20 @@ public class Procesos extends javax.swing.JFrame {
     
     ArrayList<String> datosImpreso;
     
+    //costos por hora que cambiaran deacuerdo al sueldo del operador elegido
+    Float sueldoPorHoraE;
+    Float sueldoPorHoraI;
+    Float sueldoPorHoraB;
+    
     public Procesos(Connection con) {
         
         initComponents();
         
+        //inicializo los costos por hora
+        sueldoPorHoraE = 0f;
+        sueldoPorHoraI = 0f;
+        sueldoPorHoraB = 0f;
+    
         costoGrab.setEditable(false);//no se podra escribir sobre el recuadro que muestra los costos de grabados
         
         cambioMod.setVisible(false);//se hace invisible el boton para añadir mas campos al generar procesos
@@ -493,6 +503,12 @@ public class Procesos extends javax.swing.JFrame {
             }
         });
 
+        listOperadorE.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                listOperadorEItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout panExLayout = new javax.swing.GroupLayout(panEx);
         panEx.setLayout(panExLayout);
         panExLayout.setHorizontalGroup(
@@ -887,6 +903,12 @@ public class Procesos extends javax.swing.JFrame {
 
         jLabel143.setForeground(new java.awt.Color(0, 102, 153));
         jLabel143.setText("De las cuales son extras:");
+
+        listOperadorI.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                listOperadorIItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout panImpLayout = new javax.swing.GroupLayout(panImp);
         panImp.setLayout(panImpLayout);
@@ -1840,6 +1862,12 @@ public class Procesos extends javax.swing.JFrame {
         jLabel78.setText("De las cuales son extras:");
 
         extBol.setForeground(new java.awt.Color(0, 153, 153));
+
+        listOperadorB.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                listOperadorBItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout panBolLayout = new javax.swing.GroupLayout(panBol);
         panBol.setLayout(panBolLayout);
@@ -5125,6 +5153,18 @@ public class Procesos extends javax.swing.JFrame {
                 }
     }//GEN-LAST:event_cambioModActionPerformed
 
+    private void listOperadorEItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listOperadorEItemStateChanged
+        sueldoPorHoraE = obtenerSueldoXHora(listOperadorE.getSelectedItem().toString());
+    }//GEN-LAST:event_listOperadorEItemStateChanged
+
+    private void listOperadorIItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listOperadorIItemStateChanged
+        sueldoPorHoraI = obtenerSueldoXHora(listOperadorI.getSelectedItem().toString());
+    }//GEN-LAST:event_listOperadorIItemStateChanged
+
+    private void listOperadorBItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listOperadorBItemStateChanged
+        sueldoPorHoraB = obtenerSueldoXHora(listOperadorB.getSelectedItem().toString());
+    }//GEN-LAST:event_listOperadorBItemStateChanged
+
     
     //Se vacean los campos de agregar operadores
     private void vaciarOpE(){
@@ -5357,7 +5397,7 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, 75f, costoOpExt);
+                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, sueldoPorHoraE, costoOpExt);
                 
             }
             @Override
@@ -5374,7 +5414,7 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, 75f, costoOpExt);
+                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, sueldoPorHoraE, costoOpExt);
             }
             @Override
             public void removeUpdate(DocumentEvent e) {
@@ -5390,7 +5430,7 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, 75f, costoOpExt);
+                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, sueldoPorHoraE, costoOpExt);
             }
             @Override
             public void removeUpdate(DocumentEvent e) {
@@ -5406,7 +5446,7 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, 75f, costoOpExt); 
+                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, sueldoPorHoraE, costoOpExt); 
             }
             @Override
             public void removeUpdate(DocumentEvent e) {
@@ -5423,7 +5463,7 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void onCommit(CommitEvent ce) {
-                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, 75f, costoOpExt);
+                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, sueldoPorHoraE, costoOpExt);
             }
         });
     }
@@ -5433,7 +5473,7 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void onCommit(CommitEvent ce) {
-                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, 75f, costoOpExt);
+                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, sueldoPorHoraE, costoOpExt);
             }
         });
     }
@@ -5445,7 +5485,7 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, 65f, costoOpImp);
+                calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
                 
             }
             @Override
@@ -5462,7 +5502,7 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, 65f, costoOpImp);
+                calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
             }
             @Override
             public void removeUpdate(DocumentEvent e) {
@@ -5478,7 +5518,7 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, 65f, costoOpImp);
+                calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
             }
             @Override
             public void removeUpdate(DocumentEvent e) {
@@ -5494,7 +5534,7 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, 65f, costoOpImp);
+                calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
             }
             @Override
             public void removeUpdate(DocumentEvent e) {
@@ -5510,7 +5550,7 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void onCommit(CommitEvent ce) {
-               calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, 65f, costoOpImp);
+               calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
             }
         });
     }
@@ -5520,7 +5560,7 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void onCommit(CommitEvent ce) {
-                calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, 65f, costoOpImp);
+                calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
             }
         });
     }
@@ -5532,7 +5572,7 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, 50f, costoOpBol);
+                calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, sueldoPorHoraB, costoOpBol);
                 
             }
             @Override
@@ -5549,7 +5589,7 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, 50f, costoOpBol);
+                calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, sueldoPorHoraB, costoOpBol);
             }
             @Override
             public void removeUpdate(DocumentEvent e) {
@@ -5565,7 +5605,7 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, 50f, costoOpBol);
+                calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, sueldoPorHoraB, costoOpBol);
             }
             @Override
             public void removeUpdate(DocumentEvent e) {
@@ -5581,7 +5621,7 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, 50f, costoOpBol);
+                calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, sueldoPorHoraB, costoOpBol);
             }
             @Override
             public void removeUpdate(DocumentEvent e) {
@@ -5598,7 +5638,7 @@ public class Procesos extends javax.swing.JFrame {
 
              @Override
              public void onCommit(CommitEvent ce) {
-                 calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, 50f, costoOpBol);
+                 calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, sueldoPorHoraB, costoOpBol);
              }
          });
      }
@@ -5608,7 +5648,7 @@ public class Procesos extends javax.swing.JFrame {
 
              @Override
              public void onCommit(CommitEvent ce) {
-                 calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, 50f, costoOpBol);
+                 calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, sueldoPorHoraB, costoOpBol);
              }
          });
      }
@@ -5826,17 +5866,23 @@ public class Procesos extends javax.swing.JFrame {
     //llena las listas de operadores al crear los procesos
     private void crearListasOperadores()
     {
+        Statement st7;
+        ResultSet rs7;
+        String nombreSt = "";
         String sql = "select nombre from operadores";
         try
         {
-            st = con.createStatement();
-            rs = st.executeQuery(sql);
-            while(rs.next())
+            st7 = con.createStatement();
+            rs7 = st7.executeQuery(sql);
+            while(rs7.next())
             {
-                listOperadorE.addItem(rs.getString("nombre"));
-                listOperadorI.addItem(rs.getString("nombre"));
-                listOperadorB.addItem(rs.getString("nombre"));
+                nombreSt = rs7.getString("nombre");
+                listOperadorE.addItem(nombreSt);
+                listOperadorI.addItem(nombreSt);
+                listOperadorB.addItem(nombreSt);
             }
+            rs7.close();
+            st7.close();
         }
         catch(SQLException ex)
         {
@@ -5847,22 +5893,28 @@ public class Procesos extends javax.swing.JFrame {
     //llena las listas de operadores cuando ya se crearon los procesos
     private void llenarListasOperadores()
     {
+        Statement st7;
+        ResultSet rs7;
         //borramos los elementos que ya tenian las listas
         listOperadorE.removeAllItems();
         listOperadorI.removeAllItems();
         listOperadorB.removeAllItems();
+        String nombreSt = "";
         //las volvemos a llenar
         String sql = "select nombre from operadores";
         try
         {
-            st = con.createStatement();
-            rs = st.executeQuery(sql);
-            while(rs.next())
+            st7 = con.createStatement();
+            rs7 = st7.executeQuery(sql);
+            while(rs7.next())
             {
-                listOperadorE.addItem(rs.getString("nombre"));
-                listOperadorI.addItem(rs.getString("nombre"));
-                listOperadorB.addItem(rs.getString("nombre"));
+                nombreSt = rs7.getString("nombre");
+                listOperadorE.addItem(nombreSt);
+                listOperadorI.addItem(nombreSt);
+                listOperadorB.addItem(nombreSt);
             }
+            rs7.close();
+            st7.close();
         }
         catch(SQLException ex)
         {
@@ -5969,6 +6021,31 @@ public class Procesos extends javax.swing.JFrame {
         this.setSize(new Dimension(WD/2, HG));
         this.setLocationRelativeTo(null);
         
+    }
+    
+    //devuelve el sueldo por hora de cierto operador
+    private float obtenerSueldoXHora(String nombre)
+    {
+        Statement st7;
+        ResultSet rs7;
+        Float sueldo = 0f;
+        String sql = " select sueldo_hr from operadores where nombre = '"+nombre+"'";
+        try
+        {
+            st7 = con.createStatement();
+            rs7 = st7.executeQuery(sql);
+            while(rs7.next())
+            {
+                sueldo = Float.parseFloat(rs7.getString("sueldo_hr"));
+            }
+            rs7.close();
+            st7.close();
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        return sueldo;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

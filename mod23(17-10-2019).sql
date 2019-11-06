@@ -1,6 +1,7 @@
  drop database imprexa2;
  create database imprexa2;
  use imprexa2;
+ select nombre from operadores;
 
 create table cliente (idC int not null auto_increment, agente varchar(40), nom varchar(40), tel bigint, cel bigint, mail varchar(35), 
 dir varchar(40), primary key(idC));
