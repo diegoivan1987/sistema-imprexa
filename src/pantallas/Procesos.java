@@ -5154,15 +5154,84 @@ public class Procesos extends javax.swing.JFrame {
     }//GEN-LAST:event_cambioModActionPerformed
 
     private void listOperadorEItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listOperadorEItemStateChanged
-        sueldoPorHoraE = obtenerSueldoXHora(listOperadorE.getSelectedItem().toString());
+        Statement st7;
+      ResultSet rs7;
+      String sql = "select nombre from operadores";
+      int contador = 0;
+      try
+      {
+          st7 = con.createStatement();
+          rs7 = st7.executeQuery(sql);
+          while(rs7.next())
+          {
+              contador += 1;
+          }
+          rs7.close();
+          st7.close();
+      }
+      catch(SQLException ex)
+      {
+          ex.printStackTrace();
+      }
+      
+      if (listOperadorE.getItemCount() == contador)
+      {
+          sueldoPorHoraE = obtenerSueldoXHora(listOperadorE.getSelectedItem().toString());
+      }
     }//GEN-LAST:event_listOperadorEItemStateChanged
 
     private void listOperadorIItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listOperadorIItemStateChanged
-        sueldoPorHoraI = obtenerSueldoXHora(listOperadorI.getSelectedItem().toString());
+        Statement st7;
+      ResultSet rs7;
+      String sql = "select nombre from operadores";
+      int contador = 0;
+      try
+      {
+          st7 = con.createStatement();
+          rs7 = st7.executeQuery(sql);
+          while(rs7.next())
+          {
+              contador += 1;
+          }
+          rs7.close();
+          st7.close();
+      }
+      catch(SQLException ex)
+      {
+          ex.printStackTrace();
+      }
+      
+      if (listOperadorI.getItemCount() == contador)
+      {
+          sueldoPorHoraI = obtenerSueldoXHora(listOperadorI.getSelectedItem().toString());
+      }
     }//GEN-LAST:event_listOperadorIItemStateChanged
 
     private void listOperadorBItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listOperadorBItemStateChanged
-        sueldoPorHoraB = obtenerSueldoXHora(listOperadorB.getSelectedItem().toString());
+        Statement st7;
+      ResultSet rs7;
+      String sql = "select nombre from operadores";
+      int contador = 0;
+      try
+      {
+          st7 = con.createStatement();
+          rs7 = st7.executeQuery(sql);
+          while(rs7.next())
+          {
+              contador += 1;
+          }
+          rs7.close();
+          st7.close();
+      }
+      catch(SQLException ex)
+      {
+          ex.printStackTrace();
+      }
+      
+      if (listOperadorB.getItemCount() == contador)
+      {
+          sueldoPorHoraB = obtenerSueldoXHora(listOperadorB.getSelectedItem().toString());
+      }
     }//GEN-LAST:event_listOperadorBItemStateChanged
 
     
@@ -6029,7 +6098,7 @@ public class Procesos extends javax.swing.JFrame {
         Statement st7;
         ResultSet rs7;
         Float sueldo = 0f;
-        String sql = " select sueldo_hr from operadores where nombre = '"+nombre+"'";
+        String sql = "select sueldo_hr from operadores where nombre = '"+nombre+"'";
         try
         {
             st7 = con.createStatement();
