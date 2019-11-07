@@ -5153,8 +5153,10 @@ public class Procesos extends javax.swing.JFrame {
                 }
     }//GEN-LAST:event_cambioModActionPerformed
 
+    //Cada que cambia la lista, obtiene el sueldoXHora del indice
     private void listOperadorEItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listOperadorEItemStateChanged
-        Statement st7;
+      //primero se obtiene el total de nombres de operadores
+      Statement st7;
       ResultSet rs7;
       String sql = "select nombre from operadores";
       int contador = 0;
@@ -5174,14 +5176,25 @@ public class Procesos extends javax.swing.JFrame {
           ex.printStackTrace();
       }
       
+      /*si ya hay un operador en la lista, se obtiene su sueldo, ya que cada que
+      cada que se agrega un operador, lo detecta como cambio*/
+      if (listOperadorE.getItemCount() == 1)
+      {
+          sueldoPorHoraE = obtenerSueldoXHora(listOperadorE.getItemAt(0).toString());
+      }
+      
+      /*si ya se termino de llenar la lista, se obtiene el sueldo del operador
+      elejido*/
       if (listOperadorE.getItemCount() == contador)
       {
           sueldoPorHoraE = obtenerSueldoXHora(listOperadorE.getSelectedItem().toString());
       }
     }//GEN-LAST:event_listOperadorEItemStateChanged
 
+    //Cada que cambia la lista, obtiene el sueldoXHora del indice
     private void listOperadorIItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listOperadorIItemStateChanged
-        Statement st7;
+      //primero se obtiene el total de nombres de operadores  
+      Statement st7;
       ResultSet rs7;
       String sql = "select nombre from operadores";
       int contador = 0;
@@ -5200,15 +5213,24 @@ public class Procesos extends javax.swing.JFrame {
       {
           ex.printStackTrace();
       }
-      
+      /*si ya hay un operador en la lista, se obtiene su sueldo, ya que cada que
+      cada que se agrega un operador, lo detecta como cambio*/
+      if (listOperadorI.getItemCount() == 1)
+      {
+          sueldoPorHoraI = obtenerSueldoXHora(listOperadorI.getItemAt(0).toString());
+      }
+      /*si ya se termino de llenar la lista, se obtiene el sueldo del operador
+      elejido*/
       if (listOperadorI.getItemCount() == contador)
       {
           sueldoPorHoraI = obtenerSueldoXHora(listOperadorI.getSelectedItem().toString());
       }
     }//GEN-LAST:event_listOperadorIItemStateChanged
 
+    //Cada que cambia la lista, obtiene el sueldoXHora del indice
     private void listOperadorBItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listOperadorBItemStateChanged
-        Statement st7;
+      //primero se obtiene el total de nombres de operadores  
+      Statement st7;
       ResultSet rs7;
       String sql = "select nombre from operadores";
       int contador = 0;
@@ -5227,7 +5249,14 @@ public class Procesos extends javax.swing.JFrame {
       {
           ex.printStackTrace();
       }
-      
+      /*si ya hay un operador en la lista, se obtiene su sueldo, ya que cada que
+      cada que se agrega un operador, lo detecta como cambio*/
+      if (listOperadorB.getItemCount() == 1)
+      {
+          sueldoPorHoraB = obtenerSueldoXHora(listOperadorB.getItemAt(0).toString());
+      }
+      /*si ya se termino de llenar la lista, se obtiene el sueldo del operador
+      elejido*/
       if (listOperadorB.getItemCount() == contador)
       {
           sueldoPorHoraB = obtenerSueldoXHora(listOperadorB.getSelectedItem().toString());
@@ -5957,6 +5986,7 @@ public class Procesos extends javax.swing.JFrame {
         {
             ex.printStackTrace();
         }
+        
     }
     
     //llena las listas de operadores cuando ya se crearon los procesos
@@ -5989,6 +6019,7 @@ public class Procesos extends javax.swing.JFrame {
         {
             ex.printStackTrace();
         }
+        
     }
     
     public void vacearComponentes(){
