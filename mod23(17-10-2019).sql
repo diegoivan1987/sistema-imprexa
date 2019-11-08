@@ -90,7 +90,10 @@ alter table impreso add column costoOpTotalImp float;
 alter table impreso add column greniaImp float;
 alter table impreso add column costoUnitarioImp float;/*agrege yo*/
 alter table impreso add column hrTotalesPar varchar(6);
-select * from extrusion where idPar_fk = 77;
+alter table impreso add column produccion2 float;
+alter table impreso add column prov2 varchar(40);
+alter table impreso add column precioKg2 float;
+
 create table bolseo(idBol int not null auto_increment, produccion float,/*Produccion o compra de material*/ produccionPz int,
  prov1 varchar(40), precioKg1 float, idPar_fk int not null, primary key(idBol), foreign key(idPar_fk)
 references partida(idPar));
