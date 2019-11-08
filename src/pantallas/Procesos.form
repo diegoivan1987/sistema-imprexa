@@ -880,7 +880,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="panelCostos" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="panImp" min="-2" max="-2" attributes="0"/>
+                              <Component id="panImp" min="-2" pref="266" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="panMaqImp" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -903,44 +903,9 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jLabel134" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="kgOpIm" min="-2" pref="68" max="-2" attributes="0"/>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                                  <Component id="jLabel136" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="listOperadorI" min="-2" pref="220" max="-2" attributes="0"/>
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="jLabel133" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="greImp" min="-2" pref="56" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="jLabel135" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="maqImp" min="-2" pref="53" max="-2" attributes="0"/>
-                                      </Group>
                                       <Group type="102" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                                  <Component id="agI" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
+                                          <EmptySpace pref="367" max="32767" attributes="0"/>
+                                          <Component id="agI" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
@@ -960,28 +925,67 @@
                                           <EmptySpace pref="109" max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel138" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel140" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
+                                                  <Component id="jLabel138" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="fFinImp" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="fIniImp" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jLabel143" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="extHrImp" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="fIniImp" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="costoOpImp" min="-2" pref="94" max="-2" attributes="0"/>
                                               </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jLabel140" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                                  <Component id="fFinImp" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jLabel143" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="extHrImp" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                           <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel147" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel134" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel136" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      <Group type="102" alignment="1" attributes="0">
+                                                          <Component id="listOperadorI" min="-2" pref="220" max="-2" attributes="0"/>
+                                                          <EmptySpace max="32767" attributes="0"/>
+                                                          <Component id="jLabel133" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="greImp" min="-2" pref="56" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="jLabel135" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="maqImp" min="-2" pref="53" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="listAyudanteI" min="-2" pref="220" max="-2" attributes="0"/>
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" alignment="1" attributes="0">
+                                                          <EmptySpace min="60" pref="60" max="-2" attributes="0"/>
+                                                          <Component id="kgOpIm" min="-2" pref="68" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -1006,41 +1010,51 @@
                                           <Component id="listOperadorI" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="kgOpIm" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="jLabel147" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="listAyudanteI" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="kgOpIm" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                                                  <Component id="jLabel137" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                                  <Component id="jLabel139" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                                  <Component id="jLabel136" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Group type="102" attributes="0">
-                                                          <Component id="jLabel136" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                          <Component id="fIniImp" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
+                                                      <Component id="fIniImp" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel138" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="fFinImp" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel140" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="extHrImp" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel143" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="jLabel137" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="fFinImp" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel139" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel140" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="extHrImp" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel143" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
@@ -1051,7 +1065,7 @@
                                           <Component id="agI" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                                           <Component id="hrIniImp" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="hrFinImp" min="-2" max="-2" attributes="0"/>
@@ -1060,7 +1074,7 @@
                                               <Component id="jLabel141" alignment="1" min="-2" max="-2" attributes="0"/>
                                               <Component id="hrMuertoImp" alignment="1" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace pref="10" max="32767" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Component id="jLabel142" alignment="1" min="-2" max="-2" attributes="0"/>
                                               <Component id="totalHrImp" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -1279,6 +1293,24 @@
                           </Properties>
                           <Events>
                             <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="listOperadorIItemStateChanged"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel147">
+                          <Properties>
+                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                              <Color blue="99" green="66" red="0" type="rgb"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Ayudante:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JComboBox" name="listAyudanteI">
+                          <Properties>
+                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                              <StringArray count="0"/>
+                            </Property>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="listAyudanteIItemStateChanged"/>
                           </Events>
                         </Component>
                       </SubComponents>
