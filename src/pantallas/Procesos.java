@@ -5639,6 +5639,20 @@ public class Procesos extends javax.swing.JFrame {
         });
     }
     
+    //devuelve la maquina utilizadas en impresion
+    private int obtieneMaquina()
+    {
+        int maquina;//la inicializamos en uno porque obtendremos el valor del textfield dentro de un try-catch
+        try
+        {
+            maquina = Integer.parseInt(maqImp.getText());
+        }
+        catch(Exception ex)
+        {
+            maquina = 1;
+        }
+        return maquina;
+    }
     
     //timechosers de impreso
     private void hrIniIChange(){
@@ -5646,7 +5660,15 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
+                int maquina = obtieneMaquina();
+                if(maquina == 3)/*si usan la maquina 3, utiliza la funcion exclusiva de impresion*/
+                {
+                    calcularTotalhrImp(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, sueldoPorHoraAyudanteI, costoOpImp);
+                }
+                else/*si no,usa la misma funcion que los otros procesos*/
+                {
+                    calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
+                }
                 
             }
             @Override
@@ -5663,7 +5685,15 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
+                int maquina = obtieneMaquina();
+                if(maquina == 3)/*si usan la maquina 3, utiliza la funcion exclusiva de impresion*/
+                {
+                    calcularTotalhrImp(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, sueldoPorHoraAyudanteI, costoOpImp);
+                }
+                else/*si no,usa la misma funcion que los otros procesos*/
+                {
+                    calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
+                }
             }
             @Override
             public void removeUpdate(DocumentEvent e) {
@@ -5679,7 +5709,15 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
+                int maquina = obtieneMaquina();
+                if(maquina == 3)/*si usan la maquina 3, utiliza la funcion exclusiva de impresion*/
+                {
+                    calcularTotalhrImp(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, sueldoPorHoraAyudanteI, costoOpImp);
+                }
+                else/*si no,usa la misma funcion que los otros procesos*/
+                {
+                    calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
+                }
             }
             @Override
             public void removeUpdate(DocumentEvent e) {
@@ -5695,7 +5733,15 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
+                int maquina = obtieneMaquina();
+                if(maquina == 3)/*si usan la maquina 3, utiliza la funcion exclusiva de impresion*/
+                {
+                    calcularTotalhrImp(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, sueldoPorHoraAyudanteI, costoOpImp);
+                }
+                else/*si no,usa la misma funcion que los otros procesos*/
+                {
+                    calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
+                }
             }
             @Override
             public void removeUpdate(DocumentEvent e) {
@@ -5711,7 +5757,15 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void onCommit(CommitEvent ce) {
-               calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
+                int maquina = obtieneMaquina();
+                if(maquina == 3)/*si usan la maquina 3, utiliza la funcion exclusiva de impresion*/
+                {
+                    calcularTotalhrImp(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, sueldoPorHoraAyudanteI, costoOpImp);
+                }
+                else/*si no,usa la misma funcion que los otros procesos*/
+                {
+                    calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
+                }
             }
         });
     }
@@ -5721,7 +5775,15 @@ public class Procesos extends javax.swing.JFrame {
 
             @Override
             public void onCommit(CommitEvent ce) {
-                calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
+                int maquina = obtieneMaquina();
+                if(maquina == 3)/*si usan la maquina 3, utiliza la funcion exclusiva de impresion*/
+                {
+                    calcularTotalhrImp(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, sueldoPorHoraAyudanteI, costoOpImp);
+                }
+                else/*si no,usa la misma funcion que los otros procesos*/
+                {
+                    calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
+                }
             }
         });
     }
@@ -5933,6 +5995,108 @@ public class Procesos extends javax.swing.JFrame {
         
     }
     
+    //lo mismo que la funcion de arriba pero para impreso cuando usan la maquina 3
+    private void calcularTotalhrImp(JTimeChooser tIni, JTimeChooser tFin, JTimeChooser total, JTimeChooser muerto, DateChooserCombo fini, DateChooserCombo fFin,
+            JTimeChooser extra, float sueldoOperador, float sueldoAyudante,JTextField costo){
+         
+        dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
+        dtIni= new DateTime(fini.getText() + "T" + tIni.getTimeField().getText());
+        dtFin = new DateTime(fFin.getText() + "T" + tFin.getTimeField().getText());
+        dtMuerto = new DateTime("T" + muerto.getTimeField().getText());   
+        extTime = new DateTime("T" + extra.getTimeField().getText());
+        diff = new Period(dtIni, dtFin);
+        
+        int minNoAcum = diff.getMinutes();
+        String horasSt = "00:00:00";
+        int minOfHour = 0;
+        int hrOfDay = 0;
+        int tiempoExtra = 0;
+        int minutosMenosExtra = 0;
+        
+        int horas = Hours.hoursBetween(dtIni, dtFin).getHours();
+        int minutos = Minutes.minutesBetween(dtIni, dtFin).getMinutes();
+        
+        horas = horas - dtMuerto.getHourOfDay();
+        minutos = minutos - dtMuerto.getMinuteOfDay();
+        
+        
+        if(horas < 0){
+            horas = 0;
+        } 
+        
+        if(minutos < 0){
+            minutos = 0;
+        }
+        if(minNoAcum < 0){
+            minNoAcum = 0;
+        }
+        
+        if(horas > 9 && minNoAcum > 9){
+            horasSt = (horas + ":" + minNoAcum + ":00");
+        }else if(horas < 10 && minNoAcum < 10){
+            horasSt = ("0" + horas + ":" + "0" + minNoAcum + ":00");
+        }else if(horas > 9 && minNoAcum < 10){
+            horasSt = (horas + ":" + "0" + minNoAcum + ":00");
+        }else if(horas < 10 && minNoAcum > 9){
+            horasSt = ("0" + horas + ":" + minNoAcum + ":00");
+        }
+        
+        String horasTotal = getHrDT(horasSt); 
+        char auxHr = 0;
+        
+        if(Integer.parseInt(horasTotal) > 23){
+            
+            try{
+                auxHr = horasTotal.charAt(0);
+                horasSt = horasSt.replace(horasSt.charAt(0), '1');
+
+                aux = new DateTime("T"+horasSt);
+                aux = aux.plusMinutes(-muerto.getMinutes());
+                minOfHour = aux.getMinuteOfHour();
+                hrOfDay = Integer.parseInt(horasTotal);
+
+                horasSt = horasSt.replace(horasSt.charAt(0), auxHr);
+                //System.out.println(horasSt);
+
+                comprobarTiempos(minOfHour, hrOfDay, horasSt, aux, total);
+            }catch(java.lang.IllegalArgumentException ex){
+                JOptionPane.showMessageDialog(null, "No se pueden sobrepasar las horas totales, maximo: 99 horas", "Advertencia", 
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+            
+        }else{
+            
+            try{
+                aux = new DateTime("T"+horasSt);
+                aux = aux.plusMinutes(-muerto.getMinutes());
+                minOfHour = aux.getMinuteOfHour();
+                hrOfDay = aux.getHourOfDay();
+
+                //System.out.println(horasSt);
+                comprobarTiempos(minOfHour, hrOfDay, horasSt, aux, total);
+            }catch(java.lang.IllegalArgumentException ex){
+                JOptionPane.showMessageDialog(null, "No se pueden sobrepasar las horas totales, maximo: 99 horas", "Advertencia", 
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+    
+        }
+        
+        aux = new DateTime("T00:00:00");
+        tiempoExtra = Minutes.minutesBetween(aux, extTime).getMinutes();
+        minutosMenosExtra = minutos - tiempoExtra;
+        
+        if(minutosMenosExtra < 0){
+            minutos = 0;
+        }
+        if(tiempoExtra < 0){
+            tiempoExtra = 0;
+        }
+        
+        calcularCostoOpMinutosImp(minutosMenosExtra, sueldoOperador, sueldoAyudante, tiempoExtra, minutos, costo);
+        
+    }
+    
     private void calculaHrTotalesPartida(String tablaOperadorProceso,String idProcesoForaneo, int idProcesoGlobal, String tablaProceso)
     {
         String horaSt = "0";
@@ -6019,6 +6183,26 @@ public class Procesos extends javax.swing.JFrame {
             //System.out.println(costoPorHora + " = " + costoPorHora + " / " + minutos);
             costoTotal = (costoPorMinutos * minutos) + ((costoPorMinutos * minutosExtra) * 2);
             //System.out.println(costoTotal + " = " + costoPorMinutos + " X " + minutos);
+        }
+        
+        costoField.setText(String.valueOf(costoTotal));
+    }
+    
+    /*lo mismo que lo de arriba, pero para impresion cuando usan la maquina 3*/
+    private void calcularCostoOpMinutosImp(int minutos, float sueldoOperador, float sueldoAyudante,int minutosExtra, int minutosTotales, JTextField costoField){
+        
+        float costoPorMinutos = 0f;
+        float costoTotal = 0f;
+        
+        if(minutosExtra > minutosTotales){
+            costoTotal = 0;
+        }else{
+            //los parseamos porque si no marca error y les sumamos 8.33 porque eso es igual a los 400 que se le suman entre las 48 horas
+            sueldoOperador = (float) (8.33+sueldoOperador);
+            sueldoAyudante = (float) (8.33+sueldoAyudante);
+            costoPorMinutos = (sueldoOperador+sueldoAyudante) / 60;
+            
+            costoTotal = (costoPorMinutos * minutos) + ((costoPorMinutos * minutosExtra) * 2);
         }
         
         costoField.setText(String.valueOf(costoTotal));
