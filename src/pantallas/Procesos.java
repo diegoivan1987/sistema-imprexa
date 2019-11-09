@@ -49,7 +49,8 @@ public class Procesos extends javax.swing.JFrame {
     //Variables de extrusion
     String pM1St=null, pM2St=null, provE1St=null, precioKgE1St=null, prov2St=null, precioKg2St=null;
     //Variables de Impreso
-    String prodISt=null, provI1St=null, precioKgI1St=null, stickySt=null, cDiseSt=null, cGrabSt=null, stcSt=null;
+    String prodISt=null, provI1St=null, precioKgI1St=null, prodI2St=null, provI2St=null, precioKgI2St=null, 
+            stickySt=null, cDiseSt=null, cGrabSt=null, stcSt=null;
     //Variables de Bolseo
     String  prodBSt=null, prodPzSt=null, provB1St=null, precioKgB1St=null;
     
@@ -277,6 +278,12 @@ public class Procesos extends javax.swing.JFrame {
         kgImp = new javax.swing.JTextField();
         jLabel132 = new javax.swing.JLabel();
         gdIm = new javax.swing.JToggleButton();
+        jLabel148 = new javax.swing.JLabel();
+        provImp2 = new javax.swing.JTextField();
+        jLabel149 = new javax.swing.JLabel();
+        porKgImp2 = new javax.swing.JTextField();
+        jLabel150 = new javax.swing.JLabel();
+        kgImp2 = new javax.swing.JTextField();
         panelCostos = new javax.swing.JPanel();
         costoGrab = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
@@ -1045,7 +1052,7 @@ public class Procesos extends javax.swing.JFrame {
                                 .addGroup(panImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(extHrImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel143))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(costoOpImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1113,53 +1120,98 @@ public class Procesos extends javax.swing.JFrame {
             }
         });
 
+        jLabel148.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel148.setText("Proveedor:");
+
+        provImp2.setForeground(new java.awt.Color(0, 153, 153));
+        provImp2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                provImp2KeyTyped(evt);
+            }
+        });
+
+        jLabel149.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel149.setText("Precio por kg: $");
+
+        porKgImp2.setForeground(new java.awt.Color(0, 153, 153));
+        porKgImp2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                porKgImp2KeyTyped(evt);
+            }
+        });
+
+        jLabel150.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel150.setText("Producción kg:");
+
+        kgImp2.setForeground(new java.awt.Color(0, 153, 153));
+        kgImp2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kgImp2KeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout panMaqImpLayout = new javax.swing.GroupLayout(panMaqImp);
         panMaqImp.setLayout(panMaqImpLayout);
         panMaqImpLayout.setHorizontalGroup(
             panMaqImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panMaqImpLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panMaqImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panMaqImpLayout.createSequentialGroup()
-                        .addGroup(panMaqImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(panMaqImpLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel146)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(porKgImp, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel132)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(kgImp, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panMaqImpLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel145)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(provImp, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panMaqImpLayout.createSequentialGroup()
-                                .addGap(214, 214, 214)
-                                .addComponent(jLabel144)))
-                        .addGap(0, 4, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panMaqImpLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(gdIm)))
+                        .addComponent(gdIm))
+                    .addGroup(panMaqImpLayout.createSequentialGroup()
+                        .addGroup(panMaqImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panMaqImpLayout.createSequentialGroup()
+                                .addComponent(jLabel145)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(provImp, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel146))
+                            .addComponent(jLabel144))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(porKgImp, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel132)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(kgImp, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panMaqImpLayout.createSequentialGroup()
+                        .addComponent(jLabel148)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(provImp2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel149)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(porKgImp2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel150)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(kgImp2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         panMaqImpLayout.setVerticalGroup(
             panMaqImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panMaqImpLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel144)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panMaqImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel145)
-                    .addComponent(provImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panMaqImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(provImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel146)
                     .addComponent(porKgImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(kgImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel132))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel132)
+                    .addComponent(kgImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addGroup(panMaqImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel148)
+                    .addComponent(provImp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel149)
+                    .addComponent(porKgImp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel150)
+                    .addComponent(kgImp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(gdIm)
                 .addContainerGap())
         );
@@ -1257,7 +1309,7 @@ public class Procesos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panImp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panMaqImp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panMaqImp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 570, Short.MAX_VALUE)
                     .addComponent(panelCostos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -2781,7 +2833,7 @@ public class Procesos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al establecer los datos de extrusion: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         
-        sql = "select produccion, prov1, precioKg1, sticky, costoDiseno, idImp from impreso where idPar_fk = "+idPart+"";
+        sql = "select produccion, prov1, precioKg1, produccion2, prov2, precioKg2, sticky, costoDiseno, idImp from impreso where idPar_fk = "+idPart+"";
         
         try {
             rs = st.executeQuery(sql);
@@ -2790,6 +2842,9 @@ public class Procesos extends javax.swing.JFrame {
                 kgImp.setText(rs.getString("produccion"));
                 provImp.setText(rs.getString("prov1"));
                 porKgImp.setText(rs.getString("precioKg1"));
+                kgImp2.setText(rs.getString("produccion2"));
+                provImp2.setText(rs.getString("prov2"));
+                porKgImp2.setText(rs.getString("precioKg2"));
                 stc.setText(rs.getString("sticky"));
                 costoDise.setText(rs.getString("costoDiseno"));
                 idIm = rs.getInt("idImp");
@@ -2890,6 +2945,9 @@ public class Procesos extends javax.swing.JFrame {
         kgImp.setText("0");
         provImp.setText("");
         porKgImp.setText("0");
+        kgImp2.setText("0");
+        provImp2.setText("");
+        porKgImp2.setText("0");
         stc.setText("0");
         costoDise.setText("0");
         costoGrab.setText("0");
@@ -2950,6 +3008,9 @@ public class Procesos extends javax.swing.JFrame {
             prodISt = kgImp.getText();
             provI1St = provImp.getText();
             precioKgI1St = porKgImp.getText();
+            prodI2St = kgImp2.getText();
+            provI2St = provImp2.getText();
+            precioKgI2St = porKgImp2.getText();
             stickySt = stc.getText();
             cDiseSt = costoDise.getText();
             cGrabSt = costoGrab.getText();
@@ -3005,9 +3066,9 @@ public class Procesos extends javax.swing.JFrame {
                 }
 
                 //Impreso
-                sql = "insert into impreso(produccion, prov1, precioKg1, idPar_fk, kgTotales, costoOpTotalImp, greniaImp, "
+                sql = "insert into impreso(produccion, prov1, precioKg1, produccion2, prov2, precioKg2, idPar_fk, kgTotales, costoOpTotalImp, greniaImp, "
                         + "costoUnitarioImp) "
-                        + "values("+prodISt+",'"+provI1St+"',"+precioKgI1St+","+idPart+",0,0,0,0)";
+                        + "values("+prodISt+",'"+provI1St+"',"+precioKgI1St+","+prodI2St+",'"+provI2St+"',"+precioKgI2St+","+idPart+",0,0,0,0)";
 
                 try {
                     st.execute(sql);
@@ -3138,8 +3199,8 @@ public class Procesos extends javax.swing.JFrame {
             sumarGrenias("operadorImp", "grenia", "idImp_fk", "impreso", "greniaImp", "idImp", idIm);//se hace la sumatoria de grenias
             calculaCostoPartida();//se calcula e inserta el costo de partida
             calculaHrTotalesPartida("operadorImp", "idImp_fk", idIm,"impreso");//se hace la sumatoria de horas de procesos de la partida
-            float material = queryForPesosMaterialMultiuso("impreso", "idImp", idIm, "kgUniI", "operadorImp", "idImp_fk");//se hace la suma de peso de lo comprado y producido
-            calcularCostoUnitarioMultiuso(material, "costoOpTotalImp", "impreso", "idImp", idIm, "costoUnitarioImp");//se calcula e inserta el costo unitario de impresion
+            float material = queryForPesosMaterialImpreso();//se hace la suma de peso de lo comprado y producido
+            calcularCostoUnitarioImpreso(material);//se calcula e inserta el costo unitario de impresion
             calcularCostoTotalPe();//se calcula el costo total del pedido
             calculaPyG();//se calculan las perdidas y ganancias
             vaciarOpI();//se establece en 0 los recuadros que permiten seleccionar horas
@@ -3547,7 +3608,7 @@ public class Procesos extends javax.swing.JFrame {
     
     /**costo unitario**/
     
-    //hace la sumatoria de los pesos de material producido y comprado para impreso o bolseo
+    //hace la sumatoria de los pesos de material producido y comprado para bolseo
     private float queryForPesosMaterialMultiuso(String tabla, String idDeProceso, int variableGlobalIdProceso, String kgUniDelProceso, String tablaOperador,String idFkTablaOperador){
         String sql = "select produccion from "+tabla+" where "+idDeProceso+" = "+variableGlobalIdProceso+"";
         float matC = 0f;
@@ -3576,6 +3637,48 @@ public class Procesos extends javax.swing.JFrame {
             while(rs.next())
             {
                 matP = Float.parseFloat(rs.getString(""+kgUniDelProceso+""));
+                 //sumatoria de material producido
+                materiales = materiales + matP;
+            }          
+            rs.close();
+            st.close();
+            } 
+        catch(SQLException ex) 
+        {
+            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return materiales;
+    }
+    
+    //hace la sumatoria de los pesos de material producido y comprado para impreso
+    private float queryForPesosMaterialImpreso(){
+        String sql = "select produccion,produccion2 from impresion where idImp = "+idIm+"";
+        float matC = 0f;
+        float matP = 0f;
+        float materiales = 0f;
+        try 
+        {
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                //sumatoria del material comprado
+                matC = Float.parseFloat(rs.getString("produccion"))+Float.parseFloat(rs.getString("produccion2"));
+                materiales = materiales + matC;
+            }          
+            rs.close();
+        }catch(SQLException ex) 
+        {
+            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        sql = "select kgUniI from operadorImp where idImp_fk = "+idIm+"";
+        try 
+        {
+            rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                matP = Float.parseFloat(rs.getString("kgUniI"));
                  //sumatoria de material producido
                 materiales = materiales + matP;
             }          
@@ -3666,7 +3769,7 @@ public class Procesos extends javax.swing.JFrame {
             } 
     }
     
-    //calcula el costo unitario de impreso o bolseo
+    //calcula el costo unitario de bolseo
     private void calcularCostoUnitarioMultiuso(float material, String costoOpTotalProceso, String proceso, String idProceso, int variableGlobalIdProceso, String costoUnitarioProceso){
         float costo = 0f, kgtotales = material, resultado = 0f;
         String sql = "select "+costoOpTotalProceso+" from "+proceso+" where "+idProceso+" = "+variableGlobalIdProceso+"";
@@ -3690,6 +3793,41 @@ public class Procesos extends javax.swing.JFrame {
         }
         
         sql = "update "+proceso+" set "+costoUnitarioProceso+" = "+resultado+" where "+idProceso+" = "+variableGlobalIdProceso+"";
+        try
+        {
+            st.execute(sql);
+            st.close();
+        }
+        catch(SQLException ex) 
+        {
+            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
+    
+    //calcula el costo unitario de impreso
+    private void calcularCostoUnitarioImpreso(float material){
+        float costo = 0f, kgtotales = material, resultado = 0f;
+        String sql = "select costoOpTotalImp from impreso where idImp = "+idIm+"";
+        try{
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                costo = Float.parseFloat(rs.getString("costoOpTotalImp"));
+            }
+            rs.close();
+        }
+        catch(SQLException ex) 
+        {
+            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        
+        if(costo != 0 && kgtotales != 0)
+        {
+            resultado = costo / kgtotales;
+        }
+        
+        sql = "update impreso set costoUnitarioImp = "+resultado+" where idImp = "+idIm+"";
         try
         {
             st.execute(sql);
@@ -3983,7 +4121,7 @@ public class Procesos extends javax.swing.JFrame {
                             }
                             if(sumatoria <= 0)
                             {
-                                String sql3 = "select produccion from impreso where idPar_fk = "+idPart2+"";//obtiene lo comprado de impreso
+                                String sql3 = "select produccion, produccion2 from impreso where idPar_fk = "+idPart2+"";//obtiene lo comprado de impreso
                                 try
                                 {
                                     Statement st3 = con.createStatement();
@@ -3991,9 +4129,10 @@ public class Procesos extends javax.swing.JFrame {
                                     while(rs3.next())
                                     {
                                         float comprado = Float.parseFloat(rs3.getString("produccion"));
-                                        if(comprado > 0)//verifica que lo comprado no sea null
+                                        float comprado2 = Float.parseFloat(rs3.getString("produccion2"));
+                                        if((comprado > 0)||(comprado2 > 0))//verifica que lo comprado no sea null
                                         {
-                                            sumatoria = sumatoria + comprado;//hace la sumatoria de lo comprado de impreso 
+                                            sumatoria = sumatoria + (comprado+comprado2);//hace la sumatoria de lo comprado de impreso 
                                         }
                                 
                                         String sql4 = "select idImp from impreso where idPar_fk = "+idPart2+"";//selecciona el id de impreso del proceso
@@ -4517,9 +4656,12 @@ public class Procesos extends javax.swing.JFrame {
         prodISt = kgImp.getText();
         provI1St = provImp.getText();
         precioKgI1St = porKgImp.getText();
+        prodI2St = kgImp2.getText();
+        provI2St = provImp2.getText();
+        precioKgI2St = porKgImp2.getText();
         
-        String sql = "update impreso set produccion = "+prodISt+", prov1 = '"+provI1St+"', precioKg1 = "+precioKgI1St+""
-                + " where idPar_fk = "+idPart+"";
+        String sql = "update impreso set produccion = "+prodISt+", prov1 = '"+provI1St+"', precioKg1 = "+precioKgI1St+", "
+                + "produccion2 = "+prodI2St+", prov2 = '"+provI2St+"', precioKg2 = "+precioKgI2St+" where idPar_fk = "+idPart+"";
         
         try {
             st = con.createStatement();
@@ -5326,6 +5468,18 @@ public class Procesos extends javax.swing.JFrame {
       }
     }//GEN-LAST:event_listAyudanteIItemStateChanged
 
+    private void provImp2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_provImp2KeyTyped
+        limitarInsercion(40, evt, provImp2);
+    }//GEN-LAST:event_provImp2KeyTyped
+
+    private void porKgImp2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_porKgImp2KeyTyped
+        soloFlotantes(evt, porKgImp2);
+    }//GEN-LAST:event_porKgImp2KeyTyped
+
+    private void kgImp2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgImp2KeyTyped
+        soloFlotantes(evt, kgImp2);
+    }//GEN-LAST:event_kgImp2KeyTyped
+
     
     //Se vacean los campos de agregar operadores
     private void vaciarOpE(){
@@ -5394,8 +5548,14 @@ public class Procesos extends javax.swing.JFrame {
         if(kgImp.getText().equals("") || kgImp.getText().equals(".")){
             kgImp.setText("0");
         }
+        if(kgImp2.getText().equals("") || kgImp2.getText().equals(".")){
+            kgImp2.setText("0");
+        }
         if(porKgImp.getText().equals("") || porKgImp.getText().equals(".")){
             porKgImp.setText("0");
+        }
+        if(porKgImp2.getText().equals("") || porKgImp2.getText().equals(".")){
+            porKgImp2.setText("0");
         }
         if(kgBol.getText().equals("") || kgBol.getText().equals(".")){
             kgBol.setText("0");
@@ -6364,10 +6524,13 @@ public class Procesos extends javax.swing.JFrame {
         proM1.setText("");
         proM2.setText("");
         provImp.setText("");
+        provImp2.setText("");
         provBol.setText("");
         porKgImp.setText("");
+        porKgImp2.setText("");
         porKgBol.setText("");
         kgImp.setText("");
+        kgImp2.setText("");
         kgBol.setText("");
         pzsBol.setText("");
         
@@ -6538,7 +6701,10 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel145;
     private javax.swing.JLabel jLabel146;
     private javax.swing.JLabel jLabel147;
+    private javax.swing.JLabel jLabel148;
+    private javax.swing.JLabel jLabel149;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel150;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
@@ -6605,6 +6771,7 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JTextField kgFinT5;
     private javax.swing.JTextField kgFinT6;
     private javax.swing.JTextField kgImp;
+    private javax.swing.JTextField kgImp2;
     private javax.swing.JTextField kgIniT1;
     private javax.swing.JTextField kgIniT2;
     private javax.swing.JTextField kgIniT3;
@@ -6638,12 +6805,14 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JTextField porKg2Ext;
     private javax.swing.JTextField porKgBol;
     private javax.swing.JTextField porKgImp;
+    private javax.swing.JTextField porKgImp2;
     private javax.swing.JTextField proM1;
     private javax.swing.JTextField proM2;
     private javax.swing.JTextField prov1Ext;
     private javax.swing.JTextField prov2Ext;
     private javax.swing.JTextField provBol;
     private javax.swing.JTextField provImp;
+    private javax.swing.JTextField provImp2;
     private javax.swing.JTextField pzsBol;
     private javax.swing.JTextField retFin;
     private javax.swing.JTextField retIni;
