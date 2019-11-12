@@ -351,6 +351,11 @@ public class Procesos extends javax.swing.JFrame {
         jLabel126 = new javax.swing.JLabel();
         retFin = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel151 = new javax.swing.JLabel();
+        jLabel152 = new javax.swing.JLabel();
+        solventeIni = new javax.swing.JTextField();
+        jLabel153 = new javax.swing.JLabel();
+        solventeFin = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         panBol = new javax.swing.JPanel();
         jLabel69 = new javax.swing.JLabel();
@@ -1067,7 +1072,7 @@ public class Procesos extends javax.swing.JFrame {
                         .addGroup(panImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel141, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(hrMuertoImp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                         .addGroup(panImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel142)
                             .addComponent(totalHrImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1309,7 +1314,7 @@ public class Procesos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panImp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panMaqImp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 570, Short.MAX_VALUE)
+                    .addComponent(panMaqImp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelCostos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1319,7 +1324,7 @@ public class Procesos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(panelCostos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panImp, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panMaqImp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1612,6 +1617,20 @@ public class Procesos extends javax.swing.JFrame {
             }
         });
 
+        jLabel151.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel151.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel151.setText("Solvente acondicionador");
+
+        jLabel152.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel152.setText("Inicio");
+
+        solventeIni.setForeground(new java.awt.Color(0, 153, 153));
+
+        jLabel153.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel153.setText("Final");
+
+        solventeFin.setForeground(new java.awt.Color(0, 153, 153));
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -1680,18 +1699,6 @@ public class Procesos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(kgFinT5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel112)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(t6)
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel113)
-                        .addGap(10, 10, 10)
-                        .addComponent(kgIniT6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel114)
-                        .addGap(11, 11, 11)
-                        .addComponent(kgFinT6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel115)
                             .addGroup(jPanel8Layout.createSequentialGroup()
@@ -1708,16 +1715,8 @@ public class Procesos extends javax.swing.JFrame {
                             .addComponent(jLabel102)
                             .addComponent(jLabel103)
                             .addComponent(jLabel107)
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jLabel125)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(retIni, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel126)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(retFin, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel123))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel119)
                             .addGroup(jPanel8Layout.createSequentialGroup()
@@ -1730,7 +1729,43 @@ public class Procesos extends javax.swing.JFrame {
                                 .addComponent(aceFin, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jLabel112)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(t6))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(jPanel8Layout.createSequentialGroup()
+                                        .addComponent(jLabel152)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(solventeIni))
+                                    .addGroup(jPanel8Layout.createSequentialGroup()
+                                        .addComponent(jLabel125)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(retIni, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel8Layout.createSequentialGroup()
+                                        .addComponent(jLabel126)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(retFin, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel8Layout.createSequentialGroup()
+                                        .addComponent(jLabel153)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(solventeFin)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)))
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel113)
+                        .addGap(10, 10, 10)
+                        .addComponent(kgIniT6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel114)
+                        .addGap(11, 11, 11)
+                        .addComponent(kgFinT6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel151))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -1824,9 +1859,18 @@ public class Procesos extends javax.swing.JFrame {
                     .addComponent(retIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel126)
                     .addComponent(retFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel151)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(solventeIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel153)
+                        .addComponent(solventeFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel152))
+                .addGap(31, 31, 31)
                 .addComponent(jButton1)
-                .addContainerGap())
+                .addGap(21, 21, 21))
         );
 
         paIm.addTab("Tintas", jPanel8);
@@ -1959,7 +2003,7 @@ public class Procesos extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(listOperadorB, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(20, 20, 20)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                         .addComponent(jLabel70)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(maqBol, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -6705,6 +6749,9 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel149;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel150;
+    private javax.swing.JLabel jLabel151;
+    private javax.swing.JLabel jLabel152;
+    private javax.swing.JLabel jLabel153;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
@@ -6817,6 +6864,8 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JTextField retFin;
     private javax.swing.JTextField retIni;
     private javax.swing.JToggleButton savePro;
+    private javax.swing.JTextField solventeFin;
+    private javax.swing.JTextField solventeIni;
     private javax.swing.JTextField stc;
     private javax.swing.JTextField suaje;
     private javax.swing.JTextField t1;

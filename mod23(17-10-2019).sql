@@ -45,7 +45,7 @@ alter table partida add column desarrollo int;
 alter table partida drop column diseno;
 alter table partida add column kgDesperdicio float; 
 alter table partida add column porcentajeDesp float; 
-alter table partida add column costoMaterialTotal float;
+alter table partida add column costoMaterialTotal float;/*costo de material en formulas*/
 alter table partida add column costoPartida float; 
 /*Cara1*/
 alter table partida add column c1t1 varchar(15);
