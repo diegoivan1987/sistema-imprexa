@@ -70,7 +70,8 @@ public class Procesos extends javax.swing.JFrame {
     //Variables de las tintas
     String t1St=null, pI1St=null, pF1St=null, t2St=null, pI2St=null, pF2St=null, t3St=null, pI3St=null, pF3St=null, 
             t4St=null, pI4St=null, pF4St=null, t5St=null, pI5St=null, pF5St=null, t6St=null, pI6St=null, pF6St=null, 
-            iniMezSt=null, finMezSt=null, iniAceSt=null, finAceSt=null, iniRetSt=null, finRetSt=null;
+            iniMezSt=null, finMezSt=null, iniAceSt=null, finAceSt=null, iniRetSt=null, finRetSt=null, iniSolventeSt=null, 
+            finSolventeSt=null;
     
     //Vaiables que almacenan claves principales
     int folio = 0;
@@ -1625,11 +1626,21 @@ public class Procesos extends javax.swing.JFrame {
         jLabel152.setText("Inicio");
 
         solventeIni.setForeground(new java.awt.Color(0, 153, 153));
+        solventeIni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                solventeIniKeyTyped(evt);
+            }
+        });
 
         jLabel153.setForeground(new java.awt.Color(0, 102, 153));
         jLabel153.setText("Final");
 
         solventeFin.setForeground(new java.awt.Color(0, 153, 153));
+        solventeFin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                solventeFinKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -2949,6 +2960,8 @@ public class Procesos extends javax.swing.JFrame {
                 aceFin.setText(rs.getString("finAcetato"));
                 retIni.setText(rs.getString("iniRetard")); 
                 retFin.setText(rs.getString("finRetard"));
+                solventeIni.setText(rs.getString("iniSolvente")); 
+                solventeFin.setText(rs.getString("finSolvente"));
             }
             
             rs.close();
@@ -3026,6 +3039,8 @@ public class Procesos extends javax.swing.JFrame {
         aceFin.setText("0");
         retIni.setText("0"); 
         retFin.setText("0");
+        solventeIni.setText("0"); 
+        solventeFin.setText("0");
         
     }
     
@@ -3092,6 +3107,8 @@ public class Procesos extends javax.swing.JFrame {
             finAceSt = aceFin.getText(); 
             iniRetSt = retIni.getText(); 
             finRetSt = retFin.getText();
+            iniSolventeSt = solventeIni.getText(); 
+            finSolventeSt = solventeFin.getText();
 
 
 
@@ -3145,10 +3162,11 @@ public class Procesos extends javax.swing.JFrame {
                     " iniMezcla, finMezcla," +
                     " iniAcetato, finAcetato," +
                     " iniRetard, finRetard," +
+                    " iniSolvente, finSolvente" +
                     " idImp_fk)" +
                     " values('"+t1St+"', "+pI1St+", "+pF1St+", '"+t2St+"', "+pI2St+", "+pF2St+", '"+t3St+"', "+pI3St+", "+pF3St+", '"+t4St+"', "+pI4St+", "
                         + ""+pF4St+", '"+t5St+"', "+pI5St+", "+pF5St+", '"+t6St+"', "+pI6St+", "+pF6St+", "+iniMezSt+", "+finMezSt+", "+iniAceSt+", "+finAceSt+", "
-                        + ""+iniRetSt+", "+finRetSt+", "+idImPrimera+")";
+                        + ""+iniRetSt+", "+finRetSt+", "+iniSolventeSt+","+finSolventeSt+","+idImPrimera+")";
 
                 try {
                     st.execute(sql);
@@ -5263,6 +5281,8 @@ public class Procesos extends javax.swing.JFrame {
         finAceSt = aceFin.getText();
         iniRetSt = retIni.getText();
         finRetSt = retFin.getText();
+        iniSolventeSt = solventeIni.getText();
+        finSolventeSt = solventeFin.getText();
         
         
         String sql = "update tintas set tinta1 = '"+t1St+"', pIni1 = "+pI1St+", pFin1 = "+pF1St+", tinta2 = '"+t2St+"', pIni2 = "+pI2St+", pFin2 = "+pF2St+"," +
@@ -5270,7 +5290,8 @@ public class Procesos extends javax.swing.JFrame {
             " tinta5 = '"+t5St+"', pIni5 = "+pI5St+", pFin5 = "+pF5St+", tinta6 = '"+t6St+"', pIni6 = "+pI6St+", pFin6 = "+pF6St+"," +
             " iniMezcla = "+iniMezSt+", finMezcla = "+finMezSt+"," +
             " iniAcetato = "+iniAceSt+", finAcetato = "+finAceSt+"," +
-            " iniRetard = "+iniRetSt+", finRetard = "+finRetSt+"" +
+            " iniRetard = "+iniRetSt+", finRetard = "+finRetSt+"," +
+            " iniSolvente = "+iniSolventeSt+", finSolvente = "+finSolventeSt+""+
             " where idImp_fk = "+idImPrimera+"";
         
         try {
@@ -5524,6 +5545,14 @@ public class Procesos extends javax.swing.JFrame {
         soloFlotantes(evt, kgImp2);
     }//GEN-LAST:event_kgImp2KeyTyped
 
+    private void solventeIniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_solventeIniKeyTyped
+        soloFlotantes(evt, solventeIni);
+    }//GEN-LAST:event_solventeIniKeyTyped
+
+    private void solventeFinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_solventeFinKeyTyped
+        soloFlotantes(evt, solventeIni);
+    }//GEN-LAST:event_solventeFinKeyTyped
+
     
     //Se vacean los campos de agregar operadores
     private void vaciarOpE(){
@@ -5674,6 +5703,12 @@ public class Procesos extends javax.swing.JFrame {
         }
         if(retFin.getText().equals("") || retFin.getText().equals(".")){
             retFin.setText("0");
+        } 
+        if(solventeIni.getText().equals("") || solventeIni.getText().equals(".")){
+            solventeIni.setText("0");
+        }
+        if(solventeFin.getText().equals("") || solventeFin.getText().equals(".")){
+            solventeFin.setText("0");
         } 
         
         //Campos de operadores
@@ -6601,7 +6636,9 @@ public class Procesos extends javax.swing.JFrame {
         aceIni.setText("");
         aceFin.setText("");
         retIni.setText("");
-        retFin.setText("");  
+        retFin.setText(""); 
+        solventeIni.setText("");
+        solventeFin.setText(""); 
         
         modPed.setRowCount(0);
         modPart.setRowCount(0);

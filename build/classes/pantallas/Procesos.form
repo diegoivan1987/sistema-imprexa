@@ -2535,6 +2535,9 @@
                           <Color blue="99" green="99" red="0" type="rgb"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="solventeIniKeyTyped"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel153">
                       <Properties>
@@ -2550,6 +2553,9 @@
                           <Color blue="99" green="99" red="0" type="rgb"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="solventeFinKeyTyped"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
