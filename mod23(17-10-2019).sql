@@ -35,6 +35,7 @@ create table pedido(folio int not null auto_increment, impresion varchar(40), de
  alter table pedido drop column pagado;
  alter table pedido add column kgFinalesRango float;
  alter table pedido add column fTermino date;
+ alter table pedido add column porcentajeIVA int;
 
 create table partida(idPar int not null auto_increment, diseno varchar(50), estatus varchar(20), medida varchar(15), piezas int, tipo varchar(40), 
 sello varchar(40), pigmento varchar(40), mat1 varchar(30), calibre1 varchar(5), mat2 varchar(30), calibre2 varchar(5), tintaC1 varchar(50), 

@@ -48,7 +48,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             costeDisSt=null, piezasSt=null, importeSt=null, kgParidaSt=null, pzFinalesSt = null;
     
     float grabados = 0, precioUnitario=0, kilos=0, totalF=0, restoF=0, subF=0, iva=0 ,antiF=0, descuF=0;
-    int piezasI = 0, pzFinalesI = 0;
+    int porcentajeIVA = 0, piezasI = 0, pzFinalesI = 0;
     float importeF = 0;
     
     int idCliente = 0;
@@ -69,6 +69,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     public Pedido(Connection con) {
         initComponents();
         comprobarVacio();
+        porIVA.setSelectedIndex(0);//se inicializa el iva en 0
         ancho = this.getSize().width;
         alto = this.getSize().height;
         
@@ -82,7 +83,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         onChangePzFinales();
         onChangeFini();
         
-        llenarListas();//se llenan las listas desplegables
+        llenarListas();//se llenan las listas desplegables de materiales, status y sello
         //Tabla que muestra los clientes buscados, se establece que no es editable
         modelo = new DefaultTableModel(){
             @Override
@@ -158,6 +159,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         jLabel111 = new javax.swing.JLabel();
         jTextField85 = new javax.swing.JTextField();
         jTimeChooser1 = new lu.tudor.santec.jtimechooser.JTimeChooser();
+        jLabel9 = new javax.swing.JLabel();
         paPed = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         panelCliente = new javax.swing.JPanel();
@@ -196,6 +198,9 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         saveP = new javax.swing.JButton();
         fT = new datechooser.beans.DateChooserCombo();
         jLabel99 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        porIVA = new javax.swing.JComboBox();
+        jLabel26 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         panPart = new javax.swing.JPanel();
         busPedido = new javax.swing.JToggleButton();
@@ -276,6 +281,8 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
 
         jTextField85.setText("jTextField44");
 
+        jLabel9.setText("jLabel9");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pedidos");
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -349,7 +356,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     .addComponent(jScrollPane2)
                     .addGroup(panelClienteLayout.createSequentialGroup()
                         .addComponent(nomCli, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -549,6 +556,14 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         jLabel99.setForeground(new java.awt.Color(0, 102, 153));
         jLabel99.setText("Fecha de termino:");
 
+        jLabel25.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel25.setText("IVA de:");
+
+        porIVA.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "8", "16" }));
+
+        jLabel26.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel26.setText("%");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -556,25 +571,6 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(grab, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(jLabel28)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(anti, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel30)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(decu, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnMod, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(saveP, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -599,7 +595,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jLabel97)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -613,10 +609,37 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                                 .addContainerGap())
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel99)
-                                    .addComponent(fT, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))))
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel99)
+                                        .addComponent(fT, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addGap(51, 51, 51)
+                                        .addComponent(porIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnMod, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(saveP, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(grab, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(jLabel28)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(anti, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel30)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(decu, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(120, 120, 120)
                 .addComponent(sug, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -638,7 +661,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel97)))
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel95)
@@ -658,15 +681,19 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                         .addComponent(fC2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(sug)
-                .addGap(40, 40, 40)
+                .addGap(17, 17, 17)
+                .addComponent(jLabel25)
+                .addGap(9, 9, 9)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
                     .addComponent(jLabel30)
                     .addComponent(decu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel28)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(grab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(anti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(anti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(porIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel26))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveP)
                     .addComponent(btnMod))
@@ -680,8 +707,8 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
-                    .addComponent(panelMod, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                    .addComponent(panelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+                    .addComponent(panelMod, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -753,7 +780,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         panPart.setLayout(panPartLayout);
         panPartLayout.setHorizontalGroup(
             panPartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 593, Short.MAX_VALUE)
+            .addGap(0, 595, Short.MAX_VALUE)
             .addGroup(panPartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panPartLayout.createSequentialGroup()
                     .addContainerGap()
@@ -1123,7 +1150,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                                         .addComponent(limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(savePart)))
-                                .addGap(0, 7, Short.MAX_VALUE))
+                                .addGap(0, 12, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -1392,7 +1419,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     .addComponent(regP, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(abreProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                         .addComponent(modPed))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
@@ -1485,12 +1512,14 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
 
         descuSt = decu.getText();
         descuF = Float.parseFloat(descuSt);
+        
+        porcentajeIVA = Integer.parseInt(porIVA.getSelectedItem().toString());
         //se guardan los datos en la base
         String sql = " insert into pedido(impresion, fIngreso, fCompromiso, fPago, fTermino, grabados, subtotal, total, anticipo, resto, devolucion," +
         " descuento, idC_fk, kgDesperdicioPe, porcentajeDespPe, costoTotal, gastosFijos, perdidasYGanancias, autorizo, sumatoriaBolseoP, "
-                + "matComPe, matProPe) "
+                + "matComPe, matProPe, porcentajeIVA) "
         + "values('"+impSt+"', '"+fInSt+"', '"+fComSt+"', '"+fPagoSt+"', '"+fTerminoSt+"', "+grabados+", 0, 0, "+antiF+", 0, '"+devSt+"'," +
-        " "+descuF+", "+idCliente+", 0, 0, 0, 0, 0, '"+auto.getText()+"', 0, 0, 0)";
+        " "+descuF+", "+idCliente+", 0, 0, 0, 0, 0, '"+auto.getText()+"', 0, 0, 0,"+porcentajeIVA+")";
 
         try 
         {
@@ -1799,11 +1828,36 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
     }
     
+    //devuelva el iva de cierto pedido
+    private float consultaIVA()
+    {
+        Statement st8;
+        ResultSet rs8;
+        String sql = "select porcentajeIVA from pedido where folio = "+folioId+"";
+        float ivaI = 0f;
+        try
+        {
+            st8 = con.createStatement();
+            rs8 = st8.executeQuery(sql);
+            while(rs8.next())
+            {
+                ivaI = Integer.parseInt(rs8.getString("porcentajeIVA"));
+            }
+            rs8.close();
+            st8.close();
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        return ivaI;
+    }
+    
     //Aqui se reciben todos los valores necesarios para calcular el total y el resto y actualizar la base de datos
     private void calcularTotalPed(float sub, float anticipo, float descuento, Statement st){
         
         float total = 0f;
-        float ivaf = 0.16f;
+        float ivaf = consultaIVA()/100;
         float subIva = 0f;
         float rest = 0f;
         
@@ -2128,6 +2182,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             grab.setText("");
             anti.setText("");
             decu.setText("");
+            porIVA.setSelectedIndex(0);
         }
     }//GEN-LAST:event_modPedItemStateChanged
 
@@ -2186,7 +2241,9 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         //Estos calculos se hacen ya que si se modifica el pedido, exactamente los datos de grabados, descuento y anticipo, afecta tambien al total...
         //subtotal y el resto. Se hacen de nuevo los calculos con los nuevos datos y se guardan
         float subtotal = respaldoSub + Float.parseFloat(grab.getText());
-        float subiva = subtotal * 0.16f;
+        String porcentajeDeIvaEntero = porIVA.getSelectedItem().toString();
+        float porcentajeDeIvaFlotante = Float.parseFloat(porcentajeDeIvaEntero)/100;
+        float subiva = subtotal * porcentajeDeIvaFlotante;//obtenemos el iva asi porque el nuevo iva aun no se guarda en la base de datos
         float total = subtotal + subiva;
         
         float resto = total - (Float.parseFloat(anti.getText()) + Float.parseFloat(decu.getText()));
@@ -2203,7 +2260,9 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 + "descuento = "+decu.getText()+", "
                 + "subtotal = "+subtotal+", "
                 + "total = "+total+", "
-                + "resto = "+resto+" where folio = "+folioMod+"";
+                + "resto = "+resto+", porcentajeIVA = "
+                + ""+Integer.parseInt(porIVA.getSelectedItem().toString())+" "
+                + "where folio = "+folioMod+"";
         
         try 
         {
@@ -2501,6 +2560,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 + "grabados, "
                 + "anticipo, "
                 + "descuento, "
+                + "porcentajeIVA,"
                 + "gastosFijos, "
                 + "subtotal"
                 + " from pedido where folio = "+folio+"";
@@ -2554,6 +2614,20 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 grab.setText(rs.getString("grabados"));
                 anti.setText(rs.getString("anticipo"));
                 decu.setText(rs.getString("descuento"));
+                
+                int iva = Integer.parseInt(rs.getString("porcentajeIVA"));
+                if (iva == 0)
+                {
+                    porIVA.setSelectedIndex(0);
+                }
+                else if(iva == 8)
+                {
+                    porIVA.setSelectedIndex(1);
+                }
+                else
+                {
+                    porIVA.setSelectedIndex(2);
+                }
                 
                 respaldoSub = Float.parseFloat(rs.getString("subtotal")) - Float.parseFloat(rs.getString("grabados"));
             }
@@ -2674,6 +2748,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         grab.setText("0.0");
         anti.setText("0.0");
         decu.setText("0.0");
+        porIVA.setSelectedIndex(0);
         sug.setText("Sugerencia");
         nomImpresion.setText("Impresion");
         folioVis.setText("Folio");
@@ -3082,6 +3157,8 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private javax.swing.JLabel jLabel174;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
@@ -3091,6 +3168,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel95;
     private javax.swing.JLabel jLabel97;
     private javax.swing.JLabel jLabel98;
@@ -3125,6 +3203,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private javax.swing.JPanel panelCliente;
     private javax.swing.JPanel panelMod;
     private javax.swing.JTextField pig;
+    private javax.swing.JComboBox porIVA;
     private javax.swing.JTextField precioUni;
     private javax.swing.JTextField pz;
     private javax.swing.JTextField pzFinales;

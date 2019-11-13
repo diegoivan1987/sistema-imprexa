@@ -1,4 +1,4 @@
-
+//no se 
 package pantallas;
 
 import datechooser.beans.DateChooserCombo;
@@ -3162,7 +3162,7 @@ public class Procesos extends javax.swing.JFrame {
                     " iniMezcla, finMezcla," +
                     " iniAcetato, finAcetato," +
                     " iniRetard, finRetard," +
-                    " iniSolvente, finSolvente" +
+                    " iniSolvente, finSolvente," +
                     " idImp_fk)" +
                     " values('"+t1St+"', "+pI1St+", "+pF1St+", '"+t2St+"', "+pI2St+", "+pF2St+", '"+t3St+"', "+pI3St+", "+pF3St+", '"+t4St+"', "+pI4St+", "
                         + ""+pF4St+", '"+t5St+"', "+pI5St+", "+pF5St+", '"+t6St+"', "+pI6St+", "+pF6St+", "+iniMezSt+", "+finMezSt+", "+iniAceSt+", "+finAceSt+", "
@@ -3714,7 +3714,7 @@ public class Procesos extends javax.swing.JFrame {
     
     //hace la sumatoria de los pesos de material producido y comprado para impreso
     private float queryForPesosMaterialImpreso(){
-        String sql = "select produccion,produccion2 from impresion where idImp = "+idIm+"";
+        String sql = "select produccion,produccion2 from impreso where idImp = "+idIm+"";
         float matC = 0f;
         float matP = 0f;
         float materiales = 0f;
