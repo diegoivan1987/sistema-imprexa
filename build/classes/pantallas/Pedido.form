@@ -146,8 +146,8 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="panelCliente" alignment="0" pref="599" max="32767" attributes="0"/>
-                          <Component id="panelMod" alignment="0" pref="599" max="32767" attributes="0"/>
+                          <Component id="panelCliente" alignment="0" pref="612" max="32767" attributes="0"/>
+                          <Component id="panelMod" alignment="0" pref="612" max="32767" attributes="0"/>
                           <Component id="jPanel5" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -544,7 +544,7 @@
                               <Component id="porIVA" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel26" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" pref="12" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="saveP" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnMod" alignment="3" min="-2" max="-2" attributes="0"/>

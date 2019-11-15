@@ -1825,6 +1825,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al actualizar el subtotal", "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
     }
     
@@ -1857,7 +1858,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private void calcularTotalPed(float sub, float anticipo, float descuento, Statement st){
         
         float total = 0f;
-        float ivaf = consultaIVA()/100;
+        float ivaf = consultaIVA()/100f;
         float subIva = 0f;
         float rest = 0f;
         
@@ -2243,7 +2244,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         float subtotal = respaldoSub + Float.parseFloat(grab.getText());
         String porcentajeDeIvaEntero = porIVA.getSelectedItem().toString();
         float porcentajeDeIvaFlotante = Float.parseFloat(porcentajeDeIvaEntero)/100;
-        float subiva = subtotal * porcentajeDeIvaFlotante;//obtenemos el iva asi porque el nuevo iva aun no se guarda en la base de datos
+        float subiva = subtotal * porcentajeDeIvaFlotante;//obtenemos el iva asi porque el nuevo iva aun no se guarda en la base de datos, por lo que no se puede consultar
         float total = subtotal + subiva;
         
         float resto = total - (Float.parseFloat(anti.getText()) + Float.parseFloat(decu.getText()));
