@@ -1721,6 +1721,8 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
             {
                 ivaI = Integer.parseInt(rs2.getString("porcentajeIVA"));//guardamos el iva
             }
+            rs2.close();
+            st2.close();
         }
         catch(SQLException ex)
         {
