@@ -1829,36 +1829,40 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
     }
     
-    //devuelva el iva de cierto pedido
-    private float consultaIVA()
+    //obtiene el porcentaje de iva del pedido
+    private float obtenerIva()
     {
-        Statement st8;
-        ResultSet rs8;
-        String sql = "select porcentajeIVA from pedido where folio = "+folioId+"";
-        float ivaI = 0f;
+        Statement st2;
+        ResultSet rs2;
+        int ivaI = 0;
+        float ivaF = 0f;
+        String sql = "select porcentajeIVA from pedido where folio = "+folioId+"";//se consulta el iva en la base
         try
         {
-            st8 = con.createStatement();
-            rs8 = st8.executeQuery(sql);
-            while(rs8.next())
+            st2 = con.createStatement();
+            rs2 = st2.executeQuery(sql);
+            while(rs2.next())
             {
-                ivaI = Integer.parseInt(rs8.getString("porcentajeIVA"));
+                ivaI = Integer.parseInt(rs2.getString("porcentajeIVA"));//guardamos el iva
             }
-            rs8.close();
-            st8.close();
+            rs2.close();
+            st2.close();
         }
         catch(SQLException ex)
         {
             ex.printStackTrace();
         }
-        return ivaI;
+        
+        ivaF = ivaI/100f;//convertimos el iva consultado en un porcentaje flotante
+        
+        return ivaF;
     }
     
     //Aqui se reciben todos los valores necesarios para calcular el total y el resto y actualizar la base de datos
     private void calcularTotalPed(float sub, float anticipo, float descuento, Statement st){
         
         float total = 0f;
-        float ivaf = consultaIVA()/100f;
+        float ivaf = obtenerIva();
         float subIva = 0f;
         float rest = 0f;
         
