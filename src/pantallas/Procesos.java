@@ -5096,33 +5096,42 @@ public class Procesos extends javax.swing.JFrame {
         }
     }
     
-    //Aqui se reciben todos los valores necesarios para realizar los calculos y actualizar la base de datos
-    private void calcularCostosDeSub(float sub, float anticipo, float descuento, Statement st){
-        
-        ResultSet rs3;
-        
-        float total = 0f;
-        int ivaI = 0;//es donde se guardara el porcentaje obtenido de la base de datos
-        float iva = 0f;//lo dejamos en 0 para consultarlo en la base de datos
-        float subIva = 0f;
-        float rest = 0f;
-        
-        String sql = "select porcentajeIVA from pedido where folio = "+folio+"";//consultamos el valor del iva en la base
+    //obtiene el porcentaje de iva del pedido
+    private float obtenerIva()
+    {
+        Statement st2;
+        ResultSet rs2;
+        int ivaI = 0;
+        float ivaF = 0f;
+        String sql = "select porcentajeIVA from pedido where folio = "+folio+"";//se consulta el iva en la base
         try
         {
-            rs3 = st.executeQuery(sql);
-            while(rs3.next())
+            st2 = con.createStatement();
+            rs2 = st2.executeQuery(sql);
+            while(rs2.next())
             {
-                ivaI = Integer.parseInt(rs3.getString("porcentajeIVA"));//casteamos el string a entero
+                ivaI = Integer.parseInt(rs2.getString("porcentajeIVA"));//guardamos el iva
             }
-            rs3.close();
+            rs2.close();
+            st2.close();
         }
         catch(SQLException ex)
         {
             ex.printStackTrace();
         }
         
-        iva = ivaI/100f;//convertimos el iva entero a porcentaje flotante
+        ivaF = ivaI/100f;//convertimos el iva consultado en un porcentaje flotante
+        
+        return ivaF;
+    }
+    
+    //Aqui se reciben todos los valores necesarios para realizar los calculos y actualizar la base de datos
+    private void calcularCostosDeSub(float sub, float anticipo, float descuento, Statement st){
+        
+        float total = 0f;
+        float iva = obtenerIva();
+        float subIva = 0f;
+        float rest = 0f;
         
         subIva = sub * iva;//Se obtiene el iva del subtotal
         total = sub + subIva;//Se suma el iva y el subtotal para obtener el total
@@ -5136,7 +5145,7 @@ public class Procesos extends javax.swing.JFrame {
         //System.out.println("Aniticipo: " + anticipo);
         //System.out.println("Total: "+total);
         //System.out.println("Resto: " + rest);
-        sql= "update pedido set total = "+total+", resto = "+rest+" where folio = "+folio+"";
+        String sql= "update pedido set total = "+total+", resto = "+rest+" where folio = "+folio+"";
         
         try {
             st.execute(sql);
