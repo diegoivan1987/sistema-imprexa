@@ -1705,10 +1705,36 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         }
     }
     
+    //obtiene el porcentaje de iva del pedido
+    private float obtenerIva()
+    {
+        Statement st2;
+        ResultSet rs2;
+        int ivaI = 0;
+        float ivaF = 0f;
+        String sql = "select porcentajeIVA from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";//se consulta el iva en la base
+        try
+        {
+            st2 = con.createStatement();
+            rs2 = st2.executeQuery(sql);
+            while(rs2.next())
+            {
+                ivaI = Integer.parseInt(rs2.getString("porcentajeIVA"));//guardamos el iva
+            }
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        
+        ivaF = ivaI/100f;//convertimos el iva consultado en un porcentaje flotante
+        
+        return ivaF;
+    }
+    
     //Se actualiza el subtotal de pedido
     private void actualizarSubtotalPedido(float sub, Statement st){
         
-        float iva = 0.16f;
         float subGrab = sub;
         float anti  = 0f;
         float descuento = 0f;
@@ -1735,6 +1761,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         catch (SQLException ex) 
         {
             JOptionPane.showMessageDialog(null, "Error al obtener los datos de costos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
         
         //Cuando ya se sumaron los grabados y el subtotal ahora se guarda en la base de datos
@@ -1751,6 +1778,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         catch (SQLException ex) 
         {
             JOptionPane.showMessageDialog(null, "Error al actualizar el subtotal", "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
     }
     
@@ -1758,7 +1786,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
     private void calcularCostosDeSub(float sub, float anticipo, float descuento, Statement st){
         
         float total = 0f;
-        float iva = 0.16f;
+        float iva = obtenerIva();//se obtiene el porcentaje de iva de ese pedido especificamente
         float subIva = 0f;
         float rest = 0f;
         
