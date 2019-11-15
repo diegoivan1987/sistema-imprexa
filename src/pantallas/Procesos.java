@@ -1,4 +1,4 @@
-//no se 
+//total
 package pantallas;
 
 import datechooser.beans.DateChooserCombo;
@@ -5055,7 +5055,6 @@ public class Procesos extends javax.swing.JFrame {
     //Se actualiza el subtotal de pedido
     private void actualizarSubtotalPedido(float sub, Statement st){
         
-        float iva = 0.16f;
         float subGrab = sub;
         float anti  = 0f;
         float descuento = 0f;
@@ -5093,16 +5092,37 @@ public class Procesos extends javax.swing.JFrame {
             
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al actualizar el subtotal", "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
     }
     
     //Aqui se reciben todos los valores necesarios para realizar los calculos y actualizar la base de datos
     private void calcularCostosDeSub(float sub, float anticipo, float descuento, Statement st){
         
+        ResultSet rs3;
+        
         float total = 0f;
-        float iva = 0.16f;
+        int ivaI = 0;//es donde se guardara el porcentaje obtenido de la base de datos
+        float iva = 0f;//lo dejamos en 0 para consultarlo en la base de datos
         float subIva = 0f;
         float rest = 0f;
+        
+        String sql = "select porcentajeIVA from pedido where folio = "+folio+"";//consultamos el valor del iva en la base
+        try
+        {
+            rs3 = st.executeQuery(sql);
+            while(rs3.next())
+            {
+                ivaI = Integer.parseInt(rs3.getString("porcentajeIVA"));//casteamos el string a entero
+            }
+            rs3.close();
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        
+        iva = ivaI/100f;//convertimos el iva entero a porcentaje flotante
         
         subIva = sub * iva;//Se obtiene el iva del subtotal
         total = sub + subIva;//Se suma el iva y el subtotal para obtener el total
@@ -5116,12 +5136,13 @@ public class Procesos extends javax.swing.JFrame {
         //System.out.println("Aniticipo: " + anticipo);
         //System.out.println("Total: "+total);
         //System.out.println("Resto: " + rest);
-        String sql= "update pedido set total = "+total+", resto = "+rest+" where folio = "+folio+"";
+        sql= "update pedido set total = "+total+", resto = "+rest+" where folio = "+folio+"";
         
         try {
             st.execute(sql);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al actualizar el total y resto", "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
 
     }
