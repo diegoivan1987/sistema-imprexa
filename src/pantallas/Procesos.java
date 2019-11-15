@@ -2905,22 +2905,22 @@ public class Procesos extends javax.swing.JFrame {
             rs = st.executeQuery(sql);
             
             while(rs.next()){
-                t1.setText(rs.getString("tinta1"));
+                establecerIndiceDeTintas("listaTintas1", rs.getString("tinta1"));
                 kgIniT1.setText(rs.getString("pIni1"));
                 kgFinT1.setText(rs.getString("pFin1"));
-                t2.setText(rs.getString("tinta2"));
+                establecerIndiceDeTintas("listaTintas2", rs.getString("tinta2"));
                 kgIniT2.setText(rs.getString("pIni2"));
                 kgFinT2.setText(rs.getString("pFin2"));
-                t3.setText(rs.getString("tinta3"));
+                establecerIndiceDeTintas("listaTintas3", rs.getString("tinta3"));
                 kgIniT3.setText(rs.getString("pIni3")); 
                 kgFinT3.setText(rs.getString("pFin3")); 
-                t4.setText(rs.getString("tinta4"));
+                establecerIndiceDeTintas("listaTintas4", rs.getString("tinta4"));
                 kgIniT4.setText(rs.getString("pIni4"));
                 kgFinT4.setText(rs.getString("pFin4")); 
-                t5.setText(rs.getString("tinta5"));
+                establecerIndiceDeTintas("listaTintas5", rs.getString("tinta5"));
                 kgIniT5.setText(rs.getString("pIni5"));
                 kgFinT5.setText(rs.getString("pFin5"));
-                t6.setText(rs.getString("tinta6"));
+                establecerIndiceDeTintas("listaTintas6", rs.getString("tinta6"));
                 kgIniT6.setText(rs.getString("pIni6"));
                 kgFinT6.setText(rs.getString("pFin6"));
 
@@ -2957,6 +2957,54 @@ public class Procesos extends javax.swing.JFrame {
         }
         
         
+    }
+    
+    private void establecerIndiceDeTintas(String listaTintas, String tintaDeLaBase)
+    {
+        if(tintaDeLaBase.equals("Blanco Laminación"))
+        {
+            listaTintas.setSelectedIndex(0);
+        }
+        else if(tintaDeLaBase.equals("Blanco Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(1);
+        }
+        else if(tintaDeLaBase.equals("Amarillo Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(2);
+        }
+        else if(tintaDeLaBase.equals("Naranja Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(3);
+        }
+        else if(tintaDeLaBase.equals("Magenta Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(4);
+        }
+        else if(tintaDeLaBase.equals("Rojo Medio Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(5);
+        }
+        else if(tintaDeLaBase.equals("Azul Cyan Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(6);
+        }
+        else if(tintaDeLaBase.equals("Azul Reflex Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(7);
+        }
+        else if(tintaDeLaBase.equals("Verde Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(8);
+        }
+        else if(tintaDeLaBase.equals("Violeta Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(9);
+        }
+        else if(tintaDeLaBase.equals("Negro Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(10);
+        }
     }
     
     //Se establecen en "" o "0" los campos de los procesos que aun no se han generado
