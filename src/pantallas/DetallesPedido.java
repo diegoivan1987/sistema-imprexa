@@ -651,12 +651,41 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //obtiene el porcentaje de iva del pedido
+    private float obtenerIva()
+    {
+        Statement st2;
+        ResultSet rs2;
+        int ivaI = 0;
+        float ivaF = 0f;
+        String sql = "select porcentajeIVA from pedido where folio = "+dp.getFolio().replace("A", "")+"";//se consulta el iva en la base
+        try
+        {
+            st2 = con.createStatement();
+            rs2 = st2.executeQuery(sql);
+            while(rs2.next())
+            {
+                ivaI = Integer.parseInt(rs2.getString("porcentajeIVA"));//guardamos el iva
+            }
+            rs2.close();
+            st2.close();
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        
+        ivaF = ivaI/100f;//convertimos el iva consultado en un porcentaje flotante
+        
+        return ivaF;
+    }
+    
     private void gCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gCambiosActionPerformed
        
         gCambios.setSelected(false);
         
         float subtotal = respaldoSub + Float.parseFloat(grab.getText());
-        float subiva = subtotal * 0.16f;
+        float subiva = subtotal * obtenerIva();
         float total = subtotal + subiva;
         float resto = total - (Float.parseFloat(anti.getText()) + Float.parseFloat(desc.getText()));
         //guardara esos campos en la base de datos
@@ -695,6 +724,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Error al modificar: "+ ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }  
     }//GEN-LAST:event_gCambiosActionPerformed
 
