@@ -1435,6 +1435,8 @@ public class Visualizacion extends javax.swing.JFrame {
         String autorizo = "";
         String grabados = "";
         String sub = "";
+        int ivaEnteroInt = 0;//guardara el iva entero
+        float porcentajeDeIvaFlotante = 0f;//sera el iva pero ya ocnvertido en porcentaje
         String iva = "";
         float ivaf = 0f;
         String total = "";
@@ -1458,11 +1460,14 @@ public class Visualizacion extends javax.swing.JFrame {
                 anticipo = rs.getString("anticipo");
                 descuento = rs.getString("descuento");
                 resto = rs.getString("resto");
+                ivaEnteroInt = Integer.parseInt(rs.getString("porcentajeIVA"));
                 
                 llenarDatosPedido(rs);
             }
             
-            ivaf = Float.parseFloat(sub)*0.16f;
+            porcentajeDeIvaFlotante = ivaEnteroInt / 100f;//convertimos el iva obtenido a un porcentaje flotante
+            
+            ivaf = Float.parseFloat(sub)*porcentajeDeIvaFlotante;
             iva = String.valueOf(ivaf);
             //Se rellenan todos los campos respecto a pedido de todos los indices del arreglo, ya que estos aumentan...
             //debido al numero de partidas
