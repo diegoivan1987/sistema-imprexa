@@ -129,6 +129,8 @@ create table tintas(idTinta int not null auto_increment,
  primary key(idTinta), foreign key(idImp_fk) references impreso(idImp));
  alter table tintas add column iniSolvente float;
  alter table tintas add column finSolvente float;
+ alter table tintas add column iniBarniz float;
+ alter table tintas add column finBarniz float;
  
  create table costosMaterial(idMaterial int not null primary key auto_increment, tipo varchar(10), precio float);
  insert into costosMaterial values(null,'ALTA',25);
