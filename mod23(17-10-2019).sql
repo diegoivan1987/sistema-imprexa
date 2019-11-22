@@ -150,6 +150,11 @@ create table tintas(idTinta int not null auto_increment,
  create table operadores(nombre varchar(20) primary key not null, sueldo_48_hrs float not null, sueldo_hr float not null, 
  maquina int, ayudante bool);/*guardara el nombre, en que maquina trabajara y si sera ayudante de impresion*/
  alter table operadores drop column maquina;
+ insert into operadores values('RICARDO',2300,47.916,false);
+ insert into operadores values('GENARO',2300,47.916,false);
+ insert into operadores values('CRISTOBAL',2100,43.75,false);
+ insert into operadores values('MARIO',1500,31.25,false);
+ insert into operadores values('VICTOR',1300,27.083,true);
 
 /*Eliminar todas la tablas*/
  drop table tintas cascade;
