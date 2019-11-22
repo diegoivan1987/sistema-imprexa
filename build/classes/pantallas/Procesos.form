@@ -1866,79 +1866,87 @@
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                                      <Component id="listaTintas1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
-                                                          <Component id="jLabel54" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="kgIniT1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jLabel55" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="kgFinT1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
+                                                      <Component id="jLabel54" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="kgIniT1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel55" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="kgFinT1" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   </Group>
+                                                  <Component id="listaTintas1" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel52" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                                               <Component id="jLabel100" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jLabel56" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="listaTintas2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                                       <Component id="jLabel57" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="kgIniT2" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel58" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="kgFinT2" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   </Group>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="jLabel56" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="listaTintas2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel101" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jLabel59" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="listaTintas3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                                       <Component id="jLabel60" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="kgIniT3" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel61" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="kgFinT3" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   </Group>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="jLabel59" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="listaTintas3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel102" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jLabel62" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="listaTintas5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                                       <Component id="jLabel63" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="kgIniT4" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel64" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="kgFinT4" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   </Group>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="jLabel62" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="listaTintas5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel103" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jLabel104" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="listaTintas4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                                       <Component id="jLabel105" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="kgIniT5" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel106" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="kgFinT5" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   </Group>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="jLabel104" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="listaTintas4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel107" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jLabel112" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="listaTintas6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                                       <Component id="jLabel113" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="kgIniT6" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel114" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="kgFinT6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="jLabel112" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="listaTintas6" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
