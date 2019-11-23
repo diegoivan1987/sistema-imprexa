@@ -125,8 +125,8 @@ create table tintas(idTinta int not null auto_increment,
  iniMezcla float, finMezcla float, 
  iniAcetato float, finAcetato float, 
  iniRetard float, finRetard float,
- idImp_fk int not null,
- primary key(idTinta), foreign key(idImp_fk) references impreso(idImp));
+ folio_fk int not null,
+ primary key(idTinta), foreign key(folio_fk) references pedido(folio));
  alter table tintas add column iniSolvente float;
  alter table tintas add column finSolvente float;
  alter table tintas add column iniBarniz float;
