@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -50,6 +51,12 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     float grabados = 0, precioUnitario=0, kilos=0, totalF=0, restoF=0, subF=0, iva=0 ,antiF=0, descuF=0;
     int porcentajeIVA = 0, piezasI = 0, pzFinalesI = 0;
     float importeF = 0;
+    
+    //Variables de las tintas
+    String t1St=null, pI1St=null, pF1St=null, t2St=null, pI2St=null, pF2St=null, t3St=null, pI3St=null, pF3St=null, 
+            t4St=null, pI4St=null, pF4St=null, t5St=null, pI5St=null, pF5St=null, t6St=null, pI6St=null, pF6St=null, 
+            iniMezSt=null, finMezSt=null, iniAceSt=null, finAceSt=null, iniRetSt=null, finRetSt=null, iniSolventeSt=null, 
+            finSolventeSt=null, iniBarSt = null, finBarSt = null;
     
     int idCliente = 0;
     int folioId = 0;
@@ -259,6 +266,75 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         pzFinales = new javax.swing.JTextField();
         checkPzFinales = new javax.swing.JCheckBox();
         limpiar = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel100 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
+        kgIniT1 = new javax.swing.JTextField();
+        kgFinT1 = new javax.swing.JTextField();
+        jLabel101 = new javax.swing.JLabel();
+        jLabel56 = new javax.swing.JLabel();
+        jLabel57 = new javax.swing.JLabel();
+        kgIniT2 = new javax.swing.JTextField();
+        jLabel58 = new javax.swing.JLabel();
+        kgFinT2 = new javax.swing.JTextField();
+        jLabel102 = new javax.swing.JLabel();
+        jLabel59 = new javax.swing.JLabel();
+        jLabel60 = new javax.swing.JLabel();
+        kgIniT3 = new javax.swing.JTextField();
+        jLabel61 = new javax.swing.JLabel();
+        kgFinT3 = new javax.swing.JTextField();
+        jLabel103 = new javax.swing.JLabel();
+        jLabel62 = new javax.swing.JLabel();
+        jLabel63 = new javax.swing.JLabel();
+        kgIniT4 = new javax.swing.JTextField();
+        jLabel64 = new javax.swing.JLabel();
+        kgFinT4 = new javax.swing.JTextField();
+        jLabel104 = new javax.swing.JLabel();
+        jLabel105 = new javax.swing.JLabel();
+        jLabel106 = new javax.swing.JLabel();
+        kgIniT5 = new javax.swing.JTextField();
+        jLabel107 = new javax.swing.JLabel();
+        kgFinT5 = new javax.swing.JTextField();
+        jLabel112 = new javax.swing.JLabel();
+        jLabel113 = new javax.swing.JLabel();
+        jLabel114 = new javax.swing.JLabel();
+        kgIniT6 = new javax.swing.JTextField();
+        jLabel115 = new javax.swing.JLabel();
+        kgFinT6 = new javax.swing.JTextField();
+        jLabel116 = new javax.swing.JLabel();
+        jLabel117 = new javax.swing.JLabel();
+        mezIni = new javax.swing.JTextField();
+        jLabel118 = new javax.swing.JLabel();
+        mezFin = new javax.swing.JTextField();
+        jLabel119 = new javax.swing.JLabel();
+        jLabel121 = new javax.swing.JLabel();
+        aceIni = new javax.swing.JTextField();
+        jLabel122 = new javax.swing.JLabel();
+        aceFin = new javax.swing.JTextField();
+        jLabel123 = new javax.swing.JLabel();
+        jLabel125 = new javax.swing.JLabel();
+        retIni = new javax.swing.JTextField();
+        jLabel126 = new javax.swing.JLabel();
+        retFin = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jLabel151 = new javax.swing.JLabel();
+        jLabel152 = new javax.swing.JLabel();
+        solventeIni = new javax.swing.JTextField();
+        jLabel153 = new javax.swing.JLabel();
+        solventeFin = new javax.swing.JTextField();
+        listaTintas1 = new javax.swing.JComboBox();
+        listaTintas2 = new javax.swing.JComboBox();
+        listaTintas3 = new javax.swing.JComboBox();
+        listaTintas4 = new javax.swing.JComboBox();
+        listaTintas5 = new javax.swing.JComboBox();
+        listaTintas6 = new javax.swing.JComboBox();
+        jLabel154 = new javax.swing.JLabel();
+        jLabel155 = new javax.swing.JLabel();
+        barIni = new javax.swing.JTextField();
+        jLabel156 = new javax.swing.JLabel();
+        barFin = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         regP = new javax.swing.JButton();
@@ -693,7 +769,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     .addComponent(anti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(porIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel26))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveP)
                     .addComponent(btnMod))
@@ -707,8 +783,8 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
-                    .addComponent(panelMod, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+                    .addComponent(panelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
+                    .addComponent(panelMod, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1353,6 +1429,588 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
 
         paPed.addTab("Partida", jPanel2);
 
+        jLabel100.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel100.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel100.setText("Tinta 1");
+
+        jLabel52.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel52.setText("Nombre");
+
+        jLabel54.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel54.setText("Inicio");
+
+        jLabel55.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel55.setText("Final");
+
+        kgIniT1.setForeground(new java.awt.Color(0, 153, 153));
+        kgIniT1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kgIniT1KeyTyped(evt);
+            }
+        });
+
+        kgFinT1.setForeground(new java.awt.Color(0, 153, 153));
+        kgFinT1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kgFinT1KeyTyped(evt);
+            }
+        });
+
+        jLabel101.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel101.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel101.setText("Tinta 2");
+
+        jLabel56.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel56.setText("Nombre");
+
+        jLabel57.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel57.setText("Inicio");
+
+        kgIniT2.setForeground(new java.awt.Color(0, 153, 153));
+        kgIniT2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kgIniT2KeyTyped(evt);
+            }
+        });
+
+        jLabel58.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel58.setText("Final");
+
+        kgFinT2.setForeground(new java.awt.Color(0, 153, 153));
+        kgFinT2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kgFinT2KeyTyped(evt);
+            }
+        });
+
+        jLabel102.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel102.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel102.setText("Tinta 3");
+
+        jLabel59.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel59.setText("Nombre");
+
+        jLabel60.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel60.setText("Inicio");
+
+        kgIniT3.setForeground(new java.awt.Color(0, 153, 153));
+        kgIniT3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kgIniT3KeyTyped(evt);
+            }
+        });
+
+        jLabel61.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel61.setText("Final");
+
+        kgFinT3.setForeground(new java.awt.Color(0, 153, 153));
+        kgFinT3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kgFinT3KeyTyped(evt);
+            }
+        });
+
+        jLabel103.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel103.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel103.setText("Tinta 4");
+
+        jLabel62.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel62.setText("Nombre");
+
+        jLabel63.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel63.setText("Inicio");
+
+        kgIniT4.setForeground(new java.awt.Color(0, 153, 153));
+        kgIniT4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kgIniT4KeyTyped(evt);
+            }
+        });
+
+        jLabel64.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel64.setText("Final");
+
+        kgFinT4.setForeground(new java.awt.Color(0, 153, 153));
+        kgFinT4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kgFinT4KeyTyped(evt);
+            }
+        });
+
+        jLabel104.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel104.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel104.setText("Tinta 5");
+
+        jLabel105.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel105.setText("Nombre");
+
+        jLabel106.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel106.setText("Inicio");
+
+        kgIniT5.setForeground(new java.awt.Color(0, 153, 153));
+        kgIniT5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kgIniT5KeyTyped(evt);
+            }
+        });
+
+        jLabel107.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel107.setText("Final");
+
+        kgFinT5.setForeground(new java.awt.Color(0, 153, 153));
+        kgFinT5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kgFinT5KeyTyped(evt);
+            }
+        });
+
+        jLabel112.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel112.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel112.setText("Tinta 6");
+
+        jLabel113.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel113.setText("Nombre");
+
+        jLabel114.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel114.setText("Inicio");
+
+        kgIniT6.setForeground(new java.awt.Color(0, 153, 153));
+        kgIniT6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kgIniT6KeyTyped(evt);
+            }
+        });
+
+        jLabel115.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel115.setText("Final");
+
+        kgFinT6.setForeground(new java.awt.Color(0, 153, 153));
+        kgFinT6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kgFinT6KeyTyped(evt);
+            }
+        });
+
+        jLabel116.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel116.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel116.setText("Mezcla 80/20");
+
+        jLabel117.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel117.setText("Inicio");
+
+        mezIni.setForeground(new java.awt.Color(0, 153, 153));
+        mezIni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                mezIniKeyTyped(evt);
+            }
+        });
+
+        jLabel118.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel118.setText("Final");
+
+        mezFin.setForeground(new java.awt.Color(0, 153, 153));
+        mezFin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                mezFinKeyTyped(evt);
+            }
+        });
+
+        jLabel119.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel119.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel119.setText("Acetato");
+
+        jLabel121.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel121.setText("Inicio");
+
+        aceIni.setForeground(new java.awt.Color(0, 153, 153));
+        aceIni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                aceIniKeyTyped(evt);
+            }
+        });
+
+        jLabel122.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel122.setText("Final");
+
+        aceFin.setForeground(new java.awt.Color(0, 153, 153));
+        aceFin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                aceFinKeyTyped(evt);
+            }
+        });
+
+        jLabel123.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel123.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel123.setText("Retardante");
+
+        jLabel125.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel125.setText("Inicio");
+
+        retIni.setForeground(new java.awt.Color(0, 153, 153));
+        retIni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                retIniKeyTyped(evt);
+            }
+        });
+
+        jLabel126.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel126.setText("Final");
+
+        retFin.setForeground(new java.awt.Color(0, 153, 153));
+        retFin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                retFinKeyTyped(evt);
+            }
+        });
+
+        jButton2.setBackground(new java.awt.Color(51, 51, 51));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Guardar Tintas");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel151.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel151.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel151.setText("Solvente acondicionador");
+
+        jLabel152.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel152.setText("Inicio");
+
+        solventeIni.setForeground(new java.awt.Color(0, 153, 153));
+        solventeIni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                solventeIniKeyTyped(evt);
+            }
+        });
+
+        jLabel153.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel153.setText("Final");
+
+        solventeFin.setForeground(new java.awt.Color(0, 153, 153));
+        solventeFin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                solventeFinKeyTyped(evt);
+            }
+        });
+
+        listaTintas1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blanco Laminación", "Blanco Flexo Frente", "Amarillo Flexo Frente", "Naranja Flexo Frente", "Magenta Flexo Frente", "Rojo Medio Flexo Frente", "Azul Cyan Flexo Frente", "Azul Reflex Flexo Frente", "Verde Flexo Frente", "Violeta Flexo Frente", "Negro Flexo Frente" }));
+
+        listaTintas2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blanco Laminación", "Blanco Flexo Frente", "Amarillo Flexo Frente", "Naranja Flexo Frente", "Magenta Flexo Frente", "Rojo Medio Flexo Frente", "Azul Cyan Flexo Frente", "Azul Reflex Flexo Frente", "Verde Flexo Frente", "Violeta Flexo Frente", "Negro Flexo Frente" }));
+
+        listaTintas3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blanco Laminación", "Blanco Flexo Frente", "Amarillo Flexo Frente", "Naranja Flexo Frente", "Magenta Flexo Frente", "Rojo Medio Flexo Frente", "Azul Cyan Flexo Frente", "Azul Reflex Flexo Frente", "Verde Flexo Frente", "Violeta Flexo Frente", "Negro Flexo Frente" }));
+
+        listaTintas4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blanco Laminación", "Blanco Flexo Frente", "Amarillo Flexo Frente", "Naranja Flexo Frente", "Magenta Flexo Frente", "Rojo Medio Flexo Frente", "Azul Cyan Flexo Frente", "Azul Reflex Flexo Frente", "Verde Flexo Frente", "Violeta Flexo Frente", "Negro Flexo Frente" }));
+
+        listaTintas5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blanco Laminación", "Blanco Flexo Frente", "Amarillo Flexo Frente", "Naranja Flexo Frente", "Magenta Flexo Frente", "Rojo Medio Flexo Frente", "Azul Cyan Flexo Frente", "Azul Reflex Flexo Frente", "Verde Flexo Frente", "Violeta Flexo Frente", "Negro Flexo Frente" }));
+
+        listaTintas6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blanco Laminación", "Blanco Flexo Frente", "Amarillo Flexo Frente", "Naranja Flexo Frente", "Magenta Flexo Frente", "Rojo Medio Flexo Frente", "Azul Cyan Flexo Frente", "Azul Reflex Flexo Frente", "Verde Flexo Frente", "Violeta Flexo Frente", "Negro Flexo Frente" }));
+
+        jLabel154.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel154.setText("Inicio");
+
+        jLabel155.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel155.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel155.setText("Barniz");
+
+        barIni.setForeground(new java.awt.Color(0, 153, 153));
+        barIni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                barIniKeyTyped(evt);
+            }
+        });
+
+        jLabel156.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel156.setText("Final");
+
+        barFin.setForeground(new java.awt.Color(0, 153, 153));
+        barFin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                barFinKeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                        .addGap(0, 498, Short.MAX_VALUE)
+                        .addComponent(jButton2))
+                    .addComponent(jLabel100)
+                    .addComponent(jLabel123)
+                    .addComponent(jLabel151)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
+                                    .addComponent(jLabel105)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(listaTintas4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
+                                    .addComponent(jLabel62)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(listaTintas5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
+                                    .addComponent(jLabel59)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(listaTintas3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
+                                    .addComponent(jLabel56)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(listaTintas2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
+                                    .addComponent(jLabel52)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(listaTintas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
+                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(jPanel8Layout.createSequentialGroup()
+                                            .addComponent(jLabel152)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(solventeIni))
+                                        .addGroup(jPanel8Layout.createSequentialGroup()
+                                            .addComponent(jLabel125)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(retIni, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(jPanel8Layout.createSequentialGroup()
+                                            .addComponent(jLabel126)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(retFin, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel8Layout.createSequentialGroup()
+                                            .addComponent(jLabel153)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(solventeFin))))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
+                                    .addComponent(jLabel113)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(listaTintas6, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(13, 13, 13)))
+                            .addComponent(jLabel116)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jLabel117)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(mezIni, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel118)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(mezFin, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel101)
+                            .addComponent(jLabel102)
+                            .addComponent(jLabel103)
+                            .addComponent(jLabel104)
+                            .addComponent(jLabel112))
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                                        .addComponent(jLabel54)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(kgIniT1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel55)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(kgFinT1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                                        .addComponent(jLabel57)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(kgIniT2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel58)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(kgFinT2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                                        .addComponent(jLabel60)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(kgIniT3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel61)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(kgFinT3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel8Layout.createSequentialGroup()
+                                        .addComponent(jLabel63)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(kgIniT4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel64)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(kgFinT4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                                        .addComponent(jLabel106)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(kgIniT5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel107)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(kgFinT5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel119)
+                                        .addGroup(jPanel8Layout.createSequentialGroup()
+                                            .addComponent(jLabel121)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(aceIni, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jLabel122)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(aceFin, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel8Layout.createSequentialGroup()
+                                            .addComponent(jLabel114)
+                                            .addGap(10, 10, 10)
+                                            .addComponent(kgIniT6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jLabel115)
+                                            .addGap(11, 11, 11)
+                                            .addComponent(kgFinT6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel155)
+                                        .addGroup(jPanel8Layout.createSequentialGroup()
+                                            .addComponent(jLabel154)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(barIni, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jLabel156)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(barFin, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel100)
+                .addGap(0, 0, 0)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel54)
+                                        .addComponent(kgIniT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel55)
+                                        .addComponent(kgFinT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(listaTintas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel52))
+                                .addGap(3, 3, 3)
+                                .addComponent(jLabel101)
+                                .addGap(1, 1, 1)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel57)
+                                        .addComponent(kgIniT2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel58)
+                                        .addComponent(kgFinT2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel56)
+                                        .addComponent(listaTintas2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel102)
+                                .addGap(1, 1, 1)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel60)
+                                        .addComponent(kgIniT3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel61)
+                                        .addComponent(kgFinT3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel59)
+                                        .addComponent(listaTintas3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel103)
+                                .addGap(1, 1, 1)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel63)
+                                        .addComponent(kgIniT4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel64)
+                                        .addComponent(kgFinT4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel62)
+                                        .addComponent(listaTintas5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel104)
+                                .addGap(1, 1, 1)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel106)
+                                        .addComponent(kgIniT5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel107)
+                                        .addComponent(kgFinT5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel105)
+                                        .addComponent(listaTintas4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel112)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel114)
+                                        .addComponent(kgIniT6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel115)
+                                        .addComponent(kgFinT6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel113)
+                                        .addComponent(listaTintas6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel116)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel117)
+                                    .addComponent(mezIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel118)
+                                    .addComponent(mezFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jLabel119)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel121)
+                                    .addComponent(aceIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel122)
+                                    .addComponent(aceFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel123)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel125)
+                            .addComponent(retIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel126)
+                            .addComponent(retFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel155)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel154)
+                            .addComponent(barIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel156)
+                            .addComponent(barFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel151)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(solventeIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel153)
+                        .addComponent(solventeFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel152))
+                .addGap(31, 31, 31)
+                .addComponent(jButton2)
+                .addGap(21, 21, 21))
+        );
+
+        paPed.addTab("Tintas", jPanel8);
+
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel1.setFont(new java.awt.Font("Andalus", 1, 24)); // NOI18N
@@ -1419,7 +2077,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     .addComponent(regP, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(abreProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, Short.MAX_VALUE)
                         .addComponent(modPed))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
@@ -1532,8 +2190,58 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         {
             JOptionPane.showMessageDialog(null, "Hay un error con los datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+        preGuardadoTintas();
     }//GEN-LAST:event_savePActionPerformed
 
+    //se usa para el preregistro de tintas
+    private int obtieneFolioUltimoPedido()
+    {
+        Statement st9;
+        ResultSet rs9;
+        int folio = 0;
+        String sql = "select folio from pedido order by folio asc limit 1";//obtiene el ultimo folio registrado
+        try
+        {
+            st9 = con.createStatement();
+            rs9 = st9.executeQuery(sql);
+            while(rs9.next())
+            {
+                folio = Integer.parseInt(rs9.getString("folio"));
+            }
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        return folio;
+    }
+    
+    //inicializa los datos de tintas en la base en 0 para que no haya errores
+    private void preGuardadoTintas()
+    {
+        Statement st8;
+        int ultimoFolio = obtieneFolioUltimoPedido();//folio del ultimo pedido registrado
+        
+        String sql = "insert into tintas(tinta1, pIni1, pFin1, tinta2, pIni2, pFin2, tinta3, pIni3, pFin3, tinta4, pIni4, pFin4, tinta5, pIni5, pFin5, tinta6, "
+                + "pIni6, pFin6, " +
+                " iniMezcla, finMezcla," +
+                " iniAcetato, finAcetato," +
+                " iniRetard, finRetard," +
+                " folio_fk ," +
+                " iniSolvente, finSolvente," +
+                " iniBarniz, finBarniz," +
+                " costoDeTintas)"
+                + "values('Naranja Flexo Frente',0,0,'Naranja Flexo Frente',0,0,'Naranja Flexo Frente',0,0,'Naranja Flexo Frente',0,0,'Naranja Flexo Frente',0,0,"
+                + "'Naranja Flexo Frente',0,0,0,0,0,0,0,0,"+ultimoFolio+",0,0,0,0,0)";
+
+        try {
+            st8 = con.createStatement();
+            st8.execute(sql);
+            st8.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
    
     //Evento: cuando la tabla de clientes es cliqueada
     private void tablaCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCMouseClicked
@@ -1886,7 +2594,108 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     
     private void tablaPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPMouseClicked
         obtenerSeleccionTablaPedido();//se inserte al folio de la partida en un campo
+        obtenerDatosTintas();
     }//GEN-LAST:event_tablaPMouseClicked
+    
+    //selecciona una posicion de la lista desplegable deacuerdo a lo que esta en la base de datos
+    private void establecerIndiceDeTintas(JComboBox listaTintas, String tintaDeLaBase)
+    {
+        if(tintaDeLaBase.equals("Blanco Laminación"))
+        {
+            listaTintas.setSelectedIndex(0);
+        }
+        else if(tintaDeLaBase.equals("Blanco Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(1);
+        }
+        else if(tintaDeLaBase.equals("Amarillo Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(2);
+        }
+        else if(tintaDeLaBase.equals("Naranja Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(3);
+        }
+        else if(tintaDeLaBase.equals("Magenta Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(4);
+        }
+        else if(tintaDeLaBase.equals("Rojo Medio Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(5);
+        }
+        else if(tintaDeLaBase.equals("Azul Cyan Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(6);
+        }
+        else if(tintaDeLaBase.equals("Azul Reflex Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(7);
+        }
+        else if(tintaDeLaBase.equals("Verde Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(8);
+        }
+        else if(tintaDeLaBase.equals("Violeta Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(9);
+        }
+        else if(tintaDeLaBase.equals("Negro Flexo Frente"))
+        {
+            listaTintas.setSelectedIndex(10);
+        }
+    }
+    
+    //llena la ventana de tintas de los datos del pedido seleccionado
+    private void obtenerDatosTintas()
+    {
+        Statement st8;
+        ResultSet rs8;
+        String sql = "select * from tintas where folio_fk = "+folioId+"";
+        
+        try {
+            st8 = con.createStatement();
+            rs8 = st8.executeQuery(sql);
+            
+            while(rs8.next()){
+                establecerIndiceDeTintas(listaTintas1, rs8.getString("tinta1"));
+                kgIniT1.setText(rs8.getString("pIni1"));
+                kgFinT1.setText(rs8.getString("pFin1"));
+                establecerIndiceDeTintas(listaTintas2, rs8.getString("tinta2"));
+                kgIniT2.setText(rs8.getString("pIni2"));
+                kgFinT2.setText(rs8.getString("pFin2"));
+                establecerIndiceDeTintas(listaTintas3, rs8.getString("tinta3"));
+                kgIniT3.setText(rs8.getString("pIni3")); 
+                kgFinT3.setText(rs8.getString("pFin3")); 
+                establecerIndiceDeTintas(listaTintas4, rs8.getString("tinta4"));
+                kgIniT4.setText(rs8.getString("pIni4"));
+                kgFinT4.setText(rs8.getString("pFin4")); 
+                establecerIndiceDeTintas(listaTintas5, rs8.getString("tinta5"));
+                kgIniT5.setText(rs8.getString("pIni5"));
+                kgFinT5.setText(rs8.getString("pFin5"));
+                establecerIndiceDeTintas(listaTintas6, rs8.getString("tinta6"));
+                kgIniT6.setText(rs8.getString("pIni6"));
+                kgFinT6.setText(rs8.getString("pFin6"));
+
+                mezIni.setText(rs8.getString("iniMezcla"));
+                mezFin.setText(rs8.getString("finMezcla")); 
+                aceIni.setText(rs8.getString("iniAcetato")); 
+                aceFin.setText(rs8.getString("finAcetato"));
+                retIni.setText(rs8.getString("iniRetard")); 
+                retFin.setText(rs8.getString("finRetard"));
+                solventeIni.setText(rs8.getString("iniSolvente")); 
+                solventeFin.setText(rs8.getString("finSolvente"));
+                barIni.setText(rs8.getString("iniBarniz"));
+                barFin.setText(rs8.getString("finBarniz"));
+            }
+            
+            rs8.close();
+            st8.close();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al establecer los campos de las tintas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     
     private void obtenerSeleccionTablaPedido(){
         String folioSinA;
@@ -2348,6 +3157,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private void tablaPKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaPKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_SPACE){
             obtenerSeleccionTablaPedido();
+            obtenerDatosTintas();
         }
     }//GEN-LAST:event_tablaPKeyPressed
 
@@ -2513,6 +3323,280 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         sta.setSelectedIndex(0);
         sello.setSelectedIndex(0);
     }//GEN-LAST:event_limpiarActionPerformed
+
+    private void kgIniT1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgIniT1KeyTyped
+        soloFlotantes(evt, kgIniT1);
+    }//GEN-LAST:event_kgIniT1KeyTyped
+
+    private void kgFinT1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgFinT1KeyTyped
+        soloFlotantes(evt, kgFinT1);
+    }//GEN-LAST:event_kgFinT1KeyTyped
+
+    private void kgIniT2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgIniT2KeyTyped
+        soloFlotantes(evt, kgIniT2);
+    }//GEN-LAST:event_kgIniT2KeyTyped
+
+    private void kgFinT2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgFinT2KeyTyped
+        soloFlotantes(evt, kgFinT2);
+    }//GEN-LAST:event_kgFinT2KeyTyped
+
+    private void kgIniT3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgIniT3KeyTyped
+        soloFlotantes(evt, kgIniT3);
+    }//GEN-LAST:event_kgIniT3KeyTyped
+
+    private void kgFinT3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgFinT3KeyTyped
+        soloFlotantes(evt, kgFinT3);
+    }//GEN-LAST:event_kgFinT3KeyTyped
+
+    private void kgIniT4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgIniT4KeyTyped
+        soloFlotantes(evt, kgIniT4);
+    }//GEN-LAST:event_kgIniT4KeyTyped
+
+    private void kgFinT4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgFinT4KeyTyped
+        soloFlotantes(evt, kgFinT4);
+    }//GEN-LAST:event_kgFinT4KeyTyped
+
+    private void kgIniT5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgIniT5KeyTyped
+        soloFlotantes(evt, kgIniT5);
+    }//GEN-LAST:event_kgIniT5KeyTyped
+
+    private void kgFinT5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgFinT5KeyTyped
+        soloFlotantes(evt, kgFinT5);
+    }//GEN-LAST:event_kgFinT5KeyTyped
+
+    private void kgIniT6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgIniT6KeyTyped
+        soloFlotantes(evt, kgIniT6);
+    }//GEN-LAST:event_kgIniT6KeyTyped
+
+    private void kgFinT6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgFinT6KeyTyped
+        soloFlotantes(evt, kgFinT6);
+    }//GEN-LAST:event_kgFinT6KeyTyped
+
+    private void mezIniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mezIniKeyTyped
+        soloFlotantes(evt, mezIni);
+    }//GEN-LAST:event_mezIniKeyTyped
+
+    private void mezFinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mezFinKeyTyped
+        soloFlotantes(evt, mezFin);
+    }//GEN-LAST:event_mezFinKeyTyped
+
+    private void aceIniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_aceIniKeyTyped
+        soloFlotantes(evt, aceIni);
+    }//GEN-LAST:event_aceIniKeyTyped
+
+    private void aceFinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_aceFinKeyTyped
+        soloFlotantes(evt, aceFin);
+    }//GEN-LAST:event_aceFinKeyTyped
+
+    private void retIniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_retIniKeyTyped
+        soloFlotantes(evt, retIni);
+    }//GEN-LAST:event_retIniKeyTyped
+
+    private void retFinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_retFinKeyTyped
+        soloFlotantes(evt, retFin);
+    }//GEN-LAST:event_retFinKeyTyped
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Statement st8;
+        
+        jButton1.setSelected(false);
+        //Tintas de impreso
+        comprobarVacio();
+        t1St = listaTintas1.getSelectedItem().toString();
+        pI1St = kgIniT1.getText();
+        pF1St = kgFinT1.getText();
+        t2St = listaTintas2.getSelectedItem().toString();
+        pI2St = kgIniT2.getText();
+        pF2St = kgFinT2.getText();
+        t3St = listaTintas3.getSelectedItem().toString();
+        pI3St = kgIniT3.getText();
+        pF3St = kgFinT3.getText();
+        t4St = listaTintas4.getSelectedItem().toString();
+        pI4St = kgIniT4.getText();
+        pF4St = kgFinT4.getText();
+        t5St = listaTintas5.getSelectedItem().toString();
+        pI5St = kgIniT5.getText();
+        pF5St = kgFinT5.getText();
+        t6St = listaTintas6.getSelectedItem().toString();
+        pI6St = kgIniT6.getText();
+        pF6St = kgFinT6.getText();
+
+        iniMezSt = mezIni.getText();
+        finMezSt = mezFin.getText();
+        iniAceSt = aceIni.getText();
+        finAceSt = aceFin.getText();
+        iniRetSt = retIni.getText();
+        finRetSt = retFin.getText();
+        iniSolventeSt = solventeIni.getText();
+        finSolventeSt = solventeFin.getText();
+        iniBarSt = barIni.getText();
+        finBarSt = barFin.getText();
+
+        String sql = "update tintas set tinta1 = '"+t1St+"', pIni1 = "+pI1St+", pFin1 = "+pF1St+", tinta2 = '"+t2St+"', pIni2 = "+pI2St+", pFin2 = "+pF2St+"," +
+        " tinta3 = '"+t3St+"', pIni3 = "+pI3St+", pFin3 = "+pF3St+", tinta4 = '"+t4St+"', pIni4 = "+pI4St+", pFin4 = "+pF4St+"," +
+        " tinta5 = '"+t5St+"', pIni5 = "+pI5St+", pFin5 = "+pF5St+", tinta6 = '"+t6St+"', pIni6 = "+pI6St+", pFin6 = "+pF6St+"," +
+        " iniMezcla = "+iniMezSt+", finMezcla = "+finMezSt+"," +
+        " iniAcetato = "+iniAceSt+", finAcetato = "+finAceSt+"," +
+        " iniRetard = "+iniRetSt+", finRetard = "+finRetSt+"," +
+        " iniSolvente = "+iniSolventeSt+", finSolvente = "+finSolventeSt+"," +
+        " iniBarniz = "+iniBarSt+", finBarniz = "+finBarSt+"" +
+        " where folio_fk = "+folioId+"";
+
+        try {
+            st8 = con.createStatement();
+            st8.execute(sql);
+            JOptionPane.showMessageDialog(null, "Se ha actualizado el registro de tintas: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+            st8.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar el registro de tintas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+
+        calculaCostoGlobalTintas();
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    //devuelve el precio por kg de una tinta en especifico
+    private float devuelvePrecioTinta(String nombreTinta)
+    {
+        float precio = 0f;//se toma el dolar a 20 pesos mexicanos
+        if(nombreTinta.equals("Blanco Flexo Frente"))
+        {
+            precio = 94.0f;
+        }
+        if(nombreTinta.equals("Blanco Laminación"))
+        {
+            precio = 94.0f;
+        }
+        if(nombreTinta.equals("Amarillo Flexo Frente"))
+        {
+            precio = 111.2f;
+        }
+        if(nombreTinta.equals("Naranja Flexo Frente"))
+        {
+            precio = 139.0f;
+        }
+        if(nombreTinta.equals("Magenta Flexo Frente"))
+        {
+            precio = 122.0f;
+        }
+        if(nombreTinta.equals("Rojo Medio Flexo Frente"))
+        {
+            precio = 118f;
+        }
+        if(nombreTinta.equals("Azul Cyan Flexo Frente"))
+        {
+            precio = 122.0f;
+        }
+        if(nombreTinta.equals("Azul Reflex Flexo Frente"))
+        {
+            precio = 150.0f;
+        }
+        if(nombreTinta.equals("Verde Flexo Frente"))
+        {
+            precio = 148.0f;
+        }
+        if(nombreTinta.equals("Violeta Flexo Frente"))
+        {
+            precio = 268.0f;
+        }
+        if(nombreTinta.equals("Negro Flexo Frente"))
+        {
+            precio = 104.0f;
+        }
+        if(nombreTinta.equals("Mezcla 80/20"))
+        {
+            precio = 24.6f;
+        }
+        if(nombreTinta.equals("Acetato"))
+        {
+            precio = 40.0f;//precio de prueba
+        }
+        if(nombreTinta.equals("Retardante"))
+        {
+            precio = 24.6f;//precio de prueba
+        }
+        if(nombreTinta.equals("Barniz"))
+        {
+            precio = 76.0f;
+        }
+        if(nombreTinta.equals("Solvente acondicionador"))
+        {
+            precio = 27.4f;
+        }
+        
+        return precio;
+    }
+    
+    private float calculaCostoTintaIndividual(String nombreTinta, JTextField kgInicio, JTextField kgFinal)
+    {
+        float costo = 0f;//lo que gastaron de tinta en dinero
+        float precio  = devuelvePrecioTinta(nombreTinta);//el precio por kg de la tinta
+        float diferencia = 0f;//diferencia entre los pesos
+        if(Float.parseFloat(kgFinal.getText()) <= Float.parseFloat(kgInicio.getText()))//si los datos son correctos
+        {
+            diferencia = Float.parseFloat(kgInicio.getText()) - Float.parseFloat(kgFinal.getText());
+        }
+        else if(Float.parseFloat(kgFinal.getText()) == 0 && Float.parseFloat(kgInicio.getText()) == 0)//si no ingreso datos
+        {
+            diferencia = 0f;
+        }
+        else//si ingresaron datos imposibles
+        {
+            JOptionPane.showMessageDialog(null, "Ingrese un peso final menor al peso inicial");
+        }
+        
+        costo = diferencia * precio;//se calcula el costo de la tinta
+        
+        return costo;
+    }
+    
+    //calcula el costo de todas las tintas usadas y lo guarda
+    private void calculaCostoGlobalTintas()
+    {
+        Statement st8;
+        
+        float costoGlobal = 0f;
+        costoGlobal += calculaCostoTintaIndividual(listaTintas1.getSelectedItem().toString(), kgIniT1, kgFinT1);
+        costoGlobal += calculaCostoTintaIndividual(listaTintas2.getSelectedItem().toString(), kgIniT2, kgFinT2);
+        costoGlobal += calculaCostoTintaIndividual(listaTintas3.getSelectedItem().toString(), kgIniT3, kgFinT3);
+        costoGlobal += calculaCostoTintaIndividual(listaTintas4.getSelectedItem().toString(), kgIniT4, kgFinT4);
+        costoGlobal += calculaCostoTintaIndividual(listaTintas5.getSelectedItem().toString(), kgIniT5, kgFinT5);
+        costoGlobal += calculaCostoTintaIndividual(listaTintas6.getSelectedItem().toString(), kgIniT6, kgFinT6);
+        costoGlobal += calculaCostoTintaIndividual("Mezcla 80/20", mezIni, mezFin);
+        costoGlobal += calculaCostoTintaIndividual("Acetato", aceIni, aceFin);
+        costoGlobal += calculaCostoTintaIndividual("Retardante", retIni, retFin);
+        costoGlobal += calculaCostoTintaIndividual("Barniz", barIni, barFin);
+        costoGlobal += calculaCostoTintaIndividual("Solvente acondicionador", solventeIni, solventeFin);
+        
+        String sql = "update tintas set costoDeTintas = "+costoGlobal+" where folio_fk = "+folioId+"";
+        try
+        {
+            st8 = con.createStatement();
+            st8.execute(sql);
+            st8.close();
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void solventeIniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_solventeIniKeyTyped
+        soloFlotantes(evt, solventeIni);
+    }//GEN-LAST:event_solventeIniKeyTyped
+
+    private void solventeFinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_solventeFinKeyTyped
+        soloFlotantes(evt, solventeIni);
+    }//GEN-LAST:event_solventeFinKeyTyped
+
+    private void barIniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barIniKeyTyped
+        soloFlotantes(evt, barIni);
+    }//GEN-LAST:event_barIniKeyTyped
+
+    private void barFinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barFinKeyTyped
+        soloFlotantes(evt, barFin);
+    }//GEN-LAST:event_barFinKeyTyped
     
     //cuando cambia la fecha inicial, tambien la sugerencia de fecha de compromiso
     private void onChangeFini(){
@@ -2734,6 +3818,73 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         if(kgPart.getText().equals("") || kgPart.getText().equals(".")){
             kgPart.setText("0.0");
+        }
+        //Campos de tintas
+        if(kgIniT1.getText().equals("") || kgIniT1.getText().equals(".")){
+            kgIniT1.setText("0");
+        }
+        if(kgFinT1.getText().equals("") || kgFinT1.getText().equals(".")){
+            kgFinT1.setText("0");
+        }
+        if(kgIniT2.getText().equals("") || kgIniT2.getText().equals(".")){
+            kgIniT2.setText("0");
+        }
+        if(kgFinT2.getText().equals("") || kgFinT2.getText().equals(".")){
+            kgFinT2.setText("0");
+        }
+        if(kgIniT3.getText().equals("") || kgIniT3.getText().equals(".")){
+            kgIniT3.setText("0");
+        }
+        if(kgFinT3.getText().equals("") || kgFinT3.getText().equals(".")){
+            kgFinT3.setText("0");
+        }
+        if(kgIniT4.getText().equals("") || kgIniT4.getText().equals(".")){
+            kgIniT4.setText("0");
+        }
+        if(kgFinT4.getText().equals("") || kgFinT4.getText().equals(".")){
+            kgFinT4.setText("0");
+        }
+        if(kgIniT5.getText().equals("") || kgIniT5.getText().equals(".")){
+            kgIniT5.setText("0");
+        }
+        if(kgFinT5.getText().equals("") || kgFinT5.getText().equals(".")){
+            kgFinT5.setText("0");
+        }
+        if(kgIniT6.getText().equals("") || kgIniT6.getText().equals(".")){
+            kgIniT6.setText("0");
+        }
+        if(kgFinT6.getText().equals("") || kgFinT6.getText().equals(".")){
+            kgFinT6.setText("0");
+        }
+        if(mezIni.getText().equals("") || mezIni.getText().equals(".")){
+            mezIni.setText("0");
+        }
+        if(mezFin.getText().equals("") || mezFin.getText().equals(".")){
+            mezFin.setText("0");
+        }
+        if(aceIni.getText().equals("") || aceIni.getText().equals(".")){
+            aceIni.setText("0");
+        }
+        if(aceFin.getText().equals("") || aceFin.getText().equals(".")){
+            aceFin.setText("0");
+        }
+        if(retIni.getText().equals("") || retIni.getText().equals(".")){
+            retIni.setText("0");
+        }
+        if(retFin.getText().equals("") || retFin.getText().equals(".")){
+            retFin.setText("0");
+        } 
+        if(solventeIni.getText().equals("") || solventeIni.getText().equals(".")){
+            solventeIni.setText("0");
+        }
+        if(solventeFin.getText().equals("") || solventeFin.getText().equals(".")){
+            solventeFin.setText("0");
+        } 
+        if(barIni.getText().equals("") || barIni.getText().equals(".")){
+            barIni.setText("0");
+        }
+        if(barFin.getText().equals("") || barFin.getText().equals(".")){
+            barFin.setText("0");
         }
     }
   
@@ -3106,8 +4257,12 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton abreProcesos;
+    private javax.swing.JTextField aceFin;
+    private javax.swing.JTextField aceIni;
     private javax.swing.JTextField anti;
     private javax.swing.JTextField auto;
+    private javax.swing.JTextField barFin;
+    private javax.swing.JTextField barIni;
     private javax.swing.JButton btnBusPed;
     private javax.swing.JButton btnMod;
     private javax.swing.JToggleButton busPedido;
@@ -3141,14 +4296,42 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private javax.swing.JTextArea imp;
     private javax.swing.JTextField importe;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel100;
+    private javax.swing.JLabel jLabel101;
+    private javax.swing.JLabel jLabel102;
+    private javax.swing.JLabel jLabel103;
+    private javax.swing.JLabel jLabel104;
+    private javax.swing.JLabel jLabel105;
+    private javax.swing.JLabel jLabel106;
+    private javax.swing.JLabel jLabel107;
     private javax.swing.JLabel jLabel108;
     private javax.swing.JLabel jLabel109;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel110;
     private javax.swing.JLabel jLabel111;
+    private javax.swing.JLabel jLabel112;
+    private javax.swing.JLabel jLabel113;
+    private javax.swing.JLabel jLabel114;
+    private javax.swing.JLabel jLabel115;
+    private javax.swing.JLabel jLabel116;
+    private javax.swing.JLabel jLabel117;
+    private javax.swing.JLabel jLabel118;
+    private javax.swing.JLabel jLabel119;
+    private javax.swing.JLabel jLabel121;
+    private javax.swing.JLabel jLabel122;
+    private javax.swing.JLabel jLabel123;
+    private javax.swing.JLabel jLabel125;
+    private javax.swing.JLabel jLabel126;
     private javax.swing.JLabel jLabel150;
+    private javax.swing.JLabel jLabel151;
+    private javax.swing.JLabel jLabel152;
+    private javax.swing.JLabel jLabel153;
+    private javax.swing.JLabel jLabel154;
+    private javax.swing.JLabel jLabel155;
+    private javax.swing.JLabel jLabel156;
     private javax.swing.JLabel jLabel157;
     private javax.swing.JLabel jLabel158;
     private javax.swing.JLabel jLabel166;
@@ -3170,7 +4353,19 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -3183,6 +4378,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -3195,11 +4391,31 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private javax.swing.JTextField jTextField84;
     private javax.swing.JTextField jTextField85;
     private lu.tudor.santec.jtimechooser.JTimeChooser jTimeChooser1;
+    private javax.swing.JTextField kgFinT1;
+    private javax.swing.JTextField kgFinT2;
+    private javax.swing.JTextField kgFinT3;
+    private javax.swing.JTextField kgFinT4;
+    private javax.swing.JTextField kgFinT5;
+    private javax.swing.JTextField kgFinT6;
+    private javax.swing.JTextField kgIniT1;
+    private javax.swing.JTextField kgIniT2;
+    private javax.swing.JTextField kgIniT3;
+    private javax.swing.JTextField kgIniT4;
+    private javax.swing.JTextField kgIniT5;
+    private javax.swing.JTextField kgIniT6;
     private javax.swing.JTextField kgPart;
     private javax.swing.JButton limpiar;
+    private javax.swing.JComboBox listaTintas1;
+    private javax.swing.JComboBox listaTintas2;
+    private javax.swing.JComboBox listaTintas3;
+    private javax.swing.JComboBox listaTintas4;
+    private javax.swing.JComboBox listaTintas5;
+    private javax.swing.JComboBox listaTintas6;
     private javax.swing.JComboBox mat1;
     private javax.swing.JComboBox mat2;
     private javax.swing.JTextField med;
+    private javax.swing.JTextField mezFin;
+    private javax.swing.JTextField mezIni;
     private javax.swing.JCheckBox modPed;
     private javax.swing.JTextField nomCli;
     private javax.swing.JTextField nomImpresion;
@@ -3213,9 +4429,13 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private javax.swing.JTextField pz;
     private javax.swing.JTextField pzFinales;
     private javax.swing.JButton regP;
+    private javax.swing.JTextField retFin;
+    private javax.swing.JTextField retIni;
     private javax.swing.JButton saveP;
     private javax.swing.JToggleButton savePart;
     private javax.swing.JComboBox sello;
+    private javax.swing.JTextField solventeFin;
+    private javax.swing.JTextField solventeIni;
     private javax.swing.JComboBox sta;
     private javax.swing.JLabel sug;
     private javax.swing.JTable tablaC;
