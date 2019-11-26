@@ -1,7 +1,7 @@
  drop database imprexa2;
  create database imprexa2;
  use imprexa2;
- select * from partida;
+ select * from tintas;
 
 create table cliente (idC int not null auto_increment, agente varchar(40), nom varchar(40), tel bigint, cel bigint, mail varchar(35), 
 dir varchar(40), primary key(idC));
@@ -132,6 +132,7 @@ create table tintas(idTinta int not null auto_increment,
  alter table tintas add column iniBarniz float;
  alter table tintas add column finBarniz float;
  alter table tintas add column costoDeTintas float;
+ alter table tintas add column seSumoAPedido int;
  
  create table costosMaterial(idMaterial int not null primary key auto_increment, tipo varchar(10), precio float);
  insert into costosMaterial values(null,'ALTA',25);
