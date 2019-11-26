@@ -1,4 +1,4 @@
-//total
+
 package pantallas;
 
 import datechooser.beans.DateChooserCombo;
@@ -5375,7 +5375,6 @@ public class Procesos extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         
-        calculaCostoGlobalTintas();
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

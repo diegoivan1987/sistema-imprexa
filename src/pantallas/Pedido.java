@@ -2199,7 +2199,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         Statement st9;
         ResultSet rs9;
         int folio = 0;
-        String sql = "select folio from pedido order by folio asc limit 1";//obtiene el ultimo folio registrado
+        String sql = "select folio from pedido order by folio desc limit 1";//obtiene el ultimo folio registrado
         try
         {
             st9 = con.createStatement();
@@ -2230,9 +2230,10 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 " folio_fk ," +
                 " iniSolvente, finSolvente," +
                 " iniBarniz, finBarniz," +
-                " costoDeTintas)"
-                + "values('Naranja Flexo Frente',0,0,'Naranja Flexo Frente',0,0,'Naranja Flexo Frente',0,0,'Naranja Flexo Frente',0,0,'Naranja Flexo Frente',0,0,"
-                + "'Naranja Flexo Frente',0,0,0,0,0,0,0,0,"+ultimoFolio+",0,0,0,0,0)";
+                " costoDeTintas,"
+                + "seSumoAPedido)"
+                + "values('Blanco Laminación',0,0,'Blanco Laminación',0,0,'Blanco Laminación',0,0,'Blanco Laminación',0,0,'Blanco Laminación',0,0,"
+                + "'Blanco Laminación',0,0,0,0,0,0,0,0,"+ultimoFolio+",0,0,0,0,0,0)";
 
         try {
             st8 = con.createStatement();
@@ -3398,10 +3399,10 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Statement st8;
-        
+        ResultSet rs8;
         jButton1.setSelected(false);
-        //Tintas de impreso
         comprobarVacio();
+        //se hace el guardado de los datos
         t1St = listaTintas1.getSelectedItem().toString();
         pI1St = kgIniT1.getText();
         pF1St = kgFinT1.getText();
@@ -3442,20 +3443,146 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         " iniBarniz = "+iniBarSt+", finBarniz = "+finBarSt+"" +
         " where folio_fk = "+folioId+"";
 
-        try {
+        try 
+        {
             st8 = con.createStatement();
             st8.execute(sql);
             JOptionPane.showMessageDialog(null, "Se ha actualizado el registro de tintas: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
             st8.close();
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             JOptionPane.showMessageDialog(null, "Error al actualizar el registro de tintas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
 
-        calculaCostoGlobalTintas();
+        calculaCostoGlobalTintas();//se inserta sa sumatoria de los costos en la tabla de tintas
+        sumaTintasAPedido();//se suma el costo de tintas al costoTotal del pedido
+        calculaPyG(folioId);
+        //reiniciarCamposTintas();
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void sumaTintasAPedido()
+    {
+        Statement st8;
+        ResultSet rs8;
+        String sql = "";
+        
+        float costoTotal = 0f;
+        float costoTintas = 0f;
+        int yaSeSumo = 0;
+        
+        //verificamos si ya se sumo o no el costo de tintas al costo total
+        sql = "select seSumoAPedido from tintas where folio_fk = "+folioId+"";
+        try
+        {
+            st8 = con.createStatement();
+            rs8 = st8.executeQuery(sql);
+            while(rs8.next())
+            {
+                yaSeSumo = Integer.parseInt(rs8.getString("seSumoAPedido"));
+            }
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        
+        if (yaSeSumo == 0)//si no se ha sumado
+        {
+            sql = "select costoTotal from pedido where folio = "+folioId+"";
+            try
+            {
+                st8 = con.createStatement();
+                rs8 = st8.executeQuery(sql);
+                while(rs8.next())
+                {
+                    costoTotal = Float.parseFloat(rs8.getString("costoTotal"));
+                }
+            }
+            catch(SQLException ex)
+            {
+                ex.printStackTrace();
+            }
+
+            sql = "select costoDeTintas from tintas where folio_fk = "+folioId+"";
+            try
+            {
+                st8 = con.createStatement();
+                rs8 = st8.executeQuery(sql);
+                while(rs8.next())
+                {
+                    costoTintas = Float.parseFloat(rs8.getString("costoDeTintas"));
+                }
+            }
+            catch(SQLException ex)
+            {
+                ex.printStackTrace();
+            }
+
+            costoTotal += costoTintas;
+
+            sql = "update pedido set costoTotal = "+costoTotal+" where folio = "+folioId+"";
+            try
+            {
+                st8 = con.createStatement();
+                st8.execute(sql);
+            }
+            catch(SQLException ex)
+            {
+                ex.printStackTrace();
+            }
+            
+            sql = "update tintas set seSumoAPedido = 1 where folio_fk = "+folioId+"";
+            try
+            {
+                st8 = con.createStatement();
+                st8.execute(sql);
+                st8.close();
+            }
+            catch(SQLException ex)
+            {
+                ex.printStackTrace();
+            }
+        }
+            
+    }
+    
+    //vacia los campos de tintas despues de que hubo un registro
+    /*private void reiniciarCamposTintas()
+    {
+        listaTintas1.setSelectedIndex(0);
+        kgIniT1.setText("");
+        kgFinT1.setText("");
+        listaTintas2.setSelectedIndex(0);
+        kgIniT2.setText("");
+        kgFinT2.setText("");
+        listaTintas3.setSelectedIndex(0);
+        kgIniT3.setText(""); 
+        kgFinT3.setText(""); 
+        listaTintas4.setSelectedIndex(0);
+        kgIniT4.setText("");
+        kgFinT4.setText(""); 
+        listaTintas5.setSelectedIndex(0);
+        kgIniT5.setText("");
+        kgFinT5.setText("");
+        listaTintas6.setSelectedIndex(0);
+        kgIniT6.setText("");
+        kgFinT6.setText("");
+
+        mezIni.setText("");
+        mezFin.setText(""); 
+        aceIni.setText(""); 
+        aceFin.setText("");
+        retIni.setText(""); 
+        retFin.setText("");
+        solventeIni.setText(""); 
+        solventeFin.setText("");
+        barIni.setText("");
+        barFin.setText("");
+    }*/
+    
     //devuelve el precio por kg de una tinta en especifico
     private float devuelvePrecioTinta(String nombreTinta)
     {
