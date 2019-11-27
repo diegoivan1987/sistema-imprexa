@@ -75,6 +75,10 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     
     public Pedido(Connection con) {
         initComponents();
+        
+        //inhabilitamos boton de guardar cambios en tintas
+        guardCamTintas.setEnabled(false);
+        guardCamTintas.setVisible(false);
         comprobarVacio();
         porIVA.setSelectedIndex(0);//se inicializa el iva en 0
         ancho = this.getSize().width;
@@ -318,7 +322,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         retIni = new javax.swing.JTextField();
         jLabel126 = new javax.swing.JLabel();
         retFin = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        guardarTintas = new javax.swing.JButton();
         jLabel151 = new javax.swing.JLabel();
         jLabel152 = new javax.swing.JLabel();
         solventeIni = new javax.swing.JTextField();
@@ -335,6 +339,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         barIni = new javax.swing.JTextField();
         jLabel156 = new javax.swing.JLabel();
         barFin = new javax.swing.JTextField();
+        guardCamTintas = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         regP = new javax.swing.JButton();
@@ -432,7 +437,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     .addComponent(jScrollPane2)
                     .addGroup(panelClienteLayout.createSequentialGroup()
                         .addComponent(nomCli, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -671,7 +676,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jLabel97)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -783,8 +788,8 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
-                    .addComponent(panelMod, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
+                    .addComponent(panelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
+                    .addComponent(panelMod, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -856,7 +861,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         panPart.setLayout(panPartLayout);
         panPartLayout.setHorizontalGroup(
             panPartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 595, Short.MAX_VALUE)
+            .addGap(0, 618, Short.MAX_VALUE)
             .addGroup(panPartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panPartLayout.createSequentialGroup()
                     .addContainerGap()
@@ -1226,7 +1231,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                                         .addComponent(limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(savePart)))
-                                .addGap(0, 12, Short.MAX_VALUE))
+                                .addGap(0, 35, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -1663,12 +1668,12 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(51, 51, 51));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Guardar Tintas");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        guardarTintas.setBackground(new java.awt.Color(51, 51, 51));
+        guardarTintas.setForeground(new java.awt.Color(255, 255, 255));
+        guardarTintas.setText("Guardar Tintas");
+        guardarTintas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                guardarTintasActionPerformed(evt);
             }
         });
 
@@ -1732,6 +1737,15 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             }
         });
 
+        guardCamTintas.setBackground(new java.awt.Color(51, 51, 51));
+        guardCamTintas.setForeground(new java.awt.Color(255, 255, 255));
+        guardCamTintas.setText("Guardar cambios");
+        guardCamTintas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardCamTintasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -1740,8 +1754,10 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                        .addGap(0, 498, Short.MAX_VALUE)
-                        .addComponent(jButton2))
+                        .addGap(0, 388, Short.MAX_VALUE)
+                        .addComponent(guardCamTintas)
+                        .addGap(18, 18, 18)
+                        .addComponent(guardarTintas))
                     .addComponent(jLabel100)
                     .addComponent(jLabel123)
                     .addComponent(jLabel151)
@@ -2004,9 +2020,11 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                         .addComponent(jLabel153)
                         .addComponent(solventeFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel152))
-                .addGap(31, 31, 31)
-                .addComponent(jButton2)
-                .addGap(21, 21, 21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(guardarTintas)
+                    .addComponent(guardCamTintas))
+                .addGap(38, 38, 38))
         );
 
         paPed.addTab("Tintas", jPanel8);
@@ -2077,7 +2095,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     .addComponent(regP, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(abreProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                         .addComponent(modPed))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
@@ -2652,6 +2670,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     {
         Statement st8;
         ResultSet rs8;
+        int yaSeSumo = 0;
         String sql = "select * from tintas where folio_fk = "+folioId+"";
         
         try {
@@ -2691,10 +2710,39 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             }
             
             rs8.close();
-            st8.close();
             
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al establecer los campos de las tintas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        sql = "select seSumoAPedido from tintas where folio_fk = "+folioId+"";
+        try
+        {
+            st8 = con.createStatement();
+            rs8 = st8.executeQuery(sql);
+            while(rs8.next())
+            {
+                yaSeSumo = Integer.parseInt(rs8.getString("seSumoAPedido"));
+            }
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        
+        if(yaSeSumo == 0)
+        {
+            guardarTintas.setEnabled(true);
+            guardarTintas.setVisible(true);
+            guardCamTintas.setEnabled(false);
+            guardCamTintas.setVisible(false);
+        }
+        else if(yaSeSumo == 1)
+        {
+            guardarTintas.setEnabled(false);
+            guardarTintas.setVisible(false);
+            guardCamTintas.setEnabled(true);
+            guardCamTintas.setVisible(true);
         }
     }
     
@@ -3397,72 +3445,79 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         soloFlotantes(evt, retFin);
     }//GEN-LAST:event_retFinKeyTyped
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void guardarTintasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarTintasActionPerformed
         Statement st8;
         ResultSet rs8;
         jButton1.setSelected(false);
         comprobarVacio();
-        //se hace el guardado de los datos
-        t1St = listaTintas1.getSelectedItem().toString();
-        pI1St = kgIniT1.getText();
-        pF1St = kgFinT1.getText();
-        t2St = listaTintas2.getSelectedItem().toString();
-        pI2St = kgIniT2.getText();
-        pF2St = kgFinT2.getText();
-        t3St = listaTintas3.getSelectedItem().toString();
-        pI3St = kgIniT3.getText();
-        pF3St = kgFinT3.getText();
-        t4St = listaTintas4.getSelectedItem().toString();
-        pI4St = kgIniT4.getText();
-        pF4St = kgFinT4.getText();
-        t5St = listaTintas5.getSelectedItem().toString();
-        pI5St = kgIniT5.getText();
-        pF5St = kgFinT5.getText();
-        t6St = listaTintas6.getSelectedItem().toString();
-        pI6St = kgIniT6.getText();
-        pF6St = kgFinT6.getText();
-
-        iniMezSt = mezIni.getText();
-        finMezSt = mezFin.getText();
-        iniAceSt = aceIni.getText();
-        finAceSt = aceFin.getText();
-        iniRetSt = retIni.getText();
-        finRetSt = retFin.getText();
-        iniSolventeSt = solventeIni.getText();
-        finSolventeSt = solventeFin.getText();
-        iniBarSt = barIni.getText();
-        finBarSt = barFin.getText();
-
-        String sql = "update tintas set tinta1 = '"+t1St+"', pIni1 = "+pI1St+", pFin1 = "+pF1St+", tinta2 = '"+t2St+"', pIni2 = "+pI2St+", pFin2 = "+pF2St+"," +
-        " tinta3 = '"+t3St+"', pIni3 = "+pI3St+", pFin3 = "+pF3St+", tinta4 = '"+t4St+"', pIni4 = "+pI4St+", pFin4 = "+pF4St+"," +
-        " tinta5 = '"+t5St+"', pIni5 = "+pI5St+", pFin5 = "+pF5St+", tinta6 = '"+t6St+"', pIni6 = "+pI6St+", pFin6 = "+pF6St+"," +
-        " iniMezcla = "+iniMezSt+", finMezcla = "+finMezSt+"," +
-        " iniAcetato = "+iniAceSt+", finAcetato = "+finAceSt+"," +
-        " iniRetard = "+iniRetSt+", finRetard = "+finRetSt+"," +
-        " iniSolvente = "+iniSolventeSt+", finSolvente = "+finSolventeSt+"," +
-        " iniBarniz = "+iniBarSt+", finBarniz = "+finBarSt+"" +
-        " where folio_fk = "+folioId+"";
-
-        try 
+        if(folioId == 0)
         {
-            st8 = con.createStatement();
-            st8.execute(sql);
-            JOptionPane.showMessageDialog(null, "Se ha actualizado el registro de tintas: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-            st8.close();
-        } 
-        catch (SQLException ex) 
-        {
-            JOptionPane.showMessageDialog(null, "Error al actualizar el registro de tintas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Seleccionar un pedido primero en la pestaña anterior");
         }
+        else
+        {
+            //se hace el guardado de los datos
+            t1St = listaTintas1.getSelectedItem().toString();
+            pI1St = kgIniT1.getText();
+            pF1St = kgFinT1.getText();
+            t2St = listaTintas2.getSelectedItem().toString();
+            pI2St = kgIniT2.getText();
+            pF2St = kgFinT2.getText();
+            t3St = listaTintas3.getSelectedItem().toString();
+            pI3St = kgIniT3.getText();
+            pF3St = kgFinT3.getText();
+            t4St = listaTintas4.getSelectedItem().toString();
+            pI4St = kgIniT4.getText();
+            pF4St = kgFinT4.getText();
+            t5St = listaTintas5.getSelectedItem().toString();
+            pI5St = kgIniT5.getText();
+            pF5St = kgFinT5.getText();
+            t6St = listaTintas6.getSelectedItem().toString();
+            pI6St = kgIniT6.getText();
+            pF6St = kgFinT6.getText();
 
-        calculaCostoGlobalTintas();//se inserta sa sumatoria de los costos en la tabla de tintas
-        sumaTintasAPedido();//se suma el costo de tintas al costoTotal del pedido
-        calculaPyG(folioId);
-        //reiniciarCamposTintas();
+            iniMezSt = mezIni.getText();
+            finMezSt = mezFin.getText();
+            iniAceSt = aceIni.getText();
+            finAceSt = aceFin.getText();
+            iniRetSt = retIni.getText();
+            finRetSt = retFin.getText();
+            iniSolventeSt = solventeIni.getText();
+            finSolventeSt = solventeFin.getText();
+            iniBarSt = barIni.getText();
+            finBarSt = barFin.getText();
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+            String sql = "update tintas set tinta1 = '"+t1St+"', pIni1 = "+pI1St+", pFin1 = "+pF1St+", tinta2 = '"+t2St+"', pIni2 = "+pI2St+", pFin2 = "+pF2St+"," +
+            " tinta3 = '"+t3St+"', pIni3 = "+pI3St+", pFin3 = "+pF3St+", tinta4 = '"+t4St+"', pIni4 = "+pI4St+", pFin4 = "+pF4St+"," +
+            " tinta5 = '"+t5St+"', pIni5 = "+pI5St+", pFin5 = "+pF5St+", tinta6 = '"+t6St+"', pIni6 = "+pI6St+", pFin6 = "+pF6St+"," +
+            " iniMezcla = "+iniMezSt+", finMezcla = "+finMezSt+"," +
+            " iniAcetato = "+iniAceSt+", finAcetato = "+finAceSt+"," +
+            " iniRetard = "+iniRetSt+", finRetard = "+finRetSt+"," +
+            " iniSolvente = "+iniSolventeSt+", finSolvente = "+finSolventeSt+"," +
+            " iniBarniz = "+iniBarSt+", finBarniz = "+finBarSt+"" +
+            " where folio_fk = "+folioId+"";
 
+            try 
+            {
+                st8 = con.createStatement();
+                st8.execute(sql);
+                JOptionPane.showMessageDialog(null, "Se ha actualizado el registro de tintas: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+                st8.close();
+            } 
+            catch (SQLException ex) 
+            {
+                JOptionPane.showMessageDialog(null, "Error al actualizar el registro de tintas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+
+            calculaCostoGlobalTintas();//se inserta sa sumatoria de los costos en la tabla de tintas
+            sumaTintasAPedido();//se suma el costo de tintas al costoTotal del pedido
+            calculaPyG(folioId);
+            //reiniciarCamposTintas();
+        }
+    }//GEN-LAST:event_guardarTintasActionPerformed
+
+    //suma el costo de las tintas al costo total del pedido
     private void sumaTintasAPedido()
     {
         Statement st8;
@@ -3547,6 +3602,60 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             }
         }
             
+    }
+    
+    //suma el costo de las tintas al costo total del pedido cuando hubo una modificacion
+    private void sumaTintasAPedidoModificacion()
+    {
+        Statement st8;
+        ResultSet rs8;
+        String sql = "";
+        
+        float costoTotal = 0f;
+        float costoTintas = 0f;
+        
+        sql = "select costoTotal from pedido where folio = "+folioId+"";
+        try
+        {
+            st8 = con.createStatement();
+            rs8 = st8.executeQuery(sql);
+            while(rs8.next())
+            {
+                costoTotal = Float.parseFloat(rs8.getString("costoTotal"));
+            }
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        sql = "select costoDeTintas from tintas where folio_fk = "+folioId+"";
+        try
+        {
+            st8 = con.createStatement();
+            rs8 = st8.executeQuery(sql);
+            while(rs8.next())
+            {
+                costoTintas = Float.parseFloat(rs8.getString("costoDeTintas"));
+            }
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        costoTotal += costoTintas;
+
+        sql = "update pedido set costoTotal = "+costoTotal+" where folio = "+folioId+"";
+        try
+        {
+            st8 = con.createStatement();
+            st8.execute(sql);
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
     }
     
     //vacia los campos de tintas despues de que hubo un registro
@@ -3678,6 +3787,62 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         return costo;
     }
     
+    /*reestablece el costo total del pedido a antes de que se le sumaran
+    los costos de tintas, para asi poder agregarle el nuevo costo de tintas*/
+    private void restaCostoTintasViejo()
+    {
+        Statement st8;
+        ResultSet rs8;
+        String sql = "";
+        float costoTotalViejo = 0f;
+        float costoTintasViejo = 0f;
+        float costoTotalReestablecido = 0f;
+        
+        sql = "select costoTotal from pedido where folio = "+folioId+"";
+        try
+        {
+            st8 = con.createStatement();
+            rs8 = st8.executeQuery(sql);
+            while(rs8.next())
+            {
+                costoTotalViejo = Float.parseFloat(rs8.getString("costoTotal"));
+            }
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        
+        sql = "select costoDeTintas from tintas where folio_fk = "+folioId+"";
+        try
+        {
+            st8 = con.createStatement();
+            rs8 = st8.executeQuery(sql);
+            while(rs8.next())
+            {
+                costoTintasViejo = Float.parseFloat(rs8.getString("costoDeTintas"));
+            }
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        
+        costoTotalReestablecido = costoTotalViejo - costoTintasViejo;
+        
+        sql = "update pedido set costoTotal = "+costoTotalReestablecido+" where folio = "+folioId+"";
+        try
+        {
+            st8 = con.createStatement();
+            st8.execute(sql);
+            st8.close();
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+    
     //calcula el costo de todas las tintas usadas y lo guarda
     private void calculaCostoGlobalTintas()
     {
@@ -3724,6 +3889,72 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private void barFinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barFinKeyTyped
         soloFlotantes(evt, barFin);
     }//GEN-LAST:event_barFinKeyTyped
+
+    private void guardCamTintasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardCamTintasActionPerformed
+        Statement st8;
+        ResultSet rs8;
+        jButton1.setSelected(false);
+        comprobarVacio();
+        //se hace el guardado de los datos
+        t1St = listaTintas1.getSelectedItem().toString();
+        pI1St = kgIniT1.getText();
+        pF1St = kgFinT1.getText();
+        t2St = listaTintas2.getSelectedItem().toString();
+        pI2St = kgIniT2.getText();
+        pF2St = kgFinT2.getText();
+        t3St = listaTintas3.getSelectedItem().toString();
+        pI3St = kgIniT3.getText();
+        pF3St = kgFinT3.getText();
+        t4St = listaTintas4.getSelectedItem().toString();
+        pI4St = kgIniT4.getText();
+        pF4St = kgFinT4.getText();
+        t5St = listaTintas5.getSelectedItem().toString();
+        pI5St = kgIniT5.getText();
+        pF5St = kgFinT5.getText();
+        t6St = listaTintas6.getSelectedItem().toString();
+        pI6St = kgIniT6.getText();
+        pF6St = kgFinT6.getText();
+
+        iniMezSt = mezIni.getText();
+        finMezSt = mezFin.getText();
+        iniAceSt = aceIni.getText();
+        finAceSt = aceFin.getText();
+        iniRetSt = retIni.getText();
+        finRetSt = retFin.getText();
+        iniSolventeSt = solventeIni.getText();
+        finSolventeSt = solventeFin.getText();
+        iniBarSt = barIni.getText();
+        finBarSt = barFin.getText();
+
+        String sql = "update tintas set tinta1 = '"+t1St+"', pIni1 = "+pI1St+", pFin1 = "+pF1St+", tinta2 = '"+t2St+"', pIni2 = "+pI2St+", pFin2 = "+pF2St+"," +
+        " tinta3 = '"+t3St+"', pIni3 = "+pI3St+", pFin3 = "+pF3St+", tinta4 = '"+t4St+"', pIni4 = "+pI4St+", pFin4 = "+pF4St+"," +
+        " tinta5 = '"+t5St+"', pIni5 = "+pI5St+", pFin5 = "+pF5St+", tinta6 = '"+t6St+"', pIni6 = "+pI6St+", pFin6 = "+pF6St+"," +
+        " iniMezcla = "+iniMezSt+", finMezcla = "+finMezSt+"," +
+        " iniAcetato = "+iniAceSt+", finAcetato = "+finAceSt+"," +
+        " iniRetard = "+iniRetSt+", finRetard = "+finRetSt+"," +
+        " iniSolvente = "+iniSolventeSt+", finSolvente = "+finSolventeSt+"," +
+        " iniBarniz = "+iniBarSt+", finBarniz = "+finBarSt+"" +
+        " where folio_fk = "+folioId+"";
+
+        try 
+        {
+            st8 = con.createStatement();
+            st8.execute(sql);
+            JOptionPane.showMessageDialog(null, "Se ha actualizado el registro de tintas: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+            st8.close();
+        } 
+        catch (SQLException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Error al actualizar el registro de tintas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+
+        restaCostoTintasViejo();//reestablecemos el costo total a antes de que se sumara el costo de tintas
+        calculaCostoGlobalTintas();//se inserta sa sumatoria de los costos en la tabla de tintas
+        sumaTintasAPedidoModificacion();//se suma el costo de tintas al costoTotal del pedido cuando se hizo una modificacion
+        calculaPyG(folioId);
+        //reiniciarCamposTintas();
+    }//GEN-LAST:event_guardCamTintasActionPerformed
     
     //cuando cambia la fecha inicial, tambien la sugerencia de fecha de compromiso
     private void onChangeFini(){
@@ -4420,10 +4651,11 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private datechooser.beans.DateChooserCombo fT;
     private javax.swing.JTextField folioVis;
     private javax.swing.JTextField grab;
+    private javax.swing.JButton guardCamTintas;
+    private javax.swing.JButton guardarTintas;
     private javax.swing.JTextArea imp;
     private javax.swing.JTextField importe;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
