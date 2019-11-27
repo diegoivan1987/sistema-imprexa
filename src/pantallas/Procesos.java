@@ -68,12 +68,6 @@ public class Procesos extends javax.swing.JFrame {
     String kgBSt=null, greniaBSt=null, suajeBSt=null, opBSt=null, nMBSt=null, hIniBSt=null, fIniBSt=null, hFinBSt=null, fFinBSt=null, 
             tMuBSt=null, totHBSt=null, exBSt=null, costoOpBoSt=null;
     
-    //Variables de las tintas
-    String t1St=null, pI1St=null, pF1St=null, t2St=null, pI2St=null, pF2St=null, t3St=null, pI3St=null, pF3St=null, 
-            t4St=null, pI4St=null, pF4St=null, t5St=null, pI5St=null, pF5St=null, t6St=null, pI6St=null, pF6St=null, 
-            iniMezSt=null, finMezSt=null, iniAceSt=null, finAceSt=null, iniRetSt=null, finRetSt=null, iniSolventeSt=null, 
-            finSolventeSt=null, iniBarSt = null, finBarSt = null;
-    
     //Vaiables que almacenan claves principales
     int folio = 0;
     int idPart = 0;
@@ -81,7 +75,6 @@ public class Procesos extends javax.swing.JFrame {
     int idBo = 0;
     int idIm = 0;
     float idPe = 0f;
-    int idImPrimera = 0;//Id primaria de impreso para ingresar tintas
     
     DefaultTableModel modPed, modPart;
     JTableHeader thPed, thPart;
@@ -294,75 +287,6 @@ public class Procesos extends javax.swing.JFrame {
         stc = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         btnCostos = new javax.swing.JButton();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel99 = new javax.swing.JLabel();
-        jLabel52 = new javax.swing.JLabel();
-        jLabel54 = new javax.swing.JLabel();
-        jLabel55 = new javax.swing.JLabel();
-        kgIniT1 = new javax.swing.JTextField();
-        kgFinT1 = new javax.swing.JTextField();
-        jLabel100 = new javax.swing.JLabel();
-        jLabel56 = new javax.swing.JLabel();
-        jLabel57 = new javax.swing.JLabel();
-        kgIniT2 = new javax.swing.JTextField();
-        jLabel58 = new javax.swing.JLabel();
-        kgFinT2 = new javax.swing.JTextField();
-        jLabel101 = new javax.swing.JLabel();
-        jLabel59 = new javax.swing.JLabel();
-        jLabel60 = new javax.swing.JLabel();
-        kgIniT3 = new javax.swing.JTextField();
-        jLabel61 = new javax.swing.JLabel();
-        kgFinT3 = new javax.swing.JTextField();
-        jLabel102 = new javax.swing.JLabel();
-        jLabel62 = new javax.swing.JLabel();
-        jLabel63 = new javax.swing.JLabel();
-        kgIniT4 = new javax.swing.JTextField();
-        jLabel64 = new javax.swing.JLabel();
-        kgFinT4 = new javax.swing.JTextField();
-        jLabel103 = new javax.swing.JLabel();
-        jLabel104 = new javax.swing.JLabel();
-        jLabel105 = new javax.swing.JLabel();
-        kgIniT5 = new javax.swing.JTextField();
-        jLabel106 = new javax.swing.JLabel();
-        kgFinT5 = new javax.swing.JTextField();
-        jLabel107 = new javax.swing.JLabel();
-        jLabel112 = new javax.swing.JLabel();
-        jLabel113 = new javax.swing.JLabel();
-        kgIniT6 = new javax.swing.JTextField();
-        jLabel114 = new javax.swing.JLabel();
-        kgFinT6 = new javax.swing.JTextField();
-        jLabel115 = new javax.swing.JLabel();
-        jLabel117 = new javax.swing.JLabel();
-        mezIni = new javax.swing.JTextField();
-        jLabel118 = new javax.swing.JLabel();
-        mezFin = new javax.swing.JTextField();
-        jLabel119 = new javax.swing.JLabel();
-        jLabel121 = new javax.swing.JLabel();
-        aceIni = new javax.swing.JTextField();
-        jLabel122 = new javax.swing.JLabel();
-        aceFin = new javax.swing.JTextField();
-        jLabel123 = new javax.swing.JLabel();
-        jLabel125 = new javax.swing.JLabel();
-        retIni = new javax.swing.JTextField();
-        jLabel126 = new javax.swing.JLabel();
-        retFin = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel151 = new javax.swing.JLabel();
-        jLabel152 = new javax.swing.JLabel();
-        solventeIni = new javax.swing.JTextField();
-        jLabel153 = new javax.swing.JLabel();
-        solventeFin = new javax.swing.JTextField();
-        listaTintas1 = new javax.swing.JComboBox();
-        listaTintas2 = new javax.swing.JComboBox();
-        listaTintas3 = new javax.swing.JComboBox();
-        listaTintas4 = new javax.swing.JComboBox();
-        listaTintas5 = new javax.swing.JComboBox();
-        listaTintas6 = new javax.swing.JComboBox();
-        jLabel154 = new javax.swing.JLabel();
-        jLabel155 = new javax.swing.JLabel();
-        barIni = new javax.swing.JTextField();
-        jLabel156 = new javax.swing.JLabel();
-        barFin = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         panBol = new javax.swing.JPanel();
         jLabel69 = new javax.swing.JLabel();
@@ -543,7 +467,7 @@ public class Procesos extends javax.swing.JFrame {
                             .addGroup(panExLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(kgOpExt, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panExLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(listOperadorE, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1335,588 +1259,6 @@ public class Procesos extends javax.swing.JFrame {
 
         paIm.addTab("Datos", jPanel9);
 
-        jLabel99.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel99.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel99.setText("Tinta 1");
-
-        jLabel52.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel52.setText("Nombre");
-
-        jLabel54.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel54.setText("Inicio");
-
-        jLabel55.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel55.setText("Final");
-
-        kgIniT1.setForeground(new java.awt.Color(0, 153, 153));
-        kgIniT1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                kgIniT1KeyTyped(evt);
-            }
-        });
-
-        kgFinT1.setForeground(new java.awt.Color(0, 153, 153));
-        kgFinT1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                kgFinT1KeyTyped(evt);
-            }
-        });
-
-        jLabel100.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel100.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel100.setText("Tinta 2");
-
-        jLabel56.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel56.setText("Nombre");
-
-        jLabel57.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel57.setText("Inicio");
-
-        kgIniT2.setForeground(new java.awt.Color(0, 153, 153));
-        kgIniT2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                kgIniT2KeyTyped(evt);
-            }
-        });
-
-        jLabel58.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel58.setText("Final");
-
-        kgFinT2.setForeground(new java.awt.Color(0, 153, 153));
-        kgFinT2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                kgFinT2KeyTyped(evt);
-            }
-        });
-
-        jLabel101.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel101.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel101.setText("Tinta 3");
-
-        jLabel59.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel59.setText("Nombre");
-
-        jLabel60.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel60.setText("Inicio");
-
-        kgIniT3.setForeground(new java.awt.Color(0, 153, 153));
-        kgIniT3.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                kgIniT3KeyTyped(evt);
-            }
-        });
-
-        jLabel61.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel61.setText("Final");
-
-        kgFinT3.setForeground(new java.awt.Color(0, 153, 153));
-        kgFinT3.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                kgFinT3KeyTyped(evt);
-            }
-        });
-
-        jLabel102.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel102.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel102.setText("Tinta 4");
-
-        jLabel62.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel62.setText("Nombre");
-
-        jLabel63.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel63.setText("Inicio");
-
-        kgIniT4.setForeground(new java.awt.Color(0, 153, 153));
-        kgIniT4.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                kgIniT4KeyTyped(evt);
-            }
-        });
-
-        jLabel64.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel64.setText("Final");
-
-        kgFinT4.setForeground(new java.awt.Color(0, 153, 153));
-        kgFinT4.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                kgFinT4KeyTyped(evt);
-            }
-        });
-
-        jLabel103.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel103.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel103.setText("Tinta 5");
-
-        jLabel104.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel104.setText("Nombre");
-
-        jLabel105.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel105.setText("Inicio");
-
-        kgIniT5.setForeground(new java.awt.Color(0, 153, 153));
-        kgIniT5.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                kgIniT5KeyTyped(evt);
-            }
-        });
-
-        jLabel106.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel106.setText("Final");
-
-        kgFinT5.setForeground(new java.awt.Color(0, 153, 153));
-        kgFinT5.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                kgFinT5KeyTyped(evt);
-            }
-        });
-
-        jLabel107.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel107.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel107.setText("Tinta 6");
-
-        jLabel112.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel112.setText("Nombre");
-
-        jLabel113.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel113.setText("Inicio");
-
-        kgIniT6.setForeground(new java.awt.Color(0, 153, 153));
-        kgIniT6.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                kgIniT6KeyTyped(evt);
-            }
-        });
-
-        jLabel114.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel114.setText("Final");
-
-        kgFinT6.setForeground(new java.awt.Color(0, 153, 153));
-        kgFinT6.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                kgFinT6KeyTyped(evt);
-            }
-        });
-
-        jLabel115.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel115.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel115.setText("Mezcla 80/20");
-
-        jLabel117.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel117.setText("Inicio");
-
-        mezIni.setForeground(new java.awt.Color(0, 153, 153));
-        mezIni.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                mezIniKeyTyped(evt);
-            }
-        });
-
-        jLabel118.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel118.setText("Final");
-
-        mezFin.setForeground(new java.awt.Color(0, 153, 153));
-        mezFin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                mezFinKeyTyped(evt);
-            }
-        });
-
-        jLabel119.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel119.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel119.setText("Acetato");
-
-        jLabel121.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel121.setText("Inicio");
-
-        aceIni.setForeground(new java.awt.Color(0, 153, 153));
-        aceIni.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                aceIniKeyTyped(evt);
-            }
-        });
-
-        jLabel122.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel122.setText("Final");
-
-        aceFin.setForeground(new java.awt.Color(0, 153, 153));
-        aceFin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                aceFinKeyTyped(evt);
-            }
-        });
-
-        jLabel123.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel123.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel123.setText("Retardante");
-
-        jLabel125.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel125.setText("Inicio");
-
-        retIni.setForeground(new java.awt.Color(0, 153, 153));
-        retIni.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                retIniKeyTyped(evt);
-            }
-        });
-
-        jLabel126.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel126.setText("Final");
-
-        retFin.setForeground(new java.awt.Color(0, 153, 153));
-        retFin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                retFinKeyTyped(evt);
-            }
-        });
-
-        jButton1.setBackground(new java.awt.Color(51, 51, 51));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Guardar Tintas");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jLabel151.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel151.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel151.setText("Solvente acondicionador");
-
-        jLabel152.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel152.setText("Inicio");
-
-        solventeIni.setForeground(new java.awt.Color(0, 153, 153));
-        solventeIni.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                solventeIniKeyTyped(evt);
-            }
-        });
-
-        jLabel153.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel153.setText("Final");
-
-        solventeFin.setForeground(new java.awt.Color(0, 153, 153));
-        solventeFin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                solventeFinKeyTyped(evt);
-            }
-        });
-
-        listaTintas1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blanco Laminación", "Blanco Flexo Frente", "Amarillo Flexo Frente", "Naranja Flexo Frente", "Magenta Flexo Frente", "Rojo Medio Flexo Frente", "Azul Cyan Flexo Frente", "Azul Reflex Flexo Frente", "Verde Flexo Frente", "Violeta Flexo Frente", "Negro Flexo Frente" }));
-
-        listaTintas2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blanco Laminación", "Blanco Flexo Frente", "Amarillo Flexo Frente", "Naranja Flexo Frente", "Magenta Flexo Frente", "Rojo Medio Flexo Frente", "Azul Cyan Flexo Frente", "Azul Reflex Flexo Frente", "Verde Flexo Frente", "Violeta Flexo Frente", "Negro Flexo Frente" }));
-
-        listaTintas3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blanco Laminación", "Blanco Flexo Frente", "Amarillo Flexo Frente", "Naranja Flexo Frente", "Magenta Flexo Frente", "Rojo Medio Flexo Frente", "Azul Cyan Flexo Frente", "Azul Reflex Flexo Frente", "Verde Flexo Frente", "Violeta Flexo Frente", "Negro Flexo Frente" }));
-
-        listaTintas4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blanco Laminación", "Blanco Flexo Frente", "Amarillo Flexo Frente", "Naranja Flexo Frente", "Magenta Flexo Frente", "Rojo Medio Flexo Frente", "Azul Cyan Flexo Frente", "Azul Reflex Flexo Frente", "Verde Flexo Frente", "Violeta Flexo Frente", "Negro Flexo Frente" }));
-
-        listaTintas5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blanco Laminación", "Blanco Flexo Frente", "Amarillo Flexo Frente", "Naranja Flexo Frente", "Magenta Flexo Frente", "Rojo Medio Flexo Frente", "Azul Cyan Flexo Frente", "Azul Reflex Flexo Frente", "Verde Flexo Frente", "Violeta Flexo Frente", "Negro Flexo Frente" }));
-
-        listaTintas6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blanco Laminación", "Blanco Flexo Frente", "Amarillo Flexo Frente", "Naranja Flexo Frente", "Magenta Flexo Frente", "Rojo Medio Flexo Frente", "Azul Cyan Flexo Frente", "Azul Reflex Flexo Frente", "Verde Flexo Frente", "Violeta Flexo Frente", "Negro Flexo Frente" }));
-
-        jLabel154.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel154.setText("Inicio");
-
-        jLabel155.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel155.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel155.setText("Barniz");
-
-        barIni.setForeground(new java.awt.Color(0, 153, 153));
-        barIni.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                barIniKeyTyped(evt);
-            }
-        });
-
-        jLabel156.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel156.setText("Final");
-
-        barFin.setForeground(new java.awt.Color(0, 153, 153));
-        barFin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                barFinKeyTyped(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                        .addGap(0, 459, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addComponent(jLabel99)
-                    .addComponent(jLabel123)
-                    .addComponent(jLabel151)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
-                                    .addComponent(jLabel104)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(listaTintas4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
-                                    .addComponent(jLabel62)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(listaTintas5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
-                                    .addComponent(jLabel59)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(listaTintas3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
-                                    .addComponent(jLabel56)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(listaTintas2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
-                                    .addComponent(jLabel52)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(listaTintas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
-                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(jPanel8Layout.createSequentialGroup()
-                                            .addComponent(jLabel152)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(solventeIni))
-                                        .addGroup(jPanel8Layout.createSequentialGroup()
-                                            .addComponent(jLabel125)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(retIni, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(jPanel8Layout.createSequentialGroup()
-                                            .addComponent(jLabel126)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(retFin, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel8Layout.createSequentialGroup()
-                                            .addComponent(jLabel153)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(solventeFin))))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
-                                    .addComponent(jLabel112)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(listaTintas6, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGap(13, 13, 13)))
-                            .addComponent(jLabel115)
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jLabel117)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(mezIni, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel118)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(mezFin, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel100)
-                            .addComponent(jLabel101)
-                            .addComponent(jLabel102)
-                            .addComponent(jLabel103)
-                            .addComponent(jLabel107))
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                                        .addComponent(jLabel54)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(kgIniT1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel55)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(kgFinT1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                                        .addComponent(jLabel57)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(kgIniT2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel58)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(kgFinT2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                                        .addComponent(jLabel60)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(kgIniT3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel61)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(kgFinT3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel8Layout.createSequentialGroup()
-                                        .addComponent(jLabel63)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(kgIniT4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel64)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(kgFinT4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                                        .addComponent(jLabel105)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(kgIniT5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel106)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(kgFinT5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel119)
-                                        .addGroup(jPanel8Layout.createSequentialGroup()
-                                            .addComponent(jLabel121)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(aceIni, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jLabel122)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(aceFin, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel8Layout.createSequentialGroup()
-                                            .addComponent(jLabel113)
-                                            .addGap(10, 10, 10)
-                                            .addComponent(kgIniT6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jLabel114)
-                                            .addGap(11, 11, 11)
-                                            .addComponent(kgFinT6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel155)
-                                        .addGroup(jPanel8Layout.createSequentialGroup()
-                                            .addComponent(jLabel154)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(barIni, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jLabel156)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(barFin, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
-                .addContainerGap())
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel99)
-                .addGap(0, 0, 0)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel54)
-                                        .addComponent(kgIniT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel55)
-                                        .addComponent(kgFinT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(listaTintas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel52))
-                                .addGap(3, 3, 3)
-                                .addComponent(jLabel100)
-                                .addGap(1, 1, 1)
-                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel57)
-                                        .addComponent(kgIniT2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel58)
-                                        .addComponent(kgFinT2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel56)
-                                        .addComponent(listaTintas2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel101)
-                                .addGap(1, 1, 1)
-                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel60)
-                                        .addComponent(kgIniT3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel61)
-                                        .addComponent(kgFinT3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel59)
-                                        .addComponent(listaTintas3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel102)
-                                .addGap(1, 1, 1)
-                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel63)
-                                        .addComponent(kgIniT4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel64)
-                                        .addComponent(kgFinT4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel62)
-                                        .addComponent(listaTintas5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel103)
-                                .addGap(1, 1, 1)
-                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel105)
-                                        .addComponent(kgIniT5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel106)
-                                        .addComponent(kgFinT5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel104)
-                                        .addComponent(listaTintas4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel107)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel113)
-                                        .addComponent(kgIniT6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel114)
-                                        .addComponent(kgFinT6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel112)
-                                        .addComponent(listaTintas6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel115)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel117)
-                                    .addComponent(mezIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel118)
-                                    .addComponent(mezFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jLabel119)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel121)
-                                    .addComponent(aceIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel122)
-                                    .addComponent(aceFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel123)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel125)
-                            .addComponent(retIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel126)
-                            .addComponent(retFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel155)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel154)
-                            .addComponent(barIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel156)
-                            .addComponent(barFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel151)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(solventeIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel153)
-                        .addComponent(solventeFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel152))
-                .addGap(31, 31, 31)
-                .addComponent(jButton1)
-                .addGap(21, 21, 21))
-        );
-
-        paIm.addTab("Tintas", jPanel8);
-
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -1925,7 +1267,7 @@ public class Procesos extends javax.swing.JFrame {
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(paIm, javax.swing.GroupLayout.PREFERRED_SIZE, 579, Short.MAX_VALUE)
+            .addComponent(paIm, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
         );
 
         paPro.addTab("Impresión", jPanel10);
@@ -2086,7 +1428,7 @@ public class Procesos extends javax.swing.JFrame {
                                 .addGroup(panBolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(hrIniBol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(hrFinBol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
                 .addGroup(panBolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panBolLayout.createSequentialGroup()
                         .addComponent(jLabel75)
@@ -2454,7 +1796,7 @@ public class Procesos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jButton3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2770,8 +2112,6 @@ public class Procesos extends javax.swing.JFrame {
                 
                 btnCostos.setEnabled(false);
                 
-                jButton1.setEnabled(false);
-                
                 vaciarCamposProcesos();//Se establecen los campos de los procesos nulos, ya que no hay registros
                 comprobarModoMat();
                 st.close();
@@ -2796,7 +2136,6 @@ public class Procesos extends javax.swing.JFrame {
                 gdBo.setEnabled(true);
                 
                 btnCostos.setEnabled(true);
-                jButton1.setEnabled(true);
                 comprobarModoMat();//Comprobar que modalidad de produccion es. (Produccion, Compra, ambas)
                 establecerCamposPartida();//Se establecen los campos de los procesos de la partida,obteniendolos de la database
                 //Tambien se obtienen las primary key de los procesos
@@ -2932,51 +2271,7 @@ public class Procesos extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al obtener los datos de bolseo: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        obtenerPrincipalImpreso();//Obtencion de la primary key de impreso para obtener y establecer los campos las tintas de impreso
         
-        sql = "select * from tintas where idImp_fk = "+idImPrimera+"";//Llave primaria de impreso
-        
-        try {
-            rs = st.executeQuery(sql);
-            
-            while(rs.next()){
-                establecerIndiceDeTintas(listaTintas1, rs.getString("tinta1"));
-                kgIniT1.setText(rs.getString("pIni1"));
-                kgFinT1.setText(rs.getString("pFin1"));
-                establecerIndiceDeTintas(listaTintas2, rs.getString("tinta2"));
-                kgIniT2.setText(rs.getString("pIni2"));
-                kgFinT2.setText(rs.getString("pFin2"));
-                establecerIndiceDeTintas(listaTintas3, rs.getString("tinta3"));
-                kgIniT3.setText(rs.getString("pIni3")); 
-                kgFinT3.setText(rs.getString("pFin3")); 
-                establecerIndiceDeTintas(listaTintas4, rs.getString("tinta4"));
-                kgIniT4.setText(rs.getString("pIni4"));
-                kgFinT4.setText(rs.getString("pFin4")); 
-                establecerIndiceDeTintas(listaTintas5, rs.getString("tinta5"));
-                kgIniT5.setText(rs.getString("pIni5"));
-                kgFinT5.setText(rs.getString("pFin5"));
-                establecerIndiceDeTintas(listaTintas6, rs.getString("tinta6"));
-                kgIniT6.setText(rs.getString("pIni6"));
-                kgFinT6.setText(rs.getString("pFin6"));
-
-                mezIni.setText(rs.getString("iniMezcla"));
-                mezFin.setText(rs.getString("finMezcla")); 
-                aceIni.setText(rs.getString("iniAcetato")); 
-                aceFin.setText(rs.getString("finAcetato"));
-                retIni.setText(rs.getString("iniRetard")); 
-                retFin.setText(rs.getString("finRetard"));
-                solventeIni.setText(rs.getString("iniSolvente")); 
-                solventeFin.setText(rs.getString("finSolvente"));
-                barIni.setText(rs.getString("iniBarniz"));
-                barFin.setText(rs.getString("finBarniz"));
-            }
-            
-            rs.close();
-            st.close();
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al establecer los campos de las tintas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
         //se muestra los costos de grabados del pedido en impresion
         sql = "select grabados from pedido where folio = "+folio+"";
         try
@@ -2994,54 +2289,6 @@ public class Procesos extends javax.swing.JFrame {
         }
         
         
-    }
-    
-    private void establecerIndiceDeTintas(JComboBox listaTintas, String tintaDeLaBase)
-    {
-        if(tintaDeLaBase.equals("Blanco Laminación"))
-        {
-            listaTintas.setSelectedIndex(0);
-        }
-        else if(tintaDeLaBase.equals("Blanco Flexo Frente"))
-        {
-            listaTintas.setSelectedIndex(1);
-        }
-        else if(tintaDeLaBase.equals("Amarillo Flexo Frente"))
-        {
-            listaTintas.setSelectedIndex(2);
-        }
-        else if(tintaDeLaBase.equals("Naranja Flexo Frente"))
-        {
-            listaTintas.setSelectedIndex(3);
-        }
-        else if(tintaDeLaBase.equals("Magenta Flexo Frente"))
-        {
-            listaTintas.setSelectedIndex(4);
-        }
-        else if(tintaDeLaBase.equals("Rojo Medio Flexo Frente"))
-        {
-            listaTintas.setSelectedIndex(5);
-        }
-        else if(tintaDeLaBase.equals("Azul Cyan Flexo Frente"))
-        {
-            listaTintas.setSelectedIndex(6);
-        }
-        else if(tintaDeLaBase.equals("Azul Reflex Flexo Frente"))
-        {
-            listaTintas.setSelectedIndex(7);
-        }
-        else if(tintaDeLaBase.equals("Verde Flexo Frente"))
-        {
-            listaTintas.setSelectedIndex(8);
-        }
-        else if(tintaDeLaBase.equals("Violeta Flexo Frente"))
-        {
-            listaTintas.setSelectedIndex(9);
-        }
-        else if(tintaDeLaBase.equals("Negro Flexo Frente"))
-        {
-            listaTintas.setSelectedIndex(10);
-        }
     }
     
     //Se establecen en "" o "0" los campos de los procesos que aun no se han generado
@@ -3068,36 +2315,6 @@ public class Procesos extends javax.swing.JFrame {
         pzsBol.setText("0");
         provBol.setText("");
         porKgBol.setText("0");
-        
-        listaTintas1.setSelectedIndex(0);
-        kgIniT1.setText("0");
-        kgFinT1.setText("0");
-        listaTintas2.setSelectedIndex(0);
-        kgIniT2.setText("0");
-        kgFinT2.setText("0");
-        listaTintas3.setSelectedIndex(0);
-        kgIniT3.setText("0"); 
-        kgFinT3.setText("0"); 
-        listaTintas4.setSelectedIndex(0);
-        kgIniT4.setText("0");
-        kgFinT4.setText("0"); 
-        listaTintas5.setSelectedIndex(0);
-        kgIniT5.setText("0");
-        kgFinT5.setText("0");
-        listaTintas6.setSelectedIndex(0);
-        kgIniT6.setText("0");
-        kgFinT6.setText("0");
-            
-        mezIni.setText("0");
-        mezFin.setText("0"); 
-        aceIni.setText("0"); 
-        aceFin.setText("0");
-        retIni.setText("0"); 
-        retFin.setText("0");
-        solventeIni.setText("0"); 
-        solventeFin.setText("0");
-        barIni.setText("0");
-        barFin.setText("0");
     }
     
     //Generar procesos
@@ -3137,38 +2354,6 @@ public class Procesos extends javax.swing.JFrame {
             provB1St = provBol.getText();
             precioKgB1St = porKgBol.getText();
 
-            //Tintas de impreso
-            t1St = "";
-            pI1St = kgIniT1.getText(); 
-            pF1St = kgFinT1.getText(); 
-            t2St = "";
-            pI2St = kgIniT2.getText(); 
-            pF2St = kgFinT2.getText(); 
-            t3St = "";
-            pI3St = kgIniT3.getText(); 
-            pF3St = kgFinT3.getText(); 
-            t4St = "";
-            pI4St = kgIniT4.getText(); 
-            pF4St = kgFinT4.getText(); 
-            t5St = "";
-            pI5St = kgIniT5.getText(); 
-            pF5St = kgFinT5.getText();
-            t6St = "";
-            pI6St = kgIniT6.getText(); 
-            pF6St = kgFinT6.getText(); 
-
-            iniMezSt = mezIni.getText(); 
-            finMezSt = mezFin.getText(); 
-            iniAceSt = aceIni.getText(); 
-            finAceSt = aceFin.getText(); 
-            iniRetSt = retIni.getText(); 
-            finRetSt = retFin.getText();
-            iniSolventeSt = solventeIni.getText(); 
-            finSolventeSt = solventeFin.getText();
-            iniBarSt = barIni.getText();
-            finBarSt = barFin.getText();
-
-
             //Extrusion
                 String sql = "insert into extrusion(pocM1, pocM2, prov1, precioKg1, prov2, precioKg2, idPar_fk, costoUnitarioExt, kgTotales, greniaExt, "
                         + "costoOpTotalExt) "
@@ -3200,40 +2385,12 @@ public class Procesos extends javax.swing.JFrame {
 
                 try {
                     st.execute(sql);
-
+                    JOptionPane.showMessageDialog(null, "Procesos Generados: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
                     st.close();
 
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "No se pudo generar bolseo: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
-                //Consulta para obtener la clave principal generada en impreso
-                obtenerPrincipalImpreso();
-                //Con la clave de impreso obtenida ahora si puedo insertar tintas
-
-                //Tintas
-                sql = "insert into tintas(" +
-                    " tinta1, pIni1, pFin1, tinta2, pIni2, pFin2," +
-                    " tinta3, pIni3, pFin3, tinta4, pIni4, pFin4," +
-                    " tinta5, pIni5, pFin5, tinta6, pIni6, pFin6," +
-                    " iniMezcla, finMezcla," +
-                    " iniAcetato, finAcetato," +
-                    " iniRetard, finRetard," +
-                    " iniSolvente, finSolvente," +
-                    " iniBarniz, finBarniz," +
-                    " costoDeTintas,idImp_fk)" +
-                    " values('"+t1St+"', "+pI1St+", "+pF1St+", '"+t2St+"', "+pI2St+", "+pF2St+", '"+t3St+"', "+pI3St+", "+pF3St+", '"+t4St+"', "+pI4St+", "
-                        + ""+pF4St+", '"+t5St+"', "+pI5St+", "+pF5St+", '"+t6St+"', "+pI6St+", "+pF6St+", "+iniMezSt+", "+finMezSt+", "+iniAceSt+", "+finAceSt+", "
-                        + ""+iniRetSt+", "+finRetSt+", "+iniSolventeSt+","+finSolventeSt+", "+iniBarSt+", "+finBarSt+",0,"+idImPrimera+")";
-
-                try {
-                    st.execute(sql);
-
-                     JOptionPane.showMessageDialog(null, "Procesos Generados: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "No se pudieron generar las tintas de impreso: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }   
 
                 sql = "update partida set modoMat = '"+elegido+"' where idPar = "+idPart+"";
                 try {
@@ -3265,28 +2422,6 @@ public class Procesos extends javax.swing.JFrame {
         
 
     }//GEN-LAST:event_saveProActionPerformed
-    
-    //Obtener clave principal de impreso para añadir tintas
-    private void obtenerPrincipalImpreso(){
-        
-        //Se consulta impreso con la primary key de la partida que ya esta guardada
-        String sql = "select * from impreso where idPar_fk = "+idPart+"";
-        
-        try {
-            st = con.createStatement();
-            rs = st.executeQuery(sql);
-            
-            while(rs.next()){
-                idImPrimera = rs.getInt("idImp");//Se establece la variable global de la id de Impreso
-            }
-            rs.close();
-             
-        } catch (SQLException ex) {
-            
-             JOptionPane.showMessageDialog(null, "No se pudo obtener la clave de impeso: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
     
     //Boton: agregar operadores de impreso
     private void agIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agIActionPerformed
@@ -3658,7 +2793,7 @@ public class Procesos extends javax.swing.JFrame {
     
     /**funciones de costo partida**/
     
-    //suma los costos de operacion de cada proceso y el costo de material y tintas y los inserta en la tabla partida
+    //suma los costos de operacion de cada proceso y el costo de material y los inserta en la tabla partida
     void calculaCostoPartida()
     {
         float costoExt = 0f, costoImp = 0f, costoBol = 0f, costoMat = 0f, suma = 0f;
@@ -4479,80 +3614,71 @@ public class Procesos extends javax.swing.JFrame {
             {
                 if(JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar esta partida") == 0)
                 {
-                    sql = "delete from tintas where idImp_fk = "+idIm+"";
-                try
-                {
-                    st.execute(sql);
-                }
-                catch(SQLException ex)
-                {
-                    ex.printStackTrace();
-                }
-                sql = "delete from operadorBol where idBol_fk = "+idBo+"";
-                try
-                {
-                    st.execute(sql);
-                }
-                catch(SQLException ex)
-                {
-                    ex.printStackTrace();
-                }
-                sql = "delete from operadorImp where idImp_fk = "+idIm+"";
-                try
-                {
-                    st.execute(sql);
-                }
-                catch(SQLException ex)
-                {
-                    ex.printStackTrace();
-                }
-                sql = "delete from operadorExt where idExt_fk = "+idEx+"";
-                try
-                {
-                    st = con.createStatement();
-                    st.execute(sql);
-                }
-                catch(SQLException ex)
-                {
-                    ex.printStackTrace();
-                }
-                sql = "delete from bolseo where idPar_fk = "+idPart+"";
-                try
-                {
-                    st.execute(sql);
-                }
-                catch(SQLException ex)
-                {
-                    ex.printStackTrace();
-                }
-                sql = "delete from impreso where idPar_fk = "+idPart+"";
-                try
-                {
-                    st.execute(sql);
-                }
-                catch(SQLException ex)
-                {
-                    ex.printStackTrace();
-                }
-                sql = "delete from extrusion where idPar_fk = "+idPart+"";
-                try
-                {
-                    st.execute(sql);
-                }
-                catch(SQLException ex)
-                {
-                    ex.printStackTrace();
-                }
-                sql = "delete from partida where idPar = "+idPart+"";
-                try
-                {
-                    st.execute(sql);
-                    JOptionPane.showMessageDialog(null,"Se ha borrado la partida");
-                }
-                catch(SQLException ex)
-                {
-                    ex.printStackTrace();
-                }
+                    sql = "delete from operadorBol where idBol_fk = "+idBo+"";
+                    try
+                    {
+                        st.execute(sql);
+                    }
+                    catch(SQLException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+                    sql = "delete from operadorImp where idImp_fk = "+idIm+"";
+                    try
+                    {
+                        st.execute(sql);
+                    }
+                    catch(SQLException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+                    sql = "delete from operadorExt where idExt_fk = "+idEx+"";
+                    try
+                    {
+                        st = con.createStatement();
+                        st.execute(sql);
+                    }
+                    catch(SQLException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+                    sql = "delete from bolseo where idPar_fk = "+idPart+"";
+                    try
+                    {
+                        st.execute(sql);
+                    }
+                    catch(SQLException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+                    sql = "delete from impreso where idPar_fk = "+idPart+"";
+                    try
+                    {
+                        st.execute(sql);
+                    }
+                    catch(SQLException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+                    sql = "delete from extrusion where idPar_fk = "+idPart+"";
+                    try
+                    {
+                        st.execute(sql);
+                    }
+                    catch(SQLException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+                    sql = "delete from partida where idPar = "+idPart+"";
+                    try
+                    {
+                        st.execute(sql);
+                        JOptionPane.showMessageDialog(null,"Se ha borrado la partida");
+                    }
+                    catch(SQLException ex)
+                    {
+                        ex.printStackTrace();
+                    }
                 }
             }
         }
@@ -4791,7 +3917,6 @@ public class Procesos extends javax.swing.JFrame {
             st = con.createStatement();
             st.execute(sql);
             JOptionPane.showMessageDialog(null, "Se ha actualizado el registro de impreso: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-            obtenerPrincipalImpreso();//Para poder actualizar las tintas del impreso actualizado
             float material = queryForPesosMaterialMultiuso("impreso", "idImp", idIm, "kgUniI", "operadorImp", "idImp_fk");
             calcularCostoUnitarioMultiuso(material, "costoOpTotalImp", "impreso", "idImp", idIm, "costoUnitarioImp");
             calculaPyG();
@@ -4910,78 +4035,6 @@ public class Procesos extends javax.swing.JFrame {
     private void porKgBolKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_porKgBolKeyTyped
         soloFlotantes(evt, porKgBol);
     }//GEN-LAST:event_porKgBolKeyTyped
-    //Tintas
-    private void kgIniT1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgIniT1KeyTyped
-        soloFlotantes(evt, kgIniT1);
-    }//GEN-LAST:event_kgIniT1KeyTyped
-
-    private void kgFinT1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgFinT1KeyTyped
-        soloFlotantes(evt, kgFinT1);
-    }//GEN-LAST:event_kgFinT1KeyTyped
-
-    private void kgIniT2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgIniT2KeyTyped
-        soloFlotantes(evt, kgIniT2);
-    }//GEN-LAST:event_kgIniT2KeyTyped
-
-    private void kgFinT2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgFinT2KeyTyped
-        soloFlotantes(evt, kgFinT2);
-    }//GEN-LAST:event_kgFinT2KeyTyped
-
-    private void kgIniT3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgIniT3KeyTyped
-        soloFlotantes(evt, kgIniT3);
-    }//GEN-LAST:event_kgIniT3KeyTyped
-
-    private void kgFinT3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgFinT3KeyTyped
-        soloFlotantes(evt, kgFinT3);
-    }//GEN-LAST:event_kgFinT3KeyTyped
-
-    private void kgIniT4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgIniT4KeyTyped
-        soloFlotantes(evt, kgIniT4);
-    }//GEN-LAST:event_kgIniT4KeyTyped
-
-    private void kgFinT4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgFinT4KeyTyped
-        soloFlotantes(evt, kgFinT4);
-    }//GEN-LAST:event_kgFinT4KeyTyped
-
-    private void kgIniT5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgIniT5KeyTyped
-        soloFlotantes(evt, kgIniT5);
-    }//GEN-LAST:event_kgIniT5KeyTyped
-
-    private void kgFinT5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgFinT5KeyTyped
-        soloFlotantes(evt, kgFinT5);
-    }//GEN-LAST:event_kgFinT5KeyTyped
-
-    private void kgIniT6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgIniT6KeyTyped
-       soloFlotantes(evt, kgIniT6);
-    }//GEN-LAST:event_kgIniT6KeyTyped
-
-    private void kgFinT6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kgFinT6KeyTyped
-        soloFlotantes(evt, kgFinT6);
-    }//GEN-LAST:event_kgFinT6KeyTyped
-
-    private void mezIniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mezIniKeyTyped
-        soloFlotantes(evt, mezIni);
-    }//GEN-LAST:event_mezIniKeyTyped
-
-    private void mezFinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mezFinKeyTyped
-        soloFlotantes(evt, mezFin);
-    }//GEN-LAST:event_mezFinKeyTyped
-
-    private void aceIniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_aceIniKeyTyped
-        soloFlotantes(evt, aceIni);
-    }//GEN-LAST:event_aceIniKeyTyped
-
-    private void aceFinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_aceFinKeyTyped
-        soloFlotantes(evt, aceFin);
-    }//GEN-LAST:event_aceFinKeyTyped
-
-    private void retIniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_retIniKeyTyped
-        soloFlotantes(evt, retIni);
-    }//GEN-LAST:event_retIniKeyTyped
-
-    private void retFinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_retFinKeyTyped
-        soloFlotantes(evt, retFin);
-    }//GEN-LAST:event_retFinKeyTyped
     //Operador Extruido
     private void greExtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_greExtKeyTyped
         soloFlotantes(evt, greExt);
@@ -5320,64 +4373,6 @@ public class Procesos extends javax.swing.JFrame {
         limitarInsercion(40, evt, impBus);
     }//GEN-LAST:event_impBusKeyTyped
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jButton1.setSelected(false);
-        //Tintas de impreso
-        comprobarVacio();
-        t1St = listaTintas1.getSelectedItem().toString();
-        pI1St = kgIniT1.getText();
-        pF1St = kgFinT1.getText();
-        t2St = listaTintas2.getSelectedItem().toString();
-        pI2St = kgIniT2.getText();
-        pF2St = kgFinT2.getText();
-        t3St = listaTintas3.getSelectedItem().toString();
-        pI3St = kgIniT3.getText();
-        pF3St = kgFinT3.getText();
-        t4St = listaTintas4.getSelectedItem().toString();
-        pI4St = kgIniT4.getText();
-        pF4St = kgFinT4.getText();
-        t5St = listaTintas5.getSelectedItem().toString();
-        pI5St = kgIniT5.getText();
-        pF5St = kgFinT5.getText();
-        t6St = listaTintas6.getSelectedItem().toString();
-        pI6St = kgIniT6.getText();
-        pF6St = kgFinT6.getText();
-            
-        iniMezSt = mezIni.getText();
-        finMezSt = mezFin.getText();
-        iniAceSt = aceIni.getText();
-        finAceSt = aceFin.getText();
-        iniRetSt = retIni.getText();
-        finRetSt = retFin.getText();
-        iniSolventeSt = solventeIni.getText();
-        finSolventeSt = solventeFin.getText();
-        iniBarSt = barIni.getText();
-        finBarSt = barFin.getText();
-        
-        
-        String sql = "update tintas set tinta1 = '"+t1St+"', pIni1 = "+pI1St+", pFin1 = "+pF1St+", tinta2 = '"+t2St+"', pIni2 = "+pI2St+", pFin2 = "+pF2St+"," +
-            " tinta3 = '"+t3St+"', pIni3 = "+pI3St+", pFin3 = "+pF3St+", tinta4 = '"+t4St+"', pIni4 = "+pI4St+", pFin4 = "+pF4St+"," +
-            " tinta5 = '"+t5St+"', pIni5 = "+pI5St+", pFin5 = "+pF5St+", tinta6 = '"+t6St+"', pIni6 = "+pI6St+", pFin6 = "+pF6St+"," +
-            " iniMezcla = "+iniMezSt+", finMezcla = "+finMezSt+"," +
-            " iniAcetato = "+iniAceSt+", finAcetato = "+finAceSt+"," +
-            " iniRetard = "+iniRetSt+", finRetard = "+finRetSt+"," +
-            " iniSolvente = "+iniSolventeSt+", finSolvente = "+finSolventeSt+"," +
-            " iniBarniz = "+iniBarSt+", finBarniz = "+finBarSt+"" +
-            " where idImp_fk = "+idImPrimera+"";
-        
-        try {
-            st = con.createStatement();
-            st.execute(sql);
-            JOptionPane.showMessageDialog(null, "Se ha actualizado el registro de tintas: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-            st.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar el registro de tintas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
-        }
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void agEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agEActionPerformed
         agE.setSelected(false);
         comprobarVacio();
@@ -5617,22 +4612,6 @@ public class Procesos extends javax.swing.JFrame {
         soloFlotantes(evt, kgImp2);
     }//GEN-LAST:event_kgImp2KeyTyped
 
-    private void solventeIniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_solventeIniKeyTyped
-        soloFlotantes(evt, solventeIni);
-    }//GEN-LAST:event_solventeIniKeyTyped
-
-    private void solventeFinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_solventeFinKeyTyped
-        soloFlotantes(evt, solventeIni);
-    }//GEN-LAST:event_solventeFinKeyTyped
-
-    private void barIniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barIniKeyTyped
-        soloFlotantes(evt, barIni);
-    }//GEN-LAST:event_barIniKeyTyped
-
-    private void barFinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barFinKeyTyped
-        soloFlotantes(evt, barFin);
-    }//GEN-LAST:event_barFinKeyTyped
-
     
     //Se vacean los campos de agregar operadores
     private void vaciarOpE(){
@@ -5728,74 +4707,6 @@ public class Procesos extends javax.swing.JFrame {
         if(stc.getText().equals("") || stc.getText().equals(".")){
             stc.setText("0");
         }
-        
-        //Campos de tintas
-        if(kgIniT1.getText().equals("") || kgIniT1.getText().equals(".")){
-            kgIniT1.setText("0");
-        }
-        if(kgFinT1.getText().equals("") || kgFinT1.getText().equals(".")){
-            kgFinT1.setText("0");
-        }
-        if(kgIniT2.getText().equals("") || kgIniT2.getText().equals(".")){
-            kgIniT2.setText("0");
-        }
-        if(kgFinT2.getText().equals("") || kgFinT2.getText().equals(".")){
-            kgFinT2.setText("0");
-        }
-        if(kgIniT3.getText().equals("") || kgIniT3.getText().equals(".")){
-            kgIniT3.setText("0");
-        }
-        if(kgFinT3.getText().equals("") || kgFinT3.getText().equals(".")){
-            kgFinT3.setText("0");
-        }
-        if(kgIniT4.getText().equals("") || kgIniT4.getText().equals(".")){
-            kgIniT4.setText("0");
-        }
-        if(kgFinT4.getText().equals("") || kgFinT4.getText().equals(".")){
-            kgFinT4.setText("0");
-        }
-        if(kgIniT5.getText().equals("") || kgIniT5.getText().equals(".")){
-            kgIniT5.setText("0");
-        }
-        if(kgFinT5.getText().equals("") || kgFinT5.getText().equals(".")){
-            kgFinT5.setText("0");
-        }
-        if(kgIniT6.getText().equals("") || kgIniT6.getText().equals(".")){
-            kgIniT6.setText("0");
-        }
-        if(kgFinT6.getText().equals("") || kgFinT6.getText().equals(".")){
-            kgFinT6.setText("0");
-        }
-        if(mezIni.getText().equals("") || mezIni.getText().equals(".")){
-            mezIni.setText("0");
-        }
-        if(mezFin.getText().equals("") || mezFin.getText().equals(".")){
-            mezFin.setText("0");
-        }
-        if(aceIni.getText().equals("") || aceIni.getText().equals(".")){
-            aceIni.setText("0");
-        }
-        if(aceFin.getText().equals("") || aceFin.getText().equals(".")){
-            aceFin.setText("0");
-        }
-        if(retIni.getText().equals("") || retIni.getText().equals(".")){
-            retIni.setText("0");
-        }
-        if(retFin.getText().equals("") || retFin.getText().equals(".")){
-            retFin.setText("0");
-        } 
-        if(solventeIni.getText().equals("") || solventeIni.getText().equals(".")){
-            solventeIni.setText("0");
-        }
-        if(solventeFin.getText().equals("") || solventeFin.getText().equals(".")){
-            solventeFin.setText("0");
-        } 
-        if(barIni.getText().equals("") || barIni.getText().equals(".")){
-            barIni.setText("0");
-        }
-        if(barFin.getText().equals("") || barFin.getText().equals(".")){
-            barFin.setText("0");
-        } 
         
         //Campos de operadores
         if(greExt.getText().equals("") || greExt.getText().equals(".")){
@@ -6699,42 +5610,12 @@ public class Procesos extends javax.swing.JFrame {
         kgBol.setText("");
         pzsBol.setText("");
         
-        listaTintas1.setSelectedIndex(0);
-        listaTintas2.setSelectedIndex(0);
-        listaTintas3.setSelectedIndex(0);
-        listaTintas4.setSelectedIndex(0);
-        listaTintas5.setSelectedIndex(0);
-        listaTintas6.setSelectedIndex(0);
-        kgIniT1.setText("");
-        kgIniT2.setText("");
-        kgIniT3.setText("");
-        kgIniT4.setText("");
-        kgIniT5.setText("");
-        kgIniT6.setText("");
-        kgFinT1.setText("");
-        kgFinT2.setText("");
-        kgFinT3.setText("");
-        kgFinT4.setText("");
-        kgFinT5.setText("");
-        kgFinT6.setText("");
-        mezIni.setText("");
-        mezFin.setText("");
-        aceIni.setText("");
-        aceFin.setText("");
-        retIni.setText("");
-        retFin.setText(""); 
-        solventeIni.setText("");
-        solventeFin.setText(""); 
-        barIni.setText("");
-        barFin.setText("");
-        
         modPed.setRowCount(0);
         modPart.setRowCount(0);
         
         savePro.setEnabled(false);
         eliminarP.setEnabled(false);
         btnCostos.setEnabled(false);
-        jButton1.setEnabled(false);
         agE.setEnabled(false);
         agI.setEnabled(false);
         agB.setEnabled(false);
@@ -6778,13 +5659,9 @@ public class Procesos extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField aceFin;
-    private javax.swing.JTextField aceIni;
     private javax.swing.JButton agB;
     private javax.swing.JButton agE;
     private javax.swing.JButton agI;
-    private javax.swing.JTextField barFin;
-    private javax.swing.JTextField barIni;
     private javax.swing.JButton btnCostos;
     private javax.swing.JButton cambioMod;
     private javax.swing.JTextField costoDise;
@@ -6820,34 +5697,13 @@ public class Procesos extends javax.swing.JFrame {
     private lu.tudor.santec.jtimechooser.JTimeChooser hrMuertoImp;
     private javax.swing.JTextField idPartida;
     private javax.swing.JTextField impBus;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel100;
-    private javax.swing.JLabel jLabel101;
-    private javax.swing.JLabel jLabel102;
-    private javax.swing.JLabel jLabel103;
-    private javax.swing.JLabel jLabel104;
-    private javax.swing.JLabel jLabel105;
-    private javax.swing.JLabel jLabel106;
-    private javax.swing.JLabel jLabel107;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel112;
-    private javax.swing.JLabel jLabel113;
-    private javax.swing.JLabel jLabel114;
-    private javax.swing.JLabel jLabel115;
     private javax.swing.JLabel jLabel116;
-    private javax.swing.JLabel jLabel117;
-    private javax.swing.JLabel jLabel118;
-    private javax.swing.JLabel jLabel119;
     private javax.swing.JLabel jLabel120;
-    private javax.swing.JLabel jLabel121;
-    private javax.swing.JLabel jLabel122;
-    private javax.swing.JLabel jLabel123;
     private javax.swing.JLabel jLabel124;
-    private javax.swing.JLabel jLabel125;
-    private javax.swing.JLabel jLabel126;
     private javax.swing.JLabel jLabel127;
     private javax.swing.JLabel jLabel128;
     private javax.swing.JLabel jLabel129;
@@ -6872,12 +5728,6 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel148;
     private javax.swing.JLabel jLabel149;
     private javax.swing.JLabel jLabel150;
-    private javax.swing.JLabel jLabel151;
-    private javax.swing.JLabel jLabel152;
-    private javax.swing.JLabel jLabel153;
-    private javax.swing.JLabel jLabel154;
-    private javax.swing.JLabel jLabel155;
-    private javax.swing.JLabel jLabel156;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
@@ -6893,20 +5743,8 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
-    private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
-    private javax.swing.JLabel jLabel54;
-    private javax.swing.JLabel jLabel55;
-    private javax.swing.JLabel jLabel56;
-    private javax.swing.JLabel jLabel57;
-    private javax.swing.JLabel jLabel58;
-    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel60;
-    private javax.swing.JLabel jLabel61;
-    private javax.swing.JLabel jLabel62;
-    private javax.swing.JLabel jLabel63;
-    private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
@@ -6926,31 +5764,17 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabel99;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JTextField kgBol;
-    private javax.swing.JTextField kgFinT1;
-    private javax.swing.JTextField kgFinT2;
-    private javax.swing.JTextField kgFinT3;
-    private javax.swing.JTextField kgFinT4;
-    private javax.swing.JTextField kgFinT5;
-    private javax.swing.JTextField kgFinT6;
     private javax.swing.JTextField kgImp;
     private javax.swing.JTextField kgImp2;
-    private javax.swing.JTextField kgIniT1;
-    private javax.swing.JTextField kgIniT2;
-    private javax.swing.JTextField kgIniT3;
-    private javax.swing.JTextField kgIniT4;
-    private javax.swing.JTextField kgIniT5;
-    private javax.swing.JTextField kgIniT6;
     private javax.swing.JTextField kgOpBol;
     private javax.swing.JTextField kgOpExt;
     private javax.swing.JTextField kgOpIm;
@@ -6960,17 +5784,9 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JComboBox listOperadorE;
     private javax.swing.JComboBox listOperadorI;
     private javax.swing.JComboBox listaMat;
-    private javax.swing.JComboBox listaTintas1;
-    private javax.swing.JComboBox listaTintas2;
-    private javax.swing.JComboBox listaTintas3;
-    private javax.swing.JComboBox listaTintas4;
-    private javax.swing.JComboBox listaTintas5;
-    private javax.swing.JComboBox listaTintas6;
     private javax.swing.JTextField maqBol;
     private javax.swing.JTextField maqExt;
     private javax.swing.JTextField maqImp;
-    private javax.swing.JTextField mezFin;
-    private javax.swing.JTextField mezIni;
     private javax.swing.JTabbedPane paIm;
     private javax.swing.JTabbedPane paPro;
     private javax.swing.JPanel panBol;
@@ -6993,11 +5809,7 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JTextField provImp;
     private javax.swing.JTextField provImp2;
     private javax.swing.JTextField pzsBol;
-    private javax.swing.JTextField retFin;
-    private javax.swing.JTextField retIni;
     private javax.swing.JToggleButton savePro;
-    private javax.swing.JTextField solventeFin;
-    private javax.swing.JTextField solventeIni;
     private javax.swing.JTextField stc;
     private javax.swing.JTextField suaje;
     private javax.swing.JTable tablaPart;
