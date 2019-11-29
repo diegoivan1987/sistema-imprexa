@@ -3605,6 +3605,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     }
     
     //suma el costo de las tintas al costo total del pedido cuando hubo una modificacion
+    //ya se le resto el costo de tintas viejo
     private void sumaTintasAPedidoModificacion()
     {
         Statement st8;

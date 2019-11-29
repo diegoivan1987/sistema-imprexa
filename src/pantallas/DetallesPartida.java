@@ -1036,7 +1036,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                         ex.printStackTrace();
                     }
                     
-                    float kgFnPe = calculaKgFinalesPedido();
+                    float kgFnPe = calculaKgFinalesPedido(Integer.parseInt(dp.get(indicePartida).getFolio().replace("A", "")));
                     float gf = calculaGfKg();
                     PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
                 }
@@ -1111,29 +1111,22 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
             return 0;
     }
     
-    private float calculaKgFinalesPedido()
+    //calcula los kg finales del pedido
+    private float calculaKgFinalesPedido(int folio)
     {
-        //entra al pedido
-        float sumatoria = 0f;
-        String sql = "select fTermino from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
-        try
-        {
-            st = con.createStatement();
-            rs = st.executeQuery(sql);
-            while(rs.next())
-            {
-                if(rs.getString("fTermino").equals("2018-01-01") == false)
-                {
-                    String sql2 = "select idPar from partida where folio_fk = "+dp.get(indicePartida).getFolio().replace("A", "")+"";//obtiene el folio de cada partida
+        float sumatoriaPartida = 0f;
+        float sumatoriaPedido = 0f;//se inicializ en 0 para que si no hace calculos se retorna 0
+                    String sql2 = "select idPar from partida where folio_fk = "+folio+"";//obtiene el folio de cada partida
                     try
                     {
                         Statement st2 = con.createStatement();
                         ResultSet rs2 = st2.executeQuery(sql2);
                         while(rs2.next())
                         {
+                            sumatoriaPartida = 0;
                             int idPart2 =   Integer.parseInt(rs2.getString("idPar"));
                             
-                            if(sumatoria <= 0)
+                            if(sumatoriaPartida <= 0)//si aun no se hace la sumatoria de una partida anterior, entra
                             {
                                 String sql3 = "select produccion from bolseo where idPar_fk = "+idPart2+"";//obtiene lo comprado de bolseo
                                 try
@@ -1145,7 +1138,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                                         float comprado = Float.parseFloat(rs3.getString("produccion"));
                                         if(comprado > 0)//verifica que lo comprado no sea null
                                         {
-                                            sumatoria = sumatoria + comprado;//hace la sumatoria de lo comprado de bolseo 
+                                            sumatoriaPartida = sumatoriaPartida + comprado;//hace la sumatoria de lo comprado de bolseo 
                                         }
                                 
                                         String sql4 = "select idBol from bolseo where idPar_fk = "+idPart2+"";//selecciona el id de bolseo del proceso
@@ -1167,7 +1160,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                                                         float producido = Float.parseFloat(rs5.getString("kgUniB"));
                                                         if(producido > 0)//verifica que lo producido no sea null
                                                         {
-                                                            sumatoria = sumatoria + producido;//hace la sumatoria de lo producido
+                                                            sumatoriaPartida = sumatoriaPartida + producido;//hace la sumatoria de lo producido
                                                         }
                                                     }
                                                     rs5.close();
@@ -1195,7 +1188,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                                     ex.printStackTrace();
                                 }
                             }
-                            if(sumatoria <= 0)
+                            if(sumatoriaPartida <= 0)//si aun no se hace la sumatoria de una partida anterior, entra
                             {
                                 String sql3 = "select produccion from impreso where idPar_fk = "+idPart2+"";//obtiene lo comprado de impreso
                                 try
@@ -1207,7 +1200,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                                         float comprado = Float.parseFloat(rs3.getString("produccion"));
                                         if(comprado > 0)//verifica que lo comprado no sea null
                                         {
-                                            sumatoria = sumatoria + comprado;//hace la sumatoria de lo comprado de impreso 
+                                            sumatoriaPartida = sumatoriaPartida + comprado;//hace la sumatoria de lo comprado de impreso 
                                         }
                                 
                                         String sql4 = "select idImp from impreso where idPar_fk = "+idPart2+"";//selecciona el id de impreso del proceso
@@ -1229,7 +1222,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                                                         float producido = Float.parseFloat(rs5.getString("kgUniI"));
                                                         if(producido > 0)//verifica que lo producido no sea null
                                                         {
-                                                            sumatoria = sumatoria + producido;//hace la sumatoria de lo producido
+                                                            sumatoriaPartida = sumatoriaPartida + producido;//hace la sumatoria de lo producido
                                                         }
                                                     }
                                                     rs5.close();
@@ -1256,7 +1249,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                                     ex.printStackTrace();
                                 }
                             }
-                            if(sumatoria <= 0)
+                            if(sumatoriaPartida <= 0)//si aun no se hace la sumatoria de una partida anterior, entra
                             {
                                 String sql3 = "select pocM1,pocM2 from extrusion where idPar_fk = "+idPart2+"";//obtiene lo comprado de extrusion
                                 try
@@ -1269,7 +1262,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                                         float comprado2 = Float.parseFloat(rs3.getString("pocM2"));
                                         if(comprado1 > 0 || comprado2 > 0)//verifica que lo comprado no sea null
                                         {
-                                            sumatoria = sumatoria + (comprado1 + comprado2);//hace la sumatoria de lo comprado de extrusion 
+                                            sumatoriaPartida = sumatoriaPartida + (comprado1 + comprado2);//hace la sumatoria de lo comprado de extrusion 
                                         }
                                 
                                         String sql4 = "select idExt from extrusion where idPar_fk = "+idPart2+"";//selecciona el id de extrusion del proceso
@@ -1291,7 +1284,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                                                         float producido = Float.parseFloat(rs5.getString("kgUniE"));
                                                         if(producido > 0)//verifica que lo producido no sea null
                                                         {
-                                                            sumatoria = sumatoria + producido;//hace la sumatoria de lo producido
+                                                            sumatoriaPartida = sumatoriaPartida + producido;//hace la sumatoria de lo producido
                                                         }
                                                     }
                                                     rs5.close();
@@ -1318,6 +1311,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                                     ex.printStackTrace();
                                 }
                             }
+                        sumatoriaPedido += sumatoriaPartida;
                         }
                         rs2.close();
                         st2.close();
@@ -1326,16 +1320,8 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                     {
                         ex.printStackTrace();
                     }
-                }
-            }
-            rs.close();
-            st.close();
-        }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
-        }
-        return sumatoria;
+                
+        return sumatoriaPedido;
     }
     
     //habilita el boton el boton de guardado cuando ya se ingresaron los datos necesarios
