@@ -2394,6 +2394,7 @@ public class Procesos extends javax.swing.JFrame {
 
                 sql = "update partida set modoMat = '"+elegido+"' where idPar = "+idPart+"";
                 try {
+                    st = con.createStatement();
                     st.execute(sql);
                     st.close();
                     if(elegido.equals(modoMaterial[0]))
