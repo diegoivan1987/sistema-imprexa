@@ -17,11 +17,9 @@ alter table cliente add column domDeEnt varchar(50);
 
 create table pedido(folio int not null auto_increment, impresion varchar(40), desarrollo int, 
  fIngreso date, fCompromiso date, fPago date,  grabados float,  subtotal float, total float, anticipo float, resto float, 
- devolucion varchar(10), descuento float, costoGrabado float, costoDisenio float, idC_fk int not null,
+ devolucion varchar(10), descuento float, costoDisenio float, idC_fk int not null,
  primary key(folio), foreign key(idC_fk) references cliente(idC));
  alter table pedido drop column desarrollo;
- alter table pedido drop column costoGrabado;
- alter table pedido drop column costoDisenio;
  alter table pedido add column kgDesperdicioPe float; 
  alter table pedido add column porcentajeDespPe float; 
  alter table pedido add column costoTotal float; /*agrege yo*/
