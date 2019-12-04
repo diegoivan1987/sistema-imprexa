@@ -792,8 +792,8 @@ public class Visualizacion extends javax.swing.JFrame {
                 return false;
             }
         };
-        modeloProd.setColumnIdentifiers(new Object[]{"Proceso", "KgTotales","HrTotales", "$Operacion", "GreñaTotal", "CostoUnitario", "Sticky", 
-            "$Diseño", "$Grabado", "ProdPZS"});
+        modeloProd.setColumnIdentifiers(new Object[]{"Proceso", "KgTotales","HrTotales"
+                , "$Grabado", "ProdPZS"});
         tablaProd.setModel(modeloProd);
         thProd = tablaProd.getTableHeader();
         thProd.setFont(fuenteTablas);
@@ -1000,7 +1000,7 @@ public class Visualizacion extends javax.swing.JFrame {
     public void llenarProduccion(){
         modeloProd.setRowCount(0);
         String sqlExt = "select idExt, kgTotales, hrTotalesPar, costoOpTotalExt, greniaExt, costoUnitarioExt from extrusion where idPar_fk = "+idParVar+"";
-        String sqlImp = "select idImp, kgTotales, hrTotalesPar,sticky, costoDiseno, costoGrab, costoOpTotalImp, greniaImp, costoUnitarioImp from impreso where idPar_fk = "+idParVar+"";
+        String sqlImp = "select idImp, kgTotales, hrTotalesPar,sticky, costoOpTotalImp, greniaImp, costoUnitarioImp from impreso where idPar_fk = "+idParVar+"";
         String sqlBol = "select idBol, kgTotales, hrTotalesPar,costoOpTotalBol, greniaBol, costoUnitarioBol, produccionPz from bolseo where idPar_fk = "+idParVar+"";
         
         tablaProd.setVisible(true);
@@ -1028,7 +1028,7 @@ public class Visualizacion extends javax.swing.JFrame {
             
             while(rs.next()){
                 modeloProd.addRow(new Object[]{"IMPPRESO", rs.getString("kgTotales"), rs.getString("hrTotalesPar"),rs.getString("costoOpTotalImp"), rs.getString("greniaImp"), 
-                rs.getString("costoUnitarioImp"), rs.getString("sticky"), rs.getString("costoDiseno"), rs.getString("costoGrab"), "Inexistente"});
+                rs.getString("costoUnitarioImp"), rs.getString("sticky"), "Inexistente"});
                 
                 idIm = rs.getInt("idImp");
             }
