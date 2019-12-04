@@ -684,7 +684,7 @@ public class Visualizacion extends javax.swing.JFrame {
                 return false;
             }    
         };
-        modeloPedido.setColumnIdentifiers(new Object[]{"Folio", "Impresión", "Autorizó", "FIngreso", "FCompromiso", "FPago", "FTermino", "Devolución", "Grabados", "Anticipo", 
+        modeloPedido.setColumnIdentifiers(new Object[]{"Folio", "Impresión", "Autorizó", "FIngreso", "FCompromiso", "FPago", "FTermino", "Devolución", "Grabados", "Diseño","Anticipo", 
             "Descuento", "Subtotal",  "Total", "Resto", "KgDesperdicio", "%Desperdicio", "$Total", "$Fijos", "Perdidas/Ganancias"});
         tablaPedido.setModel(modeloPedido);
         thPed = tablaPedido.getTableHeader();
@@ -850,7 +850,7 @@ public class Visualizacion extends javax.swing.JFrame {
                 fechaTermino = rs.getString("fTermino");
                 fechaTerminoSub  = fechaTermino.substring(8, 10)+"/"+fechaTermino.substring(5, 7)+"/"+fechaTermino.substring(0, 4);
                 modeloPedido.addRow(new Object[]{rs.getString("folio")+"A", rs.getString("impresion"), rs.getString("autorizo"), fechaIngresoSub, fechaCompromisoSub, 
-                fechaPagoSub, fechaTerminoSub, rs.getString("devolucion"), rs.getString("grabados"), rs.getString("anticipo"), rs.getString("descuento"), 
+                fechaPagoSub, fechaTerminoSub, rs.getString("devolucion"), rs.getString("grabados"), rs.getString("costoDisenio"), rs.getString("anticipo"), rs.getString("descuento"), 
                 rs.getString("subtotal"), rs.getString("total"), rs.getString("resto"), rs.getString("kgDesperdicioPe"), rs.getString("porcentajeDespPe"),
                 rs.getString("costoTotal"), rs.getString("gastosFijos"), rs.getString("perdidasYGanancias")});
                 
