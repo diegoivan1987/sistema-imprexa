@@ -45,10 +45,10 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     
     String impSt=null, desSt=null, kgSt=null, medSt=null, estSt=null, devSt=null, disSt=null, pigSt=null, tipoSt=null, selloSt=null, 
             hojaSt=null, deSt=null, mat1St=null, cal1St=null, mat2St=null, cal2St=null, tinta1St=null, tinta2St=null, fInSt=null, fComSt=null, 
-            fPagoSt=null, fTerminoSt = null, grabSt=null, pUnitSt=null, subSt=null, totSt=null, antiSt=null, restoSt=null, descuSt=null, costeGrabSt=null, 
+            fPagoSt=null, fTerminoSt = null, grabSt=null, pUnitSt=null, subSt=null, totSt=null, diseSt=null,antiSt=null, restoSt=null, descuSt=null, costeGrabSt=null, 
             costeDisSt=null, piezasSt=null, importeSt=null, kgParidaSt=null, pzFinalesSt = null;
     
-    float grabados = 0, precioUnitario=0, kilos=0, totalF=0, restoF=0, subF=0, iva=0 ,antiF=0, descuF=0;
+    float grabados = 0, precioUnitario=0, kilos=0, totalF=0, restoF=0, subF=0, iva=0 , diseF = 0, antiF=0, descuF=0;
     int porcentajeIVA = 0, piezasI = 0, pzFinalesI = 0;
     float importeF = 0;
     
@@ -2202,6 +2202,9 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
 
         grabSt = grab.getText();
         grabados = Float.parseFloat(grabSt);//
+        
+        diseSt = disenio.getText();
+        diseF = Float.parseFloat(diseSt);
 
         antiSt = anti.getText();
         antiF = Float.parseFloat(antiSt);//
@@ -2211,10 +2214,10 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         
         porcentajeIVA = Integer.parseInt(porIVA.getSelectedItem().toString());
         //se guardan los datos en la base
-        String sql = " insert into pedido(impresion, fIngreso, fCompromiso, fPago, fTermino, grabados, subtotal, total, anticipo, resto, devolucion," +
+        String sql = " insert into pedido(impresion, fIngreso, fCompromiso, fPago, fTermino, grabados, subtotal, total, costoDisenio,anticipo, resto, devolucion," +
         " descuento, idC_fk, kgDesperdicioPe, porcentajeDespPe, costoTotal, gastosFijos, perdidasYGanancias, autorizo, sumatoriaBolseoP, "
                 + "matComPe, matProPe, porcentajeIVA) "
-        + "values('"+impSt+"', '"+fInSt+"', '"+fComSt+"', '"+fPagoSt+"', '"+fTerminoSt+"', "+grabados+", 0, 0, "+antiF+", 0, '"+devSt+"'," +
+        + "values('"+impSt+"', '"+fInSt+"', '"+fComSt+"', '"+fPagoSt+"', '"+fTerminoSt+"', "+grabados+", 0, 0, "+diseF+","+antiF+", 0, '"+devSt+"'," +
         " "+descuF+", "+idCliente+", 0, 0, 0, 0, 0, '"+auto.getText()+"', 0, 0, 0,"+porcentajeIVA+")";
 
         try 
@@ -3063,6 +3066,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             auto.setText("");
             dev.setText("");
             grab.setText("");
+            disenio.setText("");
             anti.setText("");
             decu.setText("");
             porIVA.setSelectedIndex(0);
@@ -3139,6 +3143,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 + "fPago = '"+fP2.getText()+"', "
                 + "fTermino = '"+fT.getText()+"', "
                 + "grabados = "+grab.getText()+", "
+                + "costoDisenio = "+Float.parseFloat(disenio.getText())+","
                 + "anticipo = "+anti.getText()+", "
                 + "descuento = "+decu.getText()+", "
                 + "subtotal = "+subtotal+", "
@@ -3978,7 +3983,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     }//GEN-LAST:event_guardCamTintasActionPerformed
 
     private void disenioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_disenioKeyTyped
-        // TODO add your handling code here:
+        soloFlotantes(evt, disenio);
     }//GEN-LAST:event_disenioKeyTyped
     
     //cuando cambia la fecha inicial, tambien la sugerencia de fecha de compromiso
@@ -4030,6 +4035,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 + "fPago, "
                 + "fTermino, "
                 + "grabados, "
+                + "costoDisenio, "
                 + "anticipo, "
                 + "descuento, "
                 + "porcentajeIVA,"
@@ -4084,6 +4090,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 fT.setSelectedDate(cal);
                 
                 grab.setText(rs.getString("grabados"));
+                disenio.setText(rs.getString("costoDisenio"));
                 anti.setText(rs.getString("anticipo"));
                 decu.setText(rs.getString("descuento"));
                 
@@ -4183,6 +4190,9 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         if(precioUni.getText().equals("") || precioUni.getText().equals(".")){
             precioUni.setText("0.0");
+        }
+        if(disenio.getText().equals("") || disenio.getText().equals(".")){
+            disenio.setText("0.0");
         }
         if(anti.getText().equals("") || anti.getText().equals(".")){
             anti.setText("0.0");
@@ -4285,6 +4295,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         auto.setText("");
         dev.setText("");
         grab.setText("0.0");
+        disenio.setText("0.0");
         anti.setText("0.0");
         decu.setText("0.0");
         porIVA.setSelectedIndex(0);
