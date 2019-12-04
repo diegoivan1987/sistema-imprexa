@@ -84,7 +84,9 @@ references partida(idPar));
 alter table impreso add column kgTotales float;
 alter table impreso add column sticky float;
 alter table impreso add column costoDiseno float;
+alter table impreso drop column costoDiseno;
 alter table impreso add column costoGrab float;
+alter table impreso drop column costoGrab;
 alter table impreso add column costoOpTotalImp float;
 alter table impreso add column greniaImp float;
 alter table impreso add column costoUnitarioImp float;/*agrege yo*/
