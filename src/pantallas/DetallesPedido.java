@@ -82,6 +82,8 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
         sub = new javax.swing.JTextField();
         tot = new javax.swing.JTextField();
         resto = new javax.swing.JTextField();
+        dise = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -392,6 +394,20 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
         resto.setForeground(new java.awt.Color(255, 255, 255));
         resto.setBorder(null);
 
+        dise.setBackground(new java.awt.Color(0, 204, 204));
+        dise.setFont(new java.awt.Font("Gulim", 1, 12)); // NOI18N
+        dise.setForeground(new java.awt.Color(255, 255, 255));
+        dise.setBorder(null);
+        dise.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                diseKeyTyped(evt);
+            }
+        });
+
+        jLabel19.setFont(new java.awt.Font("Gulim", 1, 11)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel19.setText("*Diseño");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -404,7 +420,12 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(grab))
+                                .addComponent(grab, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel19)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dise, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -432,9 +453,13 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(grab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel19)
+                        .addComponent(dise, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(grab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -693,6 +718,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                 + "autorizo = '"+au.getText()+"', "
                 + "devolucion = '"+dev.getText()+"', "
                 + "grabados = "+grab.getText()+", "
+                + "costoDisenio = "+dise.getText()+","
                 + "anticipo = "+anti.getText()+", "
                 + "descuento = "+desc.getText()+", "
                 + "subtotal = "+subtotal+", "
@@ -710,6 +736,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
             dp.setAuto(au.getText());
             dp.setDev(dev.getText());
             dp.setGrab(grab.getText());
+            dp.setDise(dise.getText());
             dp.setAnti(anti.getText());
             dp.setDesc(desc.getText());
             dp.setSub(String.valueOf(subtotal));
@@ -789,6 +816,10 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
         
     }//GEN-LAST:event_formWindowClosed
 
+    private void diseKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_diseKeyTyped
+        soloFlotantes(evt, dise);
+    }//GEN-LAST:event_diseKeyTyped
+
     //llena la pantalla con los datos del pedido
     private void llenarCampos(){
         
@@ -802,6 +833,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
         fpa.setText(dp.getFpag());
         fT.setText(dp.getFterm());
         grab.setText(dp.getGrab());
+        dise.setText(dp.getDise());
         anti.setText(dp.getAnti());
         desc.setText(dp.getDesc());
         sub.setText(dp.getSub());
@@ -1198,6 +1230,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
     private javax.swing.JTextField ctot;
     private javax.swing.JTextField desc;
     private javax.swing.JTextField dev;
+    private javax.swing.JTextField dise;
     private javax.swing.JTextField fT;
     private javax.swing.JTextField fcom;
     private javax.swing.JTextField fin;
@@ -1217,6 +1250,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;

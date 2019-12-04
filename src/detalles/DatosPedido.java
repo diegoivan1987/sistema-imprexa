@@ -13,6 +13,7 @@ public class DatosPedido {
     String fpag;
     String fterm;
     String grab;
+    String dise;
     String anti;
     String desc;
     String sub;
@@ -102,6 +103,14 @@ public class DatosPedido {
 
     public void setGrab(String grab) {
         this.grab = grab;
+    }
+    
+    public String getDise() {
+        return dise;
+    }
+
+    public void setDise(String dise) {
+        this.dise = dise;
     }
 
     public String getAnti() {
