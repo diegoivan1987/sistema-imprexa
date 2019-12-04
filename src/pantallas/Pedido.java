@@ -613,6 +613,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
 
         grab.setForeground(new java.awt.Color(0, 153, 153));
         grab.setText("0");
+        grab.setPreferredSize(new java.awt.Dimension(56, 24));
         grab.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 grabKeyTyped(evt);
@@ -2114,7 +2115,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     .addComponent(regP, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(abreProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                         .addComponent(modPed))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())

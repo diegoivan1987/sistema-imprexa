@@ -98,7 +98,8 @@ public class Procesos extends javax.swing.JFrame {
         sueldoPorHoraB = 0f;
         sueldoPorHoraAyudanteI = 0f;
     
-        costoGrab.setEditable(false);//no se podra escribir sobre el recuadro que muestra los costos de grabados
+        costoGrab.setEditable(false);//no se podra escribir sobre el recuadro que muestra el costo de grabados
+        costoDise.setEditable(false);//no se podra escribir sobre el recuadro que muestra el costo de diseño
         
         cambioMod.setVisible(false);//se hace invisible el boton para añadir mas campos al generar procesos
         
@@ -2232,7 +2233,7 @@ public class Procesos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al establecer los datos de extrusion: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         
-        sql = "select produccion, prov1, precioKg1, produccion2, prov2, precioKg2, sticky, costoDiseno, idImp from impreso where idPar_fk = "+idPart+"";
+        sql = "select produccion, prov1, precioKg1, produccion2, prov2, precioKg2, sticky, idImp from impreso where idPar_fk = "+idPart+"";
         
         try {
             rs = st.executeQuery(sql);
@@ -2245,7 +2246,6 @@ public class Procesos extends javax.swing.JFrame {
                 provImp2.setText(rs.getString("prov2"));
                 porKgImp2.setText(rs.getString("precioKg2"));
                 stc.setText(rs.getString("sticky"));
-                costoDise.setText(rs.getString("costoDiseno"));
                 idIm = rs.getInt("idImp");
             }
             
@@ -2273,7 +2273,7 @@ public class Procesos extends javax.swing.JFrame {
         }
         
         //se muestra los costos de grabados del pedido en impresion
-        sql = "select grabados from pedido where folio = "+folio+"";
+        sql = "select grabados,costoDisenio from pedido where folio = "+folio+"";
         try
         {
            st = con.createStatement();
@@ -2281,6 +2281,7 @@ public class Procesos extends javax.swing.JFrame {
            while(rs.next())
            {
                costoGrab.setText(rs.getString("grabados"));
+               costoDise.setText(rs.getString("costoDisenio"));
            }
         }
         catch(SQLException ex)
@@ -4099,7 +4100,7 @@ public class Procesos extends javax.swing.JFrame {
     private void btnCostosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCostosActionPerformed
         
         comprobarVacio();
-        String sql = "update impreso set sticky = "+stc.getText()+", costoDiseno = "+costoDise.getText()+" where idPar_fk = "+idPart+"";
+        String sql = "update impreso set sticky = "+stc.getText()+" where idPar_fk = "+idPart+"";
         try {
             st = con.createStatement();
             st.execute(sql);
