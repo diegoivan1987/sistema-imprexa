@@ -792,8 +792,7 @@ public class Visualizacion extends javax.swing.JFrame {
                 return false;
             }
         };
-        modeloProd.setColumnIdentifiers(new Object[]{"Proceso", "KgTotales","HrTotales"
-                , "ProdPZS"});
+        modeloProd.setColumnIdentifiers(new Object[]{"Proceso", "KgTotales","HrTotales","$Operacion","GreñaTotal","$Unitario","Sticky", "ProdPZS"});
         tablaProd.setModel(modeloProd);
         thProd = tablaProd.getTableHeader();
         thProd.setFont(fuenteTablas);
@@ -1011,7 +1010,7 @@ public class Visualizacion extends javax.swing.JFrame {
             
             while(rs.next()){
                 modeloProd.addRow(new Object[]{"EXTRUSION", rs.getString("kgTotales"), rs.getString("hrTotalesPar"),rs.getString("costoOpTotalExt"), rs.getString("greniaExt"), 
-                rs.getString("costoUnitarioExt"), "Inexistente", "Inexistente", "Inexistente", "Inexistente"});
+                rs.getString("costoUnitarioExt"), "Inexistente","Inexistente"});
                 
                 idEx = rs.getInt("idExt");
             }
@@ -1045,7 +1044,7 @@ public class Visualizacion extends javax.swing.JFrame {
             
             while(rs.next()){
                 modeloProd.addRow(new Object[]{"BOLSEO", rs.getString("kgTotales"), rs.getString("hrTotalesPar"),rs.getString("costoOpTotalBol"), rs.getString("greniaBol"), 
-                rs.getString("costoUnitarioBol"), "Inexistente", "Inexistente", "Inexistente", rs.getString("produccionPz")});
+                rs.getString("costoUnitarioBol"), "Inexistente", rs.getString("produccionPz")});
                 
                 idBo = rs.getInt("idBol");
             }
