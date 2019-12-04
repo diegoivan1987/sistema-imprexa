@@ -793,7 +793,7 @@ public class Visualizacion extends javax.swing.JFrame {
             }
         };
         modeloProd.setColumnIdentifiers(new Object[]{"Proceso", "KgTotales","HrTotales"
-                , "$Grabado", "ProdPZS"});
+                , "ProdPZS"});
         tablaProd.setModel(modeloProd);
         thProd = tablaProd.getTableHeader();
         thProd.setFont(fuenteTablas);
