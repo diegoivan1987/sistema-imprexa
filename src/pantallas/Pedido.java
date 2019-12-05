@@ -2227,10 +2227,10 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         
         porcentajeIVA = Integer.parseInt(porIVA.getSelectedItem().toString());
         //se guardan los datos en la base
-        String sql = " insert into pedido(impresion, fIngreso, fCompromiso, fPago, fTermino, grabados, subtotal, total, costoDisenio,anticipo, resto, devolucion," +
+        String sql = " insert into pedido(impresion, estatus,fIngreso, fCompromiso, fPago, fTermino, grabados, subtotal, total, costoDisenio,anticipo, resto, devolucion," +
         " descuento, idC_fk, kgDesperdicioPe, porcentajeDespPe, costoTotal, gastosFijos, perdidasYGanancias, autorizo, sumatoriaBolseoP, "
                 + "matComPe, matProPe, porcentajeIVA) "
-        + "values('"+impSt+"', '"+fInSt+"', '"+fComSt+"', '"+fPagoSt+"', '"+fTerminoSt+"', "+grabados+", 0, 0, "+diseF+","+antiF+", 0, '"+devSt+"'," +
+        + "values('"+impSt+"', '"+estatusSt+"','"+fInSt+"', '"+fComSt+"', '"+fPagoSt+"', '"+fTerminoSt+"', "+grabados+", 0, 0, "+diseF+","+antiF+", 0, '"+devSt+"'," +
         " "+descuF+", "+idCliente+", 0, 0, 0, 0, 0, '"+auto.getText()+"', 0, 0, 0,"+porcentajeIVA+")";
 
         try 
@@ -4146,7 +4146,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         {
             estatus.setSelectedIndex(2);
         }
-        else if(estatusConsultado.equals("PAGADOs"))
+        else if(estatusConsultado.equals("PAGADO"))
         {
             estatus.setSelectedIndex(3);
         }
