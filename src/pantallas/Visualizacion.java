@@ -684,7 +684,7 @@ public class Visualizacion extends javax.swing.JFrame {
                 return false;
             }    
         };
-        modeloPedido.setColumnIdentifiers(new Object[]{"Folio", "Impresión", "Autorizó", "FIngreso", "FCompromiso", "FPago", "FTermino", "Devolución", "Grabados", "Diseño","Anticipo", 
+        modeloPedido.setColumnIdentifiers(new Object[]{"Folio", "Impresión", "Autorizó", "FIngreso", "Estatus","FCompromiso", "FPago", "FTermino", "Devolución", "Grabados", "Diseño","Anticipo", 
             "Descuento", "Subtotal",  "Total", "Resto", "KgDesperdicio", "%Desperdicio", "$Total", "$Fijos", "Perdidas/Ganancias"});
         tablaPedido.setModel(modeloPedido);
         thPed = tablaPedido.getTableHeader();
@@ -849,7 +849,7 @@ public class Visualizacion extends javax.swing.JFrame {
                 fechaPagoSub  = fechaPago.substring(8, 10)+"/"+fechaPago.substring(5, 7)+"/"+fechaPago.substring(0, 4);
                 fechaTermino = rs.getString("fTermino");
                 fechaTerminoSub  = fechaTermino.substring(8, 10)+"/"+fechaTermino.substring(5, 7)+"/"+fechaTermino.substring(0, 4);
-                modeloPedido.addRow(new Object[]{rs.getString("folio")+"A", rs.getString("impresion"), rs.getString("autorizo"), fechaIngresoSub, fechaCompromisoSub, 
+                modeloPedido.addRow(new Object[]{rs.getString("folio")+"A", rs.getString("impresion"), rs.getString("autorizo"), fechaIngresoSub, rs.getString("estatus"),fechaCompromisoSub, 
                 fechaPagoSub, fechaTerminoSub, rs.getString("devolucion"), rs.getString("grabados"), rs.getString("costoDisenio"), rs.getString("anticipo"), rs.getString("descuento"), 
                 rs.getString("subtotal"), rs.getString("total"), rs.getString("resto"), rs.getString("kgDesperdicioPe"), rs.getString("porcentajeDespPe"),
                 rs.getString("costoTotal"), rs.getString("gastosFijos"), rs.getString("perdidasYGanancias")});
@@ -889,6 +889,7 @@ public class Visualizacion extends javax.swing.JFrame {
                 dp.setAuto(rs.getString("autorizo"));
                 dp.setDev(rs.getString("devolucion"));
                 dp.setFin(rs.getString("fIngreso"));
+                dp.setEstatus(rs.getString("estatus"));
                 dp.setFcom(rs.getString("fCompromiso"));
                 dp.setFpag(rs.getString("fPago"));
                 dp.setFterm(rs.getString("fTermino"));

@@ -9,6 +9,7 @@ public class DatosPedido {
     String auto;
     String dev;
     String fin;
+    String estatus;
     String fcom;
     String fpag;
     String fterm;
@@ -71,6 +72,14 @@ public class DatosPedido {
 
     public void setFin(String fin) {
         this.fin = fin;
+    }
+    
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
     }
 
     public String getFcom() {
