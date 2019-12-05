@@ -462,7 +462,7 @@ public class Cliente extends javax.swing.JFrame {//guardar los datos del cliente
     }//GEN-LAST:event_domCKeyTyped
 
     private void corrCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_corrCKeyTyped
-        limitarInsercion(35, evt, corrC);
+        limitarInsercion(50, evt, corrC);
     }//GEN-LAST:event_corrCKeyTyped
 
     private void teleCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_teleCKeyTyped
@@ -539,7 +539,7 @@ public class Cliente extends javax.swing.JFrame {//guardar los datos del cliente
 
     private void razSocCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_razSocCKeyTyped
         // TODO add your handling code here:
-        limitarInsercion(40, evt, razSocC);
+        limitarInsercion(50, evt, razSocC);
     }//GEN-LAST:event_razSocCKeyTyped
 
     private void rfcCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rfcCKeyTyped

@@ -1,11 +1,11 @@
  drop database imprexa2;
  create database imprexa2;
  use imprexa2;
- select * from tintas;
+ delete from partida;
 
-create table cliente (idC int not null auto_increment, agente varchar(40), nom varchar(40), tel bigint, cel bigint, mail varchar(35), 
+create table cliente (idC int not null auto_increment, agente varchar(40), nom varchar(40), tel bigint, cel bigint, mail varchar(50), 
 dir varchar(40), primary key(idC));
-alter table cliente add column razSoc varchar(40);
+alter table cliente add column razSoc varchar(50);
 alter table cliente add column rfc varchar(15);
 alter table cliente add column col varchar(30);
 alter table cliente add column codPos varchar(10);
