@@ -684,7 +684,7 @@ public class Visualizacion extends javax.swing.JFrame {
                 return false;
             }    
         };
-        modeloPedido.setColumnIdentifiers(new Object[]{"Folio", "Impresión", "Autorizó", "FIngreso", "Estatus","FCompromiso", "FPago", "FTermino", "Devolución", "Grabados", "Diseño","Anticipo", 
+        modeloPedido.setColumnIdentifiers(new Object[]{"Folio", "Impresión", "Autorizó", "FIngreso", "Estatus","FCompromiso", "FPago", "FTermino", "Devolución", "Grabados", "$Diseño","Anticipo", 
             "Descuento", "Subtotal",  "Total", "Resto", "KgDesperdicio", "%Desperdicio", "$Total", "$Fijos", "Perdidas/Ganancias"});
         tablaPedido.setModel(modeloPedido);
         thPed = tablaPedido.getTableHeader();
