@@ -699,7 +699,7 @@ public class Visualizacion extends javax.swing.JFrame {
                 return false;
             }
         };
-        modeloPart.setColumnIdentifiers(new Object[]{"Id", "Hoja", "De", "Estatus", "Medida", "Tipo", "Sello", "Pigmento", "Desarrollo", "Mat1", "Cal1", 
+        modeloPart.setColumnIdentifiers(new Object[]{"Id", "Hoja", "De", "Medida", "Tipo", "Sello", "Pigmento", "Desarrollo", "Mat1", "Cal1", 
             "Mat2", "Cal2", "PUnitario", "Piezas", "PzFinales", "KG", "Importe", "KgDesperdicio", "%Desperdicio", "$Material", "$Partida"});
         tablaPart.setModel(modeloPart);
         thPart = tablaPart.getTableHeader();
@@ -1325,7 +1325,7 @@ public class Visualizacion extends javax.swing.JFrame {
             
             while(rs.next()){
                 
-                modeloPart.addRow(new Object[]{rs.getString("idPar"), rs.getString("hoja"), rs.getString("de"), rs.getString("estatus"), rs.getString("medida")
+                modeloPart.addRow(new Object[]{rs.getString("idPar"), rs.getString("hoja"), rs.getString("de"), rs.getString("medida")
                 , rs.getString("tipo"), rs.getString("sello"), rs.getString("pigmento"), rs.getString("desarrollo"), rs.getString("mat1")
                 , rs.getString("calibre1"), rs.getString("mat2"), rs.getString("calibre2"),rs.getString("precioUnitaro"), rs.getString("piezas"), rs.getString("pzFinales"),
                 rs.getString("kgPartida"), rs.getString("importe"), rs.getString("kgDesperdicio"), rs.getString("porcentajeDesp")
@@ -1396,7 +1396,6 @@ public class Visualizacion extends javax.swing.JFrame {
             datosPartidas.get(contador).setModopart(rs.getString("modoMat"));
             datosPartidas.get(contador).setDesa(rs.getString("desarrollo"));
             datosPartidas.get(contador).setTipo(rs.getString("tipo"));
-            datosPartidas.get(contador).setEstatus(rs.getString("estatus"));
             datosPartidas.get(contador).setSello(rs.getString("sello"));
             datosPartidas.get(contador).setMedida(rs.getString("medida"));
             datosPartidas.get(contador).setPig(rs.getString("pigmento"));

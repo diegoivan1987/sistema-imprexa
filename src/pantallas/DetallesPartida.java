@@ -72,7 +72,6 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
     
     //llena las listas desplegables
     private void llenarListas(){
-        sta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DISEÑO", "PROCESO", "COBRANZA", "PAGADO"}));
         sello.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FONDO", "LATERAL", "TRASLAPE"}));
     }
 
@@ -86,7 +85,6 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
             modoPart.setText(dp.get(indice).getModopart());
             desa.setText(dp.get(indice).getDesa());
             tipo.setText(dp.get(indice).getTipo());
-            setLista(sta,dp.get(indice).getEstatus());
             setLista(sello,dp.get(indice).getSello());
             med.setText(dp.get(indice).getMedida());
             pig.setText(dp.get(indice).getPig());
@@ -151,7 +149,6 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         de = new javax.swing.JTextField();
         modoPart = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -176,7 +173,6 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         cal1 = new javax.swing.JTextField();
         cal2 = new javax.swing.JTextField();
         sello = new javax.swing.JComboBox();
-        sta = new javax.swing.JComboBox();
         mat1 = new javax.swing.JTextField();
         mat2 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
@@ -294,10 +290,6 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
 
         jPanel2.setBackground(new java.awt.Color(153, 204, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jLabel1.setFont(new java.awt.Font("Gulim", 1, 11)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel1.setText("*Estatus:");
 
         jLabel2.setFont(new java.awt.Font("Gulim", 1, 11)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 102, 153));
@@ -436,11 +428,6 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         sello.setForeground(new java.awt.Color(255, 255, 255));
         sello.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona Un Sello" }));
 
-        sta.setBackground(new java.awt.Color(0, 153, 204));
-        sta.setFont(new java.awt.Font("Gulim", 1, 11)); // NOI18N
-        sta.setForeground(new java.awt.Color(255, 255, 255));
-        sta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona Un Estado" }));
-
         mat1.setBackground(new java.awt.Color(0, 153, 204));
         mat1.setFont(new java.awt.Font("Gulim", 1, 11)); // NOI18N
         mat1.setForeground(new java.awt.Color(255, 255, 255));
@@ -483,13 +470,11 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                                 .addComponent(desa)))
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
                                 .addComponent(jLabel6)
                                 .addComponent(jLabel2))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGap(5, 5, 5)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(sello, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(sta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                     .addGap(10, 10, 10)
                                     .addComponent(med)))))
@@ -549,51 +534,48 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel18)
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(porDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19))
+                        .addGap(54, 54, 54)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cal1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cosMat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(kgDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel20)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel18)))
-                .addGap(0, 0, 0)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(kgDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(porDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(sello, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(med, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel19))
+                            .addComponent(med, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(pig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(mat1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(mat2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(pig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cal1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel9))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7)
-                        .addComponent(mat1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel10)
-                        .addComponent(cal2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)
-                        .addComponent(mat2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel10)
+                    .addComponent(cal2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -895,7 +877,6 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         //se ingresan los cambios en la base de datos
         String sql = "update partida set desarrollo = '"+desa.getText()+"',"
                 + "tipo = '"+tipo.getText()+"', "
-                + "estatus = '"+sta.getSelectedItem()+"',"
                 + "sello = '"+sello.getSelectedItem()+"', "
                 + "medida = '"+med.getText()+"',"
                 + " pigmento = '"+pig.getText()+"',"
@@ -956,7 +937,6 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
             {
                 dp.get(indicePartida).setDesa(rs.getString("desarrollo"));
                 dp.get(indicePartida).setTipo(rs.getString("tipo"));
-                dp.get(indicePartida).setEstatus(rs.getString("estatus"));
                 dp.get(indicePartida).setSello(rs.getString("sello"));
                 dp.get(indicePartida).setMedida(rs.getString("medida"));
                 dp.get(indicePartida).setPig(rs.getString("pigmento"));
@@ -1813,7 +1793,6 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
     private javax.swing.JTextField folio;
     private javax.swing.JTextField hj;
     private javax.swing.JTextField imp;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1854,7 +1833,6 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
     private javax.swing.JButton saveMod;
     private javax.swing.JComboBox sello;
     private javax.swing.JToggleButton sig;
-    private javax.swing.JComboBox sta;
     private javax.swing.JTextField tipo;
     // End of variables declaration//GEN-END:variables
 }

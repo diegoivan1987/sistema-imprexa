@@ -10,7 +10,6 @@ public class DatosPartida {
     String modopart;
     String desa;
     String tipo;
-    String estatus;
     String sello;
     String medida;
     String pig;
@@ -97,14 +96,6 @@ public class DatosPartida {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    public String getEstatus() {
-        return estatus;
-    }
-
-    public void setEstatus(String estatus) {
-        this.estatus = estatus;
     }
 
     public String getSello() {
