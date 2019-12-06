@@ -1163,7 +1163,10 @@ public class Visualizacion extends javax.swing.JFrame {
             
             //Se repite dependiendo de el numero de partidas de el pedido
             for(int i = 0; i < pedidosGlobal.size(); i++){
-                String manera = pedidosGlobal.get(i).getManera();
+                //Esto se utilizaba para llenar el reporte de operador cuando el subtotal se calculaba
+                //con piezas iniciales o finales, basicamente si elegia las finales solo Mostraba una F 
+                //mas las piezas finales donde ahora se muestran kg
+                /*String manera = pedidosGlobal.get(i).getManera();
                 if(manera.equals("pzF"))
                 {
                     datosPedido = new PedidoDatos(pedidosGlobal.get(i).getFolio(), pedidosGlobal.get(i).getFecha(), pedidosGlobal.get(i).getImpresion(), 
@@ -1188,11 +1191,18 @@ public class Visualizacion extends javax.swing.JFrame {
                     pedidosGlobal.get(i).getC1t5(), pedidosGlobal.get(i).getC1t6(), pedidosGlobal.get(i).getC2t1(), pedidosGlobal.get(i).getC2t2(), 
                     pedidosGlobal.get(i).getC2t3(), pedidosGlobal.get(i).getC2t4(), pedidosGlobal.get(i).getC2t5(), pedidosGlobal.get(i).getC2t6(), 
                     pedidosGlobal.get(i).getDescuento(), pedidosGlobal.get(i).getResto(), pedidosGlobal.get(i).getManera(), pedidosGlobal.get(i).getPzFinales());
-                }
-                
+                }*/
+                datosPedido = new PedidoDatos(pedidosGlobal.get(i).getFolio(), pedidosGlobal.get(i).getFecha(), pedidosGlobal.get(i).getImpresion(), 
+                pedidosGlobal.get(i).getAutorizo(), pedidosGlobal.get(i).getGrabados(), pedidosGlobal.get(i).getSub(), pedidosGlobal.get(i).getIva(), 
+                pedidosGlobal.get(i).getTotal(), pedidosGlobal.get(i).getAnticipo(), pedidosGlobal.get(i).getDirEnt(), pedidosGlobal.get(i).getTel(),
+                pedidosGlobal.get(i).getCel(), pedidosGlobal.get(i).getCiudad(), pedidosGlobal.get(i).getAgente(), pedidosGlobal.get(i).getKg(),
+                pedidosGlobal.get(i).getMaterial(), pedidosGlobal.get(i).getMedida(), pedidosGlobal.get(i).getCalibre(), pedidosGlobal.get(i).getSello(), 
+                pedidosGlobal.get(i).getTipo(), pedidosGlobal.get(i).getPigmento(), pedidosGlobal.get(i).getpUni(), pedidosGlobal.get(i).getImporte(), 
+                pedidosGlobal.get(i).getC1t1(), pedidosGlobal.get(i).getC1t2(),  pedidosGlobal.get(i).getC1t3(), pedidosGlobal.get(i).getC1t4(), 
+                pedidosGlobal.get(i).getC1t5(), pedidosGlobal.get(i).getC1t6(), pedidosGlobal.get(i).getC2t1(), pedidosGlobal.get(i).getC2t2(), 
+                pedidosGlobal.get(i).getC2t3(), pedidosGlobal.get(i).getC2t4(), pedidosGlobal.get(i).getC2t5(), pedidosGlobal.get(i).getC2t6(), 
+                pedidosGlobal.get(i).getDescuento(), pedidosGlobal.get(i).getResto(), pedidosGlobal.get(i).getManera(), pedidosGlobal.get(i).getPzFinales());
                     
-                
-                
                 datosDataSource.addParticipante(datosPedido);
                 setBar(50 / pedidosGlobal.size());
             }
@@ -1323,6 +1333,7 @@ public class Visualizacion extends javax.swing.JFrame {
 
                 pedidos.add(new PedidoATT());//Se crean pedidos respeto al numero de partidas encontrdas
                 //Cuando se crea un pedido se guardan los datos de la partida correspondiente
+                pedidos.get(contadorPartidas).setKg(rs.getString("kgPartida"));
                 pedidos.get(contadorPartidas).setPiezas(rs.getString("piezas"));
                 pedidos.get(contadorPartidas).setMaterial(rs.getString("mat1") + "-" + rs.getString("mat2"));
                 pedidos.get(contadorPartidas).setMedida(rs.getString("medida"));

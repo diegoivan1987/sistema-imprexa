@@ -26,6 +26,7 @@ public class PedidoATT {
     public String agente;
     
     /*Datos Partida*/
+    public String kg;
     public String piezas;
     public String material;
     public String medida;
@@ -171,6 +172,14 @@ public class PedidoATT {
         this.agente = agente;
     }
 
+    public String getKg() {
+        return kg;
+    }
+
+    public void setKg(String kg) {
+        this.kg = kg;
+    }
+    
     public String getPiezas() {
         return piezas;
     }
