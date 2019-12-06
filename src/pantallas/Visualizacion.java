@@ -1061,7 +1061,7 @@ public class Visualizacion extends javax.swing.JFrame {
     public void llenarCompra(){
         modeloCompra.setRowCount(0);
         String sqlExt = "select idExt, pocM1, pocM2, prov1, precioKg1, prov2, precioKg2 from extrusion where idPar_fk = "+idParVar+"";
-        String sqlImp = "select idImp, produccion, prov1, precioKg1 from impreso where idPar_fk = "+idParVar+"";
+        String sqlImp = "select idImp, produccion, prov1, precioKg1, produccion2, prov2, precioKg2 from impreso where idPar_fk = "+idParVar+"";
         String sqlBol = "select idBol, produccion, prov1, precioKg1 from bolseo where idPar_fk = "+idParVar+"";
         
         tablaCompra.setVisible(true);
@@ -1087,7 +1087,7 @@ public class Visualizacion extends javax.swing.JFrame {
             
             while(rs.next()){
                 modeloCompra.addRow(new Object[]{"IMPRESO", rs.getString("prov1"), rs.getString("precioKg1"),rs.getString("produccion"),
-                 "Inexistente", "Inexistente", "Inexistente"});
+                 rs.getString("prov2"), rs.getString("precioKg2"),rs.getString("produccion2")});
                 
                 idIm = rs.getInt("idImp");
             }

@@ -10,7 +10,7 @@ public class Connect {
     
     public String driver = "com.mysql.cj.jdbc.Driver";
     public String database = "imprexa2";
-    public String hostname = "192.168.0.5";
+    public String hostname = "192.168.100.200";
     public String port = "3306";
     public String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     public String username = "";
