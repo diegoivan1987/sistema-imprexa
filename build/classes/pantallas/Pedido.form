@@ -1034,7 +1034,7 @@
                                                   <Component id="savePart" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace min="0" pref="58" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="61" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
@@ -1049,10 +1049,7 @@
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="103" groupAlignment="1" attributes="0">
-                                                          <Component id="jLabel166" min="-2" pref="65" max="-2" attributes="0"/>
-                                                          <Component id="jLabel167" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
+                                                      <Component id="jLabel166" min="-2" pref="65" max="-2" attributes="0"/>
                                                       <Component id="jLabel171" alignment="1" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel172" alignment="1" min="-2" max="-2" attributes="0"/>
                                                   </Group>
@@ -1060,10 +1057,7 @@
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Component id="mat2" alignment="0" min="-2" pref="177" max="-2" attributes="0"/>
                                                       <Component id="mat1" alignment="1" min="-2" pref="177" max="-2" attributes="0"/>
-                                                      <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
-                                                          <Component id="med" alignment="1" max="32767" attributes="0"/>
-                                                          <Component id="sta" alignment="0" min="-2" pref="177" max="-2" attributes="0"/>
-                                                      </Group>
+                                                      <Component id="med" alignment="1" min="-2" pref="177" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
@@ -1174,12 +1168,7 @@
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="sta" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel167" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="mat1" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel171" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1263,7 +1252,7 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="21" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1373,26 +1362,6 @@
                   <Events>
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="desaKeyTyped"/>
                   </Events>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel167">
-                  <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="99" green="66" red="0" type="rgb"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Estatus:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="sta">
-                  <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="99" green="99" red="0" type="rgb"/>
-                    </Property>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="1">
-                        <StringItem index="0" value="Selecciona Un Estado"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel169">
                   <Properties>

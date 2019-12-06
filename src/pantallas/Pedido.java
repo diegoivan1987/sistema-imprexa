@@ -43,7 +43,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     Font fuenteTablas;
     
     
-    String impSt=null, estatusSt=null,desSt=null, kgSt=null, medSt=null, estSt=null, devSt=null, disSt=null, pigSt=null, tipoSt=null, selloSt=null, 
+    String impSt=null, estatusSt=null,desSt=null, kgSt=null, medSt=null, devSt=null, disSt=null, pigSt=null, tipoSt=null, selloSt=null, 
             hojaSt=null, deSt=null, mat1St=null, cal1St=null, mat2St=null, cal2St=null, tinta1St=null, tinta2St=null, fInSt=null, fComSt=null, 
             fPagoSt=null, fTerminoSt = null, grabSt=null, pUnitSt=null, subSt=null, totSt=null, diseSt=null,antiSt=null, restoSt=null, descuSt=null, costeGrabSt=null, 
             costeDisSt=null, piezasSt=null, importeSt=null, kgParidaSt=null, pzFinalesSt = null;
@@ -233,8 +233,6 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         med = new javax.swing.JTextField();
         jLabel98 = new javax.swing.JLabel();
         desa = new javax.swing.JTextField();
-        jLabel167 = new javax.swing.JLabel();
-        sta = new javax.swing.JComboBox();
         jLabel169 = new javax.swing.JLabel();
         sello = new javax.swing.JComboBox();
         jLabel171 = new javax.swing.JLabel();
@@ -976,12 +974,6 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             }
         });
 
-        jLabel167.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel167.setText("Estatus:");
-
-        sta.setForeground(new java.awt.Color(0, 153, 153));
-        sta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona Un Estado" }));
-
         jLabel169.setForeground(new java.awt.Color(0, 102, 153));
         jLabel169.setText("Sello:");
 
@@ -1262,7 +1254,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                                         .addComponent(limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(savePart)))
-                                .addGap(0, 58, Short.MAX_VALUE))
+                                .addGap(0, 61, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -1275,18 +1267,14 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                                         .addComponent(pig, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel6Layout.createSequentialGroup()
                                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel166, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jLabel167))
+                                            .addComponent(jLabel166, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel171, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel172, javax.swing.GroupLayout.Alignment.TRAILING))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(mat2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(mat1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(med)
-                                                .addComponent(sta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addComponent(med, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -1368,11 +1356,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                             .addComponent(cal2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel173)))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(sta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel167))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(56, 56, 56)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(mat1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel171))
@@ -1440,7 +1424,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(savePart, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -2165,7 +2149,6 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private void llenarListas(){
         mat1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALTA", "BAJA", "BOPP", "CPP","BOPP/BOPP","BAJA/BOPP","BAJA/PET","BOPP/PET","CPP/PET"}));
         mat2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NO APLICA","ALTA", "BAJA", "BOPP", "CPP","BOPP/BOPP","BAJA/BOPP","BAJA/PET","BOPP/PET","CPP/PET"}));
-        sta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DISEÑO", "PROCESO", "COBRANZA", "PAGADO"}));
         sello.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FONDO", "LATERAL", "TRASLAPE"}));
     }
     
@@ -2401,7 +2384,6 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         comprobarVacio();
         String sql;
             medSt = med.getText();
-            estSt = sta.getSelectedItem().toString();
             pigSt = pig.getText();
             tipoSt = tp.getText();
             selloSt = sello.getSelectedItem().toString();
@@ -2423,11 +2405,10 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             
             String manera = determinaManera();//obtiene la manera como se calculo el importe
             //se insertara en la base de datos
-            sql = "insert into partida(estatus, medida, piezas, tipo, sello, pigmento, mat1, calibre1, mat2, calibre2, precioUnitaro," +
+            sql = "insert into partida(medida, piezas, tipo, sello, pigmento, mat1, calibre1, mat2, calibre2, precioUnitaro," +
             "importe, kgPartida, folio_fk, c1t1, c1t2, c1t3, c1t4, c1t5, c1t6, c2t1, c2t2, c2t3, c2t4, c2t5, c2t6, desarrollo, kgDesperdicio, porcentajeDesp, "
             + "costoMaterialTotal, costoPartida, pzFinales, manera) "
-            + "values('"+estSt+"', "
-                    + "'"+medSt+"', "
+            + "values('"+medSt+"', "
                     + ""+piezasI+", "
                     + "'"+tipoSt+"', "
                     + "'"+selloSt+"', "
@@ -3401,7 +3382,6 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         pzFinales.setText("0");
         mat1.setSelectedIndex(0);
         mat2.setSelectedIndex(0);
-        sta.setSelectedIndex(0);
         sello.setSelectedIndex(0);
     }//GEN-LAST:event_limpiarActionPerformed
 
@@ -4339,7 +4319,6 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         tp.setText("");
         med.setText("");
         desa.setText("0");
-        sta.setSelectedIndex(0);
         sello.setSelectedIndex(0);
         mat1.setSelectedIndex(0);
         mat2.setSelectedIndex(0);
@@ -4769,7 +4748,6 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private javax.swing.JLabel jLabel157;
     private javax.swing.JLabel jLabel158;
     private javax.swing.JLabel jLabel166;
-    private javax.swing.JLabel jLabel167;
     private javax.swing.JLabel jLabel168;
     private javax.swing.JLabel jLabel169;
     private javax.swing.JLabel jLabel170;
@@ -4869,7 +4847,6 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private javax.swing.JComboBox sello;
     private javax.swing.JTextField solventeFin;
     private javax.swing.JTextField solventeIni;
-    private javax.swing.JComboBox sta;
     private javax.swing.JLabel sug;
     private javax.swing.JTable tablaC;
     private javax.swing.JTable tablaModPed;
