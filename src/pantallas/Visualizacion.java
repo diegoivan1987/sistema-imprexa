@@ -792,7 +792,7 @@ public class Visualizacion extends javax.swing.JFrame {
                 return false;
             }
         };
-        modeloProd.setColumnIdentifiers(new Object[]{"Proceso", "KgTotales","HrTotales","$Operacion","GreñaTotal","$Unitario","Sticky", "ProdPZS"});
+        modeloProd.setColumnIdentifiers(new Object[]{"Proceso", "KgTotales","HrTotales","$Operacion","GreñaTotal","$Unitario","ProdPZS"});
         tablaProd.setModel(modeloProd);
         thProd = tablaProd.getTableHeader();
         thProd.setFont(fuenteTablas);
@@ -1001,7 +1001,7 @@ public class Visualizacion extends javax.swing.JFrame {
     public void llenarProduccion(){
         modeloProd.setRowCount(0);
         String sqlExt = "select idExt, kgTotales, hrTotalesPar, costoOpTotalExt, greniaExt, costoUnitarioExt from extrusion where idPar_fk = "+idParVar+"";
-        String sqlImp = "select idImp, kgTotales, hrTotalesPar,sticky, costoOpTotalImp, greniaImp, costoUnitarioImp from impreso where idPar_fk = "+idParVar+"";
+        String sqlImp = "select idImp, kgTotales, hrTotalesPar, costoOpTotalImp, greniaImp, costoUnitarioImp from impreso where idPar_fk = "+idParVar+"";
         String sqlBol = "select idBol, kgTotales, hrTotalesPar,costoOpTotalBol, greniaBol, costoUnitarioBol, produccionPz from bolseo where idPar_fk = "+idParVar+"";
         
         tablaProd.setVisible(true);
@@ -1012,7 +1012,7 @@ public class Visualizacion extends javax.swing.JFrame {
             
             while(rs.next()){
                 modeloProd.addRow(new Object[]{"EXTRUSION", rs.getString("kgTotales"), rs.getString("hrTotalesPar"),rs.getString("costoOpTotalExt"), rs.getString("greniaExt"), 
-                rs.getString("costoUnitarioExt"), "Inexistente","Inexistente"});
+                rs.getString("costoUnitarioExt"), "Inexistente"});
                 
                 idEx = rs.getInt("idExt");
             }
@@ -1029,7 +1029,7 @@ public class Visualizacion extends javax.swing.JFrame {
             
             while(rs.next()){
                 modeloProd.addRow(new Object[]{"IMPPRESO", rs.getString("kgTotales"), rs.getString("hrTotalesPar"),rs.getString("costoOpTotalImp"), rs.getString("greniaImp"), 
-                rs.getString("costoUnitarioImp"), rs.getString("sticky"), "Inexistente"});
+                rs.getString("costoUnitarioImp"), "Inexistente"});
                 
                 idIm = rs.getInt("idImp");
             }
@@ -1046,7 +1046,7 @@ public class Visualizacion extends javax.swing.JFrame {
             
             while(rs.next()){
                 modeloProd.addRow(new Object[]{"BOLSEO", rs.getString("kgTotales"), rs.getString("hrTotalesPar"),rs.getString("costoOpTotalBol"), rs.getString("greniaBol"), 
-                rs.getString("costoUnitarioBol"), "Inexistente", rs.getString("produccionPz")});
+                rs.getString("costoUnitarioBol"), rs.getString("produccionPz")});
                 
                 idBo = rs.getInt("idBol");
             }
