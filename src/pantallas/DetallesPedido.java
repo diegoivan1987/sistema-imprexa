@@ -318,7 +318,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(dev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
@@ -335,6 +335,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel5)
                                     .addComponent(fcom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(fpa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
@@ -342,9 +343,8 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel22)
                             .addComponent(fT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)))
-                .addComponent(jLabel21)
-                .addContainerGap())
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel21))))
         );
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 204));
@@ -783,6 +783,10 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
         float subiva = subtotal * obtenerIva();
         float total = subtotal + subiva;
         float resto = total - (Float.parseFloat(anti.getText()) + Float.parseFloat(desc.getText()));
+        if(estatus.getSelectedItem().toString().equals("PAGADO"))
+        {
+            resto = 0;
+        }
         //guardara esos campos en la base de datos
         String sql = "update tintas set sticky = "+stc.getText()+" where folio_fk = "+dp.getFolio().replace("A", "")+"";
         try

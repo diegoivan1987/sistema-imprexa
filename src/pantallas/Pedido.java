@@ -3154,6 +3154,10 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         float total = subtotal + subiva;
         
         float resto = total - (Float.parseFloat(anti.getText()) + Float.parseFloat(decu.getText()));
+        if(estatus.getSelectedItem().toString().equals("PAGADO"))
+        {
+            resto = 0;
+        }
         //se guardan los datos actualizados
         String sql = "update pedido set impresion = '"+imp.getText()+"', "
                 + "estatus = '"+estatus.getSelectedItem().toString()+"',"
