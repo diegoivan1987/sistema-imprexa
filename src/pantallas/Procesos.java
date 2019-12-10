@@ -98,9 +98,6 @@ public class Procesos extends javax.swing.JFrame {
         sueldoPorHoraB = 0f;
         sueldoPorHoraAyudanteI = 0f;
     
-        costoGrab.setEditable(false);//no se podra escribir sobre el recuadro que muestra el costo de grabados
-        costoDise.setEditable(false);//no se podra escribir sobre el recuadro que muestra el costo de diseño
-        
         cambioMod.setVisible(false);//se hace invisible el boton para añadir mas campos al generar procesos
         
         this.setIconImage (new ImageIcon(getClass().getResource("/Images/iconoCab.png")).getImage());
@@ -123,8 +120,6 @@ public class Procesos extends javax.swing.JFrame {
         gdEx.setEnabled(false);
         gdIm.setEnabled(false);
         gdBo.setEnabled(false);
-        
-        btnCostos.setEnabled(false);
         
         eliminarP.setEnabled(false);
         
@@ -166,7 +161,6 @@ public class Procesos extends javax.swing.JFrame {
         costoOpBol.setEditable(false);
        
         paPro.setBackground(Color.LIGHT_GRAY);
-        paIm.setBackground(Color.LIGHT_GRAY);
         //se hacen invisibles los paneles de maquila
         panMaqExt.setVisible(false);
         panMaqImp.setVisible(false);
@@ -234,8 +228,6 @@ public class Procesos extends javax.swing.JFrame {
         jLabel34 = new javax.swing.JLabel();
         gdEx = new javax.swing.JToggleButton();
         jPanel10 = new javax.swing.JPanel();
-        paIm = new javax.swing.JTabbedPane();
-        jPanel9 = new javax.swing.JPanel();
         panImp = new javax.swing.JPanel();
         jLabel134 = new javax.swing.JLabel();
         jLabel133 = new javax.swing.JLabel();
@@ -280,14 +272,6 @@ public class Procesos extends javax.swing.JFrame {
         porKgImp2 = new javax.swing.JTextField();
         jLabel150 = new javax.swing.JLabel();
         kgImp2 = new javax.swing.JTextField();
-        panelCostos = new javax.swing.JPanel();
-        costoGrab = new javax.swing.JTextField();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        costoDise = new javax.swing.JTextField();
-        stc = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        btnCostos = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         panBol = new javax.swing.JPanel();
         jLabel69 = new javax.swing.JLabel();
@@ -468,7 +452,7 @@ public class Procesos extends javax.swing.JFrame {
                             .addGroup(panExLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(kgOpExt, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panExLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(listOperadorE, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -736,7 +720,7 @@ public class Procesos extends javax.swing.JFrame {
                     .addComponent(porKg2Ext, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(proM2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel34))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                 .addComponent(gdEx)
                 .addContainerGap())
         );
@@ -765,6 +749,7 @@ public class Procesos extends javax.swing.JFrame {
         paPro.addTab("Extrusión", jPanel2);
 
         panImp.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panImp.setPreferredSize(new java.awt.Dimension(565, 304));
 
         jLabel134.setForeground(new java.awt.Color(0, 102, 153));
         jLabel134.setText("Operador:");
@@ -1000,7 +985,7 @@ public class Procesos extends javax.swing.JFrame {
                         .addGroup(panImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel141, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(hrMuertoImp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                         .addGroup(panImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel142)
                             .addComponent(totalHrImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1009,6 +994,7 @@ public class Procesos extends javax.swing.JFrame {
         );
 
         panMaqImp.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panMaqImp.setPreferredSize(new java.awt.Dimension(435, 239));
 
         jLabel144.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel144.setForeground(new java.awt.Color(0, 102, 153));
@@ -1094,33 +1080,38 @@ public class Procesos extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(gdIm))
                     .addGroup(panMaqImpLayout.createSequentialGroup()
-                        .addGroup(panMaqImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(panMaqImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panMaqImpLayout.createSequentialGroup()
-                                .addComponent(jLabel145)
+                                .addGroup(panMaqImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(panMaqImpLayout.createSequentialGroup()
+                                        .addComponent(jLabel145)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(provImp, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel146))
+                                    .addComponent(jLabel144))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(provImp, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(porKgImp, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel146))
-                            .addComponent(jLabel144))
+                                .addComponent(jLabel132))
+                            .addGroup(panMaqImpLayout.createSequentialGroup()
+                                .addComponent(jLabel148)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(provImp2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel149)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(porKgImp2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel150)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(porKgImp, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel132)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(kgImp, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(panMaqImpLayout.createSequentialGroup()
-                        .addComponent(jLabel148)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(provImp2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel149)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(porKgImp2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel150)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(kgImp2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(panMaqImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panMaqImpLayout.createSequentialGroup()
+                                .addComponent(kgImp, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE))
+                            .addGroup(panMaqImpLayout.createSequentialGroup()
+                                .addComponent(kgImp2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         panMaqImpLayout.setVerticalGroup(
@@ -1128,7 +1119,7 @@ public class Procesos extends javax.swing.JFrame {
             .addGroup(panMaqImpLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel144)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(52, 52, 52)
                 .addGroup(panMaqImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel145)
                     .addComponent(provImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1136,7 +1127,7 @@ public class Procesos extends javax.swing.JFrame {
                     .addComponent(porKgImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel132)
                     .addComponent(kgImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(panMaqImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel148)
                     .addComponent(provImp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1144,131 +1135,36 @@ public class Procesos extends javax.swing.JFrame {
                     .addComponent(porKgImp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel150)
                     .addComponent(kgImp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(34, 34, 34)
                 .addComponent(gdIm)
                 .addContainerGap())
         );
-
-        panelCostos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        costoGrab.setForeground(new java.awt.Color(0, 153, 153));
-        costoGrab.setText("0");
-        costoGrab.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                costoGrabKeyTyped(evt);
-            }
-        });
-
-        jLabel31.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel31.setText("Costo Grabado: $");
-
-        jLabel32.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel32.setText("Costo Diseño: $");
-
-        costoDise.setForeground(new java.awt.Color(0, 153, 153));
-        costoDise.setText("0");
-        costoDise.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                costoDiseKeyTyped(evt);
-            }
-        });
-
-        stc.setForeground(new java.awt.Color(0, 153, 153));
-        stc.setText("0");
-        stc.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                stcKeyTyped(evt);
-            }
-        });
-
-        jLabel7.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel7.setText("Sticky (CM): $");
-
-        btnCostos.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        btnCostos.setText("Guardar Costos");
-        btnCostos.setToolTipText("Guardar solo los costos");
-        btnCostos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCostosActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelCostosLayout = new javax.swing.GroupLayout(panelCostos);
-        panelCostos.setLayout(panelCostosLayout);
-        panelCostosLayout.setHorizontalGroup(
-            panelCostosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCostosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelCostosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(costoGrab, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67)
-                .addGroup(panelCostosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(costoDise, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel32))
-                .addGap(54, 54, 54)
-                .addGroup(panelCostosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(stc, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCostos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        panelCostosLayout.setVerticalGroup(
-            panelCostosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCostosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelCostosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCostosLayout.createSequentialGroup()
-                        .addGroup(panelCostosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel32)
-                            .addComponent(jLabel31))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelCostosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelCostosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(stc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(costoGrab, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(costoDise, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnCostos, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panImp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panMaqImp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelCostos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelCostos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panMaqImp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        paIm.addTab("Datos", jPanel9);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(paIm)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panMaqImp, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel10Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panImp, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(paIm, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addGap(329, 329, 329)
+                .addComponent(panMaqImp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(264, Short.MAX_VALUE)))
         );
 
         paPro.addTab("Impresión", jPanel10);
@@ -1388,7 +1284,7 @@ public class Procesos extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(listOperadorB, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(20, 20, 20)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
                         .addComponent(jLabel70)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(maqBol, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1429,7 +1325,7 @@ public class Procesos extends javax.swing.JFrame {
                                 .addGroup(panBolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(hrIniBol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(hrFinBol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
                 .addGroup(panBolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panBolLayout.createSequentialGroup()
                         .addComponent(jLabel75)
@@ -1610,7 +1506,7 @@ public class Procesos extends javax.swing.JFrame {
                     .addComponent(kgBol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel82)
                     .addComponent(pzsBol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addComponent(gdBo)
                 .addContainerGap())
         );
@@ -1797,7 +1693,7 @@ public class Procesos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jButton3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1900,7 +1796,6 @@ public class Procesos extends javax.swing.JFrame {
                     gdEx.setEnabled(false);
                     gdIm.setEnabled(false);
                     gdBo.setEnabled(false);
-                    btnCostos.setEnabled(false);
 
                     paPro.setVisible(false);
                     this.setSize(new Dimension(WD/2, HG));
@@ -2033,7 +1928,6 @@ public class Procesos extends javax.swing.JFrame {
             //se habilita el boton para eliminar partidas
             eliminarP.setEnabled(true);
             
-            btnCostos.setEnabled(true);
             comprobarProcesos(Integer.parseInt(idPartSt));//Verificar si las partidas ya tienen generados los procesos
         }
         catch(ArrayIndexOutOfBoundsException ex)
@@ -2110,9 +2004,7 @@ public class Procesos extends javax.swing.JFrame {
                 gdEx.setEnabled(false);
                 gdIm.setEnabled(false);
                 gdBo.setEnabled(false);
-                
-                btnCostos.setEnabled(false);
-                
+               
                 vaciarCamposProcesos();//Se establecen los campos de los procesos nulos, ya que no hay registros
                 comprobarModoMat();
                 st.close();
@@ -2136,7 +2028,6 @@ public class Procesos extends javax.swing.JFrame {
                 gdIm.setEnabled(true);
                 gdBo.setEnabled(true);
                 
-                btnCostos.setEnabled(true);
                 comprobarModoMat();//Comprobar que modalidad de produccion es. (Produccion, Compra, ambas)
                 establecerCamposPartida();//Se establecen los campos de los procesos de la partida,obteniendolos de la database
                 //Tambien se obtienen las primary key de los procesos
@@ -2171,7 +2062,6 @@ public class Procesos extends javax.swing.JFrame {
                 panMaqExt.setVisible(false);
                 panMaqImp.setVisible(false);
                 panMaqBol.setVisible(false);
-                panelCostos.setVisible(true);
             }
             else if(modo.equals(modoMaterial[1])){//Compra
                 panEx.setVisible(false);
@@ -2181,7 +2071,6 @@ public class Procesos extends javax.swing.JFrame {
                 panMaqExt.setVisible(true);
                 panMaqImp.setVisible(true);
                 panMaqBol.setVisible(true);
-                panelCostos.setVisible(true);
                 
             }
             else if(modo.equals(modoMaterial[2])){//Ambos
@@ -2191,7 +2080,6 @@ public class Procesos extends javax.swing.JFrame {
                 panMaqExt.setVisible(true);
                 panMaqImp.setVisible(true);
                 panMaqBol.setVisible(true);
-                panelCostos.setVisible(true);
             }
             else if(modo.equals("")){//Si no se han generado procesos
                 
@@ -2201,7 +2089,6 @@ public class Procesos extends javax.swing.JFrame {
                 panMaqExt.setVisible(false);
                 panMaqImp.setVisible(false);
                 panMaqBol.setVisible(false);
-                panelCostos.setVisible(false);
             }
             
         } catch (SQLException ex) {
@@ -2245,7 +2132,6 @@ public class Procesos extends javax.swing.JFrame {
                 kgImp2.setText(rs.getString("produccion2"));
                 provImp2.setText(rs.getString("prov2"));
                 porKgImp2.setText(rs.getString("precioKg2"));
-                stc.setText(rs.getString("sticky"));
                 idIm = rs.getInt("idImp");
             }
             
@@ -2268,28 +2154,11 @@ public class Procesos extends javax.swing.JFrame {
             }
             
             rs.close();
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             JOptionPane.showMessageDialog(null, "Error al obtener los datos de bolseo: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        //se muestra los costos de grabados del pedido en impresion
-        sql = "select grabados,costoDisenio from pedido where folio = "+folio+"";
-        try
-        {
-           st = con.createStatement();
-           rs = st.executeQuery(sql);
-           while(rs.next())
-           {
-               costoGrab.setText(rs.getString("grabados"));
-               costoDise.setText(rs.getString("costoDisenio"));
-           }
-        }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
-        }
-        
-        
     }
     
     //Se establecen en "" o "0" los campos de los procesos que aun no se han generado
@@ -2308,9 +2177,6 @@ public class Procesos extends javax.swing.JFrame {
         kgImp2.setText("0");
         provImp2.setText("");
         porKgImp2.setText("0");
-        stc.setText("0");
-        costoDise.setText("0");
-        costoGrab.setText("0");
         
         kgBol.setText("0");
         pzsBol.setText("0");
@@ -2344,10 +2210,6 @@ public class Procesos extends javax.swing.JFrame {
             prodI2St = kgImp2.getText();
             provI2St = provImp2.getText();
             precioKgI2St = porKgImp2.getText();
-            stickySt = stc.getText();
-            cDiseSt = costoDise.getText();
-            cGrabSt = costoGrab.getText();
-            stcSt = stc.getText();
 
             //Bolseo
             prodBSt = kgBol.getText();
@@ -4081,37 +3943,9 @@ public class Procesos extends javax.swing.JFrame {
         soloFlotantes(evt, kgOpBol);
     }//GEN-LAST:event_kgOpBolKeyTyped
 
-    private void stcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stcKeyTyped
-        soloFlotantes(evt, stc);
-    }//GEN-LAST:event_stcKeyTyped
-
-    private void costoGrabKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_costoGrabKeyTyped
-        soloFlotantes(evt, costoGrab);
-    }//GEN-LAST:event_costoGrabKeyTyped
-
-    private void costoDiseKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_costoDiseKeyTyped
-        soloFlotantes(evt, costoDise);
-    }//GEN-LAST:event_costoDiseKeyTyped
-
     private void impBusMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_impBusMousePressed
         impBus.setText("");
     }//GEN-LAST:event_impBusMousePressed
-
-    private void btnCostosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCostosActionPerformed
-        
-        comprobarVacio();
-        String sql = "update impreso set sticky = "+stc.getText()+" where idPar_fk = "+idPart+"";
-        try {
-            st = con.createStatement();
-            st.execute(sql);
-            st.close();
-            
-            JOptionPane.showMessageDialog(null, "Se han guardado solo los costos", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException ex) {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Error al guardar costos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }    
-    }//GEN-LAST:event_btnCostosActionPerformed
 
     private void impBusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_impBusKeyPressed
         if(evt.getKeyCode() == com.sun.glass.events.KeyEvent.VK_ENTER){
@@ -4431,7 +4265,6 @@ public class Procesos extends javax.swing.JFrame {
                 panMaqExt.setVisible(true);
                 panMaqImp.setVisible(true);
                 panMaqBol.setVisible(true);
-                panelCostos.setVisible(true);
         }
         else if(cambioMod.getText().equals("Agregar producción"))
         {
@@ -4700,15 +4533,6 @@ public class Procesos extends javax.swing.JFrame {
         if(porKgBol.getText().equals("") || porKgBol.getText().equals(".")){
             porKgBol.setText("0");
         }
-        if(costoDise.getText().equals("") || costoDise.getText().equals(".")){
-            costoDise.setText("0");
-        }
-        if(costoGrab.getText().equals("") || costoGrab.getText().equals(".")){
-            costoGrab.setText("0");
-        }
-        if(stc.getText().equals("") || stc.getText().equals(".")){
-            stc.setText("0");
-        }
         
         //Campos de operadores
         if(greExt.getText().equals("") || greExt.getText().equals(".")){
@@ -4735,15 +4559,6 @@ public class Procesos extends javax.swing.JFrame {
         } 
         if(costoOpImp.getText().equals("") || costoOpImp.getText().equals(".")){
             costoOpImp.setText("0");
-        }
-        if(costoGrab.getText().equals("") || costoGrab.getText().equals(".")){
-            costoGrab.setText("0");
-        }
-        if(costoDise.getText().equals("") || costoDise.getText().equals(".")){
-            costoDise.setText("0");
-        }
-        if(stc.getText().equals("") || stc.getText().equals(".")){
-            stc.setText("0");
         }
         
         if(greBol.getText().equals("") || greBol.getText().equals(".")){
@@ -5588,9 +5403,6 @@ public class Procesos extends javax.swing.JFrame {
         costoOpBol.setText("");
         
         suaje.setText("");
-        costoDise.setText("");
-        costoGrab.setText("");
-        stc.setText("");
         impBus.setText("Nombre Impresion");
         foVis.setText("");
         idPartida.setText("");
@@ -5617,7 +5429,6 @@ public class Procesos extends javax.swing.JFrame {
         
         savePro.setEnabled(false);
         eliminarP.setEnabled(false);
-        btnCostos.setEnabled(false);
         agE.setEnabled(false);
         agI.setEnabled(false);
         agB.setEnabled(false);
@@ -5664,10 +5475,7 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JButton agB;
     private javax.swing.JButton agE;
     private javax.swing.JButton agI;
-    private javax.swing.JButton btnCostos;
     private javax.swing.JButton cambioMod;
-    private javax.swing.JTextField costoDise;
-    private javax.swing.JTextField costoGrab;
     private javax.swing.JTextField costoOpBol;
     private javax.swing.JTextField costoOpExt;
     private javax.swing.JTextField costoOpImp;
@@ -5732,8 +5540,6 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel150;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
@@ -5749,7 +5555,6 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel72;
@@ -5770,7 +5575,6 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToggleButton jToggleButton1;
@@ -5789,7 +5593,6 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JTextField maqBol;
     private javax.swing.JTextField maqExt;
     private javax.swing.JTextField maqImp;
-    private javax.swing.JTabbedPane paIm;
     private javax.swing.JTabbedPane paPro;
     private javax.swing.JPanel panBol;
     private javax.swing.JPanel panEx;
@@ -5797,7 +5600,6 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JPanel panMaqBol;
     private javax.swing.JPanel panMaqExt;
     private javax.swing.JPanel panMaqImp;
-    private javax.swing.JPanel panelCostos;
     private javax.swing.JTextField porKg1Ext;
     private javax.swing.JTextField porKg2Ext;
     private javax.swing.JTextField porKgBol;
@@ -5812,7 +5614,6 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JTextField provImp2;
     private javax.swing.JTextField pzsBol;
     private javax.swing.JToggleButton savePro;
-    private javax.swing.JTextField stc;
     private javax.swing.JTextField suaje;
     private javax.swing.JTable tablaPart;
     private javax.swing.JTable tablaPed;
