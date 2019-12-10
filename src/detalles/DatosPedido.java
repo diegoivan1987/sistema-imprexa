@@ -15,6 +15,7 @@ public class DatosPedido {
     String fterm;
     String grab;
     String dise;
+    String sticky;
     String anti;
     String desc;
     String sub;
@@ -122,6 +123,14 @@ public class DatosPedido {
         this.dise = dise;
     }
 
+    public String getSticky() {
+        return sticky;
+    }
+
+    public void setSticky(String sticky) {
+        this.sticky = sticky;
+    }
+    
     public String getAnti() {
         return anti;
     }
