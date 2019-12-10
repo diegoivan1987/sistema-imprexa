@@ -784,7 +784,20 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
         float total = subtotal + subiva;
         float resto = total - (Float.parseFloat(anti.getText()) + Float.parseFloat(desc.getText()));
         //guardara esos campos en la base de datos
-        String sql = "update pedido set impresion = '"+imp.getText()+"', "
+        String sql = "update tintas set sticky = "+stc.getText()+" where folio_fk = "+dp.getFolio().replace("A", "")+"";
+        try
+        {
+            st = con.createStatement();
+            st.execute(sql);
+            st.close();
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al modificar: "+ ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+        
+        sql = "update pedido set impresion = '"+imp.getText()+"', "
                 + "estatus = '"+estatus.getSelectedItem().toString()+"',"
                 + "autorizo = '"+au.getText()+"', "
                 + "devolucion = '"+dev.getText()+"', "
@@ -794,8 +807,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                 + "descuento = "+desc.getText()+", "
                 + "subtotal = "+subtotal+", "
                 + "total = "+total+", "
-                + "resto = "+resto+", "
-                + "sticky = "+Float.parseFloat(stc.getText())+""
+                + "resto = "+resto+""
                 + "where folio = "+dp.getFolio().replace("A", "")+"";
         
        try {

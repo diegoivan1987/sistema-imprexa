@@ -620,7 +620,7 @@ public class Visualizacion extends javax.swing.JFrame {
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btnDetPed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDetPart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDetPart))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tabedPart)
                 .addContainerGap())
@@ -630,9 +630,7 @@ public class Visualizacion extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(tabedPart)
-                        .addContainerGap())
+                    .addComponent(tabedPart)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -641,7 +639,7 @@ public class Visualizacion extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(378, 378, 378)
                         .addComponent(bar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -651,7 +649,8 @@ public class Visualizacion extends javax.swing.JFrame {
                         .addComponent(btnDetPed, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
-                        .addGap(30, 30, 30))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jScrollPane9.setViewportView(jPanel2);
@@ -884,27 +883,44 @@ public class Visualizacion extends javax.swing.JFrame {
     
     private void llenarDatosPedido(ResultSet rs) throws SQLException{
         
-                dp.setFolio(rs.getString("folio")+"A");
-                dp.setImp(rs.getString("impresion"));
-                dp.setAuto(rs.getString("autorizo"));
-                dp.setDev(rs.getString("devolucion"));
-                dp.setFin(rs.getString("fIngreso"));
-                dp.setEstatus(rs.getString("estatus"));
-                dp.setFcom(rs.getString("fCompromiso"));
-                dp.setFpag(rs.getString("fPago"));
-                dp.setFterm(rs.getString("fTermino"));
-                dp.setGrab(rs.getString("grabados"));
-                dp.setDise(rs.getString("costoDisenio"));
-                dp.setAnti(rs.getString("anticipo"));
-                dp.setDesc(rs.getString("descuento"));
-                dp.setSub(rs.getString("subtotal"));
-                dp.setTot(rs.getString("total"));
-                dp.setRes(rs.getString("resto"));
-                dp.setKdes(rs.getString("kgDesperdicioPe"));
-                dp.setPdes(rs.getString("porcentajeDespPe"));
-                dp.setGf(rs.getString("gastosFijos"));
-                dp.setCtot(rs.getString("costoTotal"));
-                dp.setPyg(rs.getString("perdidasYGanancias"));
+        String sql = "select sticky from tintas where folio_fk = "+rs.getString("folio")+"";
+        try
+        {
+            Statement st8 = con.createStatement();
+            ResultSet rs8 = st8.executeQuery(sql);
+            while(rs8.next())
+            {
+                dp.setSticky(rs8.getString("sticky"));
+            }
+            rs8.close();
+            st8.close();
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al actualizar sticky");
+        }
+        dp.setFolio(rs.getString("folio")+"A");
+        dp.setImp(rs.getString("impresion"));
+        dp.setAuto(rs.getString("autorizo"));
+        dp.setDev(rs.getString("devolucion"));
+        dp.setFin(rs.getString("fIngreso"));
+        dp.setEstatus(rs.getString("estatus"));
+        dp.setFcom(rs.getString("fCompromiso"));
+        dp.setFpag(rs.getString("fPago"));
+        dp.setFterm(rs.getString("fTermino"));
+        dp.setGrab(rs.getString("grabados"));
+        dp.setDise(rs.getString("costoDisenio"));
+        dp.setAnti(rs.getString("anticipo"));
+        dp.setDesc(rs.getString("descuento"));
+        dp.setSub(rs.getString("subtotal"));
+        dp.setTot(rs.getString("total"));
+        dp.setRes(rs.getString("resto"));
+        dp.setKdes(rs.getString("kgDesperdicioPe"));
+        dp.setPdes(rs.getString("porcentajeDespPe"));
+        dp.setGf(rs.getString("gastosFijos"));
+        dp.setCtot(rs.getString("costoTotal"));
+        dp.setPyg(rs.getString("perdidasYGanancias"));
     }
     
     
@@ -1003,7 +1019,7 @@ public class Visualizacion extends javax.swing.JFrame {
         String sqlExt = "select idExt, kgTotales, hrTotalesPar, costoOpTotalExt, greniaExt, costoUnitarioExt from extrusion where idPar_fk = "+idParVar+"";
         String sqlImp = "select idImp, kgTotales, hrTotalesPar, costoOpTotalImp, greniaImp, costoUnitarioImp from impreso where idPar_fk = "+idParVar+"";
         String sqlBol = "select idBol, kgTotales, hrTotalesPar,costoOpTotalBol, greniaBol, costoUnitarioBol, produccionPz from bolseo where idPar_fk = "+idParVar+"";
-        String sqlSticky = "select sticky from pedido where folio = "+folioVar+"";
+        String sqlSticky = "select sticky from tintas where folio_fk = "+folioVar+"";
         String stickyAux = "";
         
         tablaProd.setVisible(true);
