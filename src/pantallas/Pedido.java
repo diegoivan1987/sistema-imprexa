@@ -2291,9 +2291,9 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 " iniSolvente, finSolvente," +
                 " iniBarniz, finBarniz," +
                 " costoDeTintas,"
-                + "seSumoAPedido)"
+                + "seSumoAPedido,sticky)"
                 + "values('Blanco Laminación',0,0,'Blanco Laminación',0,0,'Blanco Laminación',0,0,'Blanco Laminación',0,0,'Blanco Laminación',0,0,"
-                + "'Blanco Laminación',0,0,0,0,0,0,0,0,"+ultimoFolio+",0,0,0,0,0,0)";
+                + "'Blanco Laminación',0,0,0,0,0,0,0,0,"+ultimoFolio+",0,0,0,0,0,0,0)";
 
         try {
             st8 = con.createStatement();
