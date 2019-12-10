@@ -56,7 +56,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     String t1St=null, pI1St=null, pF1St=null, t2St=null, pI2St=null, pF2St=null, t3St=null, pI3St=null, pF3St=null, 
             t4St=null, pI4St=null, pF4St=null, t5St=null, pI5St=null, pF5St=null, t6St=null, pI6St=null, pF6St=null, 
             iniMezSt=null, finMezSt=null, iniAceSt=null, finAceSt=null, iniRetSt=null, finRetSt=null, iniSolventeSt=null, 
-            finSolventeSt=null, iniBarSt = null, finBarSt = null;
+            finSolventeSt=null, iniBarSt = null, finBarSt = null, stickySt = null;
     
     int idCliente = 0;
     int folioId = 0;
@@ -2747,6 +2747,8 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 solventeFin.setText(rs8.getString("finSolvente"));
                 barIni.setText(rs8.getString("iniBarniz"));
                 barFin.setText(rs8.getString("finBarniz"));
+                
+                sticky.setText(rs8.getString("sticky"));
             }
             
             rs8.close();
@@ -3521,6 +3523,9 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             finSolventeSt = solventeFin.getText();
             iniBarSt = barIni.getText();
             finBarSt = barFin.getText();
+            
+            stickySt = sticky.getText();
+            Float stickyFt = Float.parseFloat(stickySt);
 
             String sql = "update tintas set tinta1 = '"+t1St+"', pIni1 = "+pI1St+", pFin1 = "+pF1St+", tinta2 = '"+t2St+"', pIni2 = "+pI2St+", pFin2 = "+pF2St+"," +
             " tinta3 = '"+t3St+"', pIni3 = "+pI3St+", pFin3 = "+pF3St+", tinta4 = '"+t4St+"', pIni4 = "+pI4St+", pFin4 = "+pF4St+"," +
@@ -3529,7 +3534,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             " iniAcetato = "+iniAceSt+", finAcetato = "+finAceSt+"," +
             " iniRetard = "+iniRetSt+", finRetard = "+finRetSt+"," +
             " iniSolvente = "+iniSolventeSt+", finSolvente = "+finSolventeSt+"," +
-            " iniBarniz = "+iniBarSt+", finBarniz = "+finBarSt+"" +
+            " iniBarniz = "+iniBarSt+", finBarniz = "+finBarSt+", sticky = "+stickyFt+"" +
             " where folio_fk = "+folioId+"";
 
             try 
@@ -3883,6 +3888,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private void calculaCostoGlobalTintas()
     {
         Statement st8;
+        Float precioSticky = 0.1135f;//precio por centimetro cuadrado de sticky
         
         float costoGlobal = 0f;
         costoGlobal += calculaCostoTintaIndividual(listaTintas1.getSelectedItem().toString(), kgIniT1, kgFinT1);
@@ -3896,6 +3902,8 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         costoGlobal += calculaCostoTintaIndividual("Retardante", retIni, retFin);
         costoGlobal += calculaCostoTintaIndividual("Barniz", barIni, barFin);
         costoGlobal += calculaCostoTintaIndividual("Solvente acondicionador", solventeIni, solventeFin);
+        //el sticky es aparte porque no tiene un peso inicial y uno final, se calcula diferente
+        costoGlobal += (precioSticky * Float.parseFloat(sticky.getText()));
         
         String sql = "update tintas set costoDeTintas = "+costoGlobal+" where folio_fk = "+folioId+"";
         try
@@ -3915,7 +3923,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     }//GEN-LAST:event_solventeIniKeyTyped
 
     private void solventeFinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_solventeFinKeyTyped
-        soloFlotantes(evt, solventeIni);
+        soloFlotantes(evt, solventeFin);
     }//GEN-LAST:event_solventeFinKeyTyped
 
     private void barIniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barIniKeyTyped
@@ -3961,6 +3969,9 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         finSolventeSt = solventeFin.getText();
         iniBarSt = barIni.getText();
         finBarSt = barFin.getText();
+        
+        stickySt = sticky.getText();
+        Float stickyFt = Float.parseFloat(stickySt);
 
         String sql = "update tintas set tinta1 = '"+t1St+"', pIni1 = "+pI1St+", pFin1 = "+pF1St+", tinta2 = '"+t2St+"', pIni2 = "+pI2St+", pFin2 = "+pF2St+"," +
         " tinta3 = '"+t3St+"', pIni3 = "+pI3St+", pFin3 = "+pF3St+", tinta4 = '"+t4St+"', pIni4 = "+pI4St+", pFin4 = "+pF4St+"," +
@@ -3969,7 +3980,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         " iniAcetato = "+iniAceSt+", finAcetato = "+finAceSt+"," +
         " iniRetard = "+iniRetSt+", finRetard = "+finRetSt+"," +
         " iniSolvente = "+iniSolventeSt+", finSolvente = "+finSolventeSt+"," +
-        " iniBarniz = "+iniBarSt+", finBarniz = "+finBarSt+"" +
+        " iniBarniz = "+iniBarSt+", finBarniz = "+finBarSt+", sticky = "+stickyFt+"" +
         " where folio_fk = "+folioId+"";
 
         try 
@@ -4317,6 +4328,9 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         if(barFin.getText().equals("") || barFin.getText().equals(".")){
             barFin.setText("0");
+        }
+        if(sticky.getText().equals("") || sticky.getText().equals(".")){
+            sticky.setText("0");
         }
     }
   
