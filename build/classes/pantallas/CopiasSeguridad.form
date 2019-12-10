@@ -104,7 +104,7 @@
             <Component class="javax.swing.JTextPane" name="jTextPane1">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="text" type="java.lang.String" value="Para elegir que copia se va a restaurar, escribir la fecha que indica el archivo, solo los numeros, sin espacios. El archivo de la copia debe estar en el escritorio, fuera de cualquier carpeta."/>
+                <Property name="text" type="java.lang.String" value="Para elegir que copia se va a restaurar, escribir la fecha que indica el archivo, solo los numeros, sin espacios. El archivo de la copia debe estar en el escritorio de la computadora actual, fuera de cualquier carpeta."/>
               </Properties>
             </Component>
           </SubComponents>
@@ -119,7 +119,7 @@
             <Component class="javax.swing.JTextPane" name="jTextPane2">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="text" type="java.lang.String" value="La copia de seguridad creada se guardar&#xe1; en el escritorio, si al crearla no pide o se ingres&#xf3; mal la contrase&#xf1;a, la copia saldra vac&#xed;a."/>
+                <Property name="text" type="java.lang.String" value="La copia de seguridad creada se guardar&#xe1; en el escritorio del servidor y de la computadora actual, si al crearla no pide o se ingres&#xf3; mal la contrase&#xf1;a, la copia saldra vac&#xed;a."/>
               </Properties>
             </Component>
           </SubComponents>

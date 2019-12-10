@@ -7,6 +7,7 @@ package pantallas;
 
 import java.io.IOException;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -57,11 +58,11 @@ public class CopiasSeguridad extends javax.swing.JFrame {//permite crear o resta
         });
 
         jTextPane1.setEditable(false);
-        jTextPane1.setText("Para elegir que copia se va a restaurar, escribir la fecha que indica el archivo, solo los numeros, sin espacios. El archivo de la copia debe estar en el escritorio, fuera de cualquier carpeta.");
+        jTextPane1.setText("Para elegir que copia se va a restaurar, escribir la fecha que indica el archivo, solo los numeros, sin espacios. El archivo de la copia debe estar en el escritorio de la computadora actual, fuera de cualquier carpeta.");
         jScrollPane1.setViewportView(jTextPane1);
 
         jTextPane2.setEditable(false);
-        jTextPane2.setText("La copia de seguridad creada se guardará en el escritorio, si al crearla no pide o se ingresó mal la contraseña, la copia saldra vacía.");
+        jTextPane2.setText("La copia de seguridad creada se guardará en el escritorio del servidor y de la computadora actual, si al crearla no pide o se ingresó mal la contraseña, la copia saldra vacía.");
         jScrollPane2.setViewportView(jTextPane2);
 
         regresar.setText("Regresar");
@@ -136,12 +137,25 @@ public class CopiasSeguridad extends javax.swing.JFrame {//permite crear o resta
     //crea una copia de seguridad
     private void hacerCopia()
     {
+        //COPIA EN EL SERVIDOR
         try
         {
-            Runtime.getRuntime().exec("C:\\windows\\System32\\cmd.exe /k start hacerCopia.bat");//ejecuta con cmd el archivo hacerCopia que debe estar en la carpeta raiz del programa 
+            Runtime.getRuntime().exec("C:\\windows\\System32\\cmd.exe /k start hacerCopiaEnServidor.bat");//ejecuta con cmd el archivo hacerCopia que debe estar en la carpeta raiz del programa 
         }
         catch(IOException Error)
         {
+            JOptionPane.showMessageDialog(null,"Problema al hacer la copia en el servidor");
+            Error.printStackTrace();
+        }
+        
+        //COPIA EN LA PC USUARIO
+        try
+        {
+            Runtime.getRuntime().exec("C:\\windows\\System32\\cmd.exe /k start hacerCopiaEnUsuario.bat");//ejecuta con cmd el archivo hacerCopia que debe estar en la carpeta raiz del programa 
+        }
+        catch(IOException Error)
+        {
+            JOptionPane.showMessageDialog(null,"Problema al hacer la copia en la pc actual");
             Error.printStackTrace();
         }
     }
@@ -149,13 +163,33 @@ public class CopiasSeguridad extends javax.swing.JFrame {//permite crear o resta
     //restaura la copia de seguridad en el escritorio
     private void restaurarCopia()
     {
-        try
+        String[] modoRestaurar = {"La computadora actual", "El servidor"};
+        String elegido = (String) JOptionPane.showInputDialog(null, "Restaurar la copia desde el escritorio de...", "Modo de restauración", 
+                JOptionPane.QUESTION_MESSAGE, null, modoRestaurar,  modoRestaurar[0]);
+        
+        if(elegido.equals("La computadora actual"))
         {
-            Runtime.getRuntime().exec("C:\\windows\\System32\\cmd.exe /k start restaurarCopia.bat");//ejecuta con cmd el archivo restaurarCopia que debe estar en la carpeta raiz del programa
+            try
+            {
+                Runtime.getRuntime().exec("C:\\windows\\System32\\cmd.exe /k start restaurarCopiaDesdeUsuario.bat");//ejecuta con cmd el archivo restaurarCopia que debe estar en la carpeta raiz del programa
+            }
+            catch(IOException Error)
+            {
+                JOptionPane.showMessageDialog(null,"Problema al restaurar la copia desde la pc actual");
+                Error.printStackTrace();
+            }
         }
-        catch(IOException Error)
+        else
         {
-            Error.printStackTrace();
+            try
+            {
+                Runtime.getRuntime().exec("C:\\windows\\System32\\cmd.exe /k start restaurarCopiaDesdeServidor.bat");//ejecuta con cmd el archivo restaurarCopia que debe estar en la carpeta raiz del programa
+            }
+            catch(IOException Error)
+            {
+                JOptionPane.showMessageDialog(null,"Problema al restaurar la copia desde el servidor");
+                Error.printStackTrace();
+            }
         }
     }
 
