@@ -432,21 +432,11 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         mat1.setFont(new java.awt.Font("Gulim", 1, 11)); // NOI18N
         mat1.setForeground(new java.awt.Color(255, 255, 255));
         mat1.setBorder(null);
-        mat1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                mat1KeyTyped(evt);
-            }
-        });
 
         mat2.setBackground(new java.awt.Color(0, 153, 204));
         mat2.setFont(new java.awt.Font("Gulim", 1, 11)); // NOI18N
         mat2.setForeground(new java.awt.Color(255, 255, 255));
         mat2.setBorder(null);
-        mat2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                mat2KeyTyped(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -875,15 +865,11 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         comprobarVacio();
         String manera = determinaManera();
         //se ingresan los cambios en la base de datos
-        String sql = "update partida set desarrollo = '"+desa.getText()+"',"
+        String sql = "update partida set desarrollo = "+desa.getText()+","
                 + "tipo = '"+tipo.getText()+"', "
-                + "sello = '"+sello.getSelectedItem()+"', "
+                + "sello = '"+sello.getSelectedItem().toString()+"', "
                 + "medida = '"+med.getText()+"',"
                 + " pigmento = '"+pig.getText()+"',"
-                + "mat1 = '"+mat1.getText()+"',"
-                + " mat2 = '"+mat2.getText()+"',"
-                + "calibre1 = '"+cal1.getText()+"',"
-                + "calibre2 = '"+cal2.getText()+"',"
                 + "precioUnitaro = "+pUnit.getText()+", "
                 + "piezas = "+pz.getText()+", "
                 + "pzFinales = "+pzFinales.getText()+","
@@ -1392,14 +1378,6 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         limitarInsercion(5, evt, cal2);
         soloEnteros(evt);
     }//GEN-LAST:event_cal2KeyTyped
-
-    private void mat1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mat1KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mat1KeyTyped
-
-    private void mat2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mat2KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mat2KeyTyped
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         //si hubo cambios en las partidas se vuelven a llenar las tablas de la pantalla de visualizacion

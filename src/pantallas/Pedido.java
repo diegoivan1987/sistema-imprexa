@@ -2867,7 +2867,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     //Pedido
     private void desaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_desaKeyTyped
         limitarInsercion(10, evt, desa);
-        soloEnteros(evt);
+        soloFlotantes(evt, desa);
     }//GEN-LAST:event_desaKeyTyped
 
     private void decuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_decuKeyTyped
@@ -3389,7 +3389,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         pig.setText("");
         tp.setText("");
         med.setText("");
-        desa.setText("0");
+        desa.setText("0.0");
         cal1.setText("");
         cal2.setText("");
         c11.setText("");
@@ -4235,8 +4235,8 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     //Comprobar si ciertos campos estan vacios, los inicializa
     private void comprobarVacio(){
         
-        if(desa.getText().equals("")){
-            desa.setText("0");
+        if(desa.getText().equals("") || desa.getText().equals(".")){
+            desa.setText("0.0");
         }
         //Costos
         if(grab.getText().equals("") || grab.getText().equals(".")){
@@ -4363,7 +4363,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         pig.setText("");
         tp.setText("");
         med.setText("");
-        desa.setText("0");
+        desa.setText("0.0");
         sello.setSelectedIndex(0);
         mat1.setSelectedIndex(0);
         mat2.setSelectedIndex(0);

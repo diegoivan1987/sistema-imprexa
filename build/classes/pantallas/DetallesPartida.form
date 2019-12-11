@@ -779,9 +779,6 @@
               <Border info="null"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="mat1KeyTyped"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="mat2">
           <Properties>
@@ -798,9 +795,6 @@
               <Border info="null"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="mat2KeyTyped"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

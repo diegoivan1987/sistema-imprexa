@@ -41,7 +41,7 @@ sello varchar(40), pigmento varchar(40), mat1 varchar(30), calibre1 varchar(5), 
 tintaC2 varchar(50),hoja int, de int,  precioUnitaro float, importe float, folio_fk int not null, primary key(idPar), foreign key(folio_fk) references 
 pedido(folio));
 alter table partida add column kgPartida float;
-alter table partida add column desarrollo int;
+alter table partida add column desarrollo float;
 alter table partida drop column diseno;
 alter table partida add column kgDesperdicio float; 
 alter table partida add column porcentajeDesp float; 
