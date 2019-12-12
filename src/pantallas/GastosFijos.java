@@ -373,6 +373,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error al guardar los gastos fijos" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(GastosFijos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_guardarActionPerformed
@@ -417,6 +418,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error al llenar la tabla" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(GastosFijos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
