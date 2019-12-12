@@ -892,6 +892,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                 }
                 catch(SQLException ex)
                 {
+                    JOptionPane.showMessageDialog(null, "Error al guardar los cambios" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }
                 
