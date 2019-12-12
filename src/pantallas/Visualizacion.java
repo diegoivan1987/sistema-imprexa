@@ -1637,7 +1637,7 @@ public class Visualizacion extends javax.swing.JFrame {
                  fechaIniSub = fechaIni.substring(8, 10)+"/"+fechaIni.substring(5, 7)+"/"+fechaIni.substring(0, 4);
                  fechaFin = rs.getString("fFin");
                  fechaFinSub = fechaFin.substring(8, 10)+"/"+fechaFin.substring(5, 7)+"/"+fechaFin.substring(0, 4);
-                modeloRegI.addRow(new Object[]{rs.getString("operador"), rs.getString("numMaquina"), rs.getString("horaIni"), fechaIniSub
+                modeloRegI.addRow(new Object[]{rs.getString("operador"), rs.getString("ayudante"),rs.getString("numMaquina"), rs.getString("horaIni"), fechaIniSub
                 , rs.getString("horaFin"), fechaFinSub, rs.getString("totalHoras"), rs.getString("tiempoMuerto"), rs.getString("extras")
                 , rs.getString("kgUniI"), rs.getString("grenia"), rs.getString("costoOpImp")});
             }

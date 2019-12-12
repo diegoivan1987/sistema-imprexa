@@ -61,7 +61,7 @@ public class Procesos extends javax.swing.JFrame {
             tMuESt=null, totHESt=null, exESt=null, costoOpExSt=null;
     
     //Variables de OperadorImpresion
-    String kgISt=null, greniaISt=null, opISt=null, nMISt=null, hIniISt=null, fIniISt=null, hFinISt=null, fFinISt=null, 
+    String kgISt=null, greniaISt=null, opISt=null, ayudanteSt = null,nMISt=null, hIniISt=null, fIniISt=null, hFinISt=null, fFinISt=null, 
             tMuISt=null, totHISt=null, exISt=null, costoOpImSt=null;
     
     //Variables de OperadorBolseo
