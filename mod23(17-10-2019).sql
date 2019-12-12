@@ -1,7 +1,6 @@
  drop database imprexa2;
  create database imprexa2;
  use imprexa2;
- delete from partida;
 
 create table cliente (idC int not null auto_increment, agente varchar(40), nom varchar(40), tel bigint, cel bigint, mail varchar(50), 
 dir varchar(40), primary key(idC));
@@ -114,6 +113,7 @@ create table operadorImp(idOpImp int not null auto_increment, kgUniI float, gren
 fIni date, horaFin time, fFin date, tiempoMuerto time, totalHoras time, extras time, idImp_fk int not null, primary key(idOpImp), 
 foreign key(idImp_fk) references impreso(idImp));
 alter table operadorImp add column costoOpImp float;
+alter table operadorImp add column ayudante varchar(20);
 
 create table operadorBol(idOpBol int not null auto_increment, kgUniB float, grenia float, suaje float, operador varchar(60) not null, numMaquina int, horaIni time, fIni date, horaFin time, fFin date, tiempoMuerto time, totalHoras time, 
 extras time, idBol_fk int not null, primary key(idOpBol), foreign key(idBol_fk) references bolseo(idBol));

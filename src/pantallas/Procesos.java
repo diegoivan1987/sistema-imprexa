@@ -2293,6 +2293,7 @@ public class Procesos extends javax.swing.JFrame {
             kgISt = kgOpIm.getText();
             greniaISt = greImp.getText();
             opISt = listOperadorI.getSelectedItem().toString();
+            ayudanteSt = listAyudanteI.getSelectedItem().toString();
             nMISt = maqImp.getText();
             hIniISt = hrIniImp.getTimeField().getText();
             fIniISt = fIniImp.getText();
@@ -2303,8 +2304,8 @@ public class Procesos extends javax.swing.JFrame {
             exISt = extHrImp.getTimeField().getText();
             costoOpImSt = costoOpImp.getText();
             
-            String sql = "insert into operadorImp(costoOpImp, kgUniI, grenia, operador, numMaquina, horaIni, fIni, horaFin, fFin, tiempoMuerto, totalHoras, extras, idImp_fk)" +
-                    "values("+costoOpImSt+", "+kgISt+","+greniaISt+",'"+opISt+"',"+nMISt+",'"+hIniISt+"', '"+fIniISt+"', '"+hFinISt+"', '"+fFinISt+"', '"+tMuISt+"',"
+            String sql = "insert into operadorImp(costoOpImp, kgUniI, grenia, operador, ayudante, numMaquina, horaIni, fIni, horaFin, fFin, tiempoMuerto, totalHoras, extras, idImp_fk)" +
+                    "values("+costoOpImSt+", "+kgISt+","+greniaISt+",'"+opISt+"','"+ayudanteSt+"',"+nMISt+",'"+hIniISt+"', '"+fIniISt+"', '"+hFinISt+"', '"+fFinISt+"', '"+tMuISt+"',"
                     + " '"+totHISt+"', '"+exISt+"', "+idIm+")";
         try { 
             st = con.createStatement();

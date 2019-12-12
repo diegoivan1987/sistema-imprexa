@@ -746,7 +746,7 @@ public class Visualizacion extends javax.swing.JFrame {
                 return false;
             }
         };
-        modeloRegI.setColumnIdentifiers(new Object[]{"Operador", "No.Maquina", "HrIni", "FechaIni", "HrFin", "FechaFin", "TotalHr", "TiempoMuerto", "HrExtras", 
+        modeloRegI.setColumnIdentifiers(new Object[]{"Operador","Ayudante", "No.Maquina", "HrIni", "FechaIni", "HrFin", "FechaFin", "TotalHr", "TiempoMuerto", "HrExtras", 
             "Kg",  "Greña", "$Operacion"});
         tablaRegI.setModel(modeloRegI);
         thRI = tablaRegI.getTableHeader();
