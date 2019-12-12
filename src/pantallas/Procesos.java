@@ -854,9 +854,6 @@ public class Procesos extends javax.swing.JFrame {
             panImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panImpLayout.createSequentialGroup()
                 .addGroup(panImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panImpLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(agI))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panImpLayout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(panImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -901,7 +898,7 @@ public class Procesos extends javax.swing.JFrame {
                                     .addComponent(jLabel136, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panImpLayout.createSequentialGroup()
                                         .addComponent(listOperadorI, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                                         .addComponent(jLabel133)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(greImp, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -918,7 +915,10 @@ public class Procesos extends javax.swing.JFrame {
                                         .addComponent(kgOpIm, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(panImpLayout.createSequentialGroup()
                                         .addComponent(jLabel5)
-                                        .addGap(103, 103, 103)))))))
+                                        .addGap(103, 103, 103))))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panImpLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(agI)))
                 .addContainerGap())
         );
         panImpLayout.setVerticalGroup(
@@ -973,9 +973,7 @@ public class Procesos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(costoOpImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
-                        .addComponent(agI))
+                            .addComponent(costoOpImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panImpLayout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addComponent(hrIniImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -985,11 +983,12 @@ public class Procesos extends javax.swing.JFrame {
                         .addGroup(panImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel141, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(hrMuertoImp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel142)
-                            .addComponent(totalHrImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(44, 44, 44)))
+                            .addComponent(totalHrImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addComponent(agI)
                 .addContainerGap())
         );
 
@@ -1852,8 +1851,7 @@ public class Procesos extends javax.swing.JFrame {
             
         } 
         catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se ha podido establecer la tabla de pedidos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            
+            JOptionPane.showMessageDialog(null, "No se ha encontrado ningún pedido: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -2272,7 +2270,8 @@ public class Procesos extends javax.swing.JFrame {
                     }
 
                 } catch (SQLException ex) {
-                    Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error al crear el modo de produccion:"+ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
                 }
 
                 comprobarProcesos(idPart);//En el momento en el que se introduce la extrusion llamo a la funcion para que
@@ -3626,7 +3625,7 @@ public class Procesos extends javax.swing.JFrame {
             calculaPyG();
             vaciarOpB();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al intentar agregar el operador: " + ex.getMessage(), "Error", 5555555);
+            JOptionPane.showMessageDialog(null, "Error al intentar agregar el operador: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_agBActionPerformed
     
@@ -4185,6 +4184,7 @@ public class Procesos extends javax.swing.JFrame {
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error al eliminar la partida" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }//GEN-LAST:event_eliminarPActionPerformed
@@ -4283,6 +4283,7 @@ public class Procesos extends javax.swing.JFrame {
                 }
                 catch(SQLException ex)
                 {
+                    JOptionPane.showMessageDialog(null, "No se registro el cambio de modo" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }
     }//GEN-LAST:event_cambioModActionPerformed
