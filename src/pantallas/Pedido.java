@@ -2133,7 +2133,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     .addComponent(regP, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(abreProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                         .addComponent(modPed))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
@@ -2244,13 +2244,13 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             st = con.createStatement();
             st.execute(sql);
             st.close();
+            preGuardadoTintas();
             JOptionPane.showMessageDialog(null, "Se ha guardado el pedido", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
         } 
         catch (SQLException ex) 
         {
             JOptionPane.showMessageDialog(null, "Hay un error con los datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        preGuardadoTintas();
+        }    
     }//GEN-LAST:event_savePActionPerformed
 
     //se usa para el preregistro de tintas
@@ -3493,7 +3493,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         comprobarVacio();
         if(folioId == 0)
         {
-            JOptionPane.showMessageDialog(null, "Seleccionar un pedido primero en la pestaña anterior");
+            JOptionPane.showMessageDialog(null, "Seleccionar un pedido primero en la pestaña anterior","Advertencia",JOptionPane.WARNING_MESSAGE);
         }
         else
         {
@@ -3545,19 +3545,18 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             {
                 st8 = con.createStatement();
                 st8.execute(sql);
-                JOptionPane.showMessageDialog(null, "Se ha actualizado el registro de tintas: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
                 st8.close();
+                calculaCostoGlobalTintas();//se inserta sa sumatoria de los costos en la tabla de tintas
+                sumaTintasAPedido();//se suma el costo de tintas al costoTotal del pedido
+                calculaPyG(folioId);
+                //reiniciarCamposTintas();
+                JOptionPane.showMessageDialog(null, "Se ha actualizado el registro de tintas: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
             } 
             catch (SQLException ex) 
             {
                 JOptionPane.showMessageDialog(null, "Error al actualizar el registro de tintas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
-
-            calculaCostoGlobalTintas();//se inserta sa sumatoria de los costos en la tabla de tintas
-            sumaTintasAPedido();//se suma el costo de tintas al costoTotal del pedido
-            calculaPyG(folioId);
-            //reiniciarCamposTintas();
         }
     }//GEN-LAST:event_guardarTintasActionPerformed
 
@@ -3991,20 +3990,19 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         {
             st8 = con.createStatement();
             st8.execute(sql);
-            JOptionPane.showMessageDialog(null, "Se ha actualizado el registro de tintas: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
             st8.close();
+            restaCostoTintasViejo();//reestablecemos el costo total a antes de que se sumara el costo de tintas
+            calculaCostoGlobalTintas();//se inserta sa sumatoria de los costos en la tabla de tintas
+            sumaTintasAPedidoModificacion();//se suma el costo de tintas al costoTotal del pedido cuando se hizo una modificacion
+            calculaPyG(folioId);
+            //reiniciarCamposTintas();
+            JOptionPane.showMessageDialog(null, "Se ha actualizado el registro de tintas: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
         } 
         catch (SQLException ex) 
         {
             JOptionPane.showMessageDialog(null, "Error al actualizar el registro de tintas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
-        }
-
-        restaCostoTintasViejo();//reestablecemos el costo total a antes de que se sumara el costo de tintas
-        calculaCostoGlobalTintas();//se inserta sa sumatoria de los costos en la tabla de tintas
-        sumaTintasAPedidoModificacion();//se suma el costo de tintas al costoTotal del pedido cuando se hizo una modificacion
-        calculaPyG(folioId);
-        //reiniciarCamposTintas();
+        }    
     }//GEN-LAST:event_guardCamTintasActionPerformed
 
     private void disenioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_disenioKeyTyped
