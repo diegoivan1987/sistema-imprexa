@@ -197,6 +197,9 @@ public class Visualizacion extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tablaPedidoKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tablaPedidoKeyTyped(evt);
+            }
         });
         jScrollPane1.setViewportView(tablaPedido);
 
@@ -1171,6 +1174,7 @@ public class Visualizacion extends javax.swing.JFrame {
     
     //Boton para generar reporte
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
+        String fechaSub = "";//servira para reacomodar el formato de la fecha
         btnReport.setSelected(false);
         int respuesta = 0;
         File archivoElegido = null;
@@ -1223,7 +1227,8 @@ public class Visualizacion extends javax.swing.JFrame {
                     pedidosGlobal.get(i).getC2t3(), pedidosGlobal.get(i).getC2t4(), pedidosGlobal.get(i).getC2t5(), pedidosGlobal.get(i).getC2t6(), 
                     pedidosGlobal.get(i).getDescuento(), pedidosGlobal.get(i).getResto(), pedidosGlobal.get(i).getManera(), pedidosGlobal.get(i).getPzFinales());
                 }*/
-                datosPedido = new PedidoDatos(pedidosGlobal.get(i).getFolio(), pedidosGlobal.get(i).getFecha(), pedidosGlobal.get(i).getImpresion(), 
+                fechaSub = pedidosGlobal.get(i).getFecha().substring(8, 10)+"/"+pedidosGlobal.get(i).getFecha().substring(5, 7)+"/"+pedidosGlobal.get(i).getFecha().substring(0, 4);//cambiamos el formato de la fecha
+                datosPedido = new PedidoDatos(pedidosGlobal.get(i).getFolio(), fechaSub, pedidosGlobal.get(i).getImpresion(), 
                 pedidosGlobal.get(i).getAutorizo(), pedidosGlobal.get(i).getGrabados(), pedidosGlobal.get(i).getSub(), pedidosGlobal.get(i).getIva(), 
                 pedidosGlobal.get(i).getTotal(), pedidosGlobal.get(i).getAnticipo(), pedidosGlobal.get(i).getDirEnt(), pedidosGlobal.get(i).getTel(),
                 pedidosGlobal.get(i).getCel(), pedidosGlobal.get(i).getCiudad(), pedidosGlobal.get(i).getAgente(), pedidosGlobal.get(i).getKg(),
@@ -1329,6 +1334,10 @@ public class Visualizacion extends javax.swing.JFrame {
             this.setEnabled(false);
         }
     }//GEN-LAST:event_btnDetPartActionPerformed
+
+    private void tablaPedidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaPedidoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tablaPedidoKeyTyped
 
     
     //Relleado de tabla de partidas
