@@ -52,6 +52,7 @@ public class CostoMaterial extends javax.swing.JFrame {//permite cambiarle el pr
             st.close();
         }
         catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al llenar las tablas"+ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -200,6 +201,7 @@ public class CostoMaterial extends javax.swing.JFrame {//permite cambiarle el pr
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error al guardar" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -223,6 +225,7 @@ public class CostoMaterial extends javax.swing.JFrame {//permite cambiarle el pr
             st.close();
         }
         catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al volver a llenar la tabla" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
