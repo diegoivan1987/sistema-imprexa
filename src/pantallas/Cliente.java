@@ -505,6 +505,7 @@ public class Cliente extends javax.swing.JFrame {//guardar los datos del cliente
         try {
             st = con.createStatement();
             st.execute(sql);
+            st.close();
             JOptionPane.showMessageDialog(null, "Se han guardado los datos: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar el cliente: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
