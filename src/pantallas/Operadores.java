@@ -175,6 +175,7 @@ public class Operadores extends javax.swing.JFrame {
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error al guardar" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }//GEN-LAST:event_guardarActionPerformed
@@ -254,6 +255,7 @@ public class Operadores extends javax.swing.JFrame {
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error al guardar las modificaciones" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -284,6 +286,7 @@ public class Operadores extends javax.swing.JFrame {
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error al obtener los datos del operador" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -332,6 +335,7 @@ public class Operadores extends javax.swing.JFrame {
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error al llenar la tabla" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -362,6 +366,7 @@ public class Operadores extends javax.swing.JFrame {
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error al actualizar la tabla" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
