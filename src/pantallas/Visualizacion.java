@@ -865,6 +865,7 @@ public class Visualizacion extends javax.swing.JFrame {
             st.close();
             setBar(35);
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al llenar la tabla de pedidos" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
