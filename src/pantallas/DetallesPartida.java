@@ -102,11 +102,11 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
             imp.setText(dp.get(indice).getImporte());
             pzFinales.setText(dp.get(indice).getPzFinales());
             //si el precio unitario por el numero de piezas es igual al importe, se selecciona el chechkbox de pz
-            if(Float.parseFloat(dp.get(indice).getPuni()) * Integer.parseInt(dp.get(indice).getPzs()) == Float.parseFloat(dp.get(indice).getImporte()))
+            if((Float.parseFloat(dp.get(indice).getPuni()) * Integer.parseInt(dp.get(indice).getPzs())) == Float.parseFloat(dp.get(indice).getImporte()))
             {
                 checkPz.setSelected(true);
             }//si el precio unitario por el numero de kg es igual al importe, se selecciona el chechkbox de kg
-            else  if(Float.parseFloat(dp.get(indice).getPuni()) * Float.parseFloat(dp.get(indice).getKgs()) == Float.parseFloat(dp.get(indice).getImporte()))
+            else  if((Float.parseFloat(dp.get(indice).getPuni()) * Float.parseFloat(dp.get(indice).getKgs())) == Float.parseFloat(dp.get(indice).getImporte()))
             {
                 checkKg.setSelected(true);
             }//si el precio unitario por el numero de piezas finales es igual al importe, se selecciona el chechkbox de pz finales
