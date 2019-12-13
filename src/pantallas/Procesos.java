@@ -35,23 +35,28 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 public class Procesos extends javax.swing.JFrame {
+    
     //medidas de la ventana
     private int WD = 0;
     private int HG = 0;
     
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    
     Connection con;
     ResultSet rs;
     Statement st;
+    
     Pedido pd;
     
     String[] modoMaterial = {"Produccion", "Compra", "Ambos"}; //arreglo con las maneras de generar procesos
     
     //Variables de extrusion
     String pM1St=null, pM2St=null, provE1St=null, precioKgE1St=null, prov2St=null, precioKg2St=null;
+    
     //Variables de Impreso
     String prodISt=null, provI1St=null, precioKgI1St=null, prodI2St=null, provI2St=null, precioKgI2St=null, 
             stickySt=null, cDiseSt=null, cGrabSt=null, stcSt=null;
+    
     //Variables de Bolseo
     String  prodBSt=null, prodPzSt=null, provB1St=null, precioKgB1St=null;
     
