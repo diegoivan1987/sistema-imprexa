@@ -226,6 +226,19 @@ create table tintas(idTinta int not null auto_increment,
  insert into operadores values('CRISTOBAL',2100,43.75,false);
  insert into operadores values('MARIO',1500,31.25,false);
  insert into operadores values('VICTOR',1300,27.083,true);
+ 
+ delete from costosMaterial;
+ delete from operadores;
+ delete from operadorBol;
+ delete from operadorImp;
+ delete from operadorExt;
+ delete from bolseo;
+ delete from impreso;
+ delete from extrusion;
+ delete from partida;
+ delete from tintas;
+ delete from pedido;
+ delete from cliente;
 
 /*Eliminar todas la tablas*/
  drop table costosMaterial cascade;
