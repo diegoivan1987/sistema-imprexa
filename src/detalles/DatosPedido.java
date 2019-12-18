@@ -210,9 +210,5 @@ public class DatosPedido {
     public void setPyg(String pyg) {
         this.pyg = pyg;
     }
-    
-    
-    
-    
-    
+      
 }

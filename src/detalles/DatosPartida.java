@@ -217,7 +217,5 @@ public class DatosPartida {
     public void setImporte(String importe) {
         this.importe = importe;
     }
-    
-    
-    
+   
 }

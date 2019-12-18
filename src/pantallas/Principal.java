@@ -13,7 +13,6 @@ public class Principal extends javax.swing.JFrame {
     Pedido pd;
     Procesos pro;
     Visualizacion vis;
-    CostoMaterial cos;
     Connection con;
     Inicio in;
     
@@ -26,7 +25,7 @@ public class Principal extends javax.swing.JFrame {
        
         agreC.setBackground(Color.gray);
         agreP.setBackground(Color.gray);
-        jButton2.setBackground(Color.gray);
+        verDatos.setBackground(Color.gray);
     }
 
     @SuppressWarnings("unchecked")
@@ -38,7 +37,7 @@ public class Principal extends javax.swing.JFrame {
         agreC = new javax.swing.JButton();
         agreP = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        verDatos = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -114,23 +113,23 @@ public class Principal extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(51, 51, 51));
 
-        jButton2.setBackground(new java.awt.Color(102, 102, 102));
-        jButton2.setFont(new java.awt.Font("Gill Sans MT", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 255, 204));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ojo.png"))); // NOI18N
-        jButton2.setText("      Revisar registros");
-        jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        verDatos.setBackground(new java.awt.Color(102, 102, 102));
+        verDatos.setFont(new java.awt.Font("Gill Sans MT", 1, 14)); // NOI18N
+        verDatos.setForeground(new java.awt.Color(0, 255, 204));
+        verDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ojo.png"))); // NOI18N
+        verDatos.setText("      Revisar registros");
+        verDatos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        verDatos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton2MouseEntered(evt);
+                verDatosMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton2MouseExited(evt);
+                verDatosMouseExited(evt);
             }
         });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        verDatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                verDatosActionPerformed(evt);
             }
         });
 
@@ -146,7 +145,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(agreC, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
                     .addComponent(agreP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(verDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -158,7 +157,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(agreP, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(verDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
@@ -221,73 +220,56 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //boton de pedidos
     private void agrePActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agrePActionPerformed
         agreP.setSelected(false);
         Inicio.pd.setLocationRelativeTo(null);
         Inicio.pd.vacearComponentes();
         Inicio.pd.sugerenciaFecha();
         Inicio.pd.setVisible(true);
-        this.dispose();
-        
-        /*pd = new Pedido(con);
-        pd.setLocationRelativeTo(null);
-        pd.setVisible(true);
-        dispose();*/     
+        this.dispose();     
     }//GEN-LAST:event_agrePActionPerformed
 
+    //opcion de procesos
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         
         Inicio.pro.setLocationRelativeTo(null);
         Inicio.pro.vacearComponentes();
         Inicio.pro.setVisible(true);
-        
-        /*pro = new Procesos(con);
-        pro.setLocationRelativeTo(null);
-        pro.setVisible(true);*/
-        
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    //opcion de costo de materiales
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-        cos = new CostoMaterial(con);
+        CostoMaterial cos = new CostoMaterial(con);
         cos.setLocationRelativeTo(null);
         cos.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    //cuando cierra la ventana
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        System.exit(0);
+        System.exit(0);//sale del sistema
     }//GEN-LAST:event_formWindowClosing
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        jButton2.setSelected(false);
+    //boton de visualizacion
+    private void verDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verDatosActionPerformed
+        verDatos.setSelected(false);
         Inicio.vis.setLocationRelativeTo(null);
         Inicio.vis.vacearComponentes();
         Inicio.vis.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_verDatosActionPerformed
 
+    //boton de agregar clientes
     private void agreCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agreCActionPerformed
         agreC.setSelected(false);
         Inicio.cl.setLocationRelativeTo(null);
         Inicio.cl.vacearComponentes();
         Inicio.cl.setVisible(true);
         this.dispose();
-
-        this.addWindowListener( new WindowAdapter() {
-            public void windowClosing( WindowEvent evt ) {
-                System.out.println("cierre");
-                System.exit( 0 );
-            }
-        } );
-
-        /*cli = new Cliente(con);
-        cli.setLocationRelativeTo(null);
-        cli.setVisible(true);
-        dispose();*/
     }//GEN-LAST:event_agreCActionPerformed
-
+    
+    /*cambios esteticos*/
     private void agreCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agreCMouseEntered
-        
         agreC.setBackground(Color.white);
     }//GEN-LAST:event_agreCMouseEntered
 
@@ -303,14 +285,15 @@ public class Principal extends javax.swing.JFrame {
         agreP.setBackground(Color.gray);
     }//GEN-LAST:event_agrePMouseExited
 
-    private void jButton2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseEntered
-        jButton2.setBackground(Color.white);
-    }//GEN-LAST:event_jButton2MouseEntered
+    private void verDatosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verDatosMouseEntered
+        verDatos.setBackground(Color.white);
+    }//GEN-LAST:event_verDatosMouseEntered
 
-    private void jButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseExited
-        jButton2.setBackground(Color.gray);
-    }//GEN-LAST:event_jButton2MouseExited
+    private void verDatosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verDatosMouseExited
+        verDatos.setBackground(Color.gray);
+    }//GEN-LAST:event_verDatosMouseExited
 
+    //opcion de la copia de seguridad
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         CopiasSeguridad cop = new CopiasSeguridad();
         cop.setVisible(true);
@@ -318,6 +301,7 @@ public class Principal extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    //opcion del registro de operadores
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         Operadores ope = new Operadores(con);
         ope.setVisible(true);
@@ -325,13 +309,10 @@ public class Principal extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agreC;
     private javax.swing.JButton agreP;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
@@ -340,5 +321,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton verDatos;
     // End of variables declaration//GEN-END:variables
 }
