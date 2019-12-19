@@ -102,7 +102,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         HG = this.getSize().height;
         this.setSize(new Dimension(WD/2, HG));//se establece el tamaño de la pantalla a la mitad
 
-        df = new SimpleDateFormat("dd-MM-yyyy");
+        df = new SimpleDateFormat("yyyy-MM-dd");
 
         this.modoMaterial = new String[]{"Produccion", "Compra", "Ambos"};//arreglo con las maneras de generar procesos
 
@@ -223,6 +223,37 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             public void changedUpdate(DocumentEvent e) {
             }
         });
+    }
+    
+    //Rellenar la tabla de partidas respecto al folio, Se acciona cuando el campo del folio se actualiza
+    private void setTablePartidas(){
+        
+        modPart.setRowCount(0);
+        
+        folio = Integer.parseInt(foVis.getText());//Se obtiene el folio
+        
+        String sql = "select idPar, piezas, medida, mat1, mat2, pigmento, tipo, "
+                + "precioUnitaro from partida where folio_fk = "+folio+" limit 0,30";//Busqueda de todas la prtidas relacionadas al folio
+        try 
+        {
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            
+            while(rs.next()){//Se rellena la tabla con las partidas encontradas
+                modPart.addRow(new Object[]{rs.getString("idPar"), 
+                    rs.getString("piezas"), rs.getString("medida"), 
+                    rs.getString("mat1"), rs.getString("mat2"), 
+                    rs.getString("pigmento"), rs.getString("tipo"), 
+                    rs.getString("precioUnitaro")});
+            }
+            rs.close();
+            st.close();
+        } 
+        catch (SQLException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "No se ha podido establecer la tabla de partidas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
     }
     
     //Listeners de los JTimeChoser y datechooser
@@ -970,7 +1001,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         regresar = new javax.swing.JToggleButton();
-        jButton3 = new javax.swing.JButton();
+        busquedaImp = new javax.swing.JButton();
         impBus = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPed = new javax.swing.JTable();
@@ -2222,12 +2253,12 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                 .addContainerGap())
         );
 
-        jButton3.setBackground(new java.awt.Color(51, 51, 51));
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Buscar Pedido");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        busquedaImp.setBackground(new java.awt.Color(51, 51, 51));
+        busquedaImp.setForeground(new java.awt.Color(255, 255, 255));
+        busquedaImp.setText("Buscar Pedido");
+        busquedaImp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                busquedaImpActionPerformed(evt);
             }
         });
 
@@ -2348,7 +2379,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton3)
+                                .addComponent(busquedaImp)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(impBus)
                                 .addGap(18, 18, 18)
@@ -2379,7 +2410,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3)
+                            .addComponent(busquedaImp)
                             .addComponent(foVis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
                             .addComponent(impBus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -2421,7 +2452,6 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
     private void obtenerSeleccionTablaPedido(){
         vaciarCamposProcesos();
         String fol;
-        
         try
         {
             fol = modPed.getValueAt(tablaPed.getSelectedRow(), 0).toString().replace("A", "");//Se obtiene el folio del pedido
@@ -2452,12 +2482,12 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
     }
     
     //Boton: busqueda de los pedidos mediante la impresion
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        jButton3.setSelected(false);
+    private void busquedaImpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busquedaImpActionPerformed
+        busquedaImp.setSelected(false);
         llenarTablaPedido();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_busquedaImpActionPerformed
     
-    
+    //llena la tabla de pedidos
     public void llenarTablaPedido(){
         
         paPro.setVisible(false);
@@ -2466,62 +2496,26 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         
         modPed.setRowCount(0);//Para que no se acumulen los resultados de las consultas en la tabla
         modPart.setRowCount(0);
-        String nompedido;//Para guardar el nombre de Impresion a buscar
-        
-        nompedido = impBus.getText().toString();//Se establece la variable a base del campo de busqueda por impresion
+        String nompedido = impBus.getText();//Para guardar el nombre de Impresion a buscar
         
         //Se utiliza join para que tambien se muestren los datos de clientes relacionados con el pedido
         //En este caso solo para mostrar el nombre del cliente relacionado a su pedido, 2 tablas distintas.
         String sql = "select folio, impresion, nom, fIngreso from pedido join cliente on idC_fk = idC where impresion like '%"+nompedido+"%' "
                 + "order by fIngreso desc limit 0, 30";
-        
-        
         try 
         {
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            
-            while(rs.next()){//Se van insertando los resultados de la consulta en la tabla de pedidos
+            while(rs.next()){
                 modPed.addRow(new Object[]{rs.getString("folio")+"A", rs.getString("impresion"), rs.getString("nom"), 
                     rs.getString("fIngreso")});
             }
-            tablaPed.setModel(modPed);//Se establece la tabla a base del modelo modificado
+            rs.close();
             st.close();
-            
-        } 
+         } 
         catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se ha encontrado ningún pedido: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    //Rellenar la tabla de partidas respecto al folio seleccionado, Se acciona cuando el campo del folio se actualiza
-    private void setTablePartidas(){
-        
-        modPart.setRowCount(0);
-        
-        folio = Integer.parseInt(foVis.getText());//Se obtiene el folio guardado en el textfield
-        String sql = "select idPar, piezas, medida, mat1, mat2, pigmento, tipo, "
-                + "piezas, precioUnitaro from partida where folio_fk = "+folio+" limit 0,30";//Busqueda de todas la prtidas relacionadas al folio
-        
-        try 
-        {
-            st = con.createStatement();
-            rs = st.executeQuery(sql);
-            
-            while(rs.next()){//Se rellena la tabla con las partidas encontradas
-                modPart.addRow(new Object[]{rs.getString("idPar"), rs.getString("piezas"), rs.getString("medida"), rs.getString("mat1"), 
-                    rs.getString("mat2"), rs.getString("pigmento"), rs.getString("tipo"), rs.getString("piezas"), rs.getString("precioUnitaro")});
-            }
-            
-            tablaPart.setModel(modPart);
-            st.close();
-            
-            
-        } 
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "No se ha podido establecer la tabla de partidas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
     }
     
@@ -5474,6 +5468,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
     private javax.swing.JButton agB;
     private javax.swing.JButton agE;
     private javax.swing.JButton agI;
+    private javax.swing.JButton busquedaImp;
     private javax.swing.JButton cambioMod;
     private javax.swing.JTextField costoOpBol;
     private javax.swing.JTextField costoOpExt;
@@ -5507,7 +5502,6 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
     private lu.tudor.santec.jtimechooser.JTimeChooser hrMuertoImp;
     private javax.swing.JTextField idPartida;
     private javax.swing.JTextField impBus;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
