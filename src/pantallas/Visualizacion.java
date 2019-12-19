@@ -1451,6 +1451,7 @@ public class Visualizacion extends javax.swing.JFrame {
             datosPartidas.get(contador).setPuni(rs.getString("precioUnitaro"));
             datosPartidas.get(contador).setPzs(rs.getString("piezas"));
             datosPartidas.get(contador).setKgs(rs.getString("kgPartida"));
+            datosPartidas.get(contador).setManera(rs.getString("manera"));
             datosPartidas.get(contador).setImporte(rs.getString("importe"));
             
         } catch (SQLException ex) {
