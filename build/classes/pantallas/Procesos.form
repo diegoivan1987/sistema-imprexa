@@ -58,7 +58,7 @@
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="eliminarP" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="savePro" min="-2" max="-2" attributes="0"/>
+                              <Component id="generarPro" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -94,7 +94,7 @@
                       <Component id="jScrollPane2" min="-2" pref="125" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="savePro" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="generarPro" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="eliminarP" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cambioMod" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -2152,7 +2152,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jToggleButton1" min="-2" max="-2" attributes="0"/>
+                  <Component id="regresar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -2163,7 +2163,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" max="32767" attributes="0"/>
-                      <Component id="jToggleButton1" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="regresar" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -2179,7 +2179,7 @@
             <Property name="text" type="java.lang.String" value="Procesos"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JToggleButton" name="jToggleButton1">
+        <Component class="javax.swing.JToggleButton" name="regresar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="33" type="rgb"/>
@@ -2190,7 +2190,7 @@
             <Property name="text" type="java.lang.String" value="Cerrar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="regresarActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -2318,7 +2318,7 @@
         <Property name="text" type="java.lang.String" value="Partida Elegida:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="savePro">
+    <Component class="javax.swing.JToggleButton" name="generarPro">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="33" green="33" red="33" type="rgb"/>
@@ -2329,7 +2329,7 @@
         <Property name="text" type="java.lang.String" value="Generar Procesos"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveProActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="generarProActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="eliminarP">

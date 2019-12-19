@@ -34,52 +34,50 @@ import org.joda.time.Period;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-public class Procesos extends javax.swing.JFrame {
-    
-    //medidas de la ventana
-    private int WD = 0;
-    private int HG = 0;
-    
-    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-    
+public class Procesos extends javax.swing.JFrame {//Permite llevar un control de los registros de produccion
     Connection con;
     ResultSet rs;
     Statement st;
     
     Pedido pd;
     
-    String[] modoMaterial = {"Produccion", "Compra", "Ambos"}; //arreglo con las maneras de generar procesos
+    //medidas de la ventana
+    private int WD;
+    private int HG;
+    
+    DateFormat df;
+    
+    String[] modoMaterial; 
     
     //Variables de extrusion
-    String pM1St=null, pM2St=null, provE1St=null, precioKgE1St=null, prov2St=null, precioKg2St=null;
+    String pM1St, pM2St, provE1St, precioKgE1St, prov2St, precioKg2St;
     
     //Variables de Impreso
-    String prodISt=null, provI1St=null, precioKgI1St=null, prodI2St=null, provI2St=null, precioKgI2St=null, 
-            stickySt=null, cDiseSt=null, cGrabSt=null, stcSt=null;
+    String prodISt, provI1St, precioKgI1St, prodI2St, provI2St, precioKgI2St, stickySt,
+           cDiseSt, cGrabSt, stcSt;
     
     //Variables de Bolseo
-    String  prodBSt=null, prodPzSt=null, provB1St=null, precioKgB1St=null;
+    String  prodBSt, prodPzSt, provB1St, precioKgB1St;
     
     
     //Variables de OperadorExtrusion
-    String kgESt=null, greniaESt=null, opESt=null, nMESt=null, hIniESt=null, fIniESt=null, hFinESt=null, fFinESt=null, 
-            tMuESt=null, totHESt=null, exESt=null, costoOpExSt=null;
+    String kgESt, greniaESt, opESt, nMESt, hIniESt, fIniESt, hFinESt, fFinESt, 
+            tMuESt, totHESt, exESt, costoOpExSt;
     
     //Variables de OperadorImpresion
-    String kgISt=null, greniaISt=null, opISt=null, ayudanteSt = null,nMISt=null, hIniISt=null, fIniISt=null, hFinISt=null, fFinISt=null, 
-            tMuISt=null, totHISt=null, exISt=null, costoOpImSt=null;
+    String kgISt, greniaISt, opISt, ayudanteSt,nMISt, hIniISt, fIniISt, hFinISt, 
+            fFinISt,tMuISt, totHISt, exISt, costoOpImSt;
     
     //Variables de OperadorBolseo
-    String kgBSt=null, greniaBSt=null, suajeBSt=null, opBSt=null, nMBSt=null, hIniBSt=null, fIniBSt=null, hFinBSt=null, fFinBSt=null, 
-            tMuBSt=null, totHBSt=null, exBSt=null, costoOpBoSt=null;
+    String kgBSt, greniaBSt, suajeBSt, opBSt, nMBSt, hIniBSt, fIniBSt, hFinBSt, 
+            fFinBSt, tMuBSt, totHBSt, exBSt, costoOpBoSt;
     
     //Vaiables que almacenan claves principales
-    int folio = 0;
-    int idPart = 0;
-    int idEx = 0;
-    int idBo = 0;
-    int idIm = 0;
-    float idPe = 0f;
+    int folio;
+    int idPart;
+    int idEx;
+    int idBo;
+    int idIm;
     
     DefaultTableModel modPed, modPart;
     JTableHeader thPed, thPart;
@@ -94,34 +92,44 @@ public class Procesos extends javax.swing.JFrame {
     Float sueldoPorHoraAyudanteI;
     
     public Procesos(Connection con) {
-        
         initComponents();
-        
-        //inicializo los costos por hora
-        sueldoPorHoraE = 0f;
-        sueldoPorHoraI = 0f;
-        sueldoPorHoraB = 0f;
-        sueldoPorHoraAyudanteI = 0f;
-    
-        cambioMod.setVisible(false);//se hace invisible el boton para añadir mas campos al generar procesos
-        
         this.setIconImage (new ImageIcon(getClass().getResource("/Images/iconoCab.png")).getImage());
         this.setResizable(false);
-        fuenteTablas = new Font("Dialog", Font.BOLD, 12);
+        this.con = con;
+        
         //Tamaño de la pantalla
         WD = this.getSize().width;
         HG = this.getSize().height;
         this.setSize(new Dimension(WD/2, HG));//se establece el tamaño de la pantalla a la mitad
+
+        df = new SimpleDateFormat("dd-MM-yyyy");
+
+        this.modoMaterial = new String[]{"Produccion", "Compra", "Ambos"};//arreglo con las maneras de generar procesos
+
+        //Vaiables que almacenan claves principales
+        this.folio = 0;
+        this.idPart = 0;
+        this.idEx = 0;
+        this.idBo = 0;
+        this.idIm = 0;
         
-        onChangeTextField();//Creacion del listener para el campo de folio
-        listenersJTime();//agrupa los listeners de los jtime
+        //inicializo los costos por hora
+        this.sueldoPorHoraE = 0f;
+        this.sueldoPorHoraI = 0f;
+        this.sueldoPorHoraB = 0f;
+        this.sueldoPorHoraAyudanteI = 0f;
+    
+        cambioMod.setVisible(false);//se hace invisible el boton para cambiar el modo de generacion de los procesos
         
-        //Se desactivan los botones de guardar procesos y de agegar
-        savePro.setEnabled(false);
+        fuenteTablas = new Font("Dialog", Font.BOLD, 12);
+        
+        //Se desactivan los botones de guardar procesos y de agregar
+        generarPro.setEnabled(false);
+        //maquila
         agE.setEnabled(false);
         agI.setEnabled(false);
         agB.setEnabled(false);
-        
+        //produccion
         gdEx.setEnabled(false);
         gdIm.setEnabled(false);
         gdBo.setEnabled(false);
@@ -158,30 +166,671 @@ public class Procesos extends javax.swing.JFrame {
         fIniBol.setDateFormat(df);
         fFinBol.setDateFormat(df);
         
-        //Se desactivar los textfield del folio y la id de partida
+        //Se desactivan los textfield del folio y la id de partida
         foVis.setEnabled(false);
         idPartida.setEnabled(false);
+        //tambien los que muestran los costos de operacion
         costoOpExt.setEditable(false);
         costoOpImp.setEditable(false);
         costoOpBol.setEditable(false);
        
         paPro.setBackground(Color.LIGHT_GRAY);
+        paPro.setVisible(false);//se hace invisible el panel que contiene los campos de capturas
+        
         //se hacen invisibles los paneles de maquila
         panMaqExt.setVisible(false);
         panMaqImp.setVisible(false);
         panMaqBol.setVisible(false);   
         
-        paPro.setVisible(false);//se hace invisible el panel que contiene los campos de capturas
-        
+        //se inhabilitan los timefield de horas totales
         totalHrExt.getTimeField().setEditable(false);
         totalHrImp.getTimeField().setEditable(false);
         totalHrBol.getTimeField().setEditable(false);
         
-        this.con = con;
-        
         estilosTablas();//se les da estilo a las tablas
+        
+        onChangeTextField();//Creacion del listener para el campo de folio
+        listenersProcesos();//agrupa los listeners de los procesos
     }
     
+    //le da color a las tablas
+    private void estilosTablas(){
+        thPed = tablaPed.getTableHeader();
+        thPed.setFont(fuenteTablas);
+        thPed.setBackground(Color.black);
+        thPed.setForeground(Color.white);
+        
+        thPart = tablaPart.getTableHeader();
+        thPart.setFont(fuenteTablas);
+        thPart.setBackground(Color.black);
+        thPart.setForeground(Color.white);
+    }
+    
+    //si cambia el folio, se muestran las partidas de ese pedido en la tabla
+    private void onChangeTextField(){
+        foVis.getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                setTablePartidas();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {   
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
+    }
+    
+    //Listeners de los JTimeChoser y datechooser
+    private void listenersProcesos(){
+        hrIniEChange();
+        hrFinEChange();
+        tmMuertoEChange();
+        fIniExtChange();
+        fFinExtChange();
+        extraEChange();
+        
+        hrIniIChange();
+        hrFinIChange();
+        tmMuertoIChange();
+        fIniImpChange();
+        fFinImpChange();
+        extraIChange();
+        
+        hrIniBChange();
+        hrFinBChange();
+        tmMuertoBChange();
+        fIniBolChange();
+        fFinBolChange();
+        extraBChange();
+    }
+    
+    //listener de extrusion
+    private void hrIniEChange(){
+        hrIni.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, sueldoPorHoraE, costoOpExt);
+                
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
+    }
+    
+    private void hrFinEChange(){
+        hrFin.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, sueldoPorHoraE, costoOpExt);
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
+    }
+    
+    private void tmMuertoEChange(){
+        hrMuertoExt.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, sueldoPorHoraE, costoOpExt);
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        }); 
+    }
+    
+    private void extraEChange(){
+        extHrExt.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, sueldoPorHoraE, costoOpExt); 
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        }); 
+    }
+    
+    private void fIniExtChange(){
+        
+        fIniExt.addCommitListener(new CommitListener() {
+
+            @Override
+            public void onCommit(CommitEvent ce) {
+                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, sueldoPorHoraE, costoOpExt);
+            }
+        });
+    }
+    
+    private void fFinExtChange(){
+        fFinExt.addCommitListener(new CommitListener() {
+
+            @Override
+            public void onCommit(CommitEvent ce) {
+                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, sueldoPorHoraE, costoOpExt);
+            }
+        });
+    }
+    
+    //listeners de impreso
+    private void hrIniIChange(){
+        hrIniImp.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                int maquina = obtieneMaquina();
+                if(maquina == 3)/*si usan la maquina 3, utiliza la funcion exclusiva de impresion*/
+                {
+                    calcularTotalhrImp(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, sueldoPorHoraAyudanteI, costoOpImp);
+                }
+                else/*si no,usa la misma funcion que los otros procesos*/
+                {
+                    calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
+                }
+                
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
+    }
+    
+    private void hrFinIChange(){
+        hrFinImp.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                int maquina = obtieneMaquina();
+                if(maquina == 3)/*si usan la maquina 3, utiliza la funcion exclusiva de impresion*/
+                {
+                    calcularTotalhrImp(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, sueldoPorHoraAyudanteI, costoOpImp);
+                }
+                else/*si no,usa la misma funcion que los otros procesos*/
+                {
+                    calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
+                }
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
+    }
+    
+    private void tmMuertoIChange(){
+        hrMuertoImp.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                int maquina = obtieneMaquina();
+                if(maquina == 3)/*si usan la maquina 3, utiliza la funcion exclusiva de impresion*/
+                {
+                    calcularTotalhrImp(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, sueldoPorHoraAyudanteI, costoOpImp);
+                }
+                else/*si no,usa la misma funcion que los otros procesos*/
+                {
+                    calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
+                }
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        }); 
+    }
+    
+    private void extraIChange(){
+        extHrImp.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                int maquina = obtieneMaquina();
+                if(maquina == 3)/*si usan la maquina 3, utiliza la funcion exclusiva de impresion*/
+                {
+                    calcularTotalhrImp(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, sueldoPorHoraAyudanteI, costoOpImp);
+                }
+                else/*si no,usa la misma funcion que los otros procesos*/
+                {
+                    calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
+                }
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        }); 
+    }
+    
+    private void fIniImpChange(){
+        fIniImp.addCommitListener(new CommitListener() {
+
+            @Override
+            public void onCommit(CommitEvent ce) {
+                int maquina = obtieneMaquina();
+                if(maquina == 3)/*si usan la maquina 3, utiliza la funcion exclusiva de impresion*/
+                {
+                    calcularTotalhrImp(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, sueldoPorHoraAyudanteI, costoOpImp);
+                }
+                else/*si no,usa la misma funcion que los otros procesos*/
+                {
+                    calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
+                }
+            }
+        });
+    }
+    
+    private void fFinImpChange(){
+        fFinImp.addCommitListener(new CommitListener() {
+
+            @Override
+            public void onCommit(CommitEvent ce) {
+                int maquina = obtieneMaquina();
+                if(maquina == 3)/*si usan la maquina 3, utiliza la funcion exclusiva de impresion*/
+                {
+                    calcularTotalhrImp(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, sueldoPorHoraAyudanteI, costoOpImp);
+                }
+                else/*si no,usa la misma funcion que los otros procesos*/
+                {
+                    calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
+                }
+            }
+        });
+    }
+    
+    //listeners de bolseo
+    private void hrIniBChange(){
+        hrIniBol.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, sueldoPorHoraB, costoOpBol);
+                
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
+    }
+    
+    private void hrFinBChange(){
+        hrFinBol.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, sueldoPorHoraB, costoOpBol);
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
+    }
+    
+    private void tmMuertoBChange(){
+        hrMuertoBol.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, sueldoPorHoraB, costoOpBol);
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        }); 
+    }
+    
+    private void extraBChange(){
+        extBol.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, sueldoPorHoraB, costoOpBol);
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        }); 
+    }
+     
+    private void fIniBolChange(){
+         fIniBol.addCommitListener(new CommitListener() {
+
+             @Override
+             public void onCommit(CommitEvent ce) {
+                 calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, sueldoPorHoraB, costoOpBol);
+             }
+         });
+     }
+     
+    private void fFinBolChange(){
+         fFinBol.addCommitListener(new CommitListener() {
+
+             @Override
+             public void onCommit(CommitEvent ce) {
+                 calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, sueldoPorHoraB, costoOpBol);
+             }
+         });
+     }
+    
+    //calcula y establece la hora total de los procesos
+    private void calcularTotalhr(JTimeChooser tIni, JTimeChooser tFin, JTimeChooser total, JTimeChooser muerto, DateChooserCombo fini, DateChooserCombo fFin,
+            JTimeChooser extra, float sueldoOperador, JTextField costo){
+        DateTimeFormatter dtf;
+        DateTime dtIni;
+        DateTime dtFin;
+        DateTime dtMuerto;
+        DateTime aux;
+        DateTime extTime;
+        Period diff; 
+        
+        dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
+        dtIni= new DateTime(fini.getText() + "T" + tIni.getTimeField().getText());
+        dtFin = new DateTime(fFin.getText() + "T" + tFin.getTimeField().getText());
+        dtMuerto = new DateTime("T" + muerto.getTimeField().getText());   
+        extTime = new DateTime("T" + extra.getTimeField().getText());
+        diff = new Period(dtIni, dtFin);
+        
+        int minNoAcum = diff.getMinutes();
+        String horasSt = "00:00:00";
+        int minOfHour = 0;
+        int hrOfDay = 0;
+        int tiempoExtra = 0;
+        int minutosMenosExtra = 0;
+        
+        int horas = Hours.hoursBetween(dtIni, dtFin).getHours();
+        int minutos = Minutes.minutesBetween(dtIni, dtFin).getMinutes();
+        
+        horas = horas - dtMuerto.getHourOfDay();
+        minutos = minutos - dtMuerto.getMinuteOfDay();
+        
+        
+        if(horas < 0){
+            horas = 0;
+        } 
+        
+        if(minutos < 0){
+            minutos = 0;
+        }
+        if(minNoAcum < 0){
+            minNoAcum = 0;
+        }
+        
+        if(horas > 9 && minNoAcum > 9){
+            horasSt = (horas + ":" + minNoAcum + ":00");
+        }else if(horas < 10 && minNoAcum < 10){
+            horasSt = ("0" + horas + ":" + "0" + minNoAcum + ":00");
+        }else if(horas > 9 && minNoAcum < 10){
+            horasSt = (horas + ":" + "0" + minNoAcum + ":00");
+        }else if(horas < 10 && minNoAcum > 9){
+            horasSt = ("0" + horas + ":" + minNoAcum + ":00");
+        }
+        
+        String horasTotal = getHrDT(horasSt); 
+        char auxHr = 0;
+        
+        if(Integer.parseInt(horasTotal) > 23){
+            
+            try{
+                auxHr = horasTotal.charAt(0);
+                horasSt = horasSt.replace(horasSt.charAt(0), '1');
+
+                aux = new DateTime("T"+horasSt);
+                aux = aux.plusMinutes(-muerto.getMinutes());
+                minOfHour = aux.getMinuteOfHour();
+                hrOfDay = Integer.parseInt(horasTotal);
+
+                horasSt = horasSt.replace(horasSt.charAt(0), auxHr);
+
+                comprobarTiempos(minOfHour, hrOfDay, horasSt, aux, total);
+            }catch(java.lang.IllegalArgumentException ex){
+                JOptionPane.showMessageDialog(null, "No se pueden sobrepasar las horas totales, maximo: 99 horas", "Advertencia", 
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+            
+        }else{
+            
+            try{
+                aux = new DateTime("T"+horasSt);
+                aux = aux.plusMinutes(-muerto.getMinutes());
+                minOfHour = aux.getMinuteOfHour();
+                hrOfDay = aux.getHourOfDay();
+
+                comprobarTiempos(minOfHour, hrOfDay, horasSt, aux, total);
+            }catch(java.lang.IllegalArgumentException ex){
+                JOptionPane.showMessageDialog(null, "No se pueden sobrepasar las horas totales, maximo: 99 horas", "Advertencia", 
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+    
+        }
+        
+        aux = new DateTime("T00:00:00");
+        tiempoExtra = Minutes.minutesBetween(aux, extTime).getMinutes();
+        minutosMenosExtra = minutos - tiempoExtra;
+        
+        if(minutosMenosExtra < 0){
+            minutos = 0;
+        }
+        if(tiempoExtra < 0){
+            tiempoExtra = 0;
+        }
+        
+        calcularCostoOpMinutos(minutosMenosExtra, sueldoOperador, tiempoExtra, minutos, costo);   
+    }
+   
+    //devuelve el numero de horas
+    private String getHrDT(String tiempo){
+        
+        String hora = "";
+        hora = hora + tiempo.charAt(0) + tiempo.charAt(1);
+        return hora;
+    }
+    
+    //establece las horas totales en el recuadros de horas
+    private void comprobarTiempos(int minOfHour, int hrOfDay, String horasSt, DateTime aux, JTimeChooser total){
+
+        if(minOfHour > 9 && hrOfDay > 9){
+            horasSt = (hrOfDay + ":" + minOfHour + ":00");
+        }else if(minOfHour < 10 && hrOfDay < 10){
+            horasSt = ("0" + hrOfDay + ":0" + minOfHour + ":00");
+        }else if(minOfHour < 10 && hrOfDay > 9){
+            horasSt = (hrOfDay + ":0" + minOfHour + ":00");
+        }else if(minOfHour > 9 && hrOfDay < 10){
+            horasSt = ("0" + hrOfDay + ":" + minOfHour + ":00");
+        }
+        
+        total.getTimeField().setText(horasSt);
+    }
+    
+    //calcula el costo de operacion por registro de operador
+    private void calcularCostoOpMinutos(int minutos, float sueldoOperador, int minutosExtra, int minutosTotales, JTextField costoField){
+        
+        float costoPorMinutos = 0f;
+        float costoTotal = 0f;
+        
+        if(minutosExtra > minutosTotales)
+        {
+            costoTotal = 0;
+        }else
+        {
+            costoPorMinutos = sueldoOperador / 60;
+            costoTotal = (costoPorMinutos * minutos) + ((costoPorMinutos * minutosExtra) * 2);
+        }
+        
+        costoField.setText(String.valueOf(costoTotal));
+    }
+    
+    //calcula el total de horas de impreso
+    private void calcularTotalhrImp(JTimeChooser tIni, JTimeChooser tFin, JTimeChooser total, JTimeChooser muerto, DateChooserCombo fini, DateChooserCombo fFin,
+            JTimeChooser extra, float sueldoOperador, float sueldoAyudante,JTextField costo){
+        DateTimeFormatter dtf;
+        DateTime dtIni;
+        DateTime dtFin;
+        DateTime dtMuerto;
+        DateTime aux;
+        DateTime extTime;
+        Period diff;
+        
+        dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
+        dtIni= new DateTime(fini.getText() + "T" + tIni.getTimeField().getText());
+        dtFin = new DateTime(fFin.getText() + "T" + tFin.getTimeField().getText());
+        dtMuerto = new DateTime("T" + muerto.getTimeField().getText());   
+        extTime = new DateTime("T" + extra.getTimeField().getText());
+        diff = new Period(dtIni, dtFin);
+        
+        int minNoAcum = diff.getMinutes();
+        String horasSt = "00:00:00";
+        int minOfHour = 0;
+        int hrOfDay = 0;
+        int tiempoExtra = 0;
+        int minutosMenosExtra = 0;
+        
+        int horas = Hours.hoursBetween(dtIni, dtFin).getHours();
+        int minutos = Minutes.minutesBetween(dtIni, dtFin).getMinutes();
+        
+        horas = horas - dtMuerto.getHourOfDay();
+        minutos = minutos - dtMuerto.getMinuteOfDay();
+        
+        
+        if(horas < 0){
+            horas = 0;
+        } 
+        
+        if(minutos < 0){
+            minutos = 0;
+        }
+        if(minNoAcum < 0){
+            minNoAcum = 0;
+        }
+        
+        if(horas > 9 && minNoAcum > 9){
+            horasSt = (horas + ":" + minNoAcum + ":00");
+        }else if(horas < 10 && minNoAcum < 10){
+            horasSt = ("0" + horas + ":" + "0" + minNoAcum + ":00");
+        }else if(horas > 9 && minNoAcum < 10){
+            horasSt = (horas + ":" + "0" + minNoAcum + ":00");
+        }else if(horas < 10 && minNoAcum > 9){
+            horasSt = ("0" + horas + ":" + minNoAcum + ":00");
+        }
+        
+        String horasTotal = getHrDT(horasSt); 
+        char auxHr = 0;
+        
+        if(Integer.parseInt(horasTotal) > 23){
+            
+            try{
+                auxHr = horasTotal.charAt(0);
+                horasSt = horasSt.replace(horasSt.charAt(0), '1');
+
+                aux = new DateTime("T"+horasSt);
+                aux = aux.plusMinutes(-muerto.getMinutes());
+                minOfHour = aux.getMinuteOfHour();
+                hrOfDay = Integer.parseInt(horasTotal);
+
+                horasSt = horasSt.replace(horasSt.charAt(0), auxHr);
+
+                comprobarTiempos(minOfHour, hrOfDay, horasSt, aux, total);
+            }catch(java.lang.IllegalArgumentException ex){
+                JOptionPane.showMessageDialog(null, "No se pueden sobrepasar las horas totales, maximo: 99 horas", "Advertencia", 
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+            
+        }else{
+            
+            try{
+                aux = new DateTime("T"+horasSt);
+                aux = aux.plusMinutes(-muerto.getMinutes());
+                minOfHour = aux.getMinuteOfHour();
+                hrOfDay = aux.getHourOfDay();
+
+                //System.out.println(horasSt);
+                comprobarTiempos(minOfHour, hrOfDay, horasSt, aux, total);
+            }catch(java.lang.IllegalArgumentException ex){
+                JOptionPane.showMessageDialog(null, "No se pueden sobrepasar las horas totales, maximo: 99 horas", "Advertencia", 
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+    
+        }
+        
+        aux = new DateTime("T00:00:00");
+        tiempoExtra = Minutes.minutesBetween(aux, extTime).getMinutes();
+        minutosMenosExtra = minutos - tiempoExtra;
+        
+        if(minutosMenosExtra < 0){
+            minutos = 0;
+        }
+        if(tiempoExtra < 0){
+            tiempoExtra = 0;
+        }
+        
+        calcularCostoOpMinutosImp(minutosMenosExtra, sueldoOperador, sueldoAyudante, tiempoExtra, minutos, costo);
+        
+    }
+    
+    //calcula el costo total por cada registro de impresion
+    private void calcularCostoOpMinutosImp(int minutos, float sueldoOperador, float sueldoAyudante,int minutosExtra, int minutosTotales, JTextField costoField){
+        
+        float costoPorMinutos = 0f;
+        float costoTotal = 0f;
+        
+        if(minutosExtra > minutosTotales){
+            costoTotal = 0;
+        }else{
+            //los parseamos porque si no marca error y les sumamos 8.33 porque eso es igual a los 400 que se le suman entre las 48 horas
+            sueldoOperador = (float) (8.33+sueldoOperador);
+            sueldoAyudante = (float) (8.33+sueldoAyudante);
+            costoPorMinutos = (sueldoOperador+sueldoAyudante) / 60;
+            
+            costoTotal = (costoPorMinutos * minutos) + ((costoPorMinutos * minutosExtra) * 2);
+        }
+        
+        costoField.setText(String.valueOf(costoTotal));
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -320,7 +969,7 @@ public class Procesos extends javax.swing.JFrame {
         gdBo = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        regresar = new javax.swing.JToggleButton();
         jButton3 = new javax.swing.JButton();
         impBus = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -332,7 +981,7 @@ public class Procesos extends javax.swing.JFrame {
         idPartida = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        savePro = new javax.swing.JToggleButton();
+        generarPro = new javax.swing.JToggleButton();
         eliminarP = new javax.swing.JButton();
         cambioMod = new javax.swing.JButton();
 
@@ -1543,12 +2192,12 @@ public class Procesos extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Andalus", 0, 18)); // NOI18N
         jLabel1.setText("Procesos");
 
-        jToggleButton1.setBackground(new java.awt.Color(51, 51, 51));
-        jToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jToggleButton1.setText("Cerrar");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        regresar.setBackground(new java.awt.Color(51, 51, 51));
+        regresar.setForeground(new java.awt.Color(255, 255, 255));
+        regresar.setText("Cerrar");
+        regresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                regresarActionPerformed(evt);
             }
         });
 
@@ -1560,7 +2209,7 @@ public class Procesos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jToggleButton1)
+                .addComponent(regresar)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -1569,7 +2218,7 @@ public class Procesos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1657,12 +2306,12 @@ public class Procesos extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(0, 102, 153));
         jLabel3.setText("Partida Elegida:");
 
-        savePro.setBackground(new java.awt.Color(51, 51, 51));
-        savePro.setForeground(new java.awt.Color(255, 255, 255));
-        savePro.setText("Generar Procesos");
-        savePro.addActionListener(new java.awt.event.ActionListener() {
+        generarPro.setBackground(new java.awt.Color(51, 51, 51));
+        generarPro.setForeground(new java.awt.Color(255, 255, 255));
+        generarPro.setText("Generar Procesos");
+        generarPro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveProActionPerformed(evt);
+                generarProActionPerformed(evt);
             }
         });
 
@@ -1717,7 +2366,7 @@ public class Procesos extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(eliminarP)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(savePro)
+                                .addComponent(generarPro)
                                 .addGap(9, 9, 9)))))
                 .addContainerGap())
         );
@@ -1745,7 +2394,7 @@ public class Procesos extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(savePro)
+                            .addComponent(generarPro)
                             .addComponent(eliminarP)
                             .addComponent(cambioMod)))
                     .addComponent(paPro))
@@ -1755,67 +2404,52 @@ public class Procesos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    //Cerrar ventana
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        jToggleButton1.setSelected(false);
-        dispose();
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
-    //le da color a las tablas
-    private void estilosTablas(){
-        thPed = tablaPed.getTableHeader();
-        thPed.setFont(fuenteTablas);
-        thPed.setBackground(Color.black);
-        thPed.setForeground(Color.white);
-        
-        thPart = tablaPart.getTableHeader();
-        thPart.setFont(fuenteTablas);
-        thPart.setBackground(Color.black);
-        thPart.setForeground(Color.white);
-    }
+    //boton de regresar
+    private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
+        regresar.setSelected(false);
+        Inicio.prin.setLocationRelativeTo(null);
+        Inicio.prin.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_regresarActionPerformed
     
-    //Evento: cuando la tabla de pedidos es clickeada
+    //cuando la tabla de pedidos es clickeada
     private void tablaPedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPedMouseClicked
- 
-        obtenerSeleccionTablaPedido();
+        obtenerSeleccionTablaPedido();//cambia el folio, lo que rellena la tabla de partidas
     }//GEN-LAST:event_tablaPedMouseClicked
     
+    //obtiene y cambia el folio que aparece en el interfaz
     private void obtenerSeleccionTablaPedido(){
-        vaciarCamposProcesos();//Vaciar campos, ya que si clickea la tabla significa que quiere visualizar otro pedido o proceso
-                               //Puede que la partida seleccionada aun no tenga procesos establecidos, es decir, estan vacios los campos
-        
-        String imp;
+        vaciarCamposProcesos();
         String fol;
         
         try
         {
-                    imp = modPed.getValueAt(tablaPed.getSelectedRow(), 1).toString();//Se obtiene el nombre de impresion
-                    fol = modPed.getValueAt(tablaPed.getSelectedRow(), 0).toString().replace("A", "");//Se obtiene el folio del pedido
+            fol = modPed.getValueAt(tablaPed.getSelectedRow(), 0).toString().replace("A", "");//Se obtiene el folio del pedido
+                        
+            //Se desactivan los botones de registros de operadores y maquila
+            generarPro.setEnabled(false);
+            agE.setEnabled(false);
+            agI.setEnabled(false);
+            agB.setEnabled(false);
+            gdEx.setEnabled(false);
+            gdIm.setEnabled(false);
+            gdBo.setEnabled(false);
 
-                    //Se desactivan los botones de guardar procesos y agregar, pues si esta tabla es clickeada significa que aun no...
-                    //se requiere reslizar acciones con las partidas, esos botones solo interaccionan con las partidas y sus derivaciones
-                    savePro.setEnabled(false);
-                    agE.setEnabled(false);
-                    agI.setEnabled(false);
-                    agB.setEnabled(false);
-                    gdEx.setEnabled(false);
-                    gdIm.setEnabled(false);
-                    gdBo.setEnabled(false);
+            //regresa el tamaño de la ventana a la mitad
+            paPro.setVisible(false);
+            this.setSize(new Dimension(WD/2, HG));
+            this.setLocationRelativeTo(null);
 
-                    paPro.setVisible(false);
-                    this.setSize(new Dimension(WD/2, HG));
-                    this.setLocationRelativeTo(null);
+            modPart.setRowCount(0);//se vacia la tabla de partidas
 
-                    modPart.setRowCount(0);//se vacia la tabla de partidas
-
-                    foVis.setText(fol);//El textfield se establece con el valor obtenido del folio, para despues utilizarlo, Es como dejarlo
-                                        //guardado y visible. Ese textfield esta desactivado para que no pueda ser borrado o modificado
+            foVis.setText(fol);
         }
         catch(ArrayIndexOutOfBoundsException ex)
         {
             JOptionPane.showMessageDialog(null, "Selecciona con el boton izquierdo del raton", "Avertencia", JOptionPane.WARNING_MESSAGE);
+            ex.printStackTrace();
         }  
     }
-    
     
     //Boton: busqueda de los pedidos mediante la impresion
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -1890,29 +2524,6 @@ public class Procesos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se ha podido establecer la tabla de partidas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    
-    //si cambia el folio, se muestran las partidas de ese pedido en la tabla
-    public void onChangeTextField(){
-        foVis.getDocument().addDocumentListener(new DocumentListener() {
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                setTablePartidas();//Se ejecuta cuando el campo folio se actualiza
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {   
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        });
-    }
-    
-    
-   
     
     private void obtenerSeleccionTablaPartida()
     {
@@ -1996,7 +2607,7 @@ public class Procesos extends javax.swing.JFrame {
                 paPro.setVisible(false);
                 this.setLocationRelativeTo(null);
                 
-                savePro.setEnabled(true);//El boton para generar procesos se activa para que deje generarlos
+                generarPro.setEnabled(true);//El boton para generar procesos se activa para que deje generarlos
                 
                 //Los de agregar se desactivan, pues todavia no se han generado procesos
                 agE.setEnabled(false);
@@ -2023,7 +2634,7 @@ public class Procesos extends javax.swing.JFrame {
                 
                 //Significa que idE se reestablecio, hubo un registro de la consulta y idE ya no vale 0
                 vaciarCamposProcesos();//Vacearlos para ingresar nuevos datos
-                savePro.setEnabled(false);//El boton para guardar procesos se desactiva, ya se han generado y no es necesario volver a generar
+                generarPro.setEnabled(false);//El boton para guardar procesos se desactiva, ya se han generado y no es necesario volver a generar
                 agE.setEnabled(true);//Se habilitan los botones para agrear operadores, pues ya hay procesos generados
                 agI.setEnabled(true);
                 agB.setEnabled(true);
@@ -2188,10 +2799,10 @@ public class Procesos extends javax.swing.JFrame {
     }
     
     //Generar procesos
-    private void saveProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveProActionPerformed
+    private void generarProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarProActionPerformed
         crearListasOperadores();//se crean el contenido de las listas desplegables
         crearListaAyudantes();//se crea el contenido de la lista de ayudantes
-        savePro.setSelected(false);
+        generarPro.setSelected(false);
         String elegido = (String) JOptionPane.showInputDialog(null, "Compra o Produccion de Material?", "Modo de generacion", 
                 JOptionPane.QUESTION_MESSAGE, null, modoMaterial,  modoMaterial[0]);
         
@@ -2289,7 +2900,7 @@ public class Procesos extends javax.swing.JFrame {
         }
         
 
-    }//GEN-LAST:event_saveProActionPerformed
+    }//GEN-LAST:event_generarProActionPerformed
     
     //Boton: agregar operadores de impreso
     private void agIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agIActionPerformed
@@ -4585,124 +5196,10 @@ public class Procesos extends javax.swing.JFrame {
         }
     }
     
-  
-    //Listeners de los JTimeChoser
-    int totalDeHoras = 0;
-    
-    private void listenersJTime(){
-        hrIniEChange();
-        hrFinEChange();
-        tmMuertoEChange();
-        fIniExtChange();
-        fFinExtChange();
-        extraEChange();
-        
-        hrIniIChange();
-        hrFinIChange();
-        tmMuertoIChange();
-        fIniImpChange();
-        fFinImpChange();
-        extraIChange();
-        
-        hrIniBChange();
-        hrFinBChange();
-        tmMuertoBChange();
-        fIniBolChange();
-        fFinBolChange();
-        extraBChange();
-    }
-    
-    //timechosers de extrusion
-    private void hrIniEChange(){
-        hrIni.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, sueldoPorHoraE, costoOpExt);
-                
-            }
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-            }
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        });
-    }
-    
-    private void hrFinEChange(){
-        hrFin.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, sueldoPorHoraE, costoOpExt);
-            }
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-            }
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        });
-    }
-    
-    private void tmMuertoEChange(){
-        hrMuertoExt.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, sueldoPorHoraE, costoOpExt);
-            }
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-            }
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        }); 
-    }
-    
-    private void extraEChange(){
-        extHrExt.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, sueldoPorHoraE, costoOpExt); 
-            }
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-            }
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        }); 
-    }
-    
-    private void fIniExtChange(){
-        
-        fIniExt.addCommitListener(new CommitListener() {
-
-            @Override
-            public void onCommit(CommitEvent ce) {
-                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, sueldoPorHoraE, costoOpExt);
-            }
-        });
-    }
-    
-    private void fFinExtChange(){
-        fFinExt.addCommitListener(new CommitListener() {
-
-            @Override
-            public void onCommit(CommitEvent ce) {
-                calcularTotalhr(hrIni, hrFin, totalHrExt, hrMuertoExt, fIniExt, fFinExt, extHrExt, sueldoPorHoraE, costoOpExt);
-            }
-        });
-    }
-    
     //devuelve la maquina utilizadas en impresion
     private int obtieneMaquina()
     {
-        int maquina;//la inicializamos en uno porque obtendremos el valor del textfield dentro de un try-catch
+        int maquina;
         try
         {
             maquina = Integer.parseInt(maqImp.getText());
@@ -4712,449 +5209,6 @@ public class Procesos extends javax.swing.JFrame {
             maquina = 1;
         }
         return maquina;
-    }
-    
-    //timechosers de impreso
-    private void hrIniIChange(){
-        hrIniImp.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                int maquina = obtieneMaquina();
-                if(maquina == 3)/*si usan la maquina 3, utiliza la funcion exclusiva de impresion*/
-                {
-                    calcularTotalhrImp(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, sueldoPorHoraAyudanteI, costoOpImp);
-                }
-                else/*si no,usa la misma funcion que los otros procesos*/
-                {
-                    calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
-                }
-                
-            }
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-            }
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        });
-    }
-    
-    private void hrFinIChange(){
-        hrFinImp.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                int maquina = obtieneMaquina();
-                if(maquina == 3)/*si usan la maquina 3, utiliza la funcion exclusiva de impresion*/
-                {
-                    calcularTotalhrImp(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, sueldoPorHoraAyudanteI, costoOpImp);
-                }
-                else/*si no,usa la misma funcion que los otros procesos*/
-                {
-                    calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
-                }
-            }
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-            }
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        });
-    }
-    
-    private void tmMuertoIChange(){
-        hrMuertoImp.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                int maquina = obtieneMaquina();
-                if(maquina == 3)/*si usan la maquina 3, utiliza la funcion exclusiva de impresion*/
-                {
-                    calcularTotalhrImp(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, sueldoPorHoraAyudanteI, costoOpImp);
-                }
-                else/*si no,usa la misma funcion que los otros procesos*/
-                {
-                    calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
-                }
-            }
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-            }
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        }); 
-    }
-    
-    private void extraIChange(){
-        extHrImp.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                int maquina = obtieneMaquina();
-                if(maquina == 3)/*si usan la maquina 3, utiliza la funcion exclusiva de impresion*/
-                {
-                    calcularTotalhrImp(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, sueldoPorHoraAyudanteI, costoOpImp);
-                }
-                else/*si no,usa la misma funcion que los otros procesos*/
-                {
-                    calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
-                }
-            }
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-            }
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        }); 
-    }
-    
-    private void fIniImpChange(){
-        fIniImp.addCommitListener(new CommitListener() {
-
-            @Override
-            public void onCommit(CommitEvent ce) {
-                int maquina = obtieneMaquina();
-                if(maquina == 3)/*si usan la maquina 3, utiliza la funcion exclusiva de impresion*/
-                {
-                    calcularTotalhrImp(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, sueldoPorHoraAyudanteI, costoOpImp);
-                }
-                else/*si no,usa la misma funcion que los otros procesos*/
-                {
-                    calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
-                }
-            }
-        });
-    }
-    
-    private void fFinImpChange(){
-        fFinImp.addCommitListener(new CommitListener() {
-
-            @Override
-            public void onCommit(CommitEvent ce) {
-                int maquina = obtieneMaquina();
-                if(maquina == 3)/*si usan la maquina 3, utiliza la funcion exclusiva de impresion*/
-                {
-                    calcularTotalhrImp(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, sueldoPorHoraAyudanteI, costoOpImp);
-                }
-                else/*si no,usa la misma funcion que los otros procesos*/
-                {
-                    calcularTotalhr(hrIniImp, hrFinImp, totalHrImp, hrMuertoImp, fIniImp, fFinImp, extHrImp, sueldoPorHoraI, costoOpImp);
-                }
-            }
-        });
-    }
-    
-    
-    //timechosers de bolseo
-    private void hrIniBChange(){
-        hrIniBol.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, sueldoPorHoraB, costoOpBol);
-                
-            }
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-            }
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        });
-    }
-    
-    private void hrFinBChange(){
-        hrFinBol.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, sueldoPorHoraB, costoOpBol);
-            }
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-            }
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        });
-    }
-    
-    private void tmMuertoBChange(){
-        hrMuertoBol.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, sueldoPorHoraB, costoOpBol);
-            }
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-            }
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        }); 
-    }
-    
-     private void extraBChange(){
-        extBol.getTimeField().getDocument().addDocumentListener(new DocumentListener() {
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, sueldoPorHoraB, costoOpBol);
-            }
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-            }
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        }); 
-    }
-     
-     
-     private void fIniBolChange(){
-         fIniBol.addCommitListener(new CommitListener() {
-
-             @Override
-             public void onCommit(CommitEvent ce) {
-                 calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, sueldoPorHoraB, costoOpBol);
-             }
-         });
-     }
-     
-     private void fFinBolChange(){
-         fFinBol.addCommitListener(new CommitListener() {
-
-             @Override
-             public void onCommit(CommitEvent ce) {
-                 calcularTotalhr(hrIniBol, hrFinBol, totalHrBol, hrMuertoBol, fIniBol, fFinBol, extBol, sueldoPorHoraB, costoOpBol);
-             }
-         });
-     }
-    
-    DateTimeFormatter dtf;
-    DateTime dtIni;
-    DateTime dtFin;
-    DateTime dtMuerto;
-    DateTime aux;
-    DateTime extTime;
-    Period diff;
-       
-    private void calcularTotalhr(JTimeChooser tIni, JTimeChooser tFin, JTimeChooser total, JTimeChooser muerto, DateChooserCombo fini, DateChooserCombo fFin,
-            JTimeChooser extra, float sueldoOperador, JTextField costo){
-         
-        dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
-        dtIni= new DateTime(fini.getText() + "T" + tIni.getTimeField().getText());
-        dtFin = new DateTime(fFin.getText() + "T" + tFin.getTimeField().getText());
-        dtMuerto = new DateTime("T" + muerto.getTimeField().getText());   
-        extTime = new DateTime("T" + extra.getTimeField().getText());
-        diff = new Period(dtIni, dtFin);
-        
-        int minNoAcum = diff.getMinutes();
-        String horasSt = "00:00:00";
-        int minOfHour = 0;
-        int hrOfDay = 0;
-        int tiempoExtra = 0;
-        int minutosMenosExtra = 0;
-        
-        int horas = Hours.hoursBetween(dtIni, dtFin).getHours();
-        int minutos = Minutes.minutesBetween(dtIni, dtFin).getMinutes();
-        
-        horas = horas - dtMuerto.getHourOfDay();
-        minutos = minutos - dtMuerto.getMinuteOfDay();
-        
-        
-        if(horas < 0){
-            horas = 0;
-        } 
-        
-        if(minutos < 0){
-            minutos = 0;
-        }
-        if(minNoAcum < 0){
-            minNoAcum = 0;
-        }
-        
-        /*System.out.println("----------------");
-        System.out.println("Minutos: "+minutos);
-        System.out.println("Horas: "+horas);*/
-        
-        if(horas > 9 && minNoAcum > 9){
-            horasSt = (horas + ":" + minNoAcum + ":00");
-        }else if(horas < 10 && minNoAcum < 10){
-            horasSt = ("0" + horas + ":" + "0" + minNoAcum + ":00");
-        }else if(horas > 9 && minNoAcum < 10){
-            horasSt = (horas + ":" + "0" + minNoAcum + ":00");
-        }else if(horas < 10 && minNoAcum > 9){
-            horasSt = ("0" + horas + ":" + minNoAcum + ":00");
-        }
-        
-        /*
-        System.out.println("----------------");
-        System.out.println("Minutos: "+minutos);
-        System.out.println("Horas: "+horas);
-        System.out.println(horasSt);*/
-        
-        String horasTotal = getHrDT(horasSt); 
-        char auxHr = 0;
-        
-        if(Integer.parseInt(horasTotal) > 23){
-            
-            try{
-                auxHr = horasTotal.charAt(0);
-                horasSt = horasSt.replace(horasSt.charAt(0), '1');
-
-                aux = new DateTime("T"+horasSt);
-                aux = aux.plusMinutes(-muerto.getMinutes());
-                minOfHour = aux.getMinuteOfHour();
-                hrOfDay = Integer.parseInt(horasTotal);
-
-                horasSt = horasSt.replace(horasSt.charAt(0), auxHr);
-                //System.out.println(horasSt);
-
-                comprobarTiempos(minOfHour, hrOfDay, horasSt, aux, total);
-            }catch(java.lang.IllegalArgumentException ex){
-                JOptionPane.showMessageDialog(null, "No se pueden sobrepasar las horas totales, maximo: 99 horas", "Advertencia", 
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-            
-            
-        }else{
-            
-            try{
-                aux = new DateTime("T"+horasSt);
-                aux = aux.plusMinutes(-muerto.getMinutes());
-                minOfHour = aux.getMinuteOfHour();
-                hrOfDay = aux.getHourOfDay();
-
-                //System.out.println(horasSt);
-                comprobarTiempos(minOfHour, hrOfDay, horasSt, aux, total);
-            }catch(java.lang.IllegalArgumentException ex){
-                JOptionPane.showMessageDialog(null, "No se pueden sobrepasar las horas totales, maximo: 99 horas", "Advertencia", 
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-    
-        }
-        
-        aux = new DateTime("T00:00:00");
-        tiempoExtra = Minutes.minutesBetween(aux, extTime).getMinutes();
-        minutosMenosExtra = minutos - tiempoExtra;
-        
-        if(minutosMenosExtra < 0){
-            minutos = 0;
-        }
-        if(tiempoExtra < 0){
-            tiempoExtra = 0;
-        }
-        
-        calcularCostoOpMinutos(minutosMenosExtra, sueldoOperador, tiempoExtra, minutos, costo);
-        
-    }
-    
-    //lo mismo que la funcion de arriba pero para impreso cuando usan la maquina 3
-    private void calcularTotalhrImp(JTimeChooser tIni, JTimeChooser tFin, JTimeChooser total, JTimeChooser muerto, DateChooserCombo fini, DateChooserCombo fFin,
-            JTimeChooser extra, float sueldoOperador, float sueldoAyudante,JTextField costo){
-         
-        dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
-        dtIni= new DateTime(fini.getText() + "T" + tIni.getTimeField().getText());
-        dtFin = new DateTime(fFin.getText() + "T" + tFin.getTimeField().getText());
-        dtMuerto = new DateTime("T" + muerto.getTimeField().getText());   
-        extTime = new DateTime("T" + extra.getTimeField().getText());
-        diff = new Period(dtIni, dtFin);
-        
-        int minNoAcum = diff.getMinutes();
-        String horasSt = "00:00:00";
-        int minOfHour = 0;
-        int hrOfDay = 0;
-        int tiempoExtra = 0;
-        int minutosMenosExtra = 0;
-        
-        int horas = Hours.hoursBetween(dtIni, dtFin).getHours();
-        int minutos = Minutes.minutesBetween(dtIni, dtFin).getMinutes();
-        
-        horas = horas - dtMuerto.getHourOfDay();
-        minutos = minutos - dtMuerto.getMinuteOfDay();
-        
-        
-        if(horas < 0){
-            horas = 0;
-        } 
-        
-        if(minutos < 0){
-            minutos = 0;
-        }
-        if(minNoAcum < 0){
-            minNoAcum = 0;
-        }
-        
-        if(horas > 9 && minNoAcum > 9){
-            horasSt = (horas + ":" + minNoAcum + ":00");
-        }else if(horas < 10 && minNoAcum < 10){
-            horasSt = ("0" + horas + ":" + "0" + minNoAcum + ":00");
-        }else if(horas > 9 && minNoAcum < 10){
-            horasSt = (horas + ":" + "0" + minNoAcum + ":00");
-        }else if(horas < 10 && minNoAcum > 9){
-            horasSt = ("0" + horas + ":" + minNoAcum + ":00");
-        }
-        
-        String horasTotal = getHrDT(horasSt); 
-        char auxHr = 0;
-        
-        if(Integer.parseInt(horasTotal) > 23){
-            
-            try{
-                auxHr = horasTotal.charAt(0);
-                horasSt = horasSt.replace(horasSt.charAt(0), '1');
-
-                aux = new DateTime("T"+horasSt);
-                aux = aux.plusMinutes(-muerto.getMinutes());
-                minOfHour = aux.getMinuteOfHour();
-                hrOfDay = Integer.parseInt(horasTotal);
-
-                horasSt = horasSt.replace(horasSt.charAt(0), auxHr);
-                //System.out.println(horasSt);
-
-                comprobarTiempos(minOfHour, hrOfDay, horasSt, aux, total);
-            }catch(java.lang.IllegalArgumentException ex){
-                JOptionPane.showMessageDialog(null, "No se pueden sobrepasar las horas totales, maximo: 99 horas", "Advertencia", 
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-            
-            
-        }else{
-            
-            try{
-                aux = new DateTime("T"+horasSt);
-                aux = aux.plusMinutes(-muerto.getMinutes());
-                minOfHour = aux.getMinuteOfHour();
-                hrOfDay = aux.getHourOfDay();
-
-                //System.out.println(horasSt);
-                comprobarTiempos(minOfHour, hrOfDay, horasSt, aux, total);
-            }catch(java.lang.IllegalArgumentException ex){
-                JOptionPane.showMessageDialog(null, "No se pueden sobrepasar las horas totales, maximo: 99 horas", "Advertencia", 
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-    
-        }
-        
-        aux = new DateTime("T00:00:00");
-        tiempoExtra = Minutes.minutesBetween(aux, extTime).getMinutes();
-        minutosMenosExtra = minutos - tiempoExtra;
-        
-        if(minutosMenosExtra < 0){
-            minutos = 0;
-        }
-        if(tiempoExtra < 0){
-            tiempoExtra = 0;
-        }
-        
-        calcularCostoOpMinutosImp(minutosMenosExtra, sueldoOperador, sueldoAyudante, tiempoExtra, minutos, costo);
-        
     }
     
     private void calculaHrTotalesPartida(String tablaOperadorProceso,String idProcesoForaneo, int idProcesoGlobal, String tablaProceso)
@@ -5204,68 +5258,6 @@ public class Procesos extends javax.swing.JFrame {
         {
             ex.printStackTrace();
         }
-    }
-    
-    
-    private String getHrDT(String tiempo){
-        
-        String hora = "";
-        hora = hora + tiempo.charAt(0) + tiempo.charAt(1);
-        return hora;
-    }
-    
-    private void comprobarTiempos(int minOfHour, int hrOfDay, String horasSt, DateTime aux, JTimeChooser total){
-
-        if(minOfHour > 9 && hrOfDay > 9){
-            horasSt = (hrOfDay + ":" + minOfHour + ":00");
-        }else if(minOfHour < 10 && hrOfDay < 10){
-            horasSt = ("0" + hrOfDay + ":0" + minOfHour + ":00");
-        }else if(minOfHour < 10 && hrOfDay > 9){
-            horasSt = (hrOfDay + ":0" + minOfHour + ":00");
-        }else if(minOfHour > 9 && hrOfDay < 10){
-            horasSt = ("0" + hrOfDay + ":" + minOfHour + ":00");
-        }
-        
-        total.getTimeField().setText(horasSt);
-    }
-    
-    
-    private void calcularCostoOpMinutos(int minutos, float sueldoOperador, int minutosExtra, int minutosTotales, JTextField costoField){
-        
-        float costoPorMinutos = 0f;
-        float costoTotal = 0f;
-        
-        if(minutosExtra > minutosTotales){
-            costoTotal = 0;
-        }else{
-            costoPorMinutos = sueldoOperador / 60;
-            //System.out.println("__________________________");
-            //System.out.println(costoPorHora + " = " + costoPorHora + " / " + minutos);
-            costoTotal = (costoPorMinutos * minutos) + ((costoPorMinutos * minutosExtra) * 2);
-            //System.out.println(costoTotal + " = " + costoPorMinutos + " X " + minutos);
-        }
-        
-        costoField.setText(String.valueOf(costoTotal));
-    }
-    
-    /*lo mismo que lo de arriba, pero para impresion cuando usan la maquina 3*/
-    private void calcularCostoOpMinutosImp(int minutos, float sueldoOperador, float sueldoAyudante,int minutosExtra, int minutosTotales, JTextField costoField){
-        
-        float costoPorMinutos = 0f;
-        float costoTotal = 0f;
-        
-        if(minutosExtra > minutosTotales){
-            costoTotal = 0;
-        }else{
-            //los parseamos porque si no marca error y les sumamos 8.33 porque eso es igual a los 400 que se le suman entre las 48 horas
-            sueldoOperador = (float) (8.33+sueldoOperador);
-            sueldoAyudante = (float) (8.33+sueldoAyudante);
-            costoPorMinutos = (sueldoOperador+sueldoAyudante) / 60;
-            
-            costoTotal = (costoPorMinutos * minutos) + ((costoPorMinutos * minutosExtra) * 2);
-        }
-        
-        costoField.setText(String.valueOf(costoTotal));
     }
     
     //llena las listas de operadores al crear los procesos
@@ -5434,7 +5426,7 @@ public class Procesos extends javax.swing.JFrame {
         modPed.setRowCount(0);
         modPart.setRowCount(0);
         
-        savePro.setEnabled(false);
+        generarPro.setEnabled(false);
         eliminarP.setEnabled(false);
         agE.setEnabled(false);
         agI.setEnabled(false);
@@ -5500,6 +5492,7 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JToggleButton gdBo;
     private javax.swing.JToggleButton gdEx;
     private javax.swing.JToggleButton gdIm;
+    private javax.swing.JToggleButton generarPro;
     private javax.swing.JTextField greBol;
     private javax.swing.JTextField greExt;
     private javax.swing.JTextField greImp;
@@ -5584,7 +5577,6 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JTextField kgBol;
     private javax.swing.JTextField kgImp;
     private javax.swing.JTextField kgImp2;
@@ -5620,7 +5612,7 @@ public class Procesos extends javax.swing.JFrame {
     private javax.swing.JTextField provImp;
     private javax.swing.JTextField provImp2;
     private javax.swing.JTextField pzsBol;
-    private javax.swing.JToggleButton savePro;
+    private javax.swing.JToggleButton regresar;
     private javax.swing.JTextField suaje;
     private javax.swing.JTable tablaPart;
     private javax.swing.JTable tablaPed;
