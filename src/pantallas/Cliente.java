@@ -11,25 +11,26 @@ import javax.swing.JTextField;
 
 
 public class Cliente extends javax.swing.JFrame {//guardar los datos del cliente
-    Inicio in;
     Principal prin;
     Pedido ped;
+    
     Connection con;
     ResultSet rs;
     Statement st;
+    
     String sql;
-    String nomSt, ageSt, telSt, celSt, domSt, corrSt/*modifique yo xd*/,razSocSt,rfcSt,colSt,codPosSt,ciuSt,
-    usoCfdSt,metDePagSt,contactoSt,domDeEntSt;/*modifique yo xd*/
+    String nomSt, ageSt, telSt, celSt, domSt, corrSt,razSocSt,rfcSt,colSt,codPosSt,
+           ciuSt,usoCfdSt,metDePagSt,contactoSt,domDeEntSt;
     
     
     public Cliente(Connection con) {
        
         initComponents();
-        this.con = con;
-        this.setResizable(false);
         
+        this.con = con;
+        
+        this.setResizable(false);
         this.setIconImage (new ImageIcon(getClass().getResource("/Images/iconoCab.png")).getImage());
-        //paIni.setBackground(java.awt.Color.LIGHT_GRAY);
     }
     
     @SuppressWarnings("unchecked")
@@ -451,9 +452,7 @@ public class Cliente extends javax.swing.JFrame {//guardar los datos del cliente
     }//GEN-LAST:event_agenCKeyTyped
 
     private void celuCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_celuCKeyTyped
-        char c = evt.getKeyChar();
-        if(c < '0' || c > '9') evt.consume();
-
+        soloEnteros(evt);
         limitarInsercion(19, evt, celuC);
     }//GEN-LAST:event_celuCKeyTyped
 
@@ -466,9 +465,7 @@ public class Cliente extends javax.swing.JFrame {//guardar los datos del cliente
     }//GEN-LAST:event_corrCKeyTyped
 
     private void teleCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_teleCKeyTyped
-        char c = evt.getKeyChar();
-        if(c < '0' || c > '9') evt.consume();
-
+        soloEnteros(evt);
         limitarInsercion(19, evt, teleC);
     }//GEN-LAST:event_teleCKeyTyped
 
@@ -478,14 +475,13 @@ public class Cliente extends javax.swing.JFrame {//guardar los datos del cliente
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         guardar.setSelected(false);
-        comprobarVacio();
+        comprobarVacio();//se rellenan los campos vacios
         nomSt = nomC.getText();
         ageSt = agenC.getText();
         telSt = teleC.getText();
         celSt = celuC.getText();
         corrSt = corrC.getText();
         domSt = domC.getText();
-        /*modifique yo xd*/
         razSocSt = razSocC.getText();
         rfcSt = rfcC.getText();
         colSt = colC.getText();
@@ -495,12 +491,10 @@ public class Cliente extends javax.swing.JFrame {//guardar los datos del cliente
         metDePagSt = metDePagC.getText();
         contactoSt = contactoC.getText();
         domDeEntSt = domDeEntC.getText();
-        /*modifique yo xd*/
-        /*modifique yo xd*/
         sql = "insert into cliente (agente, nom, tel, cel, mail, dir, razSoc, rfc, col, codPos, ciu, usoCfd, metDePag, contacto, domDeEnt)"
                 + "values('"+ageSt+"', '"+nomSt+"', "+telSt+", "+celSt+", '"+corrSt+"', '"+domSt+"', "
         +"'"+razSocSt+"','"+rfcSt+"','"+colSt+"','"+codPosSt+"','"+ciuSt+"','"+usoCfdSt+"','"+metDePagSt+"', "
-        + "'"+contactoSt+"','"+domDeEntSt+"')";/*modifique yo xd*/
+        + "'"+contactoSt+"','"+domDeEntSt+"')";
 
         try {
             st = con.createStatement();
@@ -509,6 +503,7 @@ public class Cliente extends javax.swing.JFrame {//guardar los datos del cliente
             JOptionPane.showMessageDialog(null, "Se han guardado los datos: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar el cliente: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_guardarActionPerformed
 
@@ -517,11 +512,6 @@ public class Cliente extends javax.swing.JFrame {//guardar los datos del cliente
         Inicio.prin.setLocationRelativeTo(null);
         Inicio.prin.setVisible(true);
         this.dispose();
-        
-        /*prin = new Principal(con);
-        prin.setLocationRelativeTo(null);
-        prin.setVisible(true);
-        dispose();*/
     }//GEN-LAST:event_regresarActionPerformed
 
     private void pedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pedidoActionPerformed
@@ -531,55 +521,41 @@ public class Cliente extends javax.swing.JFrame {//guardar los datos del cliente
         Inicio.pd.sugerenciaFecha();
         Inicio.pd.setVisible(true);
         this.dispose();
-                
-        /*ped = new Pedido(con);
-        ped.setLocationRelativeTo(null);
-        ped.setVisible(true);
-        dispose();*/
     }//GEN-LAST:event_pedidoActionPerformed
 
     private void razSocCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_razSocCKeyTyped
-        // TODO add your handling code here:
         limitarInsercion(50, evt, razSocC);
     }//GEN-LAST:event_razSocCKeyTyped
 
     private void rfcCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rfcCKeyTyped
-        // TODO add your handling code here:
         limitarInsercion(15, evt, rfcC);
     }//GEN-LAST:event_rfcCKeyTyped
 
     private void colCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_colCKeyTyped
-        // TODO add your handling code here:
         limitarInsercion(30, evt, colC);
     }//GEN-LAST:event_colCKeyTyped
 
     private void ciuCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ciuCKeyTyped
-        // TODO add your handling code here:
         limitarInsercion(30, evt, ciuC);
     }//GEN-LAST:event_ciuCKeyTyped
 
     private void usoCfdCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usoCfdCKeyTyped
-        // TODO add your handling code here:
         limitarInsercion(30, evt, usoCfdC);
     }//GEN-LAST:event_usoCfdCKeyTyped
 
     private void metDePagCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_metDePagCKeyTyped
-        // TODO add your handling code here:
         limitarInsercion(20, evt, metDePagC);
     }//GEN-LAST:event_metDePagCKeyTyped
 
     private void contactoCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contactoCKeyTyped
-        // TODO add your handling code here:
         limitarInsercion(30, evt, contactoC);
     }//GEN-LAST:event_contactoCKeyTyped
 
     private void domDeEntCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_domDeEntCKeyTyped
-        // TODO add your handling code here:
         limitarInsercion(50, evt, domDeEntC);
     }//GEN-LAST:event_domDeEntCKeyTyped
 
     private void codPosC2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codPosC2KeyTyped
-        // TODO add your handling code here:
         limitarInsercion(10, evt, codPosC2);
     }//GEN-LAST:event_codPosC2KeyTyped
 
@@ -597,7 +573,13 @@ public class Cliente extends javax.swing.JFrame {//guardar los datos del cliente
         }
     }
     
+    //Solo numeros enteros en campos
+    private void soloEnteros(KeyEvent evt){
+        char c = evt.getKeyChar();
+        if(c < '0' || c > '9') evt.consume();
+    }
     
+    //rellena los campos vacios
     private void comprobarVacio(){
         
         if(teleC.getText().equals("")){
@@ -608,8 +590,8 @@ public class Cliente extends javax.swing.JFrame {//guardar los datos del cliente
         }
     }
     
+    //vacia los campos
     public void vacearComponentes(){
-        
         razSocC.setText("");
         rfcC.setText("");
         domC.setText("");
@@ -625,7 +607,6 @@ public class Cliente extends javax.swing.JFrame {//guardar los datos del cliente
         nomC.setText("");
         agenC.setText("");
         celuC.setText("");
-        
     }
     
     
