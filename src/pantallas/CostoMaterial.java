@@ -14,9 +14,10 @@ public class CostoMaterial extends javax.swing.JFrame {//permite cambiarle el pr
     Connection con;
     ResultSet rs;
     Statement st;
+    
     Principal prin;
     
-    String tipo;//guardara el tipo de material cada que se le de clic a la tabla
+    String tipo;//tipo de material
     
     DefaultTableModel modPart;//modelo de la tabla
     
@@ -24,8 +25,9 @@ public class CostoMaterial extends javax.swing.JFrame {//permite cambiarle el pr
         initComponents();
         
         this.setIconImage (new ImageIcon(getClass().getResource("/Images/iconoCab.png")).getImage());
-        this.con = con;
         this.setResizable(false);
+        
+        this.con = con;
         
         //se indica que las celdas no son editables
         modPart = new DefaultTableModel(){
@@ -34,9 +36,9 @@ public class CostoMaterial extends javax.swing.JFrame {//permite cambiarle el pr
                 return false;
             }
         };
-        //llena la tabla desde el principio
-        modPart.setColumnIdentifiers(new Object[]{"Tipo", "Precio"});//agrega los titulos a las columnas
-        tablaMat.setModel(modPart);//establece el modelo de la tabla
+        modPart.setColumnIdentifiers(new Object[]{"Tipo", "Precio"});
+        tablaMat.setModel(modPart);
+        
         tipo = "";//inicialisa el tipo en nada
         
         String sql = "select * from costosMaterial";
@@ -165,8 +167,11 @@ public class CostoMaterial extends javax.swing.JFrame {//permite cambiarle el pr
 
     private void cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarActionPerformed
         cerrar.setSelected(false);
-        dispose();
+        Inicio.prin.setLocationRelativeTo(null);
+        Inicio.prin.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_cerrarActionPerformed
+    
     //obtiene el tipo de material cuando le dan clic a la tabla
     private void tablaMatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMatMouseClicked
         try
@@ -181,23 +186,26 @@ public class CostoMaterial extends javax.swing.JFrame {//permite cambiarle el pr
     }//GEN-LAST:event_tablaMatMouseClicked
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        // TODO add your handling code here:
-        guardar.setSelected(false);
-        guardar();
-        actualizar();
+        try{
+            st = con.createStatement();
+            guardar(st);
+            actualizar(st);
+            st.close();
+            guardar.setSelected(false);
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        } 
     }//GEN-LAST:event_guardarActionPerformed
 
     //inserta el nuevo precio en la base de datos
-    private void guardar(){
-        String nuevo = nPrecio.getText();//nuevo precio en cadena
-        Float fNuevo = Float.parseFloat(nuevo);//nuevo precio en flotante
+    private void guardar(Statement st){
+        Float fNuevo = Float.parseFloat(nPrecio.getText());//nuevo precio
         String sql = "update costosMaterial set precio = "+fNuevo+" where tipo = '"+tipo+"'";
         try
         {
-            
-            st = con.createStatement();
             st.execute(sql);
-            st.close();
+            JOptionPane.showMessageDialog(null, "Se guardo el nuevo precio");
         }
         catch(SQLException ex)
         {
@@ -207,7 +215,7 @@ public class CostoMaterial extends javax.swing.JFrame {//permite cambiarle el pr
     }
     
     //actuaiza la tabla
-    private void actualizar()
+    private void actualizar(Statement st)
     {
         String sql = "";
         modPart.setRowCount(0);//vacia la tabla
@@ -215,14 +223,12 @@ public class CostoMaterial extends javax.swing.JFrame {//permite cambiarle el pr
         sql = "select * from costosMaterial";
         try
         {
-            st = con.createStatement();
             rs = st.executeQuery(sql);
             while(rs.next())
             {
                 modPart.addRow(new Object[]{rs.getString("tipo"), rs.getString("precio")});
             }
             rs.close();
-            st.close();
         }
         catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Error al volver a llenar la tabla" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
@@ -230,11 +236,6 @@ public class CostoMaterial extends javax.swing.JFrame {//permite cambiarle el pr
         }
     }
     
-    /**
-     * @param args the command line arguments
-     */
-  
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cerrar;
     private javax.swing.JButton guardar;

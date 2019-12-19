@@ -232,10 +232,10 @@ public class Principal extends javax.swing.JFrame {
 
     //opcion de procesos
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        
         Inicio.pro.setLocationRelativeTo(null);
         Inicio.pro.vacearComponentes();
         Inicio.pro.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     //opcion de costo de materiales
@@ -243,6 +243,7 @@ public class Principal extends javax.swing.JFrame {
         CostoMaterial cos = new CostoMaterial(con);
         cos.setLocationRelativeTo(null);
         cos.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     //cuando cierra la ventana
@@ -298,7 +299,7 @@ public class Principal extends javax.swing.JFrame {
         CopiasSeguridad cop = new CopiasSeguridad();
         cop.setVisible(true);
         cop.setLocationRelativeTo(null);
-        dispose();
+        this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     //opcion del registro de operadores
@@ -306,7 +307,7 @@ public class Principal extends javax.swing.JFrame {
         Operadores ope = new Operadores(con);
         ope.setVisible(true);
         ope.setLocationRelativeTo(null);
-        dispose();
+        this.dispose();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
