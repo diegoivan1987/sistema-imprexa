@@ -7,7 +7,7 @@ public class DatosPartida {
     String folio;
     String hoja;
     String de;
-    String modopart;
+    String modopart;//si fue produccion,compra o ambos
     String desa;
     String tipo;
     String sello;
@@ -26,6 +26,7 @@ public class DatosPartida {
     String kgs;
     String importe;
     String pzFinales;
+    String manera;//manera en que se calculo el importe
 
     public String getPzFinales() {
         return pzFinales;
@@ -218,4 +219,11 @@ public class DatosPartida {
         this.importe = importe;
     }
    
+    public String getManera() {
+        return manera;
+    }
+
+    public void setManera(String manera) {
+        this.manera = manera;
+    }
 }

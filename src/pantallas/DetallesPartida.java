@@ -18,41 +18,60 @@ import javax.swing.event.DocumentListener;
 import report.PedidoATT;
 
 public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambios en algunos datos de las partidas
-    int indicadorParaImporte = 0;//indica la manera en la que se calcula el importe
-
-    ArrayList<DatosPartida> dp = new ArrayList<DatosPartida>();
-    ArrayList<PedidoATT> datosReporte = new ArrayList<PedidoATT>();
     
-    int indicePartida = 0;
+    int indicadorParaImporte;//indica la manera en la que se calcula el importe
+
+    ArrayList<DatosPartida> dp;
+    ArrayList<PedidoATT> datosReporte;
+    
+    int indicePartida;
     
     Statement st;
     ResultSet rs;
     Connection con;
+    
     Visualizacion vis;
     
     //se utilizaran para ser mandadas al reporte de produccion
-    float sub = 0f;
-    float iva = 0f;
-    float total = 0f;
-    float resto = 0f;
+    float sub;
+    float iva;
+    float total;
+    float resto;
     
-    boolean indicadorCambios = false;//indica si se cambiaron datos
+    boolean indicadorCambios;//indica si se cambiaron datos
     
+    @SuppressWarnings("Convert2Diamond")
     public DetallesPartida(ArrayList<DatosPartida> dp, Connection con, ArrayList<PedidoATT> datosReporte, Visualizacion vis) {
         initComponents();
-        llenarListas();//llenamos las listas desplegables
-        //se activan si llega a haber cambios en los checkbox
-        onChangePU();
-        onChangeKilos();
-        onChangePz();
-        onChangePzFin();
         
+        this.dp = new ArrayList<DatosPartida>();
+        this.datosReporte = new ArrayList<PedidoATT>();
         this.dp = dp;
         this.datosReporte = datosReporte;
         this.con = con;
         this.vis = vis;
         this.setIconImage (new ImageIcon(getClass().getResource("/Images/iconoCab.png")).getImage());
         this.setResizable(false);
+        
+        indicadorParaImporte = 0;//indica la manera en la que se calcula el importe
+
+        indicePartida = 0;
+
+        //se utilizaran para ser mandadas al reporte de produccion
+        sub = 0f;
+        iva = 0f;
+        total = 0f;
+        resto = 0f;
+
+        indicadorCambios = false;//indica si se cambiaron datos
+        
+        sello.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FONDO", "LATERAL", "TRASLAPE"}));
+        
+        //se activan si llega a haber cambios en los checkbox
+        onChangePU();
+        onChangeKilos();
+        onChangePz();
+        onChangePzFin();
         
         //se establecen los campos que no se podran modificar
         folio.setEditable(false);
@@ -63,19 +82,17 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         cosMat.setEditable(false);
         kgDes.setEditable(false);
         porDes.setEditable(false);
-        imp.setEditable(false);
         mat1.setEditable(false);
+        cal1.setEditable(false);
         mat2.setEditable(false);
+        cal2.setEditable(false);
+        imp.setEditable(false);
 
-        mostrarPartida(indicePartida);//muestra los datos de la partida actua
+        mostrarPartida(indicePartida);//muestra los datos de la partida actual
     }
     
-    //llena las listas desplegables
-    private void llenarListas(){
-        sello.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FONDO", "LATERAL", "TRASLAPE"}));
-    }
-
     private void mostrarPartida(int indice){
+        String manera;//manera en la que se calculo el importe
         //se obtienen los datos del arreglo
         try
         {
@@ -101,30 +118,28 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
             kg.setText(dp.get(indice).getKgs());
             imp.setText(dp.get(indice).getImporte());
             pzFinales.setText(dp.get(indice).getPzFinales());
-            //si el precio unitario por el numero de piezas es igual al importe, se selecciona el chechkbox de pz
-            if((Float.parseFloat(dp.get(indice).getPuni()) * Integer.parseInt(dp.get(indice).getPzs())) == Float.parseFloat(dp.get(indice).getImporte()))
-            {
+            
+            manera = dp.get(indice).getManera();
+            if(manera.equals("pz")){
                 checkPz.setSelected(true);
-            }//si el precio unitario por el numero de kg es igual al importe, se selecciona el chechkbox de kg
-            else  if((Float.parseFloat(dp.get(indice).getPuni()) * Float.parseFloat(dp.get(indice).getKgs())) == Float.parseFloat(dp.get(indice).getImporte()))
-            {
+            }
+            else if(manera.equals("kg")){
                 checkKg.setSelected(true);
-            }//si el precio unitario por el numero de piezas finales es igual al importe, se selecciona el chechkbox de pz finales
-            else
-            {
+            }
+            else if(manera.equals("pzF")){
                 checkPzFinales.setSelected(true);
             }
         }
         catch(IndexOutOfBoundsException ex)
         {
-            JOptionPane.showMessageDialog(null, "No hay partidas en este pedido", "Avertencia", JOptionPane.WARNING_MESSAGE);
-            
+            JOptionPane.showMessageDialog(null, "No hay partidas en este pedido", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            ex.printStackTrace();
         }
     }
     
     //muestra el elemento que selecciono el usuario en las listas desplegables
     private void setLista(JComboBox lista, String campo){
-        for(int in = 0; in<lista.getItemCount();in++)
+        for(int in = 0; in < lista.getItemCount();in++)
             {
                 if(campo.equals(lista.getItemAt(in)))
                 {
@@ -132,7 +147,6 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                 }
             }
     }
-    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -494,12 +508,13 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(kgDes))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGap(0, 1, Short.MAX_VALUE)
                                 .addComponent(jLabel21)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cosPart, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cosPart, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
@@ -509,8 +524,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cal1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(80, 80, 80)))
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -522,27 +536,33 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                     .addComponent(jLabel21)
                     .addComponent(cosPart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel20)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel18)
-                        .addGap(6, 6, 6)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(porDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel19))
-                        .addGap(54, 54, 54)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel20)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel18)
+                                .addGap(6, 6, 6)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(porDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel19)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cosMat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(kgDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(33, 33, 33)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cal1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cosMat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(kgDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(cal2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(sello, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -562,11 +582,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(mat2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(cal2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(153, 255, 255));
@@ -862,8 +878,10 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
 
     private void saveModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveModActionPerformed
         saveMod.setSelected(false);
-        comprobarVacio();
-        String manera = determinaManera();
+        
+        comprobarVacio();//rellena espacios vacios
+        String manera = determinaManera();//manera en la que se calculo el importe
+        
         //se ingresan los cambios en la base de datos
         String sql = "update partida set desarrollo = "+desa.getText()+","
                 + "tipo = '"+tipo.getText()+"', "
@@ -881,13 +899,13 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                 {
                     st = con.createStatement();
                     st.execute(sql);
-                    indicadorCambios = true;//se indica que hubo cambios
-                    Statement st2 = con.createStatement();
-                    establecerSubtotalPedido(st2);//calcula el nuevo subtotal del pedido
+                    indicadorCambios = true;//se indica que hubo cambios para actualizar las tablas de visualizacion
+                    establecerSubtotalPedido(st);//calcula y actualiza el nuevo subtotal del pedido
+                    establecerTotalYResto(st);//calcula y actualiza el total y el resto del pedido
                     calculaPyG();//calcula las perdidas y ganancias
-                    st.close();
                     actualizarArreglo();
                     actualizarDatosParaReporte();
+                    st.close();
                     JOptionPane.showMessageDialog(null, "Se guardaron los cambios");
                 }
                 catch(SQLException ex)
@@ -907,7 +925,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         }else if(checkKg.isSelected())
         {
             return "kg";
-        }else
+        }else 
         {
             return "pzF";
         }
@@ -1316,7 +1334,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
             pzFinales.setEnabled(false);
             checkPzFinales.setSelected(false);
             indicadorParaImporte = 1;
-            calcularEnCampoPU(pz);
+            calcularEnCampoPU();
         }
         else
         {
@@ -1339,7 +1357,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
             pzFinales.setEnabled(false);
             checkPzFinales.setSelected(false);
             indicadorParaImporte = 2;
-            calcularEnCampoPU(pz);
+            calcularEnCampoPU();
         }
         else
         {
@@ -1407,7 +1425,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
             checkKg.setSelected(false);
             kg.setEnabled(false);
             indicadorParaImporte = 3;
-            calcularEnCampoPU(pz);
+            calcularEnCampoPU();
         }
         else
         {
@@ -1420,12 +1438,12 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         pUnit.getDocument().addDocumentListener(new DocumentListener() {               
             @Override
             public void insertUpdate(DocumentEvent e) {              
-                calcularEnCampoPU(pz);
+                calcularEnCampoPU();
                 
             }
             @Override
             public void removeUpdate(DocumentEvent e) {
-                calcularEnCampoPU(pz);
+                calcularEnCampoPU();
                
             }
             @Override
@@ -1440,12 +1458,12 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularEnCampoPU(pz);
+                calcularEnCampoPU();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) { 
-                calcularEnCampoPU(pz);
+                calcularEnCampoPU();
             }
             @Override
             public void changedUpdate(DocumentEvent e) {
@@ -1459,13 +1477,13 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularEnCampoPU(pz);
+                calcularEnCampoPU();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) { 
                 
-                calcularEnCampoPU(pz);
+                calcularEnCampoPU();
             }
             @Override
             public void changedUpdate(DocumentEvent e) {
@@ -1479,12 +1497,12 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                calcularEnCampoPU(pz);
+                calcularEnCampoPU();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                calcularEnCampoPU(pz);
+                calcularEnCampoPU();
             }
 
             @Override
@@ -1534,11 +1552,12 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
     }
     
     //calcula el importe dependiendo de que checkboz se seleccione
-    private void calcularEnCampoPU(JTextField pzLocal){
-        float pUni;
-        int pzs;
-        float kgPartida;
-        float total;
+    private void calcularEnCampoPU(){
+        float pUni = 0;
+        int pzI = 0;
+        int pzF = 0;
+        float kgPartida = 0;
+        float totalImp = 0;
         
         if(indicadorParaImporte == 1)//hace calculos si se seleccionaron las piezas
         {
@@ -1551,15 +1570,15 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                 pUni = Float.parseFloat(pUnit.getText());
             }
 
-            if(pzLocal.getText().equals("") || pzLocal.getText().equals("")){
-                pzs = 0;
+            if(pz.getText().equals("")){
+                pzI = 0;
             }
             else
             {
-                pzs = Integer.parseInt(pzLocal.getText());
+                pzI = Integer.parseInt(pz.getText());
             }
-            total = pUni * pzs;
-            imp.setText(String.valueOf(total));
+            totalImp = pUni * pzI;
+            imp.setText(String.valueOf(totalImp));
         }
         else if(indicadorParaImporte == 2)//hace calculos si se seleccionaron los kg
         {
@@ -1580,8 +1599,8 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                     {
                         kgPartida = Float.parseFloat(kg.getText());
                     }
-                    total = pUni * kgPartida;
-                    imp.setText(String.valueOf(total));
+                    totalImp = pUni * kgPartida;
+                    imp.setText(String.valueOf(totalImp));
         }
         else if(indicadorParaImporte == 3)//hace calculos si se seleccionaron las piezas finales
         {
@@ -1596,14 +1615,14 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
 
                     if(pzFinales.getText().equals("") || pzFinales.getText().equals(""))
                     {
-                        pzs = 0;
+                        pzF = 0;
                     }
                     else
                     {
-                        pzs = Integer.parseInt(pzFinales.getText());
+                        pzF = Integer.parseInt(pzFinales.getText());
                     }
-                    total = pUni * pzs;
-                    imp.setText(String.valueOf(total));
+                    totalImp = pUni * pzF;
+                    imp.setText(String.valueOf(totalImp));
         }  
     }
     
@@ -1629,24 +1648,52 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         }
     }
     
-    //Calcular monto total del pedido a base de los importes de todas las partidas
+    //Calcular y actualiza el subtotal del pedido a base de los importes de todas las partidas y los grabados
     private void establecerSubtotalPedido(Statement st){
-        
-        String sql = "select importe from partida where folio_fk = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
         float subtotalVar = 0;
+        String sql = "select importe from partida where folio_fk = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
+        //se hace la sumatoria de los importes de las partidas
         try
         {
             this.rs = st.executeQuery(sql);
             while(this.rs.next())
             {
-                //Aqui se empiezan a acumular los importes de las partidas
                 subtotalVar = subtotalVar + Float.parseFloat(this.rs.getString("importe"));
             } 
-            actualizarSubtotalPedido(subtotalVar, st);//Update al campo subtotal para ingresar el nuevo monto
+            this.rs.close();
         } 
         catch (SQLException ex) 
         {
-            JOptionPane.showMessageDialog(null, "Error al buscar la partida (sub)" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al hacer la sumatoria de los importes" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+        
+        sql = "select grabados from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
+        //se suman los grabados
+        try
+        {
+            this.rs = st.executeQuery(sql);
+            while(this.rs.next())
+            {
+                subtotalVar = subtotalVar + Float.parseFloat(this.rs.getString("grabados"));
+            } 
+            this.rs.close();
+        } 
+        catch (SQLException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Error al hacer la suma de grabados" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+        
+        sql = "update pedido set subtotal = "+subtotalVar+" where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
+        try
+        {
+            st.execute(sql);
+        } 
+        catch (SQLException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Error al actualzar el subtotal en el servidor" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
     }
     
@@ -1679,83 +1726,45 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         return ivaF;
     }
     
-    //Se actualiza el subtotal de pedido
-    private void actualizarSubtotalPedido(float sub, Statement st){
+    //calcula y actualiza el total y resto del pedido
+    private void establecerTotalYResto(Statement st)
+    {
+        String sql = "select subtotal, anticipo, descuento from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
+        float subtotal = 0, anticipo = 0, descuento = 0, subIva = 0, total = 0, restoF = 0;
+        float iva = obtenerIva();
         
-        float subGrab = sub;
-        float anti  = 0f;
-        float descuento = 0f;
-        
-        //Consulta para obtener los valores de: grabados, anticipo y descuento. Se realizaran operaciones
-        String sql = "select grabados, anticipo, descuento from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
-        
-        try 
+        try
         {
-           
-            this.rs = st.executeQuery(sql);
-            while(this.rs.next())
-            {
-                //Se le suma el coste de grabados al subtotal
-                subGrab = subGrab + Float.parseFloat(this.rs.getString("grabados"));
-                //System.out.println("Grabados: "+this.rs.getString("grabados"));
-                //Se guarda el valor de anticipo para usu posterior
-                anti = Float.parseFloat(this.rs.getString("anticipo"));
-                //Se guarda el vlor de descuento para uso posterior
-                descuento = Float.parseFloat(this.rs.getString("descuento"));
+            rs = st.executeQuery(sql);
+            while(rs.next()){
+               subtotal = Float.parseFloat(rs.getString("subtotal"));
+               anticipo = Float.parseFloat(rs.getString("anticipo"));
+               descuento = Float.parseFloat(rs.getString("descuento"));
             }
-            this.rs.close();
-        } 
-        catch (SQLException ex) 
-        {
-            JOptionPane.showMessageDialog(null, "Error al obtener los datos de costos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
+            rs.close();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
         }
         
-        //Cuando ya se sumaron los grabados y el subtotal ahora se guarda en la base de datos
-        sql = "update pedido set subtotal = "+subGrab+" where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
-        this.sub = subGrab;//Global
-        try 
-        {
-            st.execute(sql);
-            //Ahora paso por parametros el subtotal con grabados, anticipo y descuento
-            calcularCostosDeSub(subGrab, anti, descuento, st);
-            st.close();
-            
-        } 
-        catch (SQLException ex) 
-        {
-            JOptionPane.showMessageDialog(null, "Error al actualizar el subtotal", "Error", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
-        }
-    }
-    
-    //Aqui se reciben todos los valores necesarios para realizar los calculos y actualizar la base de datos
-    private void calcularCostosDeSub(float sub, float anticipo, float descuento, Statement st){
-        
-        float total = 0f;
-        float iva = obtenerIva();//se obtiene el porcentaje de iva de ese pedido especificamente
-        float subIva = 0f;
-        float rest = 0f;
-        
-        subIva = sub * iva;//Se obtiene el iva del subtotal
+        subIva = subtotal * iva;//Se obtiene el iva del subtotal
         this.iva = subIva;//Global
-        total = sub + subIva;//Se suma el iva y el subtotal para obtener el total
+        total = subtotal + subIva;//Se suma el iva y el subtotal para obtener el total
         this.total = total;//Global
         
-        rest = total - anticipo;//Se le resta el anticipo al total para obtener el resto
-        rest = rest - descuento;//Se le resta el descuento al resto
-        this.resto = rest;//Global
+        restoF = total - anticipo;//Se le resta el anticipo al total para obtener el resto
+        restoF = restoF - descuento;//Se le resta el descuento al resto
+        this.resto = restoF;//Global
         
-        String sql= "update pedido set total = "+total+", resto = "+rest+" where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
-        
+        sql= "update pedido set total = "+total+", resto = "+restoF+" where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
         try 
         {
             st.execute(sql);
         } catch (SQLException ex) 
         {
             JOptionPane.showMessageDialog(null, "Error al actualizar el total y resto", "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
-
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
