@@ -39,7 +39,7 @@ public class CostoMaterial extends javax.swing.JFrame {//permite cambiarle el pr
         modPart.setColumnIdentifiers(new Object[]{"Tipo", "Precio"});
         tablaMat.setModel(modPart);
         
-        tipo = "";//inicialisa el tipo en nada
+        tipo = "";//inicializa el tipo en nada
         
         String sql = "select * from costosMaterial";
         try

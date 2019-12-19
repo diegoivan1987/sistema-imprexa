@@ -10,7 +10,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -40,7 +39,6 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
     
     boolean indicadorCambios;//indica si se cambiaron datos
     
-    @SuppressWarnings("Convert2Diamond")
     public DetallesPartida(ArrayList<DatosPartida> dp, Connection con, ArrayList<PedidoATT> datosReporte, Visualizacion vis) {
         initComponents();
         
@@ -67,7 +65,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         
         sello.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FONDO", "LATERAL", "TRASLAPE"}));
         
-        //se activan si llega a haber cambios en los checkbox
+        //se activan si llega a haber cambios en los campos de texto
         onChangePU();
         onChangeKilos();
         onChangePz();

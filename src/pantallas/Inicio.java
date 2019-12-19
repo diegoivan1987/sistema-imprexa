@@ -96,11 +96,6 @@ public class Inicio extends javax.swing.JFrame {//es el loggin del programa
                 usuMousePressed(evt);
             }
         });
-        usu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usuActionPerformed(evt);
-            }
-        });
 
         ps.setBackground(new java.awt.Color(153, 153, 153));
         ps.setForeground(new java.awt.Color(51, 255, 204));
@@ -215,10 +210,6 @@ public class Inicio extends javax.swing.JFrame {//es el loggin del programa
     private void usuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usuMousePressed
         usu.setText("");
     }//GEN-LAST:event_usuMousePressed
-
-    private void usuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuActionPerformed
-
-    }//GEN-LAST:event_usuActionPerformed
 
     private void psMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_psMousePressed
         ps.setText("");

@@ -9,6 +9,7 @@ public class CopiasSeguridad extends javax.swing.JFrame {//permite crear o resta
 
     public CopiasSeguridad() {
         initComponents();
+        this.setResizable(false);
         this.setIconImage (new ImageIcon(getClass().getResource("/Images/iconoCab.png")).getImage());
     }
 
