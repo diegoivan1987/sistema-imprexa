@@ -138,14 +138,40 @@ public class CopiasSeguridad extends javax.swing.JFrame {//permite crear o resta
     //restaura la copia de seguridad en el escritorio
     private void restaurarCopia()
     {
-        try
+        String[] modoRestaurar = {"La computadora actual", "El servidor"};
+        String elegido = (String) JOptionPane.showInputDialog(null, "Restaurar la copia desde el escritorio de...", "Modo de restauración", 
+        JOptionPane.QUESTION_MESSAGE, null, modoRestaurar,  modoRestaurar[0]);
+        
+        if(elegido != null)
         {
-            Runtime.getRuntime().exec("C:\\windows\\System32\\cmd.exe /k start restaurarCopia.bat");//ejecuta con cmd el archivo restaurarCopia que debe estar en la carpeta raiz del programa
+            if(elegido.equals("La computadora actual"))
+            {
+                try
+                {
+                    Runtime.getRuntime().exec("C:\\windows\\System32\\cmd.exe /k start restaurarCopiaDesdeUsuario.bat");//ejecuta con cmd el archivo restaurarCopia que debe estar en la carpeta raiz del programa
+                }
+                catch(IOException Error)
+                {
+                    JOptionPane.showMessageDialog(null,"Problema al restaurar la copia desde la pc actual" + Error.getLocalizedMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+                    Error.printStackTrace();
+                }
+            }
+            else
+            {
+                try
+                {
+                    Runtime.getRuntime().exec("C:\\windows\\System32\\cmd.exe /k start restaurarCopiaDesdeServidor.bat");//ejecuta con cmd el archivo restaurarCopia que debe estar en la carpeta raiz del programa
+                }
+                catch(IOException Error)
+                {
+                    JOptionPane.showMessageDialog(null,"Problema al restaurar la copia desde el servidor" + Error.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+                    Error.printStackTrace();
+                }
+            }
         }
-        catch(IOException Error)
+        else
         {
-            JOptionPane.showMessageDialog(null,"Problema al restaurar la copia" + Error.getLocalizedMessage(),"Error",JOptionPane.ERROR_MESSAGE);
-            Error.printStackTrace();
+            JOptionPane.showMessageDialog(null, "No se eligio ninguna opcion","Advertencia",JOptionPane.WARNING_MESSAGE);
         }
     }
 

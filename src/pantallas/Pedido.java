@@ -3355,7 +3355,6 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     }//GEN-LAST:event_c26KeyTyped
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-
         Inicio.prin.setLocationRelativeTo(null);
         Inicio.prin.setVisible(true);
     }//GEN-LAST:event_formWindowClosing

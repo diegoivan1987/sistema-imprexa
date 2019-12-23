@@ -661,8 +661,6 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                 JOptionPane.showMessageDialog(null, "No se pueden sobrepasar las horas totales, maximo: 99 horas", "Advertencia", 
                         JOptionPane.INFORMATION_MESSAGE);
             }
-            
-            
         }else{
             
             try{
@@ -676,7 +674,6 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                 JOptionPane.showMessageDialog(null, "No se pueden sobrepasar las horas totales, maximo: 99 horas", "Advertencia", 
                         JOptionPane.INFORMATION_MESSAGE);
             }
-    
         }
         
         aux = new DateTime("T00:00:00");
@@ -843,7 +840,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         
     }
     
-    //calcula el costo total por cada registro de impresion
+    //calcula el costo total por cada registro de operador en impresion
     private void calcularCostoOpMinutosImp(int minutos, float sueldoOperador, float sueldoAyudante,int minutosExtra, int minutosTotales, JTextField costoField){
         
         float costoPorMinutos = 0f;
@@ -2450,7 +2447,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
     
     //obtiene y cambia el folio que aparece en el interfaz
     private void obtenerSeleccionTablaPedido(){
-        vaciarCamposProcesos();
+        vaciarCamposMaquila();
         String fol;
         try
         {
@@ -2495,7 +2492,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         this.setLocationRelativeTo(null);
         
         modPed.setRowCount(0);//Para que no se acumulen los resultados de las consultas en la tabla
-        modPart.setRowCount(0);
+        modPart.setRowCount(0);//vacía la tabla de partidas
         String nompedido = impBus.getText();//Para guardar el nombre de Impresion a buscar
         
         //Se utiliza join para que tambien se muestren los datos de clientes relacionados con el pedido
@@ -2519,33 +2516,37 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
     }
     
+    //obtiene el id de la partida
     private void obtenerSeleccionTablaPartida()
     {
         String idPartSt;//Para guardar la id de la partida que se clickee
-        
-        String modo = "";
-        String idPartSt2 = "";
         try
         {
             idPartSt = modPart.getValueAt(tablaPart.getSelectedRow(), 0).toString();
-            idPartSt2 = idPartSt;
-        
+            
             idPartida.setText(idPartSt);//El campo desabilitado para las partidas se establece con la id de la partida ya guardada
             idPart = Integer.parseInt(idPartSt);//A esa varible global se le asigna el resultado de a seleccion, se pasa a entero.
 
             //se habilita el boton para eliminar partidas
             eliminarP.setEnabled(true);
             
-            comprobarProcesos(Integer.parseInt(idPartSt));//Verificar si las partidas ya tienen generados los procesos
+            comprobarProcesos(idPart);//Verificar si las partidas ya tienen generados los procesos
         }
         catch(ArrayIndexOutOfBoundsException ex)
         {
             JOptionPane.showMessageDialog(null, "Selecciona con el boton izquierdo del raton", "Avertencia", JOptionPane.WARNING_MESSAGE);
+            ex.printStackTrace();
         }
-        
+        cambiaTextoBoton();//cambia el boton, deacuerdo al modo de generacion   
+    }
+    
+    //cambia el texto del boton de cambio de modo, deacuerdo a lo que le falte
+    private void cambiaTextoBoton()
+    {
+        String modo = "";
+        String sql = "select modoMat from partida where idPar = "+idPart+"";//se busca si fue compra o produccion de material
         try
         {
-            String sql = "select modoMat from partida where idPar = "+Integer.parseInt(idPartSt2)+"";//se busca si fue compra o produccion de material
             st =  con.createStatement();
             rs = st.executeQuery(sql);
             while(rs.next())
@@ -2577,22 +2578,137 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
     }
     
+    //Genera procesos
+    private void generarProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarProActionPerformed
+        generarPro.setSelected(false);
+        
+        //pregunta en que modo se generaran los procesos
+        String elegido = (String) JOptionPane.showInputDialog(null, "Compra o Produccion de Material?", "Modo de generacion", 
+        JOptionPane.QUESTION_MESSAGE, null, modoMaterial,  modoMaterial[0]);
+        
+        if(!(elegido == null)){//si eligio una opcion valida
+            
+            comprobarVacio();//Establece en 0 los campos
+            //preguarda o inicializa los datos de maquila en la base en 0
+            //Extrusion
+            pM1St = proM1.getText();
+            pM2St = proM2.getText();
+            provE1St = prov1Ext.getText();
+            precioKgE1St = porKg1Ext.getText();
+            prov2St = prov2Ext.getText();
+            precioKg2St = porKg2Ext.getText();
+            //Impreso
+            prodISt = kgImp.getText();
+            provI1St = provImp.getText();
+            precioKgI1St = porKgImp.getText();
+            prodI2St = kgImp2.getText();
+            provI2St = provImp2.getText();
+            precioKgI2St = porKgImp2.getText();
+            //Bolseo
+            prodBSt = kgBol.getText();
+            prodPzSt = pzsBol.getText();
+            provB1St = provBol.getText();
+            precioKgB1St = porKgBol.getText();
+            //Extrusion
+            String sql = "insert into extrusion(pocM1, pocM2, prov1, precioKg1,"
+                    + "prov2, precioKg2, kgTotales, costoOpTotalExt, greniaExt,"
+                    + "costoUnitarioExt, hrTotalesPar, idPar_fk) values("+pM1St+","
+                    + ""+pM2St+",'"+provE1St+"',"+precioKgE1St+",'"+ prov2St+"',"
+                    + precioKg2St+",0,0,0,0,0,"+idPart+")";
+            try 
+            {
+                st = con.createStatement();
+                st.execute(sql);
+                st.close();
+            } 
+            catch (SQLException ex) 
+            {
+                JOptionPane.showMessageDialog(null, "No se pudo generar extrusion: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+            //Impreso
+            sql = "insert into impreso(produccion, prov1, precioKg1, produccion2, "
+                    + "prov2, precioKg2, kgTotales, costoOpTotalImp, greniaImp, "
+                    + "costoUnitarioImp, hrTotalesPar, idPar_fk) values("
+                    + prodISt+",'"+provI1St+"',"+precioKgI1St+","+prodI2St+","
+                    + "'"+provI2St+"',"+precioKgI2St+",0,0,0,0,0,"+idPart+")";
+            try 
+            {
+                st = con.createStatement();
+                st.execute(sql);
+                st.close();
+            } 
+            catch (SQLException ex) 
+            {
+                JOptionPane.showMessageDialog(null, "No se pudo generar impreso: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+            //Bolseo
+            sql = "insert into bolseo(produccion, produccionPz, prov1, precioKg1, "
+                    + "kgTotales, costoOpTotalBol, greniaBol, costoUnitarioBol, "
+                    + "hrTotalesPar, idPar_fk) values("+prodBSt+","+prodPzSt+",'"
+                    +provB1St+"',"+precioKgB1St+",0,0,0,0,0,"+idPart+")";
+            try 
+            {
+                st = con.createStatement();
+                st.execute(sql);
+                st.close();
+                JOptionPane.showMessageDialog(null, "Procesos Generados: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+            } 
+            catch (SQLException ex) 
+            {
+                JOptionPane.showMessageDialog(null, "No se pudo generar bolseo: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+
+            sql = "update partida set modoMat = '"+elegido+"' where idPar = "+idPart+"";
+            try 
+            {
+                st = con.createStatement();
+                st.execute(sql);
+                st.close();
+            } 
+            catch (SQLException ex) 
+            {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al crear el modo de produccion:"+ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            }
+            
+            //cambiamos el texto del boton
+            if(elegido.equals(modoMaterial[0]))//si eligio produccion
+            {
+                cambioMod.setVisible(true);
+                cambioMod.setText("Agregar compras");
+            }
+            else if(elegido.equals(modoMaterial[1]))//si eligio maquila
+            {
+                cambioMod.setVisible(true);
+                cambioMod.setText("Agregar producción");
+            }
+
+            comprobarProcesos(idPart);//comprueba si extrusion ya tiene id
+        }
+        else//si no eligio nada
+        {
+            JOptionPane.showMessageDialog(null, "No se eligio ningun modo", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_generarProActionPerformed
     
-    //Verificar si ciertas partidas y tienen generados los procesos, se habilita o deshabilita el boton. Se obtienen las primary key de cada proceso
+    //Verificar si una partida ya genero extrusion
     private void comprobarProcesos(int idP){
         
-        //Se busca en extrusion, respecto al folio, si ya hay algun proceso generado
         String sql = "select idExt from extrusion where idPar_fk = "+idP+"";
-        int idE = 0;//Para guardar la id de extrusion en caso de haber registros
+        int idE = 0;
         
         try {//Extrusion: Obtencion de id principal
             st =  con.createStatement();
             rs = st.executeQuery(sql);
-            
             while(rs.next()){
                 idE = rs.getInt("idExt");//Se guardara la id de extrusion en caso de haber resultados
-                idEx = idE;//La variable global de la id primaria de extrusion tabien se establece
+                idEx = idE;//variable global de extrusion
             }
+            rs.close();
+            st.close();
             
             //Si todavia no se an generado los procesos
             if(idE == 0){//Si idE es igual a 0, significa que no hay registros en extrusion, ni en otro proceso
@@ -2603,175 +2719,102 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                 
                 generarPro.setEnabled(true);//El boton para generar procesos se activa para que deje generarlos
                 
-                //Los de agregar se desactivan, pues todavia no se han generado procesos
+                //Los de registro de produccion se desactivan, pues todavia no se han generado procesos
                 agE.setEnabled(false);
                 agI.setEnabled(false);
                 agB.setEnabled(false);
                 
-                //Tambien los que actualizan los procesos
+                //Tambien los de maquila
                 gdEx.setEnabled(false);
                 gdIm.setEnabled(false);
                 gdBo.setEnabled(false);
-               
-                vaciarCamposProcesos();//Se establecen los campos de los procesos nulos, ya que no hay registros
-                comprobarModoMat();
-                st.close();
-                
             }
-            else{//Si ya fueron generados los procesos
+            else
+            {//Si ya fueron generados los procesos
+                
                 llenarListasOperadores();//se llenan las listas de operadores
                 llenarListaAyudantes();//se llena la lista de ayudantes
-                //Si hay, la pantalla se agrandara para mostrarlos
-                this.setSize(new Dimension(WD, HG));
-                paPro.setVisible(true);
+                
+                this.setSize(new Dimension(WD, HG));//se agranda la pantalla
+                paPro.setVisible(true);//se muestra el panel de los registros
                 this.setLocationRelativeTo(null);
                 
-                //Significa que idE se reestablecio, hubo un registro de la consulta y idE ya no vale 0
-                vaciarCamposProcesos();//Vacearlos para ingresar nuevos datos
-                generarPro.setEnabled(false);//El boton para guardar procesos se desactiva, ya se han generado y no es necesario volver a generar
-                agE.setEnabled(true);//Se habilitan los botones para agrear operadores, pues ya hay procesos generados
+                vaciarCamposMaquila();
+                generarPro.setEnabled(false);//boton generar procesos se desactiva
+                //Se habilitan los botones para guardar registros
+                agE.setEnabled(true);
                 agI.setEnabled(true);
                 agB.setEnabled(true);
                 gdEx.setEnabled(true);
                 gdIm.setEnabled(true);
                 gdBo.setEnabled(true);
                 
-                comprobarModoMat();//Comprobar que modalidad de produccion es. (Produccion, Compra, ambas)
-                establecerCamposPartida();//Se establecen los campos de los procesos de la partida,obteniendolos de la database
-                //Tambien se obtienen las primary key de los procesos
+                comprobarModoMat();//habilitamos los paneles correspondientes
+                establecerCamposPartida();//Establece los datos de maquila y establece las id globales de los procesos
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en la busqueda de procesos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    //habilita ciertas partes de la pantalla deacuerdo a si fueron compras o produccion
-    public void comprobarModoMat(){
-        String sql = "select modoMat from partida where idPar = "+idPart+"";//se obtiene de la database
-        String modo = "";
-        
-        try {
-            rs = st.executeQuery(sql);
-            
-            while(rs.next()){
-                modo = rs.getString("modoMat");
-                if(modo == null){//Si esta en null significa que no se han generado procesos
-                    modo = "";
-                }
-            }
-            
-            rs.close();
-            
-            if(modo.equals(modoMaterial[0])){//Produccion
-                panEx.setVisible(true);
-                panImp.setVisible(true);
-                panBol.setVisible(true);
-                
-                panMaqExt.setVisible(false);
-                panMaqImp.setVisible(false);
-                panMaqBol.setVisible(false);
-            }
-            else if(modo.equals(modoMaterial[1])){//Compra
-                panEx.setVisible(false);
-                panImp.setVisible(false);
-                panBol.setVisible(false);
-                
-                panMaqExt.setVisible(true);
-                panMaqImp.setVisible(true);
-                panMaqBol.setVisible(true);
-                
-            }
-            else if(modo.equals(modoMaterial[2])){//Ambos
-                panEx.setVisible(true);
-                panImp.setVisible(true);
-                panBol.setVisible(true);
-                panMaqExt.setVisible(true);
-                panMaqImp.setVisible(true);
-                panMaqBol.setVisible(true);
-            }
-            else if(modo.equals("")){//Si no se han generado procesos
-                
-                panEx.setVisible(false);
-                panImp.setVisible(false);
-                panBol.setVisible(false);
-                panMaqExt.setVisible(false);
-                panMaqImp.setVisible(false);
-                panMaqBol.setVisible(false);
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    //Esteblecer los campos de los procesos respecto a los clicks en la tabla de partidas
-    private void establecerCamposPartida(){
-        
-        String sql = "select pocM1, pocM2, prov1, precioKg1, prov2, precioKg2, idExt from extrusion where idPar_fk = "+idPart+"";
-        
-        try {
-            rs = st.executeQuery(sql);
-            
-            while(rs.next()){
-                proM1.setText(rs.getString("pocM1"));
-                proM2.setText(rs.getString("pocM2"));
-                prov1Ext.setText(rs.getString("prov1"));
-                porKg1Ext.setText(rs.getString("precioKg1"));
-                prov2Ext.setText(rs.getString("prov2"));
-                porKg2Ext.setText(rs.getString("precioKg2"));
-                idEx = rs.getInt("idExt");
-            }
-            
-            rs.close();
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al establecer los datos de extrusion: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        
-        sql = "select produccion, prov1, precioKg1, produccion2, prov2, precioKg2, sticky, idImp from impreso where idPar_fk = "+idPart+"";
-        
-        try {
-            rs = st.executeQuery(sql);
-            
-            while(rs.next()){
-                kgImp.setText(rs.getString("produccion"));
-                provImp.setText(rs.getString("prov1"));
-                porKgImp.setText(rs.getString("precioKg1"));
-                kgImp2.setText(rs.getString("produccion2"));
-                provImp2.setText(rs.getString("prov2"));
-                porKgImp2.setText(rs.getString("precioKg2"));
-                idIm = rs.getInt("idImp");
-            }
-            
-            rs.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al establecer los datos de impreso: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        
-        sql = "select produccion, produccionPz, prov1, precioKg1, idBol from bolseo where idPar_fk = "+idPart+"";
-        
-        try {
-            rs = st.executeQuery(sql);
-            
-            while(rs.next()){
-                kgBol.setText(rs.getString("produccion"));
-                pzsBol.setText(rs.getString("produccionPz"));
-                provBol.setText(rs.getString("prov1"));
-                porKgBol.setText(rs.getString("precioKg1"));
-                idBo = rs.getInt("idBol");
-            }
-            
-            rs.close();
         } 
-        catch (SQLException ex) 
-        {
-            JOptionPane.showMessageDialog(null, "Error al obtener los datos de bolseo: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la busqueda de procesos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
     }
     
-    //Se establecen en "" o "0" los campos de los procesos que aun no se han generado
-    private void vaciarCamposProcesos(){
-        
+    //llena las listas de operadores cuando ya se crearon los procesos
+    private void llenarListasOperadores()
+    {
+        //borramos los elementos que ya tenian las listas
+        listOperadorE.removeAllItems();
+        listOperadorI.removeAllItems();
+        listOperadorB.removeAllItems();
+        String nombreSt = "";
+        //las volvemos a llenar
+        String sql = "select nombre from operadores";
+        try
+        {
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())//llena las listas de operadores
+            {
+                nombreSt = rs.getString("nombre");
+                listOperadorE.addItem(nombreSt);
+                listOperadorI.addItem(nombreSt);
+                listOperadorB.addItem(nombreSt);
+            }
+            rs.close();
+            st.close();
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+    
+    //llena la lista de ayudantes cuando ya se crearon los procesos
+    private void llenarListaAyudantes()
+    {
+      listAyudanteI.removeAllItems();//se vacian los elementos anteriores
+      String sql = "select nombre from operadores";
+      String nombre = "";
+      try
+      {
+          st = con.createStatement();
+          rs = st.executeQuery(sql);
+          while(rs.next())
+          {
+              nombre = rs.getString("nombre");
+              listAyudanteI.addItem(nombre);
+          }
+          rs.close();
+          st.close();
+      }
+      catch(SQLException ex)
+      {
+          ex.printStackTrace();
+      }
+    }
+    
+    //Se establecen en "" o "0" los campos de maquila
+    private void vaciarCamposMaquila(){
         proM1.setText("0");
         proM2.setText("0");
         prov1Ext.setText("");
@@ -2792,114 +2835,138 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         porKgBol.setText("0");
     }
     
-    //Generar procesos
-    private void generarProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarProActionPerformed
-        crearListasOperadores();//se crean el contenido de las listas desplegables
-        crearListaAyudantes();//se crea el contenido de la lista de ayudantes
-        generarPro.setSelected(false);
-        String elegido = (String) JOptionPane.showInputDialog(null, "Compra o Produccion de Material?", "Modo de generacion", 
-                JOptionPane.QUESTION_MESSAGE, null, modoMaterial,  modoMaterial[0]);
+    //habilita ciertas partes de la pantalla deacuerdo a si fueron compras o produccion
+    public void comprobarModoMat(){
+        String sql = "select modoMat from partida where idPar = "+idPart+"";
+        String modo = "";
         
-        if(!(elegido == null)){
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next()){
+                modo = rs.getString("modoMat");
+                if(modo == null){//Si esta en null significa que no se han generado procesos
+                    modo = "";
+                }
+            }
+            rs.close();
+            st.close();
             
-            comprobarVacio();//Establecer en 0 ciertos campos para evitar errors en la base de datos
-            //Extrusion
-             pM1St = proM1.getText();
-            pM2St = proM2.getText();
-            provE1St = prov1Ext.getText();
-            precioKgE1St = porKg1Ext.getText();
-            prov2St = prov2Ext.getText();
-            precioKg2St = porKg2Ext.getText();
-
-            //Impreso
-            prodISt = kgImp.getText();
-            provI1St = provImp.getText();
-            precioKgI1St = porKgImp.getText();
-            prodI2St = kgImp2.getText();
-            provI2St = provImp2.getText();
-            precioKgI2St = porKgImp2.getText();
-
-            //Bolseo
-            prodBSt = kgBol.getText();
-            prodPzSt = pzsBol.getText();
-            provB1St = provBol.getText();
-            precioKgB1St = porKgBol.getText();
-
-            //Extrusion
-                String sql = "insert into extrusion(pocM1, pocM2, prov1, precioKg1, prov2, precioKg2, idPar_fk, costoUnitarioExt, kgTotales, greniaExt, "
-                        + "costoOpTotalExt) "
-                        + "values("+pM1St+","+pM2St+",'"+provE1St+"',"+precioKgE1St+",'"+prov2St+"',"+precioKg2St+","+idPart+", 0, 0, 0, 0)";
-
-                try {
-                    st = con.createStatement();
-                    st.execute(sql);
-
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "No se pudo generar extrusion: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    ex.printStackTrace();
-                }
-
-                //Impreso
-                sql = "insert into impreso(produccion, prov1, precioKg1, produccion2, prov2, precioKg2, idPar_fk, kgTotales, costoOpTotalImp, greniaImp, "
-                        + "costoUnitarioImp) "
-                        + "values("+prodISt+",'"+provI1St+"',"+precioKgI1St+","+prodI2St+",'"+provI2St+"',"+precioKgI2St+","+idPart+",0,0,0,0)";
-
-                try {
-                    st.execute(sql);
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "No se pudo generar impreso: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
-
-                //Bolseo
-                sql = "insert into bolseo(produccion, produccionPz, prov1, precioKg1, idPar_fk, kgTotales, costoOpTotalBol, greniaBol, costoUnitarioBol) "
-                        + "values("+prodBSt+","+prodPzSt+",'"+provB1St+"',"+precioKgB1St+","+idPart+",0,0,0,0)";
-
-                try {
-                    st.execute(sql);
-                    JOptionPane.showMessageDialog(null, "Procesos Generados: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-                    st.close();
-
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "No se pudo generar bolseo: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
-
-                sql = "update partida set modoMat = '"+elegido+"' where idPar = "+idPart+"";
-                try {
-                    st = con.createStatement();
-                    st.execute(sql);
-                    st.close();
-                    if(elegido.equals(modoMaterial[0]))
-                    {
-                        cambioMod.setVisible(true);
-                        cambioMod.setText("Agregar compras");
-         
-                    }else if(elegido.equals(modoMaterial[1]))
-                    {
-                        cambioMod.setVisible(true);
-                        cambioMod.setText("Agregar producción");
-                    }
-
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Error al crear el modo de produccion:"+ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
-                }
-
-                comprobarProcesos(idPart);//En el momento en el que se introduce la extrusion llamo a la funcion para que
-                                              //compruebe la generacion de procesos y me desactive el boton de generar procesos
-                                              //Pues ya no es necesario tenerlo activado por que ya estoy generandolos
+            if(modo.equals(modoMaterial[0])){//Produccion
+                //paneles de produccion
+                panEx.setVisible(true);
+                panImp.setVisible(true);
+                panBol.setVisible(true);
+                //paneles de maquila 
+                panMaqExt.setVisible(false);
+                panMaqImp.setVisible(false);
+                panMaqBol.setVisible(false);
+            }
+            else if(modo.equals(modoMaterial[1])){//Compra
+                //paneles de produccion
+                panEx.setVisible(false);
+                panImp.setVisible(false);
+                panBol.setVisible(false);
+                //paneles de maquila
+                panMaqExt.setVisible(true);
+                panMaqImp.setVisible(true);
+                panMaqBol.setVisible(true);
                 
-        }else{
+            }
+            else if(modo.equals(modoMaterial[2])){//Ambos
+                //paneles de produccion
+                panEx.setVisible(true);
+                panImp.setVisible(true);
+                panBol.setVisible(true);
+                //paneles de maquila
+                panMaqExt.setVisible(true);
+                panMaqImp.setVisible(true);
+                panMaqBol.setVisible(true);
+            }
+            else if(modo.equals("")){//Si no se han generado procesos
+                //paneles de produccion
+                panEx.setVisible(false);
+                panImp.setVisible(false);
+                panBol.setVisible(false);
+                //paneles de maquila
+                panMaqExt.setVisible(false);
+                panMaqImp.setVisible(false);
+                panMaqBol.setVisible(false);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    //Establece los datos de maquila y establece las id globales de los procesos
+    private void establecerCamposPartida(){
+        
+        String sql = "select pocM1, pocM2, prov1, precioKg1, prov2, precioKg2, idExt from extrusion where idPar_fk = "+idPart+"";
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
             
-            JOptionPane.showMessageDialog(null, "No se eligio ningun modo", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            while(rs.next()){
+                proM1.setText(rs.getString("pocM1"));
+                proM2.setText(rs.getString("pocM2"));
+                prov1Ext.setText(rs.getString("prov1"));
+                porKg1Ext.setText(rs.getString("precioKg1"));
+                prov2Ext.setText(rs.getString("prov2"));
+                porKg2Ext.setText(rs.getString("precioKg2"));
+                idEx = rs.getInt("idExt");//id global
+            }
+            rs.close();
+            st.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al establecer los datos de extrusion: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
         
+        sql = "select produccion, prov1, precioKg1, produccion2, prov2, precioKg2, sticky, idImp from impreso where idPar_fk = "+idPart+"";
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next()){
+                kgImp.setText(rs.getString("produccion"));
+                provImp.setText(rs.getString("prov1"));
+                porKgImp.setText(rs.getString("precioKg1"));
+                kgImp2.setText(rs.getString("produccion2"));
+                provImp2.setText(rs.getString("prov2"));
+                porKgImp2.setText(rs.getString("precioKg2"));
+                idIm = rs.getInt("idImp");//id global
+            }
+            rs.close();
+            st.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al establecer los datos de impreso: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+        
+        sql = "select produccion, produccionPz, prov1, precioKg1, idBol from bolseo where idPar_fk = "+idPart+"";
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next()){
+                kgBol.setText(rs.getString("produccion"));
+                pzsBol.setText(rs.getString("produccionPz"));
+                provBol.setText(rs.getString("prov1"));
+                porKgBol.setText(rs.getString("precioKg1"));
+                idBo = rs.getInt("idBol");//id global
+            }
+            rs.close();
+            st.close();
+        } 
+        catch (SQLException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Error al obtener los datos de bolseo: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }
 
-    }//GEN-LAST:event_generarProActionPerformed
-    
     //Boton: agregar operadores de impreso
     private void agIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agIActionPerformed
             agI.setSelected(false);
-            comprobarVacio();
+            comprobarVacio();//establece en 0 los campos vacios, de produccion o maquila
             kgISt = kgOpIm.getText();
             greniaISt = greImp.getText();
             opISt = listOperadorI.getSelectedItem().toString();
@@ -2914,65 +2981,71 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             exISt = extHrImp.getTimeField().getText();
             costoOpImSt = costoOpImp.getText();
             
-            String sql = "insert into operadorImp(costoOpImp, kgUniI, grenia, operador, ayudante, numMaquina, horaIni, fIni, horaFin, fFin, tiempoMuerto, totalHoras, extras, idImp_fk)" +
-                    "values("+costoOpImSt+", "+kgISt+","+greniaISt+",'"+opISt+"','"+ayudanteSt+"',"+nMISt+",'"+hIniISt+"', '"+fIniISt+"', '"+hFinISt+"', '"+fFinISt+"', '"+tMuISt+"',"
-                    + " '"+totHISt+"', '"+exISt+"', "+idIm+")";
+            String sql = "insert into operadorImp(costoOpImp, kgUniI, grenia, "
+                    + "operador, ayudante, numMaquina, horaIni, fIni, horaFin, "
+                    + "fFin, tiempoMuerto, totalHoras, extras, idImp_fk) values("
+                    +costoOpImSt+", "+kgISt+","+greniaISt+",'"+opISt+"','"
+                    +ayudanteSt+"',"+nMISt+",'"+hIniISt+"', '"+fIniISt+"', '"
+                    +hFinISt+"', '"+fFinISt+"', '"+tMuISt+"', '"+totHISt+"', '"
+                    +exISt+"', "+idIm+")";
         try { 
             st = con.createStatement();
             st.execute(sql);
+            st.close();
             
-             JOptionPane.showMessageDialog(null, "Se ha guardado el operador en Impreso: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-            
-            sumarKilosIm(st);//se calcula la sumatoria de los kg producidos
-            sumarCostosOperacionales(st, "impreso", "operadorImp", "costoOpImp", "costoOpTotalImp", "idImp", "idImp_fk", idIm);//calcula el costo de operacion de impresion
-            sumarGrenias("operadorImp", "grenia", "idImp_fk", "impreso", "greniaImp", "idImp", idIm);//se hace la sumatoria de grenias
-            calculaCostoPartida();//se calcula e inserta el costo de partida
+            sumarKilosIm();//hace la sumatoria de los kg producidos en impreso y actualiza la base
+            sumarCostosOperacionales("impreso", "operadorImp", "costoOpImp", "costoOpTotalImp", "idImp", "idImp_fk", idIm);//hace la sumatoria de los costos operacionales y la actualiza en la base
+            sumarGrenias("operadorImp", "grenia", "idImp_fk", "impreso", "greniaImp", "idImp", idIm);//Sumar y actualiza la suma de grenias de los registros de operador
+            calculaCostoPartida();//suma los costos de operacion de cada proceso y el costo de material y los inserta en la tabla partida
             calculaHrTotalesPartida("operadorImp", "idImp_fk", idIm,"impreso");//se hace la sumatoria de horas de procesos de la partida
             float material = queryForPesosMaterialImpreso();//se hace la suma de peso de lo comprado y producido
             calcularCostoUnitarioImpreso(material);//se calcula e inserta el costo unitario de impresion
             calcularCostoTotalPe();//se calcula el costo total del pedido
             calculaPyG();//se calculan las perdidas y ganancias
             vaciarOpI();//se establece en 0 los recuadros que permiten seleccionar horas
-        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Se ha guardado el operador en Impreso: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+        } 
+        catch (SQLException ex) {
             
              JOptionPane.showMessageDialog(null, "Error al intentar agregar el operador: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
              ex.printStackTrace();
         }
     }//GEN-LAST:event_agIActionPerformed
     
-    //hace la sumatoria de los kg producidos en impreso
-    private void sumarKilosIm(Statement st){
+    //hace la sumatoria de los kg producidos en impreso y actualiza la base
+    private void sumarKilosIm(){
         
         String sql = "select kgUniI from operadorImp where idImp_fk = "+idIm+"";
         float kilosImp = 0f;
-        
         try {
+            st = con.createStatement();
             rs = st.executeQuery(sql);
-            
-            while(rs.next()){
+            while(rs.next())
+            {
                 kilosImp = kilosImp + Float.parseFloat(rs.getString("kgUniI"));
             }
-            
-            actualizarImpreso(st, kilosImp);//se inserta el dato en la base
-            
             rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
+            st.close();
+            
+            sql = "update impreso set kgTotales = "+kilosImp+" where idImp = "+idIm+"";
+            try 
+            {
+                st = con.createStatement();
+                st.execute(sql);
+                st.close();
+            } 
+            catch (SQLException ex) 
+            {
+                ex.printStackTrace();
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
     }
     
-    //inserta la sumatoria de los kg de impreso
-    private void actualizarImpreso(Statement st, float kgTot){
-        String sql = "update impreso set kgTotales = "+kgTot+" where idImp = "+idIm+"";
-        
-        try {
-            st.execute(sql);
-        } catch (SQLException ex) {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-     /**Kilos de desperdicio partida**/
+    /**Kilos de desperdicio partida**/
     
     //Devuelve la suma de los materiales 1 y 2 de compra de material de extrusion por partida
     private float queryForPesosMaterialPartida(int idPartida){
@@ -3263,80 +3336,6 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         {
             Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
         }   
-    }
-    
-    /**funciones de costo partida**/
-    
-    //suma los costos de operacion de cada proceso y el costo de material y los inserta en la tabla partida
-    void calculaCostoPartida()
-    {
-        float costoExt = 0f, costoImp = 0f, costoBol = 0f, costoMat = 0f, suma = 0f;
-        String sql = "select costoOpTotalExt from extrusion where idPar_fk = "+idPart+"";
-        try{
-            st  = con.createStatement();
-            rs = st.executeQuery(sql);
-            while(rs.next())
-            {
-               costoExt = costoExt + Float.parseFloat(rs.getString("costoOpTotalExt"));
-            }
-            rs.close();
-        }
-        catch(SQLException ex) {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
-        } 
-        
-        sql = "select costoOpTotalImp from impreso where idPar_fk = "+idPart+"";
-        try{
-            rs = st.executeQuery(sql);
-            while(rs.next())
-            {
-                costoImp = costoImp + Float.parseFloat(rs.getString("costoOpTotalImp"));
-            }
-            rs.close();
-        }
-        catch(SQLException ex) {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
-        } 
-        
-        sql = "select costoOpTotalBol from bolseo where idPar_fk = "+idPart+"";
-        try{
-            rs = st.executeQuery(sql);
-            while(rs.next())
-            {
-                costoBol = costoBol + Float.parseFloat(rs.getString("costoOpTotalBol"));
-            }
-            rs.close();
-        }
-        catch(SQLException ex) {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
-        } 
-        
-        sql = "select costoMaterialTotal from partida where idPar = "+idPart+"";
-        try{
-            rs = st.executeQuery(sql);
-            while(rs.next())
-            {
-                costoMat = Float.parseFloat(rs.getString("costoMaterialTotal"));
-            }
-            rs.close();
-        }
-        catch(SQLException ex) {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
-        } 
-        
-        suma = costoExt + costoImp + costoBol + costoMat;
-        sql = "update partida set costoPartida = "+suma+" where idPar = "+idPart+"";
-        try{
-            st.execute(sql);
-            st.close();
-        }
-        catch(SQLException ex) {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-        } 
     }
     
     /**costo unitario**/
@@ -4222,11 +4221,11 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             JOptionPane.showMessageDialog(null, "Se ha guardado el operador en Bolseo: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
             
             sumarKilosBol(st);
-            sumarCostosOperacionales(st, "bolseo", "operadorBol", "costoOpBol", "costoOpTotalBol", "idBol", "idBol_fk", idBo);
-            sumarGrenias("operadorBol", "grenia", "idBol_fk", "bolseo", "greniaBol", "idBol", idBo);
+            sumarCostosOperacionales("bolseo", "operadorBol", "costoOpBol", "costoOpTotalBol", "idBol", "idBol_fk", idBo);//hace la sumatoria de los costos operacionales y la actualiza en la base
+            sumarGrenias("operadorBol", "grenia", "idBol_fk", "bolseo", "greniaBol", "idBol", idBo);//Sumar y actualiza la suma de grenias de los registros de operador
             actualizarKgDes();
             actualizarPorcentajeDes();
-            calculaCostoPartida();
+            calculaCostoPartida();//suma los costos de operacion de cada proceso y el costo de material y los inserta en la tabla partida
             calculaHrTotalesPartida("operadorBol", "idBol_fk", idBo, "bolseo");
             float material = queryForPesosMaterialMultiuso("bolseo", "idBol", idBo, "kgUniB", "operadorBol","idBol_fk");
             calcularCostoUnitarioMultiuso(material, "costoOpTotalBol", "bolseo", "idBol", idBo, "costoUnitarioBol");
@@ -4271,72 +4270,39 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
     }
     
-    //hace la sumatoria de los costos operacionales
-    private void sumarCostosOperacionales(Statement st, String tablaPro, String tablaOp, String campo, String campoProceso, String idCampo, String idFk, int idValor){
-        
-        float costosTotal = 0f;
-        String sql = "select "+campo+" from "+tablaOp+" where "+idFk+" = "+idValor+"";
-        
-        try {
-            rs = st.executeQuery(sql);
-            while(rs.next()){
-                costosTotal = costosTotal + Float.parseFloat(rs.getString(campo));
-            }
-           
-            actualizarCostoExtrusion(st, tablaPro, costosTotal, campoProceso, idCampo, idValor);//se inserta en la base de datos
-        } catch (SQLException ex) {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    //inserta el costo de extrusion en la base de datos
-    private void actualizarCostoExtrusion(Statement st,  String tablaPro, float costoTotal, String campoProceso, String idCampo, int idValor){
-        
-        String sql = "update "+tablaPro+" set "+campoProceso+" = "+costoTotal+" where "+idCampo+" = "+idValor+"";
-        
-        try {
-            st.execute(sql);
-            st.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    
-     //Sumar greniasde los registros de operador
-    private void sumarGrenias(String tablaOperador,String greniaOp, String idFk, String tablaProceso, String greniaProceso, String nomCampoId,int idPGlobal){
+    //Sumar y actualiza la suma de grenias de los registros de operador
+    private void sumarGrenias(String tablaOperador,String greniaOp, String idFk, String tablaProceso, String greniaProceso, String nomCampoId, int idPGlobal){
         
         String sql = "select "+greniaOp+" from "+tablaOperador+" where "+idFk+" = "+idPGlobal+"";
         float kilosGre = 0f;
         
-        try {
+        try 
+        {
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            
-            while(rs.next()){
-                kilosGre = kilosGre + Float.parseFloat(rs.getString(greniaOp));
+            while(rs.next())
+            {
+                 kilosGre = kilosGre + Float.parseFloat(rs.getString(greniaOp));
             }
-              
-            actualizarGreniaProceso(st, tablaProceso, greniaProceso, kilosGre, nomCampoId, idPGlobal);//se inserta en la base de datos
-        } catch (SQLException ex) {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    //Actualizacion de grenia total de cada proceso
-    private void actualizarGreniaProceso(Statement st, String tablaProceso,String greniaProceso,float sumatoriaGrenia,String campoIdDelProceso,int idDelProceso){
-        String sql = "update "+tablaProceso+" set "+greniaProceso+" = "+sumatoriaGrenia+" where "+campoIdDelProceso+" = "+idDelProceso+"";
-        
-        try {
-            st.execute(sql);
+            rs.close();
             st.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null,"error al actualizar greña del proceso");
+            sql = "update "+tablaProceso+" set "+greniaProceso+" = "+kilosGre+" where "+nomCampoId+" = "+idPGlobal+"";
+            try 
+            {
+                st = con.createStatement();
+                st.execute(sql);
+                st.close();
+            } 
+            catch (SQLException ex) 
+            {
+                ex.printStackTrace();
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
     }
-    
-    
     
     //Actualizar datos de extrusion
     private void gdExActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gdExActionPerformed
@@ -4359,7 +4325,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             actualizarKgDes();
             actualizarPorcentajeDes();
             calculaCostoMaterialTotalExt();
-            calculaCostoPartida();
+            calculaCostoPartida();//suma los costos de operacion de cada proceso y el costo de material y los inserta en la tabla partida
             calcularCostoUnitarioExt();
             calculaKgDesperdicioPedido();
             sumaMaterialesPedido();
@@ -4846,13 +4812,13 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             JOptionPane.showMessageDialog(null, "Se ha guardado el operador en Extrusion: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
             
             sumaKilosEx(st);
-            sumarCostosOperacionales(st, "extrusion", "operadorExt", "costoOpExt", "costoOpTotalExt", "idExt", "idExt_fk", idEx);
-            sumarGrenias("operadorExt", "grenia", "idExt_fk", "extrusion", "greniaExt", "idExt", idEx);
+            sumarCostosOperacionales("extrusion", "operadorExt", "costoOpExt", "costoOpTotalExt", "idExt", "idExt_fk", idEx);//hace la sumatoria de los costos operacionales y la actualiza en la base
+            sumarGrenias("operadorExt", "grenia", "idExt_fk", "extrusion", "greniaExt", "idExt", idEx);//Sumar y actualiza la suma de grenias de los registros de operador
             actualizarKgDes();
             actualizarPorcentajeDes();
             calculaCostoMaterialTotalExt();
             calculaHrTotalesPartida("operadorExt", "idExt_fk", idEx,"extrusion");
-            calculaCostoPartida();
+            calculaCostoPartida();//suma los costos de operacion de cada proceso y el costo de material y los inserta en la tabla partida
             calcularCostoUnitarioExt();
             calculaKgDesperdicioPedido();
             sumaMaterialesPedido();
@@ -4867,7 +4833,8 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
     }//GEN-LAST:event_agEActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        
+        Inicio.prin.setLocationRelativeTo(null);
+        Inicio.prin.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
 
     private void cambioModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambioModActionPerformed
@@ -5107,11 +5074,10 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         totalHrBol.getTimeField().setText("00:00:00");
     }
    
-    
-    
+    //establece en 0 los campos vacios, de produccion o maquila
     public void comprobarVacio(){
         
-        //Campos de procesos
+        //Campos de maquila
         if(proM1.getText().equals("") || proM1.getText().equals(".")){
             proM1.setText("0");
         }
@@ -5205,14 +5171,15 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         return maquina;
     }
     
-    private void calculaHrTotalesPartida(String tablaOperadorProceso,String idProcesoForaneo, int idProcesoGlobal, String tablaProceso)
+    private void calculaHrTotalesPartida(String tablaOperador, String idProcesoForaneo, int idProcesoGlobal, String tablaProceso)
     {
         String horaSt = "0";
         int horaInt = 0;
         int minInt = 0;
         int sumatoriaHr = 0;
         int sumatoriaMin = 0;
-        String sql = "select totalHoras from "+tablaOperadorProceso+" where "+idProcesoForaneo+" = "+idProcesoGlobal+"";
+        
+        String sql = "select totalHoras from "+tablaOperador+" where "+idProcesoForaneo+" = "+idProcesoGlobal+"";
         try
         {
            st = con.createStatement();
@@ -5235,6 +5202,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                sumatoriaHr+=horaInt;
            }
            rs.close();
+           st.close();
         }
         catch(SQLException ex)
         {
@@ -5252,117 +5220,6 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         {
             ex.printStackTrace();
         }
-    }
-    
-    //llena las listas de operadores al crear los procesos
-    private void crearListasOperadores()
-    {
-        Statement st7;
-        ResultSet rs7;
-        String nombreSt = "";
-        String sql = "select nombre from operadores";
-        try
-        {
-            st7 = con.createStatement();
-            rs7 = st7.executeQuery(sql);
-            while(rs7.next())//llena lista de operadores
-            {
-                nombreSt = rs7.getString("nombre");
-                listOperadorE.addItem(nombreSt);
-                listOperadorI.addItem(nombreSt);
-                listOperadorB.addItem(nombreSt);
-            }
-            rs7.close();
-            st7.close();
-        }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
-        }
-        
-    }
-    
-    //llena las listas de operadores cuando ya se crearon los procesos
-    private void llenarListasOperadores()
-    {
-        Statement st7;
-        ResultSet rs7;
-        //borramos los elementos que ya tenian las listas
-        listOperadorE.removeAllItems();
-        listOperadorI.removeAllItems();
-        listOperadorB.removeAllItems();
-        String nombreSt = "";
-        //las volvemos a llenar
-        String sql = "select nombre from operadores";
-        try
-        {
-            st7 = con.createStatement();
-            rs7 = st7.executeQuery(sql);
-            while(rs7.next())//llena las listas de operadores
-            {
-                nombreSt = rs7.getString("nombre");
-                listOperadorE.addItem(nombreSt);
-                listOperadorI.addItem(nombreSt);
-                listOperadorB.addItem(nombreSt);
-            }
-            rs7.close();
-            st7.close();
-        }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
-        }
-    }
-    
-    //llena la lista de ayudantes cuando se crean los procesos
-    private void crearListaAyudantes()
-    {
-      Statement st7;
-      ResultSet rs7;
-      String sql = "select nombre from operadores where ayudante = 1";
-      String nombre = "";
-      try
-      {
-          st7 = con.createStatement();
-          rs7 = st7.executeQuery(sql);
-          while(rs7.next())
-          {
-              nombre = rs7.getString("nombre");
-              listAyudanteI.addItem(nombre);
-          }
-          rs7.close();
-          st7.close();
-      }
-      catch(SQLException ex)
-      {
-          ex.printStackTrace();
-      }
-    }
-    
-    //llena la lista de ayudantes cuando ya se crearon los procesos
-    private void llenarListaAyudantes()
-    {
-      listAyudanteI.removeAllItems();//se vacian los elementos anteriores
-      Statement st7;
-      ResultSet rs7;
-      String sql = "select nombre from operadores where ayudante = 1";
-      String nombre = "";
-      try
-      {
-          st7 = con.createStatement();
-          rs7 = st7.executeQuery(sql);
-          while(rs7.next())
-          {
-              nombre = rs7.getString("nombre");
-              listAyudanteI.addItem(nombre);
-          }
-          rs7.close();
-          st7.close();
-      }
-      catch(SQLException ex)
-      {
-          ex.printStackTrace();
-      }
     }
     
     public void vacearComponentes(){
@@ -5439,6 +5296,13 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         
     }
     
+    /*COSTO DE OPERACION*/
+    /*
+    listOperadorEItemStateChanged
+    listOperadorIItemStateChanged
+    listAyudanteIItemStateChanged
+    listOperadorBItemStateChanged
+    */
     //devuelve el sueldo por hora de cierto operador
     private float obtenerSueldoXHora(String nombre)
     {
@@ -5462,6 +5326,129 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             ex.printStackTrace();
         }
         return sueldo;
+    }
+    
+    //hace la sumatoria de los costos operacionales y la actualiza en la base
+    private void sumarCostosOperacionales(String tablaProduccion, String tablaOperador, String costoOperacionProceso, String costoOperacionTotalProceso, String nombreIdProcesos, String nombreIdForaneoProcesos, int idGlobalProceso){
+        
+        float costoTotal = 0f;
+        String sql = "select "+costoOperacionProceso+" from "+tablaOperador+" "
+                + "where "+nombreIdForaneoProcesos+" = "+idGlobalProceso+"";
+        try 
+        {
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                costoTotal = costoTotal + Float.parseFloat(rs.getString(costoOperacionProceso));
+            }
+            rs.close();
+            st.close();
+            
+            sql = "update "+tablaProduccion+" set "+costoOperacionTotalProceso+" = "
+                    + ""+costoTotal+" where "+nombreIdProcesos+" = "+idGlobalProceso+"";
+            try 
+            {
+                st = con.createStatement();
+                st.execute(sql);
+                st.close();
+            } 
+            catch (SQLException ex) 
+            {
+                ex.printStackTrace();
+            }
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    /*COSTO DE PARTIDA*/
+    //suma los costos de operacion de cada proceso y el costo de material y los inserta en la tabla partida
+    void calculaCostoPartida()
+    {
+        float costoExt = 0f, costoImp = 0f, costoBol = 0f, costoMat = 0f, suma = 0f;
+        String sql = "select costoOpTotalExt from extrusion where idPar_fk = "+idPart+"";
+        try
+        {
+            st  = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+               costoExt = costoExt + Float.parseFloat(rs.getString("costoOpTotalExt"));
+            }
+            rs.close();
+            st.close();
+        }
+        catch(SQLException ex) 
+        {
+            ex.printStackTrace();
+        } 
+        
+        sql = "select costoOpTotalImp from impreso where idPar_fk = "+idPart+"";
+        try
+        {
+            st  = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                costoImp = costoImp + Float.parseFloat(rs.getString("costoOpTotalImp"));
+            }
+            rs.close();
+            st.close();
+        }
+        catch(SQLException ex) 
+        {
+            ex.printStackTrace();
+        } 
+        
+        sql = "select costoOpTotalBol from bolseo where idPar_fk = "+idPart+"";
+        try
+        {
+            st  = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                costoBol = costoBol + Float.parseFloat(rs.getString("costoOpTotalBol"));
+            }
+            rs.close();
+            st.close();
+        }
+        catch(SQLException ex) 
+        {
+            ex.printStackTrace();
+        } 
+        
+        sql = "select costoMaterialTotal from partida where idPar = "+idPart+"";
+        try
+        {
+            st  = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                costoMat = Float.parseFloat(rs.getString("costoMaterialTotal"));
+            }
+            rs.close();
+            st.close();
+        }
+        catch(SQLException ex) 
+        {
+            ex.printStackTrace();
+        } 
+        
+        suma = costoExt + costoImp + costoBol + costoMat;
+        
+        sql = "update partida set costoPartida = "+suma+" where idPar = "+idPart+"";
+        try
+        {
+            st  = con.createStatement();
+            st.execute(sql);
+            st.close();
+        }
+        catch(SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al calcular el costo de la partida","Error",JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        } 
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
