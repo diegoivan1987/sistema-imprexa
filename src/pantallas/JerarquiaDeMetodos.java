@@ -14,20 +14,25 @@ agIActionPerformed
     sumarCostosOperacionales
     sumarGrenias
     calculaCostoPartida
-    calculaHrTotalesPartida<--------------------
+    calculaHrTotalesProceso
     float material = queryForPesosMaterialImpreso
     calcularCostoUnitarioImpreso(material)
     calcularCostoTotalPe
     calculaPyG
+        calculaKgFinalesPedido
+        calculaGfKg
     vaciarOpI
 Formulas
 COSTO DE OPERACION
-listOperadorEItemStateChanged
-listOperadorIItemStateChanged
-listAyudanteIItemStateChanged
-listOperadorBItemStateChanged
 obtenerSueldoXHora
 sumarCostosOperacionales
 COSTO DE PARTIDA
 calculaCostoPartida
+COSTO UNITARIO
+queryForPesosMaterialImpreso
+calcularCostoUnitarioImpreso
+PERDIDAS Y GANANCIAS
+calculaPyG
+calculaKgFinalesPedido
+calculaGfKg
 */
