@@ -2998,8 +2998,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             sumarGrenias("operadorImp", "grenia", "idImp_fk", "impreso", "greniaImp", "idImp", idIm);//Sumar y actualiza la suma de grenias de los registros de operador
             calculaCostoPartida();//suma los costos de operacion de cada proceso y el costo de material y los inserta en la tabla partida
             calculaHrTotalesProceso("operadorImp", "idImp_fk", idIm,"impreso");//se hace la sumatoria de horas de procesos de la partida
-            float material = queryForPesosMaterialImpreso();//hace la sumatoria de los pesos de material producido y comprado para impreso
-            calcularCostoUnitarioImpreso(material);//se calcula e inserta el costo unitario de impresion
+            calcularCostoUnitarioImp();//se calcula e inserta el costo unitario de impresion
             calcularCostoTotalPe();//calcula e inserta el costo total del pedido
             calculaPyG();//se calculan las perdidas y ganancias
             vaciarOpI();//establece en 0 los campos de captura de impresion
@@ -3043,119 +3042,6 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         {
             ex.printStackTrace();
         }
-    }
-    
-    /**costo unitario**/
-    //hace la suma de los materiales comprados y producidos por partida de extrusion
-    private float pesosExtCYP()
-    {
-        float sumatoriaC = 0f, sumatoriaP = 0f, sumatoriaT = 0f;
-        String sql = "select pocM1, pocM2 from extrusion where idExt = "+idEx+"";
-        try
-        {
-            st = con.createStatement();
-            rs = st.executeQuery(sql);
-            while(rs.next())
-            {
-                sumatoriaC = sumatoriaC + Float.parseFloat(rs.getString("pocM1")) + Float.parseFloat(rs.getString("pocM2"));
-            }
-            rs.close();
-        }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
-            System.out.println("pesosExtCYP: error al hacer sumatoria de materiales comprados");
-        }
-        
-        sql = "select kgUniE from operadorExt where idExt_fk = "+idEx+"";
-        try
-        {
-            rs = st.executeQuery(sql);
-            while(rs.next())
-            {
-                sumatoriaP = sumatoriaP + Float.parseFloat(rs.getString("kgUniE"));
-            }
-            rs.close();
-            st.close();
-        }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
-        }
-        
-        sumatoriaT = sumatoriaC + sumatoriaP;
-        
-        return sumatoriaT;
-    }
-    
-    //calcula e inserta el costo unitario de extrusion
-    private void calcularCostoUnitarioExt(){
-        float costo = 0f, kgtotales = 0f, resultado = 0f;
-        String sql = "select costoOpTotalExt from extrusion where idExt = "+idEx+"";
-        try{
-            st = con.createStatement();
-            rs = st.executeQuery(sql);
-            while(rs.next())
-            {
-                costo = Float.parseFloat(rs.getString("costoOpTotalExt"));
-            }
-            rs.close();
-        }
-        catch(SQLException ex) {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        
-        kgtotales = pesosExtCYP();
-        if(costo != 0 && kgtotales != 0)
-        {
-            resultado = costo / kgtotales;
-        }
-        sql = "update extrusion set costoUnitarioExt = "+resultado+" where idExt = "+idEx+"";
-            try
-            {
-                st = con.createStatement();
-                st.execute(sql);
-                st.close();
-            }
-            catch(SQLException ex) 
-            {
-                Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-            } 
-    }
-    
-    //calcula el costo unitario de bolseo
-    private void calcularCostoUnitarioMultiuso(float material, String costoOpTotalProceso, String proceso, String idProceso, int variableGlobalIdProceso, String costoUnitarioProceso){
-        float costo = 0f, kgtotales = material, resultado = 0f;
-        String sql = "select "+costoOpTotalProceso+" from "+proceso+" where "+idProceso+" = "+variableGlobalIdProceso+"";
-        try{
-            st = con.createStatement();
-            rs = st.executeQuery(sql);
-            while(rs.next())
-            {
-                costo = Float.parseFloat(rs.getString(""+costoOpTotalProceso+""));
-            }
-            rs.close();
-        }
-        catch(SQLException ex) 
-        {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        
-        if(costo != 0 && kgtotales != 0)
-        {
-            resultado = costo / kgtotales;
-        }
-        
-        sql = "update "+proceso+" set "+costoUnitarioProceso+" = "+resultado+" where "+idProceso+" = "+variableGlobalIdProceso+"";
-        try
-        {
-            st.execute(sql);
-            st.close();
-        }
-        catch(SQLException ex) 
-        {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
-        }  
     }
     
     /**kg de desperdicio del pedido**/
@@ -3475,8 +3361,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             actualizarPorcentajeDes();
             calculaCostoPartida();//suma los costos de operacion de cada proceso y el costo de material y los inserta en la tabla partida
             calculaHrTotalesProceso("operadorBol", "idBol_fk", idBo, "bolseo");
-            float material = sumatoriaMaquilaProduccionBolseo();//hace la sumatoria de los pesos de material producido y comprado para bolseo
-            calcularCostoUnitarioMultiuso(material, "costoOpTotalBol", "bolseo", "idBol", idBo, "costoUnitarioBol");
+            calcularCostoUnitarioBol();
             calculaKgDesperdicioPedido();
             sumaMaterialesPedido();
             calcularCostoTotalPe();//calcula e inserta el costo total del pedido
@@ -3605,8 +3490,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             st = con.createStatement();
             st.execute(sql);
             JOptionPane.showMessageDialog(null, "Se ha actualizado el registro de impreso: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-            float material = queryForPesosMaterialMultiuso("impreso", "idImp", idIm, "kgUniI", "operadorImp", "idImp_fk");
-            calcularCostoUnitarioMultiuso(material, "costoOpTotalImp", "impreso", "idImp", idIm, "costoUnitarioImp");
+            calcularCostoUnitarioImp();
             calculaPyG();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al actualizar el registro de impreso: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -3631,8 +3515,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             st.execute(sql);
             actualizarKgDes();
             actualizarPorcentajeDes();
-            float material = queryForPesosMaterialMultiuso("bolseo", "idBol", idBo, "kgUniB", "operadorBol","idBol_fk");
-            calcularCostoUnitarioMultiuso(material, "costoOpTotalBol", "bolseo", "idBol", idBo, "costoUnitarioBol");
+            calcularCostoUnitarioBol();
             calculaKgDesperdicioPedido();
             sumaMaterialesPedido();
             calculaPyG();
@@ -4990,48 +4873,86 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
     }
     
     /*COSTO UNITARIO*/
-    //devuelve la sumatoria de los pesos de material producido y comprado para bolseo
-    private float sumatoriaMaquilaProduccionBolseo(){
-        String sql = "select produccion from bolseo where idBol = "+idBo+"";
-        float materiales = 0f;
-        try 
+    //devuelve la sumatoria de los pesos de material producido y comprado para extrusion
+    private float sumatoriaMaquilaProduccionExtrusion()
+    {
+        float sumatoriaT = 0f;
+        String sql = "select pocM1, pocM2 from extrusion where idExt = "+idEx+"";
+        try
         {
             st = con.createStatement();
             rs = st.executeQuery(sql);
             while(rs.next())
             {
-                //sumatoria del material comprado
-                materiales = Float.parseFloat(rs.getString("produccion"));
-            }          
+                sumatoriaT = sumatoriaT + Float.parseFloat(rs.getString("pocM1")) + Float.parseFloat(rs.getString("pocM2"));
+            }
             rs.close();
             st.close();
         }
-        catch(SQLException ex) 
+        catch(SQLException ex)
         {
             ex.printStackTrace();
         }
         
-        sql = "select kgUniB from operadorBol where idBol_fk = "+idBo+"";
-        try 
+        sql = "select kgUniE from operadorExt where idExt_fk = "+idEx+"";
+        try
         {
             st = con.createStatement();
             rs = st.executeQuery(sql);
             while(rs.next())
             {
-                //sumatoria de material producido
-                materiales = materiales + Float.parseFloat(rs.getString("kgUniB"));
-            }          
+                sumatoriaT = sumatoriaT + Float.parseFloat(rs.getString("kgUniE"));
+            }
             rs.close();
             st.close();
-            } 
-        catch(SQLException ex) 
+        }
+        catch(SQLException ex)
         {
             ex.printStackTrace();
         }
-        return materiales;
+        
+        return sumatoriaT;
     }
-    //hace la sumatoria de los pesos de material producido y comprado para impreso
-    private float queryForPesosMaterialImpreso(){
+    
+    //calcula e inserta el costo unitario de extrusion
+    private void calcularCostoUnitarioExt(){
+        float costo = 0f, kgtotales = 0f, resultado = 0f;
+        String sql = "select costoOpTotalExt from extrusion where idExt = "+idEx+"";
+        try{
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                costo = Float.parseFloat(rs.getString("costoOpTotalExt"));
+            }
+            rs.close();
+            st.close();
+        }
+        catch(SQLException ex) {
+            ex.printStackTrace();
+        } 
+        
+        kgtotales = sumatoriaMaquilaProduccionExtrusion();
+        if(costo != 0 && kgtotales != 0)
+        {
+            resultado = costo / kgtotales;
+        }
+        
+        sql = "update extrusion set costoUnitarioExt = "+resultado+" where idExt = "+idEx+"";
+        try
+        {
+            st = con.createStatement();
+            st.execute(sql);
+            st.close();
+        }
+        catch(SQLException ex) 
+        {
+            ex.printStackTrace();
+        } 
+    }
+
+    //devuelve la sumatoria de los pesos de material producido y comprado para impreso
+    private float sumatoriaMaquilaProduccionImpreso(){
         String sql = "select produccion,produccion2 from impreso where idImp = "+idIm+"";
         float matC = 0f;
         float matP = 0f;
@@ -5077,9 +4998,9 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
     }
     
     //calcula el costo unitario de impreso
-    private void calcularCostoUnitarioImpreso(float material)
+    private void calcularCostoUnitarioImp()
     {
-        float costo = 0f, kgtotales = material, resultado = 0f;
+        float costo = 0f, kgtotales = 0, resultado = 0f;
         String sql = "select costoOpTotalImp from impreso where idImp = "+idIm+"";
         try
         {
@@ -5097,6 +5018,8 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             ex.printStackTrace();
         } 
         
+        kgtotales = sumatoriaMaquilaProduccionImpreso();
+        
         if(costo != 0 && kgtotales != 0)
         {
             resultado = costo / kgtotales;
@@ -5112,6 +5035,86 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         catch(SQLException ex) 
         {
             Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
+
+    //devuelve la sumatoria de los pesos de material producido y comprado para bolseo
+    private float sumatoriaMaquilaProduccionBolseo(){
+        String sql = "select produccion from bolseo where idBol = "+idBo+"";
+        float materiales = 0f;
+        try 
+        {
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                //sumatoria del material comprado
+                materiales = Float.parseFloat(rs.getString("produccion"));
+            }          
+            rs.close();
+            st.close();
+        }
+        catch(SQLException ex) 
+        {
+            ex.printStackTrace();
+        }
+        
+        sql = "select kgUniB from operadorBol where idBol_fk = "+idBo+"";
+        try 
+        {
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                //sumatoria de material producido
+                materiales = materiales + Float.parseFloat(rs.getString("kgUniB"));
+            }          
+            rs.close();
+            st.close();
+            } 
+        catch(SQLException ex) 
+        {
+            ex.printStackTrace();
+        }
+        return materiales;
+    }
+    
+    //calcula el costo unitario de bolseo
+    private void calcularCostoUnitarioBol(){
+        float costo = 0f, kgtotales = 0, resultado = 0f;
+        String sql = "select costoOpTotalBol from bolseo where idBol = "+idBo+"";
+        try{
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                costo = Float.parseFloat(rs.getString("costoOpTotalBol"));
+            }
+            rs.close();
+            st.close();
+        }
+        catch(SQLException ex) 
+        {
+            ex.printStackTrace();
+        } 
+        
+        kgtotales = sumatoriaMaquilaProduccionBolseo();
+        
+        if(costo != 0 && kgtotales != 0)
+        {
+            resultado = costo / kgtotales;
+        }
+        
+        sql = "update bolseo set costoUnitarioBol = "+resultado+" where idBol = "+idBo+"";
+        try
+        {
+            st = con.createStatement();
+            st.execute(sql);
+            st.close();
+        }
+        catch(SQLException ex) 
+        {
+            ex.printStackTrace();
         }  
     }
     

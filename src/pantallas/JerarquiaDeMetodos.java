@@ -42,10 +42,13 @@ calculaCostoMaterialTotalExt
         consultaCostoMaterial
 COSTO DE PARTIDA
 calculaCostoPartida
-COSTO UNITARIO
-sumatoriaMaquilaProduccionBolseo
-queryForPesosMaterialImpreso
-calcularCostoUnitarioImpreso
+COSTO UNITARIO COMPLETA
+calcularCostoUnitarioExt
+    sumatoriaMaquilaProduccionExtrusion
+calcularCostoUnitarioImp
+    sumatoriaMaquilaProduccionImpreso
+calcularCostoUnitarioBol
+    sumatoriaMaquilaProduccionBolseo
 PERDIDAS Y GANANCIAS
 calculaPyG
 calculaKgFinalesPedido
