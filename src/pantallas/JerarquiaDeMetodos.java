@@ -23,6 +23,8 @@ agIActionPerformed
         calculaGfKg
     vaciarOpI
 sumarKilosIm
+eliminarPartida
+sumaKilosEx
 
 Formulas
 COSTO DE OPERACION
@@ -49,6 +51,11 @@ calcularCostoUnitarioImp
     sumatoriaMaquilaProduccionImpreso
 calcularCostoUnitarioBol
     sumatoriaMaquilaProduccionBolseo
+KG DESPERDICIO PEDIDO COMPLETA
+calculaKgDesperdicioPedido
+PORCENTAJE DESPERDICIO PEDIDO COMPLETA
+calculaPorcentajeDesperdicioPe
+    sumaMaterialesPedido
 PERDIDAS Y GANANCIAS
 calculaPyG
 calculaKgFinalesPedido

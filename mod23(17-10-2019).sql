@@ -92,7 +92,7 @@ prov1 varchar(40),
 precioKg1 float, 
 prov2 varchar(40), 
 precioKg2 float, 
-kgTotales float,
+kgTotales float,/*sumatoria de produccion por partida*/
 costoOpTotalExt float,
 greniaExt float,
 costoUnitarioExt float,
