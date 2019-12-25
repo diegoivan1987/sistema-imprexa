@@ -22,6 +22,20 @@ agIActionPerformed
         calculaKgFinalesPedido
         calculaGfKg
     vaciarOpI
+agBActionPerformed
+    sumarKilosBol<--------------
+    sumarCostosOperacionales
+    sumarGrenias
+    actualizarKgDes
+    actualizarPorcentajeDes
+    calculaCostoPartida
+    calculaHrTotalesProceso
+    calcularCostoUnitarioBol
+    calculaKgDesperdicioPedido
+    calculaPorcentajeDesperdicioPe
+    calcularCostoTotalPe
+    calculaPyG
+    vaciarOpB
 sumarKilosIm
 eliminarPartida
 sumaKilosEx

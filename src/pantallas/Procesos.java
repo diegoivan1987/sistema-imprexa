@@ -3011,6 +3011,55 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
     }//GEN-LAST:event_agIActionPerformed
     
+    //Boton: agregar operadores de bolseo
+    private void agBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agBActionPerformed
+        agB.setSelected(false);
+        comprobarVacio();
+        kgBSt = kgOpBol.getText();
+        greniaBSt = greBol.getText();
+        suajeBSt = suaje.getText();
+        opBSt = listOperadorB.getSelectedItem().toString();
+        nMBSt = maqBol.getText();
+        hIniBSt = hrIniBol.getTimeField().getText();
+        fIniBSt = fIniBol.getText();
+        hFinBSt = hrFinBol.getTimeField().getText();
+        fFinBSt = fFinBol.getText();
+        tMuBSt = hrMuertoBol.getTimeField().getText();
+        totHBSt = totalHrBol.getTimeField().getText();
+        exBSt = extBol.getTimeField().getText();
+        costoOpBoSt = costoOpBol.getText();
+        
+        String sql = "insert into operadorBol(costoOpBol, kgUniB, grenia, suaje, operador, numMaquina, horaIni, fIni, horaFin, fFin, tiempoMuerto, totalHoras, extras, idBol_fk)" +
+                "values("+costoOpBoSt+", "+kgBSt+","+greniaBSt+", '"+suajeBSt+"','"+opBSt+"',"+nMBSt+",'"+hIniBSt+"', '"+fIniBSt+"', '"+hFinBSt+"', '"+fFinBSt+"', '"+tMuBSt+"',"
+                + " '"+totHBSt+"', '"+exBSt+"', "+idBo+")";
+        
+        try {
+            st = con.createStatement();
+            st.execute(sql);
+            st.close();
+            JOptionPane.showMessageDialog(null, "Se ha guardado el operador en Bolseo: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+            
+            sumarKilosBol();
+            sumarCostosOperacionales("bolseo", "operadorBol", "costoOpBol", "costoOpTotalBol", "idBol", "idBol_fk", idBo);//hace la sumatoria de los costos operacionales y la actualiza en la base
+            sumarGrenias("operadorBol", "grenia", "idBol_fk", "bolseo", "greniaBol", "idBol", idBo);//Sumar y actualiza la suma de grenias de los registros de operador
+            actualizarKgDes();
+            actualizarPorcentajeDes();
+            calculaCostoPartida();//suma los costos de operacion de cada proceso y el costo de material y los inserta en la tabla partida
+            calculaHrTotalesProceso("operadorBol", "idBol_fk", idBo, "bolseo");
+            calcularCostoUnitarioBol();
+            calculaKgDesperdicioPedido();
+            calculaPorcentajeDesperdicioPe();
+            calcularCostoTotalPe();//calcula e inserta el costo total del pedido
+            calculaPyG();
+            vaciarOpB();
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al intentar agregar el operador: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_agBActionPerformed
+    
     //hace la sumatoria de los kg producidos en impreso y actualiza la base
     private void sumarKilosIm(){
         
@@ -3171,68 +3220,25 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
     }
     
-    //Boton: agregar operadores de bolseo
-    private void agBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agBActionPerformed
-        agB.setSelected(false);
-        comprobarVacio();
-        kgBSt = kgOpBol.getText();
-        greniaBSt = greBol.getText();
-        suajeBSt = suaje.getText();
-        opBSt = listOperadorB.getSelectedItem().toString();
-        nMBSt = maqBol.getText();
-        hIniBSt = hrIniBol.getTimeField().getText();
-        fIniBSt = fIniBol.getText();
-        hFinBSt = hrFinBol.getTimeField().getText();
-        fFinBSt = fFinBol.getText();
-        tMuBSt = hrMuertoBol.getTimeField().getText();
-        totHBSt = totalHrBol.getTimeField().getText();
-        exBSt = extBol.getTimeField().getText();
-        costoOpBoSt = costoOpBol.getText();
+    private void sumarKilosBol(){
         
-        String sql = "insert into operadorBol(costoOpBol, kgUniB, grenia, suaje, operador, numMaquina, horaIni, fIni, horaFin, fFin, tiempoMuerto, totalHoras, extras, idBol_fk)" +
-                "values("+costoOpBoSt+", "+kgBSt+","+greniaBSt+", '"+suajeBSt+"','"+opBSt+"',"+nMBSt+",'"+hIniBSt+"', '"+fIniBSt+"', '"+hFinBSt+"', '"+fFinBSt+"', '"+tMuBSt+"',"
-                + " '"+totHBSt+"', '"+exBSt+"', "+idBo+")";
-        
-        try {
-            st = con.createStatement();
-            st.execute(sql);
-            JOptionPane.showMessageDialog(null, "Se ha guardado el operador en Bolseo: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-            
-            sumarKilosBol(st);
-            sumarCostosOperacionales("bolseo", "operadorBol", "costoOpBol", "costoOpTotalBol", "idBol", "idBol_fk", idBo);//hace la sumatoria de los costos operacionales y la actualiza en la base
-            sumarGrenias("operadorBol", "grenia", "idBol_fk", "bolseo", "greniaBol", "idBol", idBo);//Sumar y actualiza la suma de grenias de los registros de operador
-            actualizarKgDes();
-            actualizarPorcentajeDes();
-            calculaCostoPartida();//suma los costos de operacion de cada proceso y el costo de material y los inserta en la tabla partida
-            calculaHrTotalesProceso("operadorBol", "idBol_fk", idBo, "bolseo");
-            calcularCostoUnitarioBol();
-            calculaKgDesperdicioPedido();
-            calculaPorcentajeDesperdicioPe();
-            calcularCostoTotalPe();//calcula e inserta el costo total del pedido
-            calculaPyG();
-            vaciarOpB();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al intentar agregar el operador: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_agBActionPerformed
-    
-    
-    
-    private void sumarKilosBol(Statement st){
-        
-        String sql = "select * from operadorBol where idBol_fk = "+idBo+"";
         float kilosBol = 0f;
-        
-        try {
+        String sql = "select kgUniB from operadorBol where idBol_fk = "+idBo+"";
+        try 
+        {
+            st = con.createStatement();
             rs = st.executeQuery(sql);
-            
-            while(rs.next()){
+            while(rs.next())
+            {
                 kilosBol = kilosBol + Float.parseFloat(rs.getString("kgUniB"));
             }
-            
             actualizarBolseo(st, kilosBol);
-        } catch (SQLException ex) {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
+            rs.close();
+            st.close();
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
     }
     
