@@ -2288,11 +2288,6 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                 tablaPedMouseClicked(evt);
             }
         });
-        tablaPed.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tablaPedKeyPressed(evt);
-            }
-        });
         jScrollPane1.setViewportView(tablaPed);
 
         foVis.setBackground(new java.awt.Color(255, 255, 153));
@@ -2310,11 +2305,6 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         tablaPart.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaPartMouseClicked(evt);
-            }
-        });
-        tablaPart.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tablaPartKeyPressed(evt);
             }
         });
         jScrollPane2.setViewportView(tablaPart);
@@ -3029,11 +3019,15 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         exBSt = extBol.getTimeField().getText();
         costoOpBoSt = costoOpBol.getText();
         
-        String sql = "insert into operadorBol(costoOpBol, kgUniB, grenia, suaje, operador, numMaquina, horaIni, fIni, horaFin, fFin, tiempoMuerto, totalHoras, extras, idBol_fk)" +
-                "values("+costoOpBoSt+", "+kgBSt+","+greniaBSt+", '"+suajeBSt+"','"+opBSt+"',"+nMBSt+",'"+hIniBSt+"', '"+fIniBSt+"', '"+hFinBSt+"', '"+fFinBSt+"', '"+tMuBSt+"',"
-                + " '"+totHBSt+"', '"+exBSt+"', "+idBo+")";
+        String sql = "insert into operadorBol(costoOpBol, kgUniB, grenia, suaje, "
+                + "operador, numMaquina, horaIni, fIni, horaFin, fFin, tiempoMuerto,"
+                + "totalHoras, extras, idBol_fk) values("+costoOpBoSt+", "+kgBSt+","
+                +greniaBSt+", '"+suajeBSt+"','"+opBSt+"',"+nMBSt+",'"+hIniBSt+"', '"
+                +fIniBSt+"', '"+hFinBSt+"', '"+fFinBSt+"', '"+tMuBSt+"',"
+                +" '"+totHBSt+"', '"+exBSt+"', "+idBo+")";
         
-        try {
+        try 
+        {
             st = con.createStatement();
             st.execute(sql);
             st.close();
@@ -3060,39 +3054,110 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
     }//GEN-LAST:event_agBActionPerformed
     
-    //hace la sumatoria de los kg producidos en impreso y actualiza la base
-    private void sumarKilosIm(){
+    //Actualizar la maquila de extrusion
+    private void gdExActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gdExActionPerformed
+        gdEx.setSelected(false);
+        comprobarVacio();
+        pM1St = proM1.getText();
+        pM2St = proM2.getText();
+        provE1St = prov1Ext.getText();
+        precioKgE1St = porKg1Ext.getText();
+        prov2St = prov2Ext.getText();
+        precioKg2St = porKg2Ext.getText();
         
-        String sql = "select kgUniI from operadorImp where idImp_fk = "+idIm+"";
-        float kilosImp = 0f;
-        try {
+        String sql = "update extrusion set pocM1 = "+pM1St+", pocM2 = "+pM2St+", "
+                + "prov1 = '"+provE1St+"', precioKg1 = "+precioKgE1St+", "
+                + "prov2 = '"+prov2St+"', precioKg2 = "+precioKg2St+""
+                + " where idPar_fk = "+idPart+"";
+        
+        try 
+        {
             st = con.createStatement();
-            rs = st.executeQuery(sql);
-            while(rs.next())
-            {
-                kilosImp = kilosImp + Float.parseFloat(rs.getString("kgUniI"));
-            }
-            rs.close();
+            st.execute(sql);
             st.close();
-            
-            sql = "update impreso set kgTotales = "+kilosImp+" where idImp = "+idIm+"";
-            try 
-            {
-                st = con.createStatement();
-                st.execute(sql);
-                st.close();
-            } 
-            catch (SQLException ex) 
-            {
-                ex.printStackTrace();
-            }
+            actualizarKgDes();
+            actualizarPorcentajeDes();
+            calculaCostoMaterialTotalExt();
+            calculaCostoPartida();//suma los costos de operacion de cada proceso y el costo de material y los inserta en la tabla partida
+            calcularCostoUnitarioExt();
+            calculaKgDesperdicioPedido();
+            calculaPorcentajeDesperdicioPe();
+            calcularCostoTotalPe();//calcula e inserta el costo total del pedido
+            calculaPyG();
+            JOptionPane.showMessageDialog(null, "Se ha actualizado el registro: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
         } 
         catch (SQLException ex) 
         {
             ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al actualizar el registro: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
+    }//GEN-LAST:event_gdExActionPerformed
     
+    //Actualizar la maquila de impresion
+    private void gdImActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gdImActionPerformed
+        gdIm.setSelected(false);
+        comprobarVacio();
+        prodISt = kgImp.getText();
+        provI1St = provImp.getText();
+        precioKgI1St = porKgImp.getText();
+        prodI2St = kgImp2.getText();
+        provI2St = provImp2.getText();
+        precioKgI2St = porKgImp2.getText();
+        
+        String sql = "update impreso set produccion = "+prodISt+", prov1 = '"
+                +provI1St+"', precioKg1 = "+precioKgI1St+", produccion2 = "
+                +prodI2St+", prov2 = '"+provI2St+"', precioKg2 = "
+                +precioKgI2St+" where idPar_fk = "+idPart+"";
+        
+        try 
+        {
+            st = con.createStatement();
+            st.execute(sql);
+            st.close();
+            calcularCostoUnitarioImp();
+            calculaPyG();
+            JOptionPane.showMessageDialog(null, "Se ha actualizado el registro de impreso: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al actualizar el registro de impreso: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_gdImActionPerformed
+
+    //Actualizar la maquila de bolseo
+    private void gdBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gdBoActionPerformed
+        gdBo.setSelected(false);
+        comprobarVacio();
+        prodBSt = kgBol.getText();
+        prodPzSt = pzsBol.getText();
+        provB1St = provBol.getText();
+        precioKgB1St = porKgBol.getText();
+
+        String sql = "update bolseo set produccion = "+prodBSt+", produccionPz = "
+                +prodPzSt+", prov1 = '"+provB1St+"', precioKg1 = "+precioKgB1St+""
+                + " where idPar_fk = "+idPart+"";
+
+        try {
+            st = con.createStatement();
+            st.execute(sql);
+            st.close();
+            actualizarKgDes();
+            actualizarPorcentajeDes();
+            calcularCostoUnitarioBol();
+            calculaKgDesperdicioPedido();
+            calculaPorcentajeDesperdicioPe();
+            calculaPyG();
+            JOptionPane.showMessageDialog(null, "Se ha actualizado el registro: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al actualizar el registro: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_gdBoActionPerformed
+
     private void eliminarPartida()
     {
         String sql = "";
@@ -3185,7 +3250,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
        }
     }
     
-    //Se consultan todos los registros de operadores para hacer una suma
+    //hace la sumatoria de los kg producidos y los actualiza en la base
     private void sumaKilosEx(){
         
         String sql = "select kgUniE from operadorExt where idExt_fk = "+idEx+"";
@@ -3220,6 +3285,40 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
     }
     
+    //hace la sumatoria de los kg producidos en impreso y actualiza la base
+    private void sumarKilosIm(){
+        
+        String sql = "select kgUniI from operadorImp where idImp_fk = "+idIm+"";
+        float kilosImp = 0f;
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                kilosImp = kilosImp + Float.parseFloat(rs.getString("kgUniI"));
+            }
+            rs.close();
+            st.close();
+            
+            sql = "update impreso set kgTotales = "+kilosImp+" where idImp = "+idIm+"";
+            try 
+            {
+                st = con.createStatement();
+                st.execute(sql);
+                st.close();
+            } 
+            catch (SQLException ex) 
+            {
+                ex.printStackTrace();
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
+        }
+    }
+    
+    //hace la sumatoria de los kg producidos y los actualiza en la base
     private void sumarKilosBol(){
         
         float kilosBol = 0f;
@@ -3232,7 +3331,6 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             {
                 kilosBol = kilosBol + Float.parseFloat(rs.getString("kgUniB"));
             }
-            actualizarBolseo(st, kilosBol);
             rs.close();
             st.close();
         } 
@@ -3240,16 +3338,17 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         {
             ex.printStackTrace();
         }
-    }
-    
-    
-    private void actualizarBolseo(Statement st, float kgTot){
-        String sql = "update bolseo set kgTotales = "+kgTot+" where idBol = "+idBo+"";
         
-        try {
+        sql = "update bolseo set kgTotales = "+kilosBol+" where idBol = "+idBo+"";
+        try 
+        {
+            st = con.createStatement();
             st.execute(sql);
-        } catch (SQLException ex) {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
+            st.close();
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
     }
     
@@ -3287,96 +3386,6 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
     }
     
-    //Actualizar datos de extrusion
-    private void gdExActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gdExActionPerformed
-        gdEx.setSelected(false);
-        //Extrusion
-        comprobarVacio();
-        pM1St = proM1.getText();
-        pM2St = proM2.getText();
-        provE1St = prov1Ext.getText();
-        precioKgE1St = porKg1Ext.getText();
-        prov2St = prov2Ext.getText();
-        precioKg2St = porKg2Ext.getText();
-        
-        String sql = "update extrusion set pocM1 = "+pM1St+", pocM2 = "+pM2St+", prov1 = '"+provE1St+"', precioKg1 = "+precioKgE1St+", "
-                + "prov2 = '"+prov2St+"', precioKg2 = "+precioKg2St+" where idPar_fk = "+idPart+"";
-        
-        try {
-            st = con.createStatement();
-            st.execute(sql);
-            actualizarKgDes();
-            actualizarPorcentajeDes();
-            calculaCostoMaterialTotalExt();
-            calculaCostoPartida();//suma los costos de operacion de cada proceso y el costo de material y los inserta en la tabla partida
-            calcularCostoUnitarioExt();
-            calculaKgDesperdicioPedido();
-            calculaPorcentajeDesperdicioPe();
-            calcularCostoTotalPe();//calcula e inserta el costo total del pedido
-            calculaPyG();
-            st.close();
-            JOptionPane.showMessageDialog(null, "Se ha actualizado el registro: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar el registro: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_gdExActionPerformed
-    
-    //Actualizar datos de impresion
-    private void gdImActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gdImActionPerformed
-        gdIm.setSelected(false);
-        //Impreso
-        comprobarVacio();
-        prodISt = kgImp.getText();
-        provI1St = provImp.getText();
-        precioKgI1St = porKgImp.getText();
-        prodI2St = kgImp2.getText();
-        provI2St = provImp2.getText();
-        precioKgI2St = porKgImp2.getText();
-        
-        String sql = "update impreso set produccion = "+prodISt+", prov1 = '"+provI1St+"', precioKg1 = "+precioKgI1St+", "
-                + "produccion2 = "+prodI2St+", prov2 = '"+provI2St+"', precioKg2 = "+precioKgI2St+" where idPar_fk = "+idPart+"";
-        
-        try {
-            st = con.createStatement();
-            st.execute(sql);
-            JOptionPane.showMessageDialog(null, "Se ha actualizado el registro de impreso: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-            calcularCostoUnitarioImp();
-            calculaPyG();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar el registro de impreso: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        
-    }//GEN-LAST:event_gdImActionPerformed
-
-    private void gdBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gdBoActionPerformed
-        gdBo.setSelected(false);
-        //Bolseo
-        comprobarVacio();
-        prodBSt = kgBol.getText();
-        prodPzSt = pzsBol.getText();
-        provB1St = provBol.getText();
-        precioKgB1St = porKgBol.getText();
-
-        String sql = "update bolseo set produccion = "+prodBSt+", produccionPz = "+prodPzSt+", prov1 = '"+provB1St+"', precioKg1 = "+precioKgB1St+""
-        + " where idPar_fk = "+idPart+"";
-
-        try {
-            st = con.createStatement();
-            st.execute(sql);
-            actualizarKgDes();
-            actualizarPorcentajeDes();
-            calcularCostoUnitarioBol();
-            calculaKgDesperdicioPedido();
-            calculaPorcentajeDesperdicioPe();
-            calculaPyG();
-            //st.close();
-            JOptionPane.showMessageDialog(null, "Se ha actualizado el registro: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar el registro: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_gdBoActionPerformed
-
-    
     //Funcion para que solo se ingresen numeros flotantes en campos
     private void soloFlotantes(KeyEvent evt, JTextField campo){
         
@@ -3385,16 +3394,22 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         String cadena = campo.getText();//Guardar la cadena del campo para contar los puntos que contiene
         char aux = 0;//Para ir comprobando cada caracter de la cadena
         
-        if((c < '0' || c > '9') && c != '.') {
+        if((c < '0' || c > '9') && c != '.') 
+        {
             evt.consume();//Si el caracter recibido es una letra o caracter, exepto puntos, lo comsume
-        }else{//Si es un numero o punto
-            for(int i = 0; i < cadena.length(); i++){
+        }
+        else
+        {//Si es un numero o punto
+            for(int i = 0; i < cadena.length(); i++)
+            {
                 aux = cadena.charAt(i);//Recorre la cadena para contar los puntos
-                if(aux == '.'){
+                if(aux == '.')
+                {
                     contPuntos++;//Si encuentra un punto se suma el contadorPuntos
                 }
             }
-            if(contPuntos == 1 && c == '.'){
+            if(contPuntos == 1 && c == '.')
+            {
                     evt.consume();//Si el contador de puntos es 1, significa que ya hay un punto y consumira cualquier otro
                                   //Tambien es importante detectar si se recibe un punto, ya que tambien se reciben numeros en el else,
                                   //los numeros no se consumen, con c == '.' confirmo de que solo consumira puntos
@@ -3402,24 +3417,22 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
     }
     
-    //Solo numeros enteros en campos
+    //Funcion para que solo se ingresen numeros enteros en campos
     private void soloEnteros(KeyEvent evt){
         char c = evt.getKeyChar();
         if(c < '0' || c > '9') evt.consume();
     }
     
     //Limitacion de logitud de datos
-    private void limitarInsercion(int tamSQL, KeyEvent evt, JTextField campo){
+    private void limitarInsercion(int tamSQL, KeyEvent evt, JTextField campo)
+    {
         int tamCampo = campo.getText().length() + 1;
-
-        if(tamCampo > tamSQL){
+        if(tamCampo > tamSQL)
+        {
             evt.consume();
         }
     }
     
-    
-    //Eentos KeyTyped para solo enteros y flotantes
-    //Extrusion
     private void proM1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_proM1KeyTyped
         soloFlotantes(evt, proM1);
     }//GEN-LAST:event_proM1KeyTyped
@@ -3500,42 +3513,25 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         soloFlotantes(evt, kgOpBol);
     }//GEN-LAST:event_kgOpBolKeyTyped
 
+    //recuadro de busqueda de impresion
     private void impBusMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_impBusMousePressed
         impBus.setText("");
     }//GEN-LAST:event_impBusMousePressed
 
+    //cuando presiona enter al escribir en el recuadro de busqueda de impresion
     private void impBusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_impBusKeyPressed
-        if(evt.getKeyCode() == com.sun.glass.events.KeyEvent.VK_ENTER){
+        //listener de la tecla enter
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
             llenarTablaPedido();
             
             if(!(tablaPed.getRowCount() == 0)){
-                tablaPed.requestFocus();
-                tablaPed.changeSelection(0, 0, false, false);
+                tablaPed.requestFocus();//pasa la seleccion a la tabla de pedidos
             }
         }
     }//GEN-LAST:event_impBusKeyPressed
 
-    private void tablaPedKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaPedKeyPressed
-        
-        if(evt.getKeyCode() == KeyEvent.VK_SPACE){
-            obtenerSeleccionTablaPedido();
-            
-            if(!(tablaPart.getRowCount() == 0)){
-                tablaPart.requestFocus();
-                tablaPart.changeSelection(0, 0, false, false);
-            }
-        }
-    }//GEN-LAST:event_tablaPedKeyPressed
-
-    private void tablaPartKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaPartKeyPressed
-        
-        if(evt.getKeyCode() == KeyEvent.VK_SPACE){
-            obtenerSeleccionTablaPartida();
-        }
-    }//GEN-LAST:event_tablaPartKeyPressed
-
     private void tablaPartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPartMouseClicked
-
         obtenerSeleccionTablaPartida();
     }//GEN-LAST:event_tablaPartMouseClicked
 
@@ -4008,7 +4004,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
     }//GEN-LAST:event_kgImp2KeyTyped
 
     
-    //Se vacean los campos de agregar operadores
+    //establece en 0 los campos de captura de extrusion
     private void vaciarOpE(){
         Calendar cal = Calendar.getInstance(); 
         kgOpExt.setText("0");
@@ -4040,6 +4036,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         totalHrImp.getTimeField().setText("00:00:00");
     }
     
+    //establece en 0 los campos de captura de bolseo
     private void vaciarOpB(){
         Calendar cal = Calendar.getInstance(); 
         kgOpBol.setText("0");
