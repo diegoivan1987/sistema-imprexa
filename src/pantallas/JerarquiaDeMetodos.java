@@ -93,8 +93,30 @@ pzsBolKeyTyped & maqExtKeyTyped & maqImpKeyTyped & maqBolKeyTyped
     soloEnteros
 impBusMousePressed
 impBusKeyPressed
+    llenarTablaPedido
 tablaPartMouseClicked
-
+    obtenerSeleccionTablaPartida
+establecerSubtotalPedido
+    actualizarSubtotalPedido
+        calcularCostosDeSub
+            obtenerIva
+actualizarSubtotalPedido
+obtenerIva
+calcularCostosDeSub
+setHojas
+eliminarPActionPerformed
+    eliminarPartida
+    setTablePartidas
+    establecerSubtotalPedido
+    calculaKgDesperdicioPedido
+    calculaPorcentajeDesperdicioPe
+    calcularCostoTotalPe
+    calculaPyG
+    setHojas
+prov1ExtKeyTyped & prov2ExtKeyTyped & provImpKeyTyped & provBolKeyTyped & 
+impBusKeyTyped
+    limitarInsercion
+formWindowClosing
 Formulas
 COSTO DE OPERACION
 obtenerSueldoXHora

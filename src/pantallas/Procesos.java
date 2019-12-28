@@ -233,13 +233,13 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         folio = Integer.parseInt(foVis.getText());//Se obtiene el folio
         
         String sql = "select idPar, piezas, medida, mat1, mat2, pigmento, tipo, "
-                + "precioUnitaro from partida where folio_fk = "+folio+" limit 0,30";//Busqueda de todas la prtidas relacionadas al folio
+                + "precioUnitaro from partida where folio_fk = "+folio+" limit 0,30";
         try 
         {
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            
-            while(rs.next()){//Se rellena la tabla con las partidas encontradas
+            while(rs.next())//Se rellena la tabla con las partidas encontradas
+            {
                 modPart.addRow(new Object[]{rs.getString("idPar"), 
                     rs.getString("piezas"), rs.getString("medida"), 
                     rs.getString("mat1"), rs.getString("mat2"), 
@@ -3536,28 +3536,33 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
     }//GEN-LAST:event_tablaPartMouseClicked
 
     //Calcular monto total del pedido a base de los importes de todas las partidas
-    private void establecerSubtotalPedido(Statement st){
+    private void establecerSubtotalPedido(){
         
         String sql = "select importe from partida where folio_fk = "+folio+"";
         float subtotalVar = 0;
         
-        try {
+        try 
+        {
+            st = con.createStatement();
             rs = st.executeQuery(sql);
-            
-            while(rs.next()){
+            while(rs.next())
+            {
                 //Aqui se empiezan a acumular los importes de las partidas
                 subtotalVar = subtotalVar + Float.parseFloat(rs.getString("importe"));
             } 
-            //System.out.println("Subtotal directo de importe: " + subtotalVar);
-            actualizarSubtotalPedido(subtotalVar, st);//Update al campo subtotal para ingresar el nuevo monto
-        } catch (SQLException ex) {
+            rs.close();
+            st.close();
+            actualizarSubtotalPedido(subtotalVar);//Update al campo subtotal para ingresar el nuevo monto
+        } 
+        catch (SQLException ex) 
+        {
             JOptionPane.showMessageDialog(null, "Error al buscar la partida (sub)" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
     
-    //Se actualiza el subtotal de pedido
-    private void actualizarSubtotalPedido(float sub, Statement st){
+    //calcula y actualiza el subtotal del pedido
+    private void actualizarSubtotalPedido(float sub){
         
         float subGrab = sub;
         float anti  = 0f;
@@ -3566,10 +3571,12 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         //Consulta para obtener los valores de: grabados, anticipo y descuento. Se realizaran operaciones
         String sql = "select grabados, anticipo, descuento from pedido where folio = "+folio+"";
         
-        try {
+        try 
+        {
+            st = con.createStatement();
             rs = st.executeQuery(sql);
-            
-            while(rs.next()){
+            while(rs.next())
+            {
                 //Se le suma el coste de grabados al subtotal
                 subGrab = subGrab + Float.parseFloat(rs.getString("grabados"));
                 //System.out.println("Grabados: "+rs.getString("grabados"));
@@ -3578,24 +3585,28 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                 //Se guarda el vlor de descuento para uso posterior
                 descuento = Float.parseFloat(rs.getString("descuento"));
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al obtener los datos de costos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            rs.close();
+            st.close();
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
         
         //Cuando ya se sumaron los grabados y el subtotal ahora se guarda en la base de datos
         sql = "update pedido set subtotal = "+subGrab+" where folio = "+folio+"";
         
-        try {
+        try 
+        {
+            st = con.createStatement();
             st.execute(sql);
-            
-            //System.out.println("Subtotal mas los grabados: " + subGrab);
-            //Ahora paso por parametros el subtotal con grabados, anticipo y descuento
-            calcularCostosDeSub(subGrab, anti, descuento, st);
             st.close();
-            rs.close();
             
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar el subtotal", "Error", JOptionPane.ERROR_MESSAGE);
+            //Ahora paso por parametros el subtotal con grabados, anticipo y descuento
+            calcularCostosDeSub(subGrab, anti, descuento);
+        } 
+        catch (SQLException ex) 
+        {
             ex.printStackTrace();
         }
     }
@@ -3603,21 +3614,20 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
     //obtiene el porcentaje de iva del pedido
     private float obtenerIva()
     {
-        Statement st2;
-        ResultSet rs2;
         int ivaI = 0;
         float ivaF = 0f;
-        String sql = "select porcentajeIVA from pedido where folio = "+folio+"";//se consulta el iva en la base
+        String sql = "select porcentajeIVA from pedido where folio = "+folio+"";
+        
         try
         {
-            st2 = con.createStatement();
-            rs2 = st2.executeQuery(sql);
-            while(rs2.next())
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
             {
-                ivaI = Integer.parseInt(rs2.getString("porcentajeIVA"));//guardamos el iva
+                ivaI = Integer.parseInt(rs.getString("porcentajeIVA"));
             }
-            rs2.close();
-            st2.close();
+            rs.close();
+            st.close();
         }
         catch(SQLException ex)
         {
@@ -3629,39 +3639,37 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         return ivaF;
     }
     
-    //Aqui se reciben todos los valores necesarios para realizar los calculos y actualizar la base de datos
-    private void calcularCostosDeSub(float sub, float anticipo, float descuento, Statement st){
+    //calcula y actualiza el total
+    private void calcularCostosDeSub(float sub, float anticipo, float descuento){
         
         float total = 0f;
         float iva = obtenerIva();
         float subIva = 0f;
         float rest = 0f;
         
-        subIva = sub * iva;//Se obtiene el iva del subtotal
-        total = sub + subIva;//Se suma el iva y el subtotal para obtener el total
+        subIva = sub * iva;
+        total = sub + subIva;
         
-        rest = total - anticipo;//Se le resta el anticipo al total para obtener el resto
-        rest = rest - descuento;//Se le resta el descuento al resto
+        rest = total - anticipo;
+        rest = rest - descuento;
         
-        //total = (total - anticipo) - descuento;
-        
-        //System.out.println("Descuento: " + descuento);
-        //System.out.println("Aniticipo: " + anticipo);
-        //System.out.println("Total: "+total);
-        //System.out.println("Resto: " + rest);
         String sql= "update pedido set total = "+total+", resto = "+rest+" where folio = "+folio+"";
         
-        try {
+        try 
+        {
+            st = con.createStatement();
             st.execute(sql);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar el total y resto", "Error", JOptionPane.ERROR_MESSAGE);
+            st.close();
+        } 
+        catch (SQLException ex) 
+        {
             ex.printStackTrace();
         }
 
     }
     
     
-    //Enumerar las opartidas existentes con los datos Hojas y De
+    //Enumerar las partidas existentes con los datos Hojas y De
     private void setHojas(){
         
         String sql = "select idPar from partida where folio_fk = "+folio+"";
@@ -3669,50 +3677,45 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         int contadorRs = 0;
         int idPartida;
         
-        Statement stAux = null;
-        Statement st = null;
-        
-        try {
+        try 
+        {
             st = con.createStatement();
             rs = st.executeQuery(sql);
             if(rs.isAfterLast())
             {
-                while(rs.next()){
-                contadorRs++;
-                idPartida = rs.getInt("idPar");
-                sql1 = "update partida set hoja = "+contadorRs+" where idPar = "+idPartida+"";
-                
-                stAux = con.createStatement();
-                stAux.execute(sql1);  
-                stAux.close();
+                while(rs.next())
+                {
+                    contadorRs++;
+                    idPartida = rs.getInt("idPar");
+                    
+                    sql1 = "update partida set hoja = "+contadorRs+" where idPar = "+idPartida+"";
+                    st.execute(sql1);  
+                }
             }
-            }
+            rs.close();
+            st.close();
             
-            
+            st = con.createStatement();
             rs = st.executeQuery(sql);
             if(rs.isAfterLast())
             {
-                while(rs.next()){
-                idPartida = rs.getInt("idPar");               
-                sql1 = "update partida set de = "+contadorRs+" where idPar = "+idPartida+"";
-                
-                stAux = con.createStatement();
-                stAux.execute(sql1);
-                stAux.close();
+                while(rs.next())
+                {
+                    idPartida = rs.getInt("idPar");               
+
+                    sql1 = "update partida set de = "+contadorRs+" where idPar = "+idPartida+"";
+                    st.execute(sql1);
+                }
             }
-            }
-            
-            
-            
-            st.close();
             rs.close();
-            //JOptionPane.showMessageDialog(null, "Las hojas se han actualizado", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException ex) {
+            st.close();
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al actualizar las hojas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }   
     }
-    
-    
     
     private void eliminarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarPActionPerformed
         eliminarP.setSelected(false);
@@ -3722,23 +3725,23 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         String sql = "select idPar from partida where folio_fk = "+folio+"";
         try
         {
-            Statement stSub = con.createStatement();
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            if(rs.next())
+            if(rs.next())//si tiene alguna partida
             {
-                establecerSubtotalPedido(stSub);
+                establecerSubtotalPedido();
                 calculaKgDesperdicioPedido();
                 calculaPorcentajeDesperdicioPe();
-                calcularCostoTotalPe();//calcula e inserta el costo total del pedido
+                calcularCostoTotalPe();
                 calculaPyG();
             }
-            
+            rs.close();
+            st.close();
             setHojas();
         }
         catch(SQLException ex)
         {
-            JOptionPane.showMessageDialog(null, "Error al eliminar la partida" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al actualizar los datos del pedido" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }//GEN-LAST:event_eliminarPActionPerformed
