@@ -1,5 +1,34 @@
 /*
 Procesos
+constructor
+    estilosTablas
+    onChangeTextField
+    listenersProcesos
+estilosTablas
+onChangeTextField
+    setTablePartidas
+setTablePartidas
+listenersProcesos   
+    hrIniEChange();
+    hrFinEChange();
+    tmMuertoEChange();
+    fIniExtChange();
+    fFinExtChange();
+    extraEChange();
+    
+    hrIniIChange();
+    hrFinIChange();
+    tmMuertoIChange();
+    fIniImpChange();
+    fFinImpChange();
+    extraIChange();
+    
+    hrIniBChange();
+    hrFinBChange();
+    tmMuertoBChange();
+    fIniBolChange();
+    fFinBolChange();
+    extraBChange();
 generarProActionPerformed
     comprobarVacio
     comprobarProcesos
@@ -117,7 +146,29 @@ prov1ExtKeyTyped & prov2ExtKeyTyped & provImpKeyTyped & provBolKeyTyped &
 impBusKeyTyped
     limitarInsercion
 formWindowClosing
-Formulas
+cambioModActionPerformed
+    obtenerSueldoXHora
+listOperadorIItemStateChanged
+    obtenerSueldoXHora
+listOperadorBItemStateChanged
+    obtenerSueldoXHora
+listAyudanteIItemStateChanged
+    obtenerSueldoXHora
+provImp2KeyTyped
+    limitarInsercion
+porKgImp2KeyTyped
+    soloFlotantes
+kgImp2KeyTyped 
+    soloFlotantes
+vaciarOpE
+vaciarOpI
+vaciarOpB
+comprobarVacio
+obtieneMaquina
+calculaHrTotalesProceso
+vacearComponentes
+
+FORMULAS
 COSTO DE OPERACION
 obtenerSueldoXHora
 sumarCostosOperacionales

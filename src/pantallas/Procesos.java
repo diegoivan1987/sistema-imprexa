@@ -2543,6 +2543,8 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             {
                 modo = rs.getString("modoMat");
             }
+            rs.close();
+            st.close();
                 if(modo == null)//si no se han generado procesos no aparece el boton
                 {
                     cambioMod.setVisible(false);
@@ -3832,37 +3834,35 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }   
         //se cambia el modo de los procesos en la base de datos de produccion o compra a ambos
         try
-                {
-                    String sql = "update partida set modoMat = '"+modoMaterial[2]+"' where idPar = "+modPart.getValueAt(tablaPart.getSelectedRow(), 0).toString()+"";
-                    st = con.createStatement();
-                    st.execute(sql);
-                    st.close();
-                    cambioMod.setVisible(false);
-                }
-                catch(SQLException ex)
-                {
-                    JOptionPane.showMessageDialog(null, "No se registro el cambio de modo" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
-                    ex.printStackTrace();
-                }
+        {
+            String sql = "update partida set modoMat = '"+modoMaterial[2]+"' where idPar = "+modPart.getValueAt(tablaPart.getSelectedRow(), 0).toString()+"";
+            st = con.createStatement();
+            st.execute(sql);
+            st.close();
+            cambioMod.setVisible(false);
+        }
+        catch(SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, "No se registro el cambio de modo" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_cambioModActionPerformed
 
     //Cada que cambia la lista, obtiene el sueldoXHora del indice
     private void listOperadorEItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listOperadorEItemStateChanged
-      //primero se obtiene el total de nombres de operadores
-      Statement st7;
-      ResultSet rs7;
+      //primero se obtiene el numero de nombres de operadores
       String sql = "select nombre from operadores";
       int contador = 0;
       try
       {
-          st7 = con.createStatement();
-          rs7 = st7.executeQuery(sql);
-          while(rs7.next())
+          st = con.createStatement();
+          rs = st.executeQuery(sql);
+          while(rs.next())
           {
               contador += 1;
           }
-          rs7.close();
-          st7.close();
+          rs.close();
+          st.close();
       }
       catch(SQLException ex)
       {
@@ -3886,21 +3886,19 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
 
     //Cada que cambia la lista, obtiene el sueldoXHora del indice
     private void listOperadorIItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listOperadorIItemStateChanged
-      //primero se obtiene el total de nombres de operadores  
-      Statement st7;
-      ResultSet rs7;
+      //primero se obtiene el numero de nombres de operadores  
       String sql = "select nombre from operadores";
       int contador = 0;
       try
       {
-          st7 = con.createStatement();
-          rs7 = st7.executeQuery(sql);
-          while(rs7.next())
+          st = con.createStatement();
+          rs = st.executeQuery(sql);
+          while(rs.next())
           {
               contador += 1;
           }
-          rs7.close();
-          st7.close();
+          rs.close();
+          st.close();
       }
       catch(SQLException ex)
       {
@@ -3922,21 +3920,19 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
 
     //Cada que cambia la lista, obtiene el sueldoXHora del indice
     private void listOperadorBItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listOperadorBItemStateChanged
-      //primero se obtiene el total de nombres de operadores  
-      Statement st7;
-      ResultSet rs7;
+      //primero se obtiene el numero de nombres de operadores  
       String sql = "select nombre from operadores";
       int contador = 0;
       try
       {
-          st7 = con.createStatement();
-          rs7 = st7.executeQuery(sql);
-          while(rs7.next())
+          st = con.createStatement();
+          rs = st.executeQuery(sql);
+          while(rs.next())
           {
               contador += 1;
           }
-          rs7.close();
-          st7.close();
+          rs.close();
+          st.close();
       }
       catch(SQLException ex)
       {
@@ -3958,21 +3954,19 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
 
     //Cada que cambia la lista, obtiene el sueldoXHora del indice
     private void listAyudanteIItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listAyudanteIItemStateChanged
-      //primero se obtiene el total de ayudantes  
-      Statement st7;
-      ResultSet rs7;
+      //primero se obtiene el numero de ayudantes  
       String sql = "select ayudante from operadores where ayudante = 1";
       int contador = 0;
       try
       {
-          st7 = con.createStatement();
-          rs7 = st7.executeQuery(sql);
-          while(rs7.next())
+          st = con.createStatement();
+          rs = st.executeQuery(sql);
+          while(rs.next())
           {
               contador += 1;
           }
-          rs7.close();
-          st7.close();
+          rs.close();
+          st.close();
       }
       catch(SQLException ex)
       {
@@ -4007,7 +4001,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
     }//GEN-LAST:event_kgImp2KeyTyped
 
     
-    //establece en 0 los campos de captura de extrusion
+    //establece en 0 los campos de produccion de extrusion
     private void vaciarOpE(){
         Calendar cal = Calendar.getInstance(); 
         kgOpExt.setText("0");
@@ -4023,7 +4017,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         totalHrExt.getTimeField().setText("00:00:00");
     }
     
-    //establece en 0 los campos de captura de impresion
+    //establece en 0 los campos de produccion de impresion
     private void vaciarOpI(){
         Calendar cal = Calendar.getInstance(); 
         kgOpIm.setText("0");
@@ -4039,7 +4033,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         totalHrImp.getTimeField().setText("00:00:00");
     }
     
-    //establece en 0 los campos de captura de bolseo
+    //establece en 0 los campos de produccion de bolseo
     private void vaciarOpB(){
         Calendar cal = Calendar.getInstance(); 
         kgOpBol.setText("0");
@@ -4153,6 +4147,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         return maquina;
     }
     
+    //solo es de muestra, no afecta formulas
     private void calculaHrTotalesProceso(String tablaOperador, String idProcesoForaneo, int idProcesoGlobal, String tablaProceso)
     {
         String horaSt = "0";
@@ -4206,6 +4201,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
     }
     
+    //establece todo en 0 y reduce la ventana a la mitad, se usa en Pedido y Principal
     public void vacearComponentes(){
         
         greExt.setText("");
