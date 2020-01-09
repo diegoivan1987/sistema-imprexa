@@ -283,6 +283,8 @@ public class Operadores extends javax.swing.JFrame {
                     listAyudante.setSelectedIndex(0);
                 }
             }
+            rs.close();
+            st.close();
         }
         catch(SQLException ex)
         {

@@ -803,6 +803,8 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
         try {
             st = con.createStatement();
             st.execute(sql);
+            st.close();
+            st = con.createStatement();
             st.execute(sql2);
             st.close();
             
@@ -953,8 +955,8 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
     //calcula las perdidas y ganancias con los nuevos datos ingresados
     private void calculaPyG(int folio)
     {
-        ResultSet rs;
-        ResultSet rs2;
+        Statement st2;
+        ResultSet rs, rs2;
         float subtotal = 0f, costoTotal = 0f, descuento = 0f;
         float PyG = 0;
         String sql = "select fTermino from pedido where folio = "+folio+"";
@@ -970,7 +972,8 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                     sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+folio+"";
                     try
                     {
-                        rs2 = st.executeQuery(sql2);
+                        st2 = con.createStatement();
+                        rs2 = st2.executeQuery(sql2);
                         while(rs2.next())
                         {
                             subtotal = Float.parseFloat(rs2.getString("subtotal"));
@@ -978,6 +981,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                             descuento = Float.parseFloat(rs2.getString("descuento"));
                         }
                         rs2.close();
+                        st2.close();
                     }
                     catch(SQLException ex)
                     {
@@ -1013,6 +1017,8 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
     //calcula los kg finales del pedido
     private float calculaKgFinalesPedido(int folio)
     {
+        ResultSet rs3, rs4, rs5;
+        Statement st3, st4, st5;
         float sumatoriaPartida = 0f;
         float sumatoriaPedido = 0f;//se inicializ en 0 para que si no hace calculos se retorna 0
         String sql2 = "select idPar from partida where folio_fk = "+folio+"";//obtiene el folio de cada partida
@@ -1030,7 +1036,8 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                     String sql3 = "select produccion from bolseo where idPar_fk = "+idPart2+"";//obtiene lo comprado de bolseo
                     try
                     {
-                        ResultSet rs3 = st.executeQuery(sql3);
+                        st3 = con.createStatement();
+                        rs3 = st3.executeQuery(sql3);
                         while(rs3.next())
                         {
                             float comprado = Float.parseFloat(rs3.getString("produccion"));
@@ -1042,7 +1049,8 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                             String sql4 = "select idBol from bolseo where idPar_fk = "+idPart2+"";//selecciona el id de bolseo del proceso
                             try
                             {
-                                ResultSet rs4 = st.executeQuery(sql4);
+                                st4 = con.createStatement();
+                                rs4 = st4.executeQuery(sql4);
                                 while(rs4.next())
                                 {
                                     int idBo2 = Integer.parseInt(rs4.getString("idBol"));
@@ -1050,7 +1058,8 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                                     String sql5 = "select kgUniB from operadorBol where idBol_fk = "+idBo2+"";//selecciona lo producido de bolseo
                                     try
                                     {
-                                        ResultSet rs5 = st.executeQuery(sql5);
+                                        st5 = con.createStatement();
+                                        rs5 = st5.executeQuery(sql5);
                                         while(rs5.next())
                                         {
                                             float producido = Float.parseFloat(rs5.getString("kgUniB"));
@@ -1060,6 +1069,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                                             }
                                         }
                                         rs5.close();
+                                        st5.close();
                                     }
                                     catch(SQLException ex)
                                     {
@@ -1067,6 +1077,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                                     }
                                 }
                                 rs4.close();
+                                st4.close();
                             }
                             catch(SQLException ex)
                             {
@@ -1074,6 +1085,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                             }
                         }
                         rs3.close();
+                        st3.close();
                     }
                     catch(SQLException ex)
                     {
@@ -1085,7 +1097,8 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                     String sql3 = "select produccion from impreso where idPar_fk = "+idPart2+"";//obtiene lo comprado de impreso
                     try
                     {
-                        ResultSet rs3 = st.executeQuery(sql3);
+                        st3 = con.createStatement();
+                        rs3 = st3.executeQuery(sql3);
                         while(rs3.next())
                         {
                             float comprado = Float.parseFloat(rs3.getString("produccion"));
@@ -1097,7 +1110,8 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                             String sql4 = "select idImp from impreso where idPar_fk = "+idPart2+"";//selecciona el id de impreso del proceso
                             try
                             {
-                                ResultSet rs4 = st.executeQuery(sql4);
+                                st4 = con.createStatement();
+                                rs4 = st4.executeQuery(sql4);
                                 while(rs4.next())
                                 {
                                     int idIm2 = Integer.parseInt(rs4.getString("idImp"));
@@ -1105,7 +1119,8 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                                     String sql5 = "select kgUniI from operadorImp where idImp_fk = "+idIm2+"";//selecciona lo producido de impreso
                                     try
                                     {
-                                        ResultSet rs5 = st.executeQuery(sql5);
+                                        st5 = con.createStatement();
+                                        rs5 = st5.executeQuery(sql5);
                                         while(rs5.next())
                                         {
                                             float producido = Float.parseFloat(rs5.getString("kgUniI"));
@@ -1115,6 +1130,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                                             }
                                         }
                                         rs5.close();
+                                        st5.close();
                                     }
                                     catch(SQLException ex)
                                     {
@@ -1122,6 +1138,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                                     }
                                 }
                                 rs4.close();
+                                st4.close();
                             }
                             catch(SQLException ex)
                             {
@@ -1129,6 +1146,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                             }
                         }
                         rs3.close();
+                        st3.close();
                     }
                     catch(SQLException ex)
                     {
@@ -1140,7 +1158,8 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                     String sql3 = "select pocM1,pocM2 from extrusion where idPar_fk = "+idPart2+"";//obtiene lo comprado de extrusion
                     try
                     {
-                        ResultSet rs3 = st.executeQuery(sql3);
+                        st3 = con.createStatement();
+                        rs3 = st3.executeQuery(sql3);
                         while(rs3.next())
                         {
                             float comprado1 = Float.parseFloat(rs3.getString("pocM1"));
@@ -1153,7 +1172,8 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                             String sql4 = "select idExt from extrusion where idPar_fk = "+idPart2+"";//selecciona el id de extrusion del proceso
                             try
                             {
-                                ResultSet rs4 = st.executeQuery(sql4);
+                                st4 = con.createStatement();
+                                rs4 = st4.executeQuery(sql4);
                                 while(rs4.next())
                                 {
                                     int idEx2 = Integer.parseInt(rs4.getString("idExt"));
@@ -1161,7 +1181,8 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                                     String sql5 = "select kgUniE from operadorExt where idExt_fk = "+idEx2+"";//selecciona lo producido de extrusion
                                     try
                                     {
-                                        ResultSet rs5 = st.executeQuery(sql5);
+                                        st5 = con.createStatement();
+                                        rs5 = st5.executeQuery(sql5);
                                         while(rs5.next())
                                         {
                                             float producido = Float.parseFloat(rs5.getString("kgUniE"));
@@ -1171,6 +1192,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                                             }
                                         }
                                         rs5.close();
+                                        st5.close();
                                     }
                                     catch(SQLException ex)
                                     {
@@ -1178,6 +1200,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                                     }
                                 }
                                 rs4.close();
+                                st4.close();
                             }
                             catch(SQLException ex)
                             {
@@ -1185,6 +1208,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                             }
                         }
                         rs3.close();
+                        st3.close();
                     }
                     catch(SQLException ex)
                     {
@@ -1207,7 +1231,8 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
     private float calculaGfKg(int folio)
     {
         float gfkg = 0f, gfr = 0f, sumatoriaRango = 0f;
-        ResultSet rs;
+        Statement st2;
+        ResultSet rs, rs2;
         String sql = "select fTermino from pedido where folio = "+folio+"";
         try
         {
@@ -1220,7 +1245,8 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                     String sql2 = "select gastosFijos,kgFinalesRango from pedido where folio = "+folio+" and gastosFijos is not null and kgFinalesRango is not null";
                     try
                     {
-                        ResultSet rs2 = st.executeQuery(sql2);
+                        st2 = con.createStatement();
+                        rs2 = st2.executeQuery(sql2);
                         while(rs2.next())
                         {
                             gfr = Float.parseFloat(rs2.getString("gastosFijos"));
@@ -1229,6 +1255,7 @@ public class DetallesPedido extends javax.swing.JFrame {//permite cambiar alguno
                                 gfkg = gfr / sumatoriaRango;
                         }
                         rs2.close();
+                        st2.close();
                     }
                     catch(SQLException ex)
                     {

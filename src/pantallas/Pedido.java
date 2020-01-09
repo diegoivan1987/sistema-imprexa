@@ -2343,8 +2343,8 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 modelo.addRow(new Object[]{rs.getString("idC"), rs.getString("nom")});
             }
             tablaC.setModel(modelo);
-            st.close();
             rs.close();
+            st.close();
         } 
         catch (SQLException ex) 
         {
@@ -2394,9 +2394,10 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 modeloP.addRow(new Object[]{rs.getString("folio")+"A", rs.getString("impresion"), rs.getString("nom"), rs.getString("fIngreso")});
             }
             tablaP.setModel(modeloP);
-            st.close();
             rs.close();
-        } catch (SQLException ex) {
+            st.close();
+        } 
+        catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se ha podido establecer la tabla de pedidos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -2467,8 +2468,9 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             {
                 st = con.createStatement();
                 st.execute(sql);
+                st.close();
                 setHojas();//enumera la partida
-                establecerSubtotalPedido(st);//Para sumar todos los importes de las partidas y guargar el total en pedido
+                establecerSubtotalPedido();//Para sumar todos los importes de las partidas y guargar el total en pedido
                 JOptionPane.showMessageDialog(null, "Se ha guardado la partida", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
             } 
             catch (SQLException ex) 
@@ -2506,23 +2508,31 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         {
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            stAux = con.createStatement();
             while(rs.next())
             {
                 contadorRs++;
                 idPartida = rs.getInt("idPar");
+                
                 sql1 = "update partida set hoja = "+contadorRs+" where idPar = "+idPartida+"";//se inserta el numero de hoja de la partida
-                stAux.execute(sql1);            
+                stAux = con.createStatement();
+                stAux.execute(sql1);
+                stAux.close();
             }
+            rs.close();
+            st.close();
             
+            st = con.createStatement();
             rs = st.executeQuery(sql);
             while(rs.next())
             {
                 idPartida = rs.getInt("idPar");               
                 sql1 = "update partida set de = "+contadorRs+" where idPar = "+idPartida+"";//se inserta el numero De de la partida
+                stAux = con.createStatement();
                 stAux.execute(sql1);
+                stAux.close();
             }
-            stAux.close();
+            rs.close();
+            st.close();
         } 
         catch (SQLException ex) 
         {
@@ -2532,19 +2542,22 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     
     
     //Calcula el monto del pedido a base de los importes de todas las partidas, no es el subtotal
-    private void establecerSubtotalPedido(Statement st){
+    private void establecerSubtotalPedido(){
         
         String sql = "select importe from partida where folio_fk = "+folioId+"";
         float subtotalVar = 0;
         try 
         {
+            st = con.createStatement();
             rs = st.executeQuery(sql);
             while(rs.next())
             {
                 //Aqui se empiezan a acumular los importes de las partidas
                 subtotalVar = subtotalVar + Float.parseFloat(rs.getString("importe"));
             } 
-            actualizarSubtotalPedido(subtotalVar, st);//Update al campo subtotal para ingresar el nuevo monto
+            rs.close();
+            st.close();
+            actualizarSubtotalPedido(subtotalVar);//Update al campo subtotal para ingresar el nuevo monto
         } 
         catch (SQLException ex) 
         {
@@ -2553,7 +2566,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     }
     
     //Se calcula e ingresa el subtotal de pedido en la base de datos
-    private void actualizarSubtotalPedido(float sub, Statement st){
+    private void actualizarSubtotalPedido(float sub){
         float subGrab = sub;
         float antif  = 0f;
         float descuento = 0f;
@@ -2563,6 +2576,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         
         try 
         {
+            st = con.createStatement();
             rs = st.executeQuery(sql);
             while(rs.next())
             {
@@ -2573,6 +2587,8 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 //Se guarda el valor de descuento para uso posterior
                 descuento = Float.parseFloat(rs.getString("descuento"));
             }
+            rs.close();
+            st.close();
         } 
         catch (SQLException ex) 
         {
@@ -2584,13 +2600,14 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         
         try 
         {
+            st = con.createStatement();
             st.execute(sql);
-            //Ahora paso por parametros el subtotal con grabados, anticipo y descuento para calcular el total
-            calcularTotalPed(subGrab, antif, descuento, st);
             st.close();
-            rs.close();
-            
-        } catch (SQLException ex) {
+            //Ahora paso por parametros el subtotal con grabados, anticipo y descuento para calcular el total
+            calcularTotalPed(subGrab, antif, descuento);
+        } 
+        catch(SQLException ex) 
+        {
             JOptionPane.showMessageDialog(null, "Error al actualizar el subtotal", "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
@@ -2626,7 +2643,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     }
     
     //Aqui se reciben todos los valores necesarios para calcular el total y el resto y actualizar la base de datos
-    private void calcularTotalPed(float sub, float anticipo, float descuento, Statement st){
+    private void calcularTotalPed(float sub, float anticipo, float descuento){
         
         float total = 0f;
         float ivaf = obtenerIva();
@@ -2642,7 +2659,9 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         String sql= "update pedido set total = "+total+", resto = "+rest+" where folio = "+folioId+"";
         try 
         {
+            st = con.createStatement();
             st.execute(sql);
+            st.close();
         } 
         catch (SQLException ex) 
         {
@@ -3119,8 +3138,8 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 modeloMod.addRow(new Object[]{rs.getString("folio")+"A", rs.getString("impresion"), rs.getString("nom"), rs.getString("fIngreso")});
             }
             tablaModPed.setModel(modeloMod);//se establece un modelo para la tabla
-            st.close();
             rs.close();
+            st.close();
         } 
         catch (SQLException ex) 
         {
@@ -3185,12 +3204,13 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         {
             st = con.createStatement();
             st.execute(sql);
-            calculaPyG(folioMod);//se vuelven a calcular las pyg de la partida modificada
             st.close();
+            calculaPyG(folioMod);//se vuelven a calcular las pyg de la partida modificada
             
             JOptionPane.showMessageDialog(null, "Se han guardado los cambios", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException ex) {
-            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch(SQLException ex){
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al modificar: "+ ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }  
     }//GEN-LAST:event_btnModActionPerformed
@@ -4084,12 +4104,12 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         java.util.Date date = null;
         Calendar cal = Calendar.getInstance();   
         
-        try {
+        try 
+        {
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            
-            
-            while(rs.next()){//a la vez que se hace la consulta se establecen los datos en la ventana
+            while(rs.next())
+            {//a la vez que se hace la consulta se establecen los datos en la ventana
                 
                 imp.setText(rs.getString("impresion"));
                 estableceEstatus(rs.getString("estatus"));
@@ -4097,34 +4117,46 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 dev.setText(rs.getString("devolucion"));
                  
                 //Para establecer las fechas obtenidas de la base de datos
-                try {
+                try 
+                {
                     date = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("fIngreso"));
-                } catch (ParseException ex) {
-                    Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+                catch (ParseException ex) 
+                {
+                    ex.printStackTrace();
                 }
                 cal.setTime(date);
                 fIn2.setSelectedDate(cal);
          
-                try {
+                try 
+                {
                     date = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("fCompromiso"));
-                } catch (ParseException ex) {
-                    Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+                catch (ParseException ex) 
+                {
+                    ex.printStackTrace();
                 }
                 cal.setTime(date);
                 fC2.setSelectedDate(cal);
                 
-                try {
+                try 
+                {
                     date = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("fPago"));
-                } catch (ParseException ex) {
-                    Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+                catch (ParseException ex) 
+                {
+                    ex.printStackTrace();
                 }
                 cal.setTime(date);
                 fP2.setSelectedDate(cal);
                 
-                try {
+                try 
+                {
                     date = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("fTermino"));
-                } catch (ParseException ex) {
-                    Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+                catch (ParseException ex) 
+                {
+                    ex.printStackTrace();
                 }
                 cal.setTime(date);
                 fT.setSelectedDate(cal);
@@ -4150,12 +4182,12 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 
                 respaldoSub = Float.parseFloat(rs.getString("subtotal")) - Float.parseFloat(rs.getString("grabados"));
             }
-            
-            st.close();
             rs.close();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            st.close();
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         } 
     }
     
