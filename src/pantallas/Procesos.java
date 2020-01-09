@@ -630,22 +630,30 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             minNoAcum = 0;
         }
         
-        if(horas > 9 && minNoAcum > 9){
+        if(horas > 9 && minNoAcum > 9)
+        {
             horasSt = (horas + ":" + minNoAcum + ":00");
-        }else if(horas < 10 && minNoAcum < 10){
+        }
+        else if(horas < 10 && minNoAcum < 10)
+        {
             horasSt = ("0" + horas + ":" + "0" + minNoAcum + ":00");
-        }else if(horas > 9 && minNoAcum < 10){
+        }
+        else if(horas > 9 && minNoAcum < 10)
+        {
             horasSt = (horas + ":" + "0" + minNoAcum + ":00");
-        }else if(horas < 10 && minNoAcum > 9){
+        }
+        else if(horas < 10 && minNoAcum > 9)
+        {
             horasSt = ("0" + horas + ":" + minNoAcum + ":00");
         }
         
         String horasTotal = getHrDT(horasSt); 
         char auxHr = 0;
         
-        if(Integer.parseInt(horasTotal) > 23){
-            
-            try{
+        if(Integer.parseInt(horasTotal) > 23)
+        {
+            try
+            {
                 auxHr = horasTotal.charAt(0);
                 horasSt = horasSt.replace(horasSt.charAt(0), '1');
 
@@ -657,22 +665,31 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                 horasSt = horasSt.replace(horasSt.charAt(0), auxHr);
 
                 comprobarTiempos(minOfHour, hrOfDay, horasSt, aux, total);
-            }catch(java.lang.IllegalArgumentException ex){
+            }
+            catch(java.lang.IllegalArgumentException ex)
+            {
                 JOptionPane.showMessageDialog(null, "No se pueden sobrepasar las horas totales, maximo: 99 horas", "Advertencia", 
                         JOptionPane.INFORMATION_MESSAGE);
+                ex.printStackTrace();
             }
-        }else{
+        }
+        else
+        {
             
-            try{
+            try
+            {
                 aux = new DateTime("T"+horasSt);
                 aux = aux.plusMinutes(-muerto.getMinutes());
                 minOfHour = aux.getMinuteOfHour();
                 hrOfDay = aux.getHourOfDay();
 
                 comprobarTiempos(minOfHour, hrOfDay, horasSt, aux, total);
-            }catch(java.lang.IllegalArgumentException ex){
+            }
+            catch(java.lang.IllegalArgumentException ex)
+            {
                 JOptionPane.showMessageDialog(null, "No se pueden sobrepasar las horas totales, maximo: 99 horas", "Advertencia", 
                         JOptionPane.INFORMATION_MESSAGE);
+                ex.printStackTrace();
             }
         }
         
@@ -690,7 +707,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         calcularCostoOpMinutos(minutosMenosExtra, sueldoOperador, tiempoExtra, minutos, costo);   
     }
    
-    //devuelve el numero de horas
+    //devuelve solo el numero de horas
     private String getHrDT(String tiempo){
         
         String hora = "";
@@ -2758,8 +2775,11 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         listOperadorE.removeAllItems();
         listOperadorI.removeAllItems();
         listOperadorB.removeAllItems();
-        String nombreSt = "";
-        //las volvemos a llenar
+        String nombreSt = "";//nombre individual
+        ArrayList<String> nombres = new ArrayList<String>();//lista de nombres
+        /*utiliza una lista ya que habia conflictos al agregarlos directamente a 
+        las listas desplegables dentro del while*/
+        //llenamos la lista de nombres
         String sql = "select nombre from operadores";
         try
         {
@@ -2768,9 +2788,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             while(rs.next())//llena las listas de operadores
             {
                 nombreSt = rs.getString("nombre");
-                listOperadorE.addItem(nombreSt);
-                listOperadorI.addItem(nombreSt);
-                listOperadorB.addItem(nombreSt);
+                nombres.add(nombreSt);
             }
             rs.close();
             st.close();
@@ -2779,6 +2797,14 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         {
             ex.printStackTrace();
         }
+        //llenamos las listas desplegables
+        for(int i=0;i<nombres.size();i++)
+        {
+            nombreSt = nombres.get(i);
+            listOperadorE.addItem(nombreSt);
+            listOperadorI.addItem(nombreSt);
+            listOperadorB.addItem(nombreSt);
+        }    
     }
     
     //llena la lista de ayudantes cuando ya se crearon los procesos
@@ -2787,6 +2813,10 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
       listAyudanteI.removeAllItems();//se vacian los elementos anteriores
       String sql = "select nombre from operadores";
       String nombre = "";
+      ArrayList<String> nombres = new ArrayList<String>();//lista de nombres
+      /*utiliza una lista ya que habia conflictos al agregarlos directamente a 
+      las listas desplegables dentro del while*/
+      //llenamos la lista de nombres
       try
       {
           st = con.createStatement();
@@ -2794,7 +2824,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
           while(rs.next())
           {
               nombre = rs.getString("nombre");
-              listAyudanteI.addItem(nombre);
+              nombres.add(nombre);
           }
           rs.close();
           st.close();
@@ -2803,6 +2833,13 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
       {
           ex.printStackTrace();
       }
+      
+      //llenamos la lista desplegable
+        for(int i=0;i<nombres.size();i++)
+        {
+            nombre = nombres.get(i);
+            listAyudanteI.addItem(nombre);
+        } 
     }
     
     //Se establecen en "" o "0" los campos de maquila
@@ -2909,7 +2946,9 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             }
             rs.close();
             st.close();
-        } catch (SQLException ex) {
+        } 
+        catch(SQLException ex) 
+        {
             JOptionPane.showMessageDialog(null, "Error al establecer los datos de extrusion: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
@@ -3370,6 +3409,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             }
             rs.close();
             st.close();
+            
             sql = "update "+tablaProceso+" set "+greniaProceso+" = "+kilosGre+" where "+nomCampoId+" = "+idPGlobal+"";
             try 
             {
@@ -3791,6 +3831,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         try {
             st = con.createStatement();
             st.execute(sql);
+            st.close();
             JOptionPane.showMessageDialog(null, "Se ha guardado el operador en Extrusion: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
             
             sumaKilosEx();
@@ -3808,8 +3849,10 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             calculaPyG();
             
             vaciarOpE();
-            //Aqui se sumaran las greñas();   
-        } catch (SQLException ex) {
+            
+        } 
+        catch(SQLException ex) 
+        {
             JOptionPane.showMessageDialog(null, "Error al intentar agregar el operador: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_agEActionPerformed
@@ -5006,8 +5049,8 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         int idPartida = 0;
         String sql2 = "";
         String sql3 = "";
-        ResultSet rs2;
-        ResultSet rs3;
+        Statement st2, st3;
+        ResultSet rs2, rs3;
         int idEx2 = 0;
         String sql = "select idPar from partida where folio_fk = "+folio+"";
         try
@@ -5021,12 +5064,14 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                 sql2 = "select pocM1,pocM2 from extrusion where idPar_fk = "+idPartida+"";
                 try
                 {
-                    rs2 = st.executeQuery(sql2);
+                    st2 = con.createStatement();
+                    rs2 = st2.executeQuery(sql2);
                     while(rs2.next())
                     {
                         comprado = comprado + (Float.parseFloat(rs2.getString("pocM1"))+Float.parseFloat(rs2.getString("pocM2")));
                     }
                     rs2.close();
+                    st2.close();
                 }
                 catch(SQLException ex)
                 {
@@ -5036,7 +5081,8 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                 sql2 = "select idExt from extrusion where idPar_fk = "+idPartida+"";
                 try
                 {
-                    rs2 = st.executeQuery(sql2);
+                    st2 = con.createStatement();
+                    rs2 = st2.executeQuery(sql2);
                     while(rs2.next())
                     {
                         idEx2 = Integer.parseInt(rs2.getString("idExt"));
@@ -5044,12 +5090,14 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                         sql3 = "select kgUniE from operadorExt where idExt_fk = "+idEx2+"";
                         try
                         {
-                            rs3 = st.executeQuery(sql3);
+                            st3 = con.createStatement();
+                            rs3 = st3.executeQuery(sql3);
                             while(rs3.next())
                             {
                                 producido = producido + Float.parseFloat(rs3.getString("kgUniE"));
                             }
                             rs3.close();
+                            st3.close();
                         }
                         catch(SQLException ex)
                         {
@@ -5057,6 +5105,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                         }
                     }
                     rs2.close();
+                    st2.close();
                 }
                 catch(SQLException ex)
                 {
@@ -5472,26 +5521,29 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         float PyG = 0;
         String sql = "select fTermino from pedido where folio = "+folio+"";//busca si ya fueron terminados los pedidos
         String sql2 = "";
+        //se utilizan st y rs alternos porque hay funciones de consulta dentro del while
+        Statement st2;
         ResultSet rs2;
+        ResultSet rs3;
         try
         {
-            st = con.createStatement();
-            rs = st.executeQuery(sql);
-            while(rs.next())
+            st2 = con.createStatement();
+            rs2 = st2.executeQuery(sql);
+            while(rs2.next())
             {
-                if(rs.getString("fTermino").equals("2018-01-01") == false)//solo lo hara con pedidos que ya hayan sido terminados
+                if(rs2.getString("fTermino").equals("2018-01-01") == false)//solo lo hara con pedidos que ya hayan sido terminados
                 {
                     sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+folio+"";
                     try
                     {
-                        rs2 = st.executeQuery(sql2);
-                        while(rs2.next())
+                        rs3 = st2.executeQuery(sql2);
+                        while(rs3.next())
                         {
-                            subtotal = Float.parseFloat(rs2.getString("subtotal"));
-                            costoTotal = Float.parseFloat(rs2.getString("costoTotal"));
-                            descuento = Float.parseFloat(rs2.getString("descuento"));
+                            subtotal = Float.parseFloat(rs3.getString("subtotal"));
+                            costoTotal = Float.parseFloat(rs3.getString("costoTotal"));
+                            descuento = Float.parseFloat(rs3.getString("descuento"));
                         }
-                        rs2.close();
+                        rs3.close();
                     }
                     catch(SQLException ex)
                     {
@@ -5503,8 +5555,8 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                     PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
                 }
             }
-            rs.close();
-            st.close();
+            rs2.close();
+            st2.close();
         }
         catch(SQLException ex)
         {
@@ -5514,9 +5566,9 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         sql2 = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+folio+"";
         try
         {
-            st = con.createStatement();
-            st.execute(sql2);
-            st.close();
+            st2 = con.createStatement();
+            st2.execute(sql2);
+            st2.close();
         }
         catch(SQLException ex)
         {

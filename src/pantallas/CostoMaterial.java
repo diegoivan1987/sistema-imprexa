@@ -186,25 +186,20 @@ public class CostoMaterial extends javax.swing.JFrame {//permite cambiarle el pr
     }//GEN-LAST:event_tablaMatMouseClicked
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        try{
-            st = con.createStatement();
-            guardar(st);
-            actualizar(st);
-            st.close();
-            guardar.setSelected(false);
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        } 
+       guardar();
+       actualizar();
+       guardar.setSelected(false);    
     }//GEN-LAST:event_guardarActionPerformed
 
     //inserta el nuevo precio en la base de datos
-    private void guardar(Statement st){
+    private void guardar(){
         Float fNuevo = Float.parseFloat(nPrecio.getText());//nuevo precio
         String sql = "update costosMaterial set precio = "+fNuevo+" where tipo = '"+tipo+"'";
         try
         {
+            st = con.createStatement();
             st.execute(sql);
+            st.close();
             JOptionPane.showMessageDialog(null, "Se guardo el nuevo precio");
         }
         catch(SQLException ex)
@@ -215,7 +210,7 @@ public class CostoMaterial extends javax.swing.JFrame {//permite cambiarle el pr
     }
     
     //actuaiza la tabla
-    private void actualizar(Statement st)
+    private void actualizar()
     {
         String sql = "";
         modPart.setRowCount(0);//vacia la tabla
@@ -223,12 +218,14 @@ public class CostoMaterial extends javax.swing.JFrame {//permite cambiarle el pr
         sql = "select * from costosMaterial";
         try
         {
+            st = con.createStatement();
             rs = st.executeQuery(sql);
             while(rs.next())
             {
                 modPart.addRow(new Object[]{rs.getString("tipo"), rs.getString("precio")});
             }
             rs.close();
+            st.close();
         }
         catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Error al volver a llenar la tabla" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);

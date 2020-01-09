@@ -15,20 +15,41 @@ listenersProcesos
     fIniExtChange();
     fFinExtChange();
     extraEChange();
-    
     hrIniIChange();
     hrFinIChange();
     tmMuertoIChange();
     fIniImpChange();
     fFinImpChange();
     extraIChange();
-    
     hrIniBChange();
     hrFinBChange();
     tmMuertoBChange();
     fIniBolChange();
     fFinBolChange();
     extraBChange();
+todos los listeners de arriba tienen
+    calcularTotalhr
+calcularTotalhr
+    getHrDT
+    comprobarTiempos
+    calcularCostoOpMinutos
+getHrDT
+comprobarTiempos
+calcularCostoOpMinutos
+calcularTotalhrImp
+    getHrDT
+    comprobarTiempos
+    calcularCostoOpMinutosImp
+calcularCostoOpMinutosImp
+tablaPedMouseClicked
+    obtenerSeleccionTablaPedido
+obtenerSeleccionTablaPedido
+busquedaImpActionPerformed
+    llenarTablaPedido
+obtenerSeleccionTablaPartida
+    comprobarProcesos
+    cambiaTextoBoton
+cambiaTextoBoton
 generarProActionPerformed
     comprobarVacio
     comprobarProcesos

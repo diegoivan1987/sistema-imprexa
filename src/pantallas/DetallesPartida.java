@@ -897,13 +897,13 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                 {
                     st = con.createStatement();
                     st.execute(sql);
-                    indicadorCambios = true;//se indica que hubo cambios para actualizar las tablas de visualizacion
-                    establecerSubtotalPedido(st);//calcula y actualiza el nuevo subtotal del pedido
-                    establecerTotalYResto(st);//calcula y actualiza el total y el resto del pedido
-                    calculaPyG(st);//calcula las perdidas y ganancias
-                    actualizarArreglo(st);
-                    actualizarDatosParaReporte();
                     st.close();
+                    indicadorCambios = true;//se indica que hubo cambios para actualizar las tablas de visualizacion
+                    establecerSubtotalPedido();//calcula y actualiza el nuevo subtotal del pedido
+                    establecerTotalYResto();//calcula y actualiza el total y el resto del pedido
+                    calculaPyG();//calcula las perdidas y ganancias
+                    actualizarArreglo();
+                    actualizarDatosParaReporte();
                     JOptionPane.showMessageDialog(null, "Se guardaron los cambios");
                 }
                 catch(SQLException ex)
@@ -930,11 +930,12 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
     }
     
     //actualiza el arreglo de partidas(no el de reporte)
-    private void actualizarArreglo(Statement st){
+    private void actualizarArreglo(){
         //se consultan los datos actualizados de la base de datos
         String sql = "select * from partida where idPar = "+dp.get(indicePartida).getId()+"";
         try
         {
+            st = con.createStatement();
             this.rs = st.executeQuery(sql);
             while(this.rs.next())//se llena la lista de datos de una partida especifica con los datos de la base de datos
             {
@@ -951,6 +952,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                 dp.get(indicePartida).setImporte(rs.getString("importe"));    
             }
             this.rs.close();
+            st.close();
         }
         catch(SQLException ex)
         {
@@ -980,7 +982,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
     }
     
     //calcula las perdidas y ganancias del pedido
-    private void calculaPyG(Statement st)
+    private void calculaPyG()
     {
         ResultSet rs2;
         float subtotal = 0f, costoTotal = 0f, descuento = 0f;
@@ -989,6 +991,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         String sql2 =  "";
         try
         {
+            st = con.createStatement();
             rs = st.executeQuery(sql);
             while(rs.next())
             {
@@ -1011,12 +1014,13 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                         ex.printStackTrace();
                     }
                     
-                    float kgFnPe = calculaKgFinalesPedido(Integer.parseInt(dp.get(indicePartida).getFolio().replace("A", "")), st);
-                    float gf = calculaGfKg(st);
+                    float kgFnPe = calculaKgFinalesPedido(Integer.parseInt(dp.get(indicePartida).getFolio().replace("A", "")));
+                    float gf = calculaGfKg();
                     PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
                 }
             }
             rs.close();
+            st.close();
         }
         catch(SQLException ex)
         {
@@ -1027,7 +1031,9 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         sql = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
         try
         {
+            st = con.createStatement();
             st.execute(sql);
+            st.close();
         }
         catch(SQLException ex)
         {
@@ -1035,7 +1041,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         }
     }
     
-    private float calculaGfKg(Statement st)
+    private float calculaGfKg()
     {
         float gfkg = 0f;//gastos fijos por kg
         float gfr = 0f; //gastos fijos por rango
@@ -1043,6 +1049,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         String sql = "select fTermino from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
         try
         {
+            st = con.createStatement();
             rs = st.executeQuery(sql);
             while(rs.next())
             {
@@ -1068,6 +1075,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                 }
             }
             rs.close();
+            st.close();
         }
         catch(SQLException ex)
         {
@@ -1081,18 +1089,19 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
     }
     
     //calcula los kg finales del pedido
-    private float calculaKgFinalesPedido(int folio, Statement st)
+    private float calculaKgFinalesPedido(int folio)
     {
         float sumatoriaPartida = 0f;
         float sumatoriaPedido = 0f;//se inicializ en 0 para que si no hace calculos se retorna 0
         String sql = "select idPar from partida where folio_fk = "+folio+"";//obtiene el id de cada partida
         try
         {
-            ResultSet rs2 = st.executeQuery(sql);
-            while(rs2.next())
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next())
             {
                 sumatoriaPartida = 0;
-                int idPart2 =   Integer.parseInt(rs2.getString("idPar"));
+                int idPart2 =   Integer.parseInt(rs.getString("idPar"));
 
                 if(sumatoriaPartida <= 0)//si aun no se hace la sumatoria de una partida anterior, entra
                 {
@@ -1262,7 +1271,8 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                 }
             sumatoriaPedido += sumatoriaPartida;
             }
-            rs2.close();
+            rs.close();
+            st.close();
         }
         catch(SQLException ex)
         {
@@ -1614,18 +1624,20 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
     }
     
     //Calcular y actualiza el subtotal del pedido a base de los importes de todas las partidas y los grabados
-    private void establecerSubtotalPedido(Statement st){
+    private void establecerSubtotalPedido(){
         float subtotalVar = 0;
         String sql = "select importe from partida where folio_fk = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
         //se hace la sumatoria de los importes de las partidas
         try
         {
+            st = con.createStatement();
             this.rs = st.executeQuery(sql);
             while(this.rs.next())
             {
                 subtotalVar = subtotalVar + Float.parseFloat(this.rs.getString("importe"));
             } 
             this.rs.close();
+            st.close();
         } 
         catch (SQLException ex) 
         {
@@ -1637,12 +1649,14 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         //se suman los grabados
         try
         {
+            st = con.createStatement();
             this.rs = st.executeQuery(sql);
             while(this.rs.next())
             {
                 subtotalVar = subtotalVar + Float.parseFloat(this.rs.getString("grabados"));
             } 
             this.rs.close();
+            st.close();
         } 
         catch (SQLException ex) 
         {
@@ -1653,7 +1667,9 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         sql = "update pedido set subtotal = "+subtotalVar+" where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
         try
         {
+            st = con.createStatement();
             st.execute(sql);
+            st.close();
         } 
         catch (SQLException ex) 
         {
@@ -1692,7 +1708,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
     }
     
     //calcula y actualiza el total y resto del pedido
-    private void establecerTotalYResto(Statement st)
+    private void establecerTotalYResto()
     {
         String sql = "select subtotal, anticipo, descuento from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
         float subtotal = 0, anticipo = 0, descuento = 0, subIva = 0, total = 0, restoF = 0;
@@ -1700,6 +1716,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         
         try
         {
+            st = con.createStatement();
             rs = st.executeQuery(sql);
             while(rs.next()){
                subtotal = Float.parseFloat(rs.getString("subtotal"));
@@ -1707,9 +1724,10 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                descuento = Float.parseFloat(rs.getString("descuento"));
             }
             rs.close();
+            st.close();
         }
-        catch(SQLException e){
-            e.printStackTrace();
+        catch(SQLException ex){
+            ex.printStackTrace();
         }
         
         subIva = subtotal * iva;//Se obtiene el iva del subtotal
@@ -1724,7 +1742,9 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         sql= "update pedido set total = "+total+", resto = "+restoF+" where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
         try 
         {
+            st = con.createStatement();
             st.execute(sql);
+            st.close();
         } catch (SQLException ex) 
         {
             JOptionPane.showMessageDialog(null, "Error al actualizar el total y resto", "Error", JOptionPane.ERROR_MESSAGE);
