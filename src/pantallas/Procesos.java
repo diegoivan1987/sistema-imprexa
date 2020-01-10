@@ -3713,7 +3713,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
     
     //Enumerar las partidas existentes con los datos Hojas y De
     private void setHojas(){
-        
+        Statement st2;
         String sql = "select idPar from partida where folio_fk = "+folio+"";
         String sql1;
         int contadorRs = 0;
@@ -3731,7 +3731,9 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                     idPartida = rs.getInt("idPar");
                     
                     sql1 = "update partida set hoja = "+contadorRs+" where idPar = "+idPartida+"";
-                    st.execute(sql1);  
+                    st2 = con.createStatement();
+                    st2.execute(sql1);
+                    st2.close();
                 }
             }
             rs.close();
@@ -3746,7 +3748,9 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                     idPartida = rs.getInt("idPar");               
 
                     sql1 = "update partida set de = "+contadorRs+" where idPar = "+idPartida+"";
-                    st.execute(sql1);
+                    st2 = con.createStatement();
+                    st2.execute(sql1);
+                    st2.close();
                 }
             }
             rs.close();
@@ -3760,6 +3764,8 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
     }
     
     private void eliminarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarPActionPerformed
+        Statement st2;
+        ResultSet rs2;
         eliminarP.setSelected(false);
         eliminarPartida();
         setTablePartidas(); 
@@ -3767,9 +3773,9 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         String sql = "select idPar from partida where folio_fk = "+folio+"";
         try
         {
-            st = con.createStatement();
-            rs = st.executeQuery(sql);
-            if(rs.next())//si tiene alguna partida
+            st2 = con.createStatement();
+            rs2 = st2.executeQuery(sql);
+            if(rs2.next())//si tiene alguna partida
             {
                 establecerSubtotalPedido();
                 calculaKgDesperdicioPedido();
@@ -3777,8 +3783,8 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                 calcularCostoTotalPe();
                 calculaPyG();
             }
-            rs.close();
-            st.close();
+            rs2.close();
+            st2.close();
             setHojas();
         }
         catch(SQLException ex)
@@ -4419,8 +4425,10 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             rs.close();
             st.close();
         }
-        catch (SQLException ex) {
+        catch (SQLException ex) 
+        {
             Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         return grenia;
     }
@@ -4924,6 +4932,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         catch(SQLException ex) 
         {
             Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }  
     }
 
@@ -5291,13 +5300,15 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
     //calcula los kg finales del pedido
     private float calculaKgFinalesPedido(int folio)
     {
+        Statement st2, st3, st4, st5;
+        ResultSet rs2, rs3, rs4, rs5;
         float sumatoriaPartida = 0f;
         float sumatoriaPedido = 0f;
         String sql2 = "select idPar from partida where folio_fk = "+folio+"";//obtiene el folio de cada partida
         try
         {
-            st = con.createStatement();
-            ResultSet rs2 = st.executeQuery(sql2);
+            st2 = con.createStatement();
+            rs2 = st2.executeQuery(sql2);
             while(rs2.next())
             {
                 sumatoriaPartida = 0;
@@ -5308,7 +5319,8 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                     String sql3 = "select produccion from bolseo where idPar_fk = "+idPart2+"";//obtiene lo comprado de bolseo
                     try
                     {
-                        ResultSet rs3 = st.executeQuery(sql3);
+                        st3 = con.createStatement();
+                        rs3 = st3.executeQuery(sql3);
                         while(rs3.next())
                         {
                             float comprado = Float.parseFloat(rs3.getString("produccion"));
@@ -5320,7 +5332,8 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                             String sql4 = "select idBol from bolseo where idPar_fk = "+idPart2+"";//selecciona el id de bolseo del proceso
                             try
                             {
-                                ResultSet rs4 = st.executeQuery(sql4);
+                                st4 = con.createStatement();
+                                rs4 = st4.executeQuery(sql4);
                                 while(rs4.next())
                                 {
                                     int idBo2 = Integer.parseInt(rs4.getString("idBol"));
@@ -5328,7 +5341,8 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                                     String sql5 = "select kgUniB from operadorBol where idBol_fk = "+idBo2+"";//selecciona lo producido de bolseo
                                     try
                                     {
-                                        ResultSet rs5 = st.executeQuery(sql5);
+                                        st5 = con.createStatement();
+                                        rs5 = st5.executeQuery(sql5);
                                         while(rs5.next())
                                         {
                                             float producido = Float.parseFloat(rs5.getString("kgUniB"));
@@ -5338,6 +5352,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                                             }
                                         }
                                         rs5.close();
+                                        st5.close();
                                     }
                                     catch(SQLException ex)
                                     {
@@ -5345,6 +5360,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                                     }
                                 }
                                 rs4.close();
+                                st4.close();
                             }
                             catch(SQLException ex)
                             {
@@ -5353,6 +5369,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                     
                         }
                         rs3.close();
+                        st3.close();
                     }
                     catch(SQLException ex)
                     {
@@ -5364,7 +5381,8 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                     String sql3 = "select produccion from impreso where idPar_fk = "+idPart2+"";//obtiene lo comprado de impreso
                     try
                     {
-                        ResultSet rs3 = st.executeQuery(sql3);
+                        st3 = con.createStatement();
+                        rs3 = st3.executeQuery(sql3);
                         while(rs3.next())
                         {
                             float comprado = Float.parseFloat(rs3.getString("produccion"));
@@ -5376,7 +5394,8 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                             String sql4 = "select idImp from impreso where idPar_fk = "+idPart2+"";//selecciona el id de impreso del proceso
                             try
                             {
-                                ResultSet rs4 = st.executeQuery(sql4);
+                                st4 = con.createStatement();
+                                rs4 = st4.executeQuery(sql4);
                                 while(rs4.next())
                                 {
                                     int idIm2 = Integer.parseInt(rs4.getString("idImp"));
@@ -5384,7 +5403,8 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                                     String sql5 = "select kgUniI from operadorImp where idImp_fk = "+idIm2+"";//selecciona lo producido de impreso
                                     try
                                     {
-                                        ResultSet rs5 = st.executeQuery(sql5);
+                                        st5 = con.createStatement();
+                                        rs5 = st5.executeQuery(sql5);
                                         while(rs5.next())
                                         {
                                             float producido = Float.parseFloat(rs5.getString("kgUniI"));
@@ -5394,6 +5414,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                                             }
                                         }
                                         rs5.close();
+                                        st5.close();
                                     }
                                     catch(SQLException ex)
                                     {
@@ -5401,6 +5422,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                                     }
                                 }
                                 rs4.close();
+                                st4.close();
                             }
                             catch(SQLException ex)
                             {
@@ -5408,6 +5430,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                             }
                         }
                         rs3.close();
+                        st3.close();
                     }
                     catch(SQLException ex)
                     {
@@ -5419,7 +5442,8 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                     String sql3 = "select pocM1,pocM2 from extrusion where idPar_fk = "+idPart2+"";//obtiene lo comprado de extrusion
                     try
                     {
-                        ResultSet rs3 = st.executeQuery(sql3);
+                        st3 = con.createStatement();
+                        rs3 = st3.executeQuery(sql3);
                         while(rs3.next())
                         {
                             float comprado1 = Float.parseFloat(rs3.getString("pocM1"));
@@ -5432,7 +5456,8 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                             String sql4 = "select idExt from extrusion where idPar_fk = "+idPart2+"";//selecciona el id de extrusion del proceso
                             try
                             {
-                                ResultSet rs4 = st.executeQuery(sql4);
+                                st4 = con.createStatement();
+                                rs4 = st4.executeQuery(sql4);
                                 while(rs4.next())
                                 {
                                     int idEx2 = Integer.parseInt(rs4.getString("idExt"));
@@ -5440,7 +5465,8 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                                     String sql5 = "select kgUniE from operadorExt where idExt_fk = "+idEx2+"";//selecciona lo producido de extrusion
                                     try
                                     {
-                                        ResultSet rs5 = st.executeQuery(sql5);
+                                        st5 = con.createStatement();
+                                        rs5 = st5.executeQuery(sql5);
                                         while(rs5.next())
                                         {
                                             float producido = Float.parseFloat(rs5.getString("kgUniE"));
@@ -5450,6 +5476,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                                             }
                                         }
                                         rs5.close();
+                                        st5.close();
                                     }
                                     catch(SQLException ex)
                                     {
@@ -5457,6 +5484,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                                     }
                                 }
                                 rs4.close();
+                                st4.close();
                             }
                             catch(SQLException ex)
                             {
@@ -5464,6 +5492,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                             }
                         }
                         rs3.close();
+                        st3.close();
                     }
                     catch(SQLException ex)
                     {
@@ -5473,7 +5502,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             sumatoriaPedido += sumatoriaPartida;
             }
             rs2.close();
-            st.close();
+            st2.close();
         }
         catch(SQLException ex)
         {
