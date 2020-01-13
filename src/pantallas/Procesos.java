@@ -3764,6 +3764,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
     }
     
     private void eliminarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarPActionPerformed
+        //se usa rs2 y st porque hay funciones dentro del while
         Statement st2;
         ResultSet rs2;
         eliminarP.setSelected(false);
@@ -5548,31 +5549,32 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
     {
         float subtotal = 0f, costoTotal = 0f, descuento = 0f;
         float PyG = 0;
-        String sql = "select fTermino from pedido where folio = "+folio+"";//busca si ya fueron terminados los pedidos
-        String sql2 = "";
-        //se utilizan st y rs alternos porque hay funciones de consulta dentro del while
-        Statement st2;
-        ResultSet rs2;
-        ResultSet rs3;
+        String sql2 = "select fTermino from pedido where folio = "+folio+"";//busca si ya fueron terminados los pedidos
+        String sql3 = "";
+        //no usar de st a st5
+        Statement st6, st7;
+        ResultSet rs6, rs7;
         try
         {
-            st2 = con.createStatement();
-            rs2 = st2.executeQuery(sql);
-            while(rs2.next())
+            st6 = con.createStatement();
+            rs6 = st6.executeQuery(sql2);
+            while(rs6.next())
             {
-                if(rs2.getString("fTermino").equals("2018-01-01") == false)//solo lo hara con pedidos que ya hayan sido terminados
+                if(rs6.getString("fTermino").equals("2018-01-01") == false)//solo lo hara con pedidos que ya hayan sido terminados
                 {
-                    sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+folio+"";
+                    sql3 = "select subtotal, costoTotal, descuento from pedido where folio = "+folio+"";
                     try
                     {
-                        rs3 = st2.executeQuery(sql2);
-                        while(rs3.next())
+                        st7 = con.createStatement();
+                        rs7 = st7.executeQuery(sql3);
+                        while(rs7.next())
                         {
-                            subtotal = Float.parseFloat(rs3.getString("subtotal"));
-                            costoTotal = Float.parseFloat(rs3.getString("costoTotal"));
-                            descuento = Float.parseFloat(rs3.getString("descuento"));
+                            subtotal = Float.parseFloat(rs7.getString("subtotal"));
+                            costoTotal = Float.parseFloat(rs7.getString("costoTotal"));
+                            descuento = Float.parseFloat(rs7.getString("descuento"));
                         }
-                        rs3.close();
+                        rs7.close();
+                        st7.close();
                     }
                     catch(SQLException ex)
                     {
@@ -5584,8 +5586,8 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                     PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
                 }
             }
-            rs2.close();
-            st2.close();
+            rs6.close();
+            st6.close();
         }
         catch(SQLException ex)
         {
@@ -5595,9 +5597,9 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         sql2 = "update pedido set perdidasYGanancias = "+PyG+" where folio = "+folio+"";
         try
         {
-            st2 = con.createStatement();
-            st2.execute(sql2);
-            st2.close();
+            st6 = con.createStatement();
+            st6.execute(sql2);
+            st6.close();
         }
         catch(SQLException ex)
         {

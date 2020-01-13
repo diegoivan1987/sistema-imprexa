@@ -46,7 +46,6 @@ public class Visualizacion extends javax.swing.JFrame {
     Statement st;
     ResultSet rs;
     
-    ResultSet rsPedido;
     String nomCl;
     
     Principal prin;
@@ -151,7 +150,7 @@ public class Visualizacion extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tablaRegE = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        buscar = new javax.swing.JButton();
         impScan = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -535,12 +534,12 @@ public class Visualizacion extends javax.swing.JFrame {
 
         tabedPart.addTab("Registros de producción", panelPro);
 
-        jButton1.setBackground(new java.awt.Color(51, 51, 51));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Buscar pedido");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buscar.setBackground(new java.awt.Color(51, 51, 51));
+        buscar.setForeground(new java.awt.Color(255, 255, 255));
+        buscar.setText("Buscar pedido");
+        buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buscarActionPerformed(evt);
             }
         });
 
@@ -617,7 +616,7 @@ public class Visualizacion extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(impScan, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -635,7 +634,7 @@ public class Visualizacion extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tabedPart)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(buscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(impScan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -812,13 +811,13 @@ public class Visualizacion extends javax.swing.JFrame {
     }
     
     //Rellenar la tabla de pedidos
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
               
       //this.setSize(tam.tamano);
       //this.setLocationRelativeTo(null);
-        jButton1.setSelected(false);
+        buscar.setSelected(false);
       llenarTablaPedido();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_buscarActionPerformed
 
     public void llenarTablaPedido(){
         vacearTablas();
@@ -828,11 +827,11 @@ public class Visualizacion extends javax.swing.JFrame {
         btnDetPart.setEnabled(false);
         String sql = "select * from pedido where impresion like '%"+impScan.getText()+"%' order by fIngreso desc limit 0,30";
         
-        try {
+        try 
+        {
             st = con.createStatement();
             rs = st.executeQuery(sql);
             setBar(35);
-            rsPedido = rs;
             String fechaIngreso;
             String fechaIngresoSub;
             String fechaCompromiso;
@@ -841,7 +840,9 @@ public class Visualizacion extends javax.swing.JFrame {
             String fechaPagoSub;
             String fechaTermino;
             String fechaTerminoSub;
-            while(rs.next()){
+            
+            while(rs.next())
+            {
                 fechaIngreso = rs.getString("fIngreso");
                 fechaIngresoSub  = fechaIngreso.substring(8, 10)+"/"+fechaIngreso.substring(5, 7)+"/"+fechaIngreso.substring(0, 4);
                 fechaCompromiso = rs.getString("fCompromiso");
@@ -850,13 +851,13 @@ public class Visualizacion extends javax.swing.JFrame {
                 fechaPagoSub  = fechaPago.substring(8, 10)+"/"+fechaPago.substring(5, 7)+"/"+fechaPago.substring(0, 4);
                 fechaTermino = rs.getString("fTermino");
                 fechaTerminoSub  = fechaTermino.substring(8, 10)+"/"+fechaTermino.substring(5, 7)+"/"+fechaTermino.substring(0, 4);
+                
                 modeloPedido.addRow(new Object[]{rs.getString("folio")+"A", rs.getString("impresion"), rs.getString("autorizo"), fechaIngresoSub, rs.getString("estatus"),fechaCompromisoSub, 
                 fechaPagoSub, fechaTerminoSub, rs.getString("devolucion"), rs.getString("grabados"), rs.getString("costoDisenio"), rs.getString("anticipo"), rs.getString("descuento"), 
                 rs.getString("subtotal"), rs.getString("total"), rs.getString("resto"), rs.getString("kgDesperdicioPe"), rs.getString("porcentajeDespPe"),
                 rs.getString("costoTotal"), rs.getString("gastosFijos"), rs.getString("perdidasYGanancias")});
                 
                 idCliente = Integer.parseInt(rs.getString("idC_fk"));
-                
             }
             setBar(35);
             tablaPedido.setModel(modeloPedido);
@@ -864,9 +865,11 @@ public class Visualizacion extends javax.swing.JFrame {
             rs.close();
             st.close();
             setBar(35);
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             JOptionPane.showMessageDialog(null, "Error al llenar la tabla de pedidos" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
     
@@ -883,14 +886,15 @@ public class Visualizacion extends javax.swing.JFrame {
         
     }
     
-    
+    //no quitar el rs parametro
     private void llenarDatosPedido(ResultSet rs) throws SQLException{
-        
+        Statement st8;
+        ResultSet rs8;
         String sql = "select sticky from tintas where folio_fk = "+rs.getString("folio")+"";
         try
         {
-            Statement st8 = con.createStatement();
-            ResultSet rs8 = st8.executeQuery(sql);
+            st8 = con.createStatement();
+            rs8 = st8.executeQuery(sql);
             while(rs8.next())
             {
                 dp.setSticky(rs8.getString("sticky"));
@@ -962,9 +966,6 @@ public class Visualizacion extends javax.swing.JFrame {
         }catch(ArrayIndexOutOfBoundsException ex){
             JOptionPane.showMessageDialog(null, "Selecciona con el boton izquierdo del raton", "Avertencia", JOptionPane.WARNING_MESSAGE);
         }
-        
-        //llenarTablaProcesos();
-        //llenarTablasRegistros();
     }
     
     
@@ -974,23 +975,24 @@ public class Visualizacion extends javax.swing.JFrame {
         String sql = "select modoMat from partida where idPar = "+idParVar+"";
         String modo = "";
         
-        try {
+        try 
+        {
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            
-            while(rs.next()){
+            while(rs.next())
+            {
                 modo = rs.getString("modoMat");
                 if(modo == null){
                     modo = "";
                 }
             }
-            
             rs.close();
             st.close();
             return modo;
-        } catch (SQLException ex) {
-            Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
-            
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
             return "";
         }
     }
@@ -1027,69 +1029,77 @@ public class Visualizacion extends javax.swing.JFrame {
         
         tablaProd.setVisible(true);
         
-        try {
+        try 
+        {
             st = con.createStatement();
             rs = st.executeQuery(sqlExt);
-            
-            while(rs.next()){
+            while(rs.next())
+            {
                 modeloProd.addRow(new Object[]{"EXTRUSION", rs.getString("kgTotales"), rs.getString("hrTotalesPar"),rs.getString("costoOpTotalExt"), rs.getString("greniaExt"), 
                 rs.getString("costoUnitarioExt"), "Inexistente","Inexistente"});
                 
                 idEx = rs.getInt("idExt");
             }
-            
             rs.close();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+            st.close();
+        } 
+        catch(SQLException ex) 
+        {
+            ex.printStackTrace();
         }
         
-        
-        try {
+        try 
+        {
+            st = con.createStatement();
             rs = st.executeQuery(sqlSticky);
-            
-            while(rs.next()){
-                
+            while(rs.next())
+            {
                 stickyAux = rs.getString("sticky");
             }
-            
             rs.close();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+            st.close();
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
         
-        try {
+        try 
+        {
+            st = con.createStatement();
             rs = st.executeQuery(sqlImp);
-            
-            while(rs.next()){
+            while(rs.next())
+            {
                 modeloProd.addRow(new Object[]{"IMPPRESO", rs.getString("kgTotales"), rs.getString("hrTotalesPar"),rs.getString("costoOpTotalImp"), rs.getString("greniaImp"), 
                 rs.getString("costoUnitarioImp"), stickyAux,"Inexistente"});
                 
                 idIm = rs.getInt("idImp");
             }
-            
             rs.close();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+            st.close();
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
         
-        
-        try {
+        try 
+        {
+            st = con.createStatement();
             rs = st.executeQuery(sqlBol);
-            
-            while(rs.next()){
+            while(rs.next())
+            {
                 modeloProd.addRow(new Object[]{"BOLSEO", rs.getString("kgTotales"), rs.getString("hrTotalesPar"),rs.getString("costoOpTotalBol"), rs.getString("greniaBol"), 
                 rs.getString("costoUnitarioBol"), "Inexistente",rs.getString("produccionPz")});
                 
                 idBo = rs.getInt("idBol");
             }
-            
             rs.close();
             st.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
     }
     
@@ -1112,30 +1122,38 @@ public class Visualizacion extends javax.swing.JFrame {
                 idEx = rs.getInt("idExt");
             }
             rs.close();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+            st.close();
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
         
-        try {
+        try 
+        {
+            st = con.createStatement();
             rs = st.executeQuery(sqlImp);
-            
-            while(rs.next()){
+            while(rs.next())
+            {
                 modeloCompra.addRow(new Object[]{"IMPRESO", rs.getString("prov1"), rs.getString("precioKg1"),rs.getString("produccion"),
                  rs.getString("prov2"), rs.getString("precioKg2"),rs.getString("produccion2")});
                 
                 idIm = rs.getInt("idImp");
             }
             rs.close();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+            st.close();
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
         
-        try {
+        try 
+        {
+            st = con.createStatement();
             rs = st.executeQuery(sqlBol);
-            
-            while(rs.next()){
+            while(rs.next())
+            {
                 modeloCompra.addRow(new Object[]{"BOLSEO", rs.getString("prov1"), rs.getString("precioKg1"),rs.getString("produccion"),
                  "Inexistente", "Inexistente", "Inexistente"});
                 
@@ -1143,8 +1161,10 @@ public class Visualizacion extends javax.swing.JFrame {
             }
             rs.close();
             st.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
     }
     
@@ -1341,7 +1361,9 @@ public class Visualizacion extends javax.swing.JFrame {
     }//GEN-LAST:event_tablaPedidoKeyTyped
 
     
-    //Relleado de tabla de partidas
+    //Relleado de tabla y arreglo de partidas, importante, tiene una funcion
+    //dentro del while, no quitarle el rs como parametro, solo pasa la conexion
+    //no la crea ni la cierra
     public void llenarTablaPartidas(){
         //modeloPro.setRowCount(0);
         modeloPart.setRowCount(0);
@@ -1363,14 +1385,19 @@ public class Visualizacion extends javax.swing.JFrame {
             st = con.createStatement();
             rs = st.executeQuery(sql);
             setBar(40);
-            
-            while(rs.next()){
+            while(rs.next())
+            {
                 
-                modeloPart.addRow(new Object[]{rs.getString("idPar"), rs.getString("hoja"), rs.getString("de"), rs.getString("medida")
-                , rs.getString("tipo"), rs.getString("sello"), rs.getString("pigmento"), rs.getString("desarrollo"), rs.getString("mat1")
-                , rs.getString("calibre1"), rs.getString("mat2"), rs.getString("calibre2"),rs.getString("precioUnitaro"), rs.getString("piezas"), rs.getString("pzFinales"),
-                rs.getString("kgPartida"), rs.getString("importe"), rs.getString("kgDesperdicio"), rs.getString("porcentajeDesp")
-                , rs.getString("costoMaterialTotal"), rs.getString("costoPartida")});
+                modeloPart.addRow(new Object[]{rs.getString("idPar"), 
+                rs.getString("hoja"), rs.getString("de"), rs.getString("medida"), 
+                rs.getString("tipo"), rs.getString("sello"), rs.getString("pigmento"), 
+                rs.getString("desarrollo"), rs.getString("mat1"), 
+                rs.getString("calibre1"), rs.getString("mat2"), 
+                rs.getString("calibre2"),rs.getString("precioUnitaro"), 
+                rs.getString("piezas"), rs.getString("pzFinales"),
+                rs.getString("kgPartida"), rs.getString("importe"), 
+                rs.getString("kgDesperdicio"), rs.getString("porcentajeDesp"), 
+                rs.getString("costoMaterialTotal"), rs.getString("costoPartida")});
 
                 pedidos.add(new PedidoATT());//Se crean pedidos respeto al numero de partidas encontrdas
                 //Cuando se crea un pedido se guardan los datos de la partida correspondiente
@@ -1407,6 +1434,7 @@ public class Visualizacion extends javax.swing.JFrame {
             }
             tablaPart.setModel(modeloPart);
             rs.close();
+            st.close();
             
             if(pedidos.size() == 0){
                 btnReport.setEnabled(false);
@@ -1415,13 +1443,14 @@ public class Visualizacion extends javax.swing.JFrame {
             }
             setBar(40);
             
-            setIdCliente(st);//Se obtiene la id del cliente a base de la foranea de pedido para previo uso
-            pedidos = datosPedidoRep(st, pedidos.size(), pedidos);//Se manda el arreglo y lo devuelve actualizado con los datos de pedido
+            setIdCliente();//Se obtiene la id del cliente a base de la foranea de pedido para previo uso
+            pedidos = datosPedidoRep(pedidos.size(), pedidos);//Se manda el arreglo y lo devuelve actualizado con los datos de pedido
             pedidos = llenarTablaCliente(pedidos);//Se manda el arreglo y lo devuelve actualizado con los datos de cliente
             setBar(20);
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
     }
     
@@ -1454,37 +1483,44 @@ public class Visualizacion extends javax.swing.JFrame {
             datosPartidas.get(contador).setManera(rs.getString("manera"));
             datosPartidas.get(contador).setImporte(rs.getString("importe"));
             
-        } catch (SQLException ex) {
-            Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
     }
     
     
     
     //Consulta del cliente relacionado al pedido
-    public void setIdCliente(Statement st){
+    public void setIdCliente(){
         
         String sql = "select idC_fk from pedido where folio = "+folioVar+"";
         
-        try {
+        try 
+        {
+            st = con.createStatement();
             rs = st.executeQuery(sql);
-            while(rs.next()){
+            while(rs.next())
+            {
                 idCliente = rs.getInt("idC_fk");
             }
             rs.close();
             st.close();
             
-        } catch (SQLException ex) {
-            Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
     }
     
-    public ArrayList datosPedidoRep(Statement st, int contador, ArrayList<PedidoATT> pedidos){
+    public ArrayList datosPedidoRep(int contador, ArrayList<PedidoATT> pedidos){
         
         String sql = "select * from pedido where folio = "+folioVar+"";
         String folio = "";
         String fecha = "";
-        String impresion = "";
+        String impresionSt = "";
         String autorizo = "";
         String grabados = "";
         String sub = "";
@@ -1497,15 +1533,15 @@ public class Visualizacion extends javax.swing.JFrame {
         String descuento = "";
         String resto = "";
         
-        try {
+        try 
+        {
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            
-            while(rs.next()){
-                
+            while(rs.next())
+            {
                 folio = rs.getString("folio")+"A";
                 fecha = rs.getString("fIngreso");
-                impresion = rs.getString("impresion");
+                impresionSt = rs.getString("impresion");
                 autorizo = rs.getString("autorizo");
                 grabados = rs.getString("grabados");
                 sub = rs.getString("subtotal");
@@ -1515,8 +1551,10 @@ public class Visualizacion extends javax.swing.JFrame {
                 resto = rs.getString("resto");
                 ivaEnteroInt = Integer.parseInt(rs.getString("porcentajeIVA"));
                 
-                llenarDatosPedido(rs);
+                llenarDatosPedido(rs);//no quitar el rs como parametro
             }
+            rs.close();
+            st.close();
             
             porcentajeDeIvaFlotante = ivaEnteroInt / 100f;//convertimos el iva obtenido a un porcentaje flotante
             
@@ -1524,10 +1562,11 @@ public class Visualizacion extends javax.swing.JFrame {
             iva = String.valueOf(ivaf);
             //Se rellenan todos los campos respecto a pedido de todos los indices del arreglo, ya que estos aumentan...
             //debido al numero de partidas
-            for(int u = 0; u < pedidos.size(); u++){
+            for(int u = 0; u < pedidos.size(); u++)
+            {
                 pedidos.get(u).setFolio(folio);
                 pedidos.get(u).setFecha(fecha);
-                pedidos.get(u).setImpresion(impresion);
+                pedidos.get(u).setImpresion(impresionSt);
                 pedidos.get(u).setAutorizo(autorizo);
                 pedidos.get(u).setGrabados(grabados);
                 pedidos.get(u).setSub(sub);
@@ -1537,13 +1576,12 @@ public class Visualizacion extends javax.swing.JFrame {
                 pedidos.get(u).setDescuento(descuento);
                 pedidos.get(u).setResto(resto);
             }
-             
-        } catch (SQLException ex) {
-            Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
-        
         return pedidos;
-        
     }
     
     public ArrayList llenarTablaCliente(ArrayList<PedidoATT> pedidos){
@@ -1556,11 +1594,12 @@ public class Visualizacion extends javax.swing.JFrame {
         String ciudad = "";
         String agente = "";
         
-        try {
+        try 
+        {
             st = con.createStatement();
             rs = st.executeQuery(sql);
-
-            while(rs.next()){
+            while(rs.next())
+            {
                 modeloCli.addRow(new Object[]{rs.getString("nom"), rs.getString("tel"), rs.getString("cel"), rs.getString("mail")
                 , rs.getString("dir"), rs.getString("domDeEnt"), rs.getString("razSoc"), rs.getString("rfc"), rs.getString("col")
                 , rs.getString("ciu"), rs.getString("codPos"), rs.getString("usoCfd"), rs.getString("metDePag"), rs.getString("contacto"),
@@ -1575,6 +1614,8 @@ public class Visualizacion extends javax.swing.JFrame {
                 dp.setCli(rs.getString("nom"));
             }
             tablaCli.setModel(modeloCli);
+            rs.close();
+            st.close();
             
             for(int i = 0; i < pedidos.size(); i++)
             {
@@ -1585,12 +1626,11 @@ public class Visualizacion extends javax.swing.JFrame {
                 pedidos.get(i).setAgente(agente);
             }          
             
-            rs.close();
-            st.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
-        
         pedidosGlobal = pedidos;
         return pedidos;
     }
@@ -1610,59 +1650,77 @@ public class Visualizacion extends javax.swing.JFrame {
             String fechaFin;
             String fechaFinSub;
         
-        try {
+        try 
+        {
             st = con.createStatement();
             rs = st.executeQuery(sql);
             
-            while(rs.next()){
-                 fechaIni = rs.getString("fIni");
-                 fechaIniSub = fechaIni.substring(8, 10)+"/"+fechaIni.substring(5, 7)+"/"+fechaIni.substring(0, 4);
-                 fechaFin = rs.getString("fFin");
-                 fechaFinSub = fechaFin.substring(8, 10)+"/"+fechaFin.substring(5, 7)+"/"+fechaFin.substring(0, 4);
+            while(rs.next())
+            {
+                fechaIni = rs.getString("fIni");
+                fechaIniSub = fechaIni.substring(8, 10)+"/"+fechaIni.substring(5, 7)+"/"+fechaIni.substring(0, 4);
+                fechaFin = rs.getString("fFin");
+                fechaFinSub = fechaFin.substring(8, 10)+"/"+fechaFin.substring(5, 7)+"/"+fechaFin.substring(0, 4);
+                
                 modeloRegE.addRow(new Object[]{rs.getString("operador"), rs.getString("numMaquina"), rs.getString("horaIni"), fechaIniSub
                 , rs.getString("horaFin"), fechaFinSub, rs.getString("totalHoras"), rs.getString("tiempoMuerto"), rs.getString("extras")
                 , rs.getString("kgUniE"), rs.getString("grenia"), rs.getString("costoOpExt")});
             }
-            
             rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+            st.close();
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
         
         sql = "select * from operadorImp where idImp_fk = "+idIm+"";
-        
-        try {
+        try 
+        {
+            st = con.createStatement();
             rs = st.executeQuery(sql);
-            while(rs.next()){
+            while(rs.next())
+            {
                 fechaIni = rs.getString("fIni");
-                 fechaIniSub = fechaIni.substring(8, 10)+"/"+fechaIni.substring(5, 7)+"/"+fechaIni.substring(0, 4);
-                 fechaFin = rs.getString("fFin");
-                 fechaFinSub = fechaFin.substring(8, 10)+"/"+fechaFin.substring(5, 7)+"/"+fechaFin.substring(0, 4);
+                fechaIniSub = fechaIni.substring(8, 10)+"/"+fechaIni.substring(5, 7)+"/"+fechaIni.substring(0, 4);
+                fechaFin = rs.getString("fFin");
+                fechaFinSub = fechaFin.substring(8, 10)+"/"+fechaFin.substring(5, 7)+"/"+fechaFin.substring(0, 4);
+                
                 modeloRegI.addRow(new Object[]{rs.getString("operador"), rs.getString("ayudante"),rs.getString("numMaquina"), rs.getString("horaIni"), fechaIniSub
                 , rs.getString("horaFin"), fechaFinSub, rs.getString("totalHoras"), rs.getString("tiempoMuerto"), rs.getString("extras")
                 , rs.getString("kgUniI"), rs.getString("grenia"), rs.getString("costoOpImp")});
             }
-            
             rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+            st.close();
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
         
         sql = "select * from operadorBol where idBol_fk = "+idBo+"";
         
-        try {
+        try 
+        {
+            st = con.createStatement();
             rs = st.executeQuery(sql);
-            while(rs.next()){
+            while(rs.next())
+            {
                 fechaIni = rs.getString("fIni");
-                 fechaIniSub = fechaIni.substring(8, 10)+"/"+fechaIni.substring(5, 7)+"/"+fechaIni.substring(0, 4);
-                 fechaFin = rs.getString("fFin");
-                 fechaFinSub = fechaFin.substring(8, 10)+"/"+fechaFin.substring(5, 7)+"/"+fechaFin.substring(0, 4);
+                fechaIniSub = fechaIni.substring(8, 10)+"/"+fechaIni.substring(5, 7)+"/"+fechaIni.substring(0, 4);
+                fechaFin = rs.getString("fFin");
+                fechaFinSub = fechaFin.substring(8, 10)+"/"+fechaFin.substring(5, 7)+"/"+fechaFin.substring(0, 4);
+                
                 modeloRegB.addRow(new Object[]{rs.getString("operador"), rs.getString("numMaquina"), rs.getString("horaIni"), fechaIniSub
                 , rs.getString("horaFin"), fechaFinSub, rs.getString("totalHoras"), rs.getString("tiempoMuerto"), rs.getString("extras")
                 , rs.getString("kgUniB"), rs.getString("grenia"), rs.getString("suaje"), rs.getString("costoOpBol")});
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+            rs.close();
+            st.close();
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
         }
     }
     
@@ -1732,8 +1790,8 @@ public class Visualizacion extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnDetPart;
     private javax.swing.JButton btnDetPed;
     private javax.swing.JButton btnReport;
+    private javax.swing.JButton buscar;
     private javax.swing.JTextField impScan;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
