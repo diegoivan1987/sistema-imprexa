@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -426,7 +424,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
         catch (SQLException ex) 
         {
             JOptionPane.showMessageDialog(null, "Error al llenar la tabla" + ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(GastosFijos.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
     

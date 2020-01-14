@@ -956,6 +956,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error al actualizar el arreglo: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
       }
@@ -1014,6 +1015,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                     }
                     catch(SQLException ex)
                     {
+                        JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
                     }
                     
@@ -1027,7 +1029,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         }
         catch(SQLException ex)
         {
-            JOptionPane.showMessageDialog(null, "Error al calcular las perdidas y ganancias","Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al calcular las perdidas y ganancias"+ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
                     

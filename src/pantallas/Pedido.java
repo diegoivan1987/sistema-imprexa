@@ -14,8 +14,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -2363,7 +2361,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         } 
         catch (ParseException ex) 
         {
-            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         cal.setTime(dtUtil);
         fP2.setSelectedDate(cal);
@@ -4070,7 +4068,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 try {
                     dtUtil = new SimpleDateFormat("yyyy-MM-dd").parse(dtf.print(date));
                 } catch (ParseException ex) {
-                    Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+                    ex.printStackTrace();
                 }
                 cal.setTime(dtUtil);
                 fC2.setSelectedDate(cal);//se establece la fecha de compromiso

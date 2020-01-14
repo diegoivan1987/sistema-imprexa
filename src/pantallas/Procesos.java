@@ -16,8 +16,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -2397,8 +2395,9 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(idPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
                                 .addComponent(cambioMod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(79, 79, 79)
                                 .addComponent(eliminarP)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(generarPro)
@@ -3072,7 +3071,6 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             st = con.createStatement();
             st.execute(sql);
             st.close();
-            JOptionPane.showMessageDialog(null, "Se ha guardado el operador en Bolseo: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
             
             sumarKilosBol();
             sumarCostosOperacionales("bolseo", "operadorBol", "costoOpBol", "costoOpTotalBol", "idBol", "idBol_fk", idBo);//hace la sumatoria de los costos operacionales y la actualiza en la base
@@ -3087,6 +3085,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             calcularCostoTotalPe();//calcula e inserta el costo total del pedido
             calculaPyG();
             vaciarOpB();
+            JOptionPane.showMessageDialog(null, "Se ha guardado el operador en Bolseo: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
         } 
         catch (SQLException ex) 
         {
@@ -3787,6 +3786,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             rs2.close();
             st2.close();
             setHojas();
+            JOptionPane.showMessageDialog(null, "Partida eliminada");
         }
         catch(SQLException ex)
         {
@@ -3839,7 +3839,6 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             st = con.createStatement();
             st.execute(sql);
             st.close();
-            JOptionPane.showMessageDialog(null, "Se ha guardado el operador en Extrusion: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
             
             sumaKilosEx();
             sumarCostosOperacionales("extrusion", "operadorExt", "costoOpExt", "costoOpTotalExt", "idExt", "idExt_fk", idEx);//hace la sumatoria de los costos operacionales y la actualiza en la base
@@ -3856,7 +3855,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             calculaPyG();
             
             vaciarOpE();
-            
+            JOptionPane.showMessageDialog(null, "Se ha guardado el operador en Extrusion: ", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
         } 
         catch(SQLException ex) 
         {
@@ -4406,7 +4405,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             st.close();
         }
         catch(SQLException ex) {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         return materiales;
     }
@@ -4428,7 +4427,6 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch (SQLException ex) 
         {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
         }
         return grenia;
@@ -4932,7 +4930,6 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex) 
         {
-            Logger.getLogger(Procesos.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
         }  
     }

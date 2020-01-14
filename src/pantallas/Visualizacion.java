@@ -13,8 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -1284,8 +1282,10 @@ public class Visualizacion extends javax.swing.JFrame {
                 resetBar();
                 JOptionPane.showMessageDialog(null, "No se pudo generar el reporte: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }else{
-            
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "No se pudo generar el reporte", "Error", JOptionPane.ERROR_MESSAGE);
         } 
         
     }//GEN-LAST:event_btnReportActionPerformed
@@ -1772,13 +1772,13 @@ public class Visualizacion extends javax.swing.JFrame {
                 try {
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+                    ex.printStackTrace();
                 } catch (InstantiationException ex) {
-                    Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+                    ex.printStackTrace();
                 } catch (IllegalAccessException ex) {
-                    Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+                    ex.printStackTrace();
                 } catch (UnsupportedLookAndFeelException ex) {
-                    Logger.getLogger(Visualizacion.class.getName()).log(Level.SEVERE, null, ex);
+                    ex.printStackTrace();
                 }
                 
             }
