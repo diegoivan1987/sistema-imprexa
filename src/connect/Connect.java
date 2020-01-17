@@ -20,7 +20,7 @@ public class Connect {
     public Connect(String username, String password){
         this.driver = "com.mysql.cj.jdbc.Driver";
         this.database = "imprexa2";//nombre de la base de datos
-        this.hostname = "192.168.0.5";
+        this.hostname = "192.168.100.200";
         this.port = "3306";
         this.url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         this.username = username;

@@ -817,8 +817,8 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
-                    .addComponent(panelMod, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
+                    .addComponent(panelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
+                    .addComponent(panelMod, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1726,7 +1726,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
 
         listaTintas5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Blanco Laminación", "Blanco Flexo Frente", "Amarillo Flexo Frente", "Naranja Flexo Frente", "Magenta Flexo Frente", "Rojo Medio Flexo Frente", "Azul Cyan Flexo Frente", "Azul Reflex Flexo Frente", "Verde Flexo Frente", "Violeta Flexo Frente", "Negro Flexo Frente" }));
 
-        listaTintas6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Blanco Laminación", "Blanco Flexo Frente", "Amarillo Flexo Frente", "Naranja Flexo Frente", "Magenta Flexo Frente", "Rojo Medio Flexo Frente", "Azul Cyan Flexo Frente", "Azul Reflex Flexo Frente", "Verde Flexo Frente", "Violeta Flexo Frente", "Negro Flexo Frente" }));
+        listaTintas6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "Blanco Laminación", "Blanco Flexo Frente", "Amarillo Flexo Frente", "Naranja Flexo Frente", "Magenta Flexo Frente", "Rojo Medio Flexo Frente", "Azul Cyan Flexo Frente", "Azul Reflex Flexo Frente", "Verde Flexo Frente", "Violeta Flexo Frente", "Negro Flexo Frente", "Acqua", "Verde 361", "Cafe 4625", "Cafe 732", "Rosa", "Cool Gray 9", "Cool Gray 8", "Plata", "Oro", "Ftalo" }));
 
         jLabel154.setForeground(new java.awt.Color(0, 102, 153));
         jLabel154.setText("Inicio");
@@ -2131,7 +2131,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     .addComponent(regP, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(abreProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, Short.MAX_VALUE)
                         .addComponent(modPed))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
@@ -2719,6 +2719,46 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         else if(tintaDeLaBase.equals("Negro Flexo Frente"))
         {
             listaTintas.setSelectedIndex(11);
+        }
+        else if(tintaDeLaBase.equals("Acqua"))
+        {
+            listaTintas.setSelectedIndex(12);
+        }
+        else if(tintaDeLaBase.equals("Verde 361"))
+        {
+            listaTintas.setSelectedIndex(13);
+        }
+        else if(tintaDeLaBase.equals("Cafe 4625"))
+        {
+            listaTintas.setSelectedIndex(14);
+        }
+        else if(tintaDeLaBase.equals("Cafe 732"))
+        {
+            listaTintas.setSelectedIndex(15);
+        }
+        else if(tintaDeLaBase.equals("Rosa"))
+        {
+            listaTintas.setSelectedIndex(16);
+        }
+        else if(tintaDeLaBase.equals("Cool Gray 9"))
+        {
+            listaTintas.setSelectedIndex(17);
+        }
+        else if(tintaDeLaBase.equals("Cool Gray 8"))
+        {
+            listaTintas.setSelectedIndex(18);
+        }
+        else if(tintaDeLaBase.equals("Plata"))
+        {
+            listaTintas.setSelectedIndex(19);
+        }
+        else if(tintaDeLaBase.equals("Oro"))
+        {
+            listaTintas.setSelectedIndex(20);
+        }
+        else if(tintaDeLaBase.equals("Ftalo"))
+        {
+            listaTintas.setSelectedIndex(21);
         }
     }
     
@@ -3806,6 +3846,46 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         if(nombreTinta.equals("Negro Flexo Frente"))
         {
             precio = 104.0f;
+        }
+        if(nombreTinta.equals("Acqua"))
+        {
+            precio = 236.8f;
+        }
+        if(nombreTinta.equals("Verde 361"))
+        {
+            precio = 132.4f;
+        }
+        if(nombreTinta.equals("Cafe 4625"))
+        {
+            precio = 118.6f;
+        }
+        if(nombreTinta.equals("Cafe 732"))
+        {
+            precio = 110.8f;
+        }
+        if(nombreTinta.equals("Rosa"))
+        {
+            precio = 81.0f;
+        }
+        if(nombreTinta.equals("Cool Gray 9"))
+        {
+            precio = 80.92f;
+        }
+        if(nombreTinta.equals("Cool Gray 8"))
+        {
+            precio = 79.6f;
+        }
+        if(nombreTinta.equals("Plata"))
+        {
+            precio = 200f;
+        }
+        if(nombreTinta.equals("Oro"))
+        {
+            precio = 206.0f;
+        }
+        if(nombreTinta.equals("Ftalo"))
+        {
+            precio = 255.6f;
         }
         if(nombreTinta.equals("Mezcla 80/20"))
         {
