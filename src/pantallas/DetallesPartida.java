@@ -1042,6 +1042,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -1080,6 +1081,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                     }
                     catch(SQLException ex)
                     {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
                     }
                 }
@@ -1089,6 +1091,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -1157,6 +1160,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                                     }
                                     catch(SQLException ex)
                                     {
+                                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                         ex.printStackTrace();
                                     }
                                 }
@@ -1165,6 +1169,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                             }
                             catch(SQLException ex)
                             {
+                                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                 ex.printStackTrace();
                             }
                         }
@@ -1173,6 +1178,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                     }
                     catch(SQLException ex)
                     {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
                     }
                 }
@@ -1218,6 +1224,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                                     }
                                     catch(SQLException ex)
                                     {
+                                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                         ex.printStackTrace();
                                     }
                                 }
@@ -1226,6 +1233,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                             }
                             catch(SQLException ex)
                             {
+                                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                 ex.printStackTrace();
                             }
                         }
@@ -1234,6 +1242,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                     }
                     catch(SQLException ex)
                     {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
                     }
                 }
@@ -1280,6 +1289,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                                     }
                                     catch(SQLException ex)
                                     {
+                                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                         ex.printStackTrace();
                                     }
                                 }
@@ -1288,6 +1298,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                             }
                             catch(SQLException ex)
                             {
+                                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                 ex.printStackTrace();
                             }
                         }
@@ -1296,6 +1307,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                     }
                     catch(SQLException ex)
                     {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
                     }
                 }
@@ -1306,6 +1318,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
                 
@@ -1729,6 +1742,7 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -1756,7 +1770,9 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
             rs.close();
             st.close();
         }
-        catch(SQLException ex){
+        catch(SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         

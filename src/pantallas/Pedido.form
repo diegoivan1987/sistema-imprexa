@@ -187,7 +187,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jScrollPane2" min="-2" pref="549" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="12" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="nomCli" min="-2" pref="161" max="-2" attributes="0"/>
@@ -204,7 +204,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="12" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
@@ -326,7 +326,7 @@
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="83" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="7" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -438,19 +438,19 @@
                                           <Component id="jLabel24" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="grab" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" pref="20" max="32767" attributes="0"/>
+                                          <EmptySpace type="unrelated" pref="16" max="32767" attributes="0"/>
                                           <Component id="jLabel27" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="disenio" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" pref="20" max="32767" attributes="0"/>
+                                          <EmptySpace type="unrelated" pref="16" max="32767" attributes="0"/>
                                           <Component id="jLabel28" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="anti" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" pref="20" max="32767" attributes="0"/>
+                                          <EmptySpace type="unrelated" pref="16" max="32767" attributes="0"/>
                                           <Component id="jLabel30" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="decu" max="-2" attributes="0"/>
-                                          <EmptySpace pref="8" max="32767" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jLabel25" max="-2" attributes="0"/>
                                               <Group type="102" attributes="0">
@@ -920,7 +920,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane3" pref="549" max="32767" attributes="0"/>
+                              <Component id="jScrollPane3" pref="557" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="busPedido" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -1117,7 +1117,7 @@
                                           <Component id="pig" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="110" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel169" min="-2" pref="33" max="-2" attributes="0"/>
@@ -1293,7 +1293,7 @@
                               <Component id="savePart" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                               <Component id="limpiar" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="12" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1954,7 +1954,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace pref="57" max="32767" attributes="0"/>
+                          <EmptySpace pref="40" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -2036,7 +2036,7 @@
                                               <Component id="jLabel104" alignment="0" max="-2" attributes="0"/>
                                               <Component id="jLabel112" alignment="0" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace pref="66" max="32767" attributes="0"/>
+                                          <EmptySpace pref="61" max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                                   <Group type="102" alignment="1" attributes="0">
@@ -2126,7 +2126,7 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="55" max="32767" attributes="0"/>
+                                  <EmptySpace pref="47" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="guardCamTintas" min="-2" max="-2" attributes="0"/>
@@ -2286,7 +2286,7 @@
                               </Group>
                               <Component id="jLabel152" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="94" max="32767" attributes="0"/>
+                          <EmptySpace pref="59" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="guardCamTintas" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="guardarTintas" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -3134,7 +3134,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="138" max="32767" attributes="0"/>
+                  <EmptySpace pref="105" max="32767" attributes="0"/>
                   <Component id="modPed" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" max="-2" attributes="0"/>

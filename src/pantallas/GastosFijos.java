@@ -365,9 +365,10 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
                     st2.execute(sql2);
                     st2.close();
                 }
-                catch(SQLException ex2)
+                catch(SQLException ex)
                 {
-                    ex2.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
                 }
                 calculaPyG(rs.getInt("folio"));//se calculan las perdidas y ganancias de cada pedido
             }
@@ -521,6 +522,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
                                     }
                                     catch(SQLException ex)
                                     {
+                                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                         ex.printStackTrace();
                                     }
                                 }
@@ -529,6 +531,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
                             }
                             catch(SQLException ex)
                             {
+                                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                 ex.printStackTrace();
                             }
                     
@@ -538,6 +541,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
                     }
                     catch(SQLException ex)
                     {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
                     }
                 }
@@ -583,6 +587,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
                                     }
                                     catch(SQLException ex)
                                     {
+                                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                         ex.printStackTrace();
                                     }
                                 }
@@ -591,6 +596,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
                             }
                             catch(SQLException ex)
                             {
+                                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                 ex.printStackTrace();
                             }
                         }
@@ -599,6 +605,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
                     }
                     catch(SQLException ex)
                     {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
                     }
                 }
@@ -645,6 +652,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
                                     }
                                     catch(SQLException ex)
                                     {
+                                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                         ex.printStackTrace();
                                     }
                                 }
@@ -653,6 +661,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
                             }
                             catch(SQLException ex)
                             {
+                                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                 ex.printStackTrace();
                             }
                         }
@@ -661,6 +670,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
                     }
                     catch(SQLException ex)
                     {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
                     }
                 }
@@ -671,6 +681,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         return sumatoriaPedido;
@@ -695,6 +706,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         return sumatoria;
@@ -723,6 +735,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         if(gfkg != 0)
@@ -754,6 +767,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
                     
@@ -772,6 +786,7 @@ public class GastosFijos extends javax.swing.JFrame {//permite guardar los gasto
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }

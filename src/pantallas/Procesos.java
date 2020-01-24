@@ -2580,6 +2580,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -2677,6 +2678,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         //llenamos las listas desplegables
@@ -2713,6 +2715,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
       }
       catch(SQLException ex)
       {
+          JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
           ex.printStackTrace();
       }
       
@@ -2805,6 +2808,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                 panMaqBol.setVisible(false);
             }
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -3107,6 +3111,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
            }
            catch(SQLException ex)
            {
+               JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                ex.printStackTrace();
            }
            
@@ -3119,6 +3124,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
            }
            catch(SQLException ex)
            {
+               JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                ex.printStackTrace();
            }
            
@@ -3131,6 +3137,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
            }
            catch(SQLException ex)
            {
+               JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                ex.printStackTrace();
            }
            
@@ -3143,6 +3150,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
            }
            catch(SQLException ex)
            {
+               JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                ex.printStackTrace();
            }
            
@@ -3155,6 +3163,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
            }
            catch(SQLException ex)
            {
+               JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                ex.printStackTrace();
            }
            
@@ -3168,6 +3177,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
            }
            catch(SQLException ex)
            {
+               JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                ex.printStackTrace();
            }
        }
@@ -3192,6 +3202,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         } 
         
@@ -3204,6 +3215,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -3232,11 +3244,13 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             } 
             catch (SQLException ex) 
             {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -3259,6 +3273,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -3271,6 +3286,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -3301,11 +3317,13 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             } 
             catch (SQLException ex) 
             {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -3479,6 +3497,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -3496,6 +3515,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -3520,6 +3540,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -3649,6 +3670,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
       }
       catch(SQLException ex)
       {
+          JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
           ex.printStackTrace();
       }
       /*si ya hay un operador en la lista, se obtiene su sueldo, ya que cada que
@@ -3683,6 +3705,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
       }
       catch(SQLException ex)
       {
+          JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
           ex.printStackTrace();
       }
       /*si ya hay un operador en la lista, se obtiene su sueldo, ya que cada que
@@ -3717,6 +3740,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
       }
       catch(SQLException ex)
       {
+          JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
           ex.printStackTrace();
       }
       /*si ya hay un ayudante en la lista, se obtiene su sueldo, ya que cada que
@@ -3977,6 +4001,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
 
@@ -4244,6 +4269,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -4258,6 +4284,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -4358,6 +4385,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         return sueldo;
@@ -4390,11 +4418,13 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             } 
             catch (SQLException ex) 
             {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
         } 
         catch (SQLException ex) {
             ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -4417,6 +4447,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             st.close();
         }
         catch(SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         return materiales;
@@ -4439,6 +4470,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         return grenia;
@@ -4461,6 +4493,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -4479,6 +4512,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         total = comprado + producido;
@@ -4509,6 +4543,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             }
             catch(SQLException ex)
             {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
             KgDesperdicio = (materialesProducidos + grenia) - kgFinalesBolseo;
@@ -4527,6 +4562,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         } 
         catch(SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -4549,6 +4585,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -4572,6 +4609,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             }
             catch(SQLException ex)
             {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
         }
@@ -4591,6 +4629,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         } 
         catch(SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
           
@@ -4616,7 +4655,9 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             rs.close();
             st.close();
         }
-        catch(SQLException ex) {
+        catch(SQLException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }  
         total = (peso1*precio1)+(peso2*precio2);
@@ -4638,7 +4679,9 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             rs.close();
             st.close();
         }
-        catch(SQLException ex) {
+        catch(SQLException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         return costo;
@@ -4666,7 +4709,9 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             rs.close();
             st.close();
         }
-        catch(SQLException ex) {
+        catch(SQLException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         return sumatoriaCosto;
@@ -4688,6 +4733,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }   
     }
@@ -4711,6 +4757,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         } 
         
@@ -4728,6 +4775,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         } 
         
@@ -4745,6 +4793,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         } 
         
@@ -4762,6 +4811,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         } 
         
@@ -4799,6 +4849,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -4816,6 +4867,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -4836,7 +4888,9 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             rs.close();
             st.close();
         }
-        catch(SQLException ex) {
+        catch(SQLException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         } 
         
@@ -4855,6 +4909,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         } 
     }
@@ -4880,6 +4935,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -4899,6 +4955,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         } 
         catch(SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -4923,6 +4980,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         } 
         
@@ -4942,6 +5000,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }  
     }
@@ -4964,6 +5023,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -4982,6 +5042,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             } 
         catch(SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         return materiales;
@@ -5003,6 +5064,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         } 
         
@@ -5022,6 +5084,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }  
     }
@@ -5044,6 +5107,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -5054,7 +5118,9 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             st.execute(sql);
             st.close();
         }
-        catch(SQLException ex) {
+        catch(SQLException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -5094,6 +5160,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                 }
                 catch(SQLException ex)
                 {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }
                
@@ -5120,6 +5187,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                         }
                         catch(SQLException ex)
                         {
+                            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                             ex.printStackTrace();
                         }
                     }
@@ -5128,6 +5196,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                 }
                 catch(SQLException ex)
                 {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }
             }
@@ -5136,6 +5205,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -5148,6 +5218,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -5175,6 +5246,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -5192,6 +5264,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -5217,6 +5290,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -5237,6 +5311,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             }
             catch(SQLException ex)
             {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
             
@@ -5249,6 +5324,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             }
             catch(SQLException ex)
             {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
         }
@@ -5271,6 +5347,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             }
             catch(SQLException ex)
             {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
 
@@ -5288,6 +5365,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             }
             catch(SQLException ex)
             {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
 
@@ -5300,6 +5378,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             }
             catch(SQLException ex)
             {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
             JOptionPane.showMessageDialog(null, "Debes ir a la seccion de tintas y volver a presionar el boton de guardar cambios, ya que la tintas deben de registrarse despues de los reportes","Advertencia",JOptionPane.WARNING_MESSAGE);
@@ -5366,6 +5445,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                                     }
                                     catch(SQLException ex)
                                     {
+                                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                         ex.printStackTrace();
                                     }
                                 }
@@ -5374,6 +5454,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                             }
                             catch(SQLException ex)
                             {
+                                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                 ex.printStackTrace();
                             }
                     
@@ -5383,6 +5464,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                     }
                     catch(SQLException ex)
                     {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
                     }
                 }
@@ -5428,6 +5510,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                                     }
                                     catch(SQLException ex)
                                     {
+                                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                         ex.printStackTrace();
                                     }
                                 }
@@ -5436,6 +5519,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                             }
                             catch(SQLException ex)
                             {
+                                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                 ex.printStackTrace();
                             }
                         }
@@ -5444,6 +5528,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                     }
                     catch(SQLException ex)
                     {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
                     }
                 }
@@ -5490,6 +5575,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                                     }
                                     catch(SQLException ex)
                                     {
+                                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                         ex.printStackTrace();
                                     }
                                 }
@@ -5498,6 +5584,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                             }
                             catch(SQLException ex)
                             {
+                                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                 ex.printStackTrace();
                             }
                         }
@@ -5506,6 +5593,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                     }
                     catch(SQLException ex)
                     {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
                     }
                 }
@@ -5516,6 +5604,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
                 
@@ -5547,6 +5636,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -5587,6 +5677,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
                     }
                     catch(SQLException ex)
                     {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
                     }
                     
@@ -5600,6 +5691,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -5612,6 +5704,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }

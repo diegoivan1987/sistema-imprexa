@@ -903,7 +903,7 @@ public class Visualizacion extends javax.swing.JFrame {
         catch(SQLException ex)
         {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al actualizar sticky");
+            JOptionPane.showMessageDialog(null, "Error al actualizar sticky: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         dp.setFolio(rs.getString("folio")+"A");
         dp.setImp(rs.getString("impresion"));
@@ -1043,6 +1043,7 @@ public class Visualizacion extends javax.swing.JFrame {
         } 
         catch(SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -1059,6 +1060,7 @@ public class Visualizacion extends javax.swing.JFrame {
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -1078,6 +1080,7 @@ public class Visualizacion extends javax.swing.JFrame {
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -1097,6 +1100,7 @@ public class Visualizacion extends javax.swing.JFrame {
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -1124,6 +1128,7 @@ public class Visualizacion extends javax.swing.JFrame {
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -1143,6 +1148,7 @@ public class Visualizacion extends javax.swing.JFrame {
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -1162,6 +1168,7 @@ public class Visualizacion extends javax.swing.JFrame {
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -1450,6 +1457,7 @@ public class Visualizacion extends javax.swing.JFrame {
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -1486,6 +1494,7 @@ public class Visualizacion extends javax.swing.JFrame {
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -1511,6 +1520,7 @@ public class Visualizacion extends javax.swing.JFrame {
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -1579,6 +1589,7 @@ public class Visualizacion extends javax.swing.JFrame {
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         return pedidos;
@@ -1629,6 +1640,7 @@ public class Visualizacion extends javax.swing.JFrame {
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         pedidosGlobal = pedidos;
@@ -1671,6 +1683,7 @@ public class Visualizacion extends javax.swing.JFrame {
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -1695,6 +1708,7 @@ public class Visualizacion extends javax.swing.JFrame {
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -1720,6 +1734,7 @@ public class Visualizacion extends javax.swing.JFrame {
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -1772,12 +1787,16 @@ public class Visualizacion extends javax.swing.JFrame {
                 try {
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 } catch (ClassNotFoundException ex) {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 } catch (InstantiationException ex) {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 } catch (IllegalAccessException ex) {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 } catch (UnsupportedLookAndFeelException ex) {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }
                 

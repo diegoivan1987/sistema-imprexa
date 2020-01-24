@@ -156,7 +156,7 @@
                                               <Component id="greExt" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace pref="31" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="jLabel131" min="-2" max="-2" attributes="0"/>
@@ -280,7 +280,7 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="23" max="32767" attributes="0"/>
+                          <EmptySpace pref="12" max="32767" attributes="0"/>
                           <Component id="agE" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -625,7 +625,7 @@
                               <Component id="proM2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="18" max="32767" attributes="0"/>
+                          <EmptySpace pref="9" max="32767" attributes="0"/>
                           <Component id="gdEx" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -869,7 +869,7 @@
                                                   <Component id="totalHrImp" min="-2" pref="52" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace min="16" max="32767" attributes="0"/>
+                                          <EmptySpace min="16" pref="32" max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="1" attributes="0">
                                                   <Component id="jLabel139" min="-2" max="-2" attributes="0"/>
@@ -993,7 +993,7 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="24" max="32767" attributes="0"/>
+                          <EmptySpace pref="18" max="32767" attributes="0"/>
                           <Component id="agI" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -1552,7 +1552,7 @@
                                           <Component id="jLabel81" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Component id="porKgBol" min="-2" pref="46" max="-2" attributes="0"/>
-                                          <EmptySpace pref="125" max="32767" attributes="0"/>
+                                          <EmptySpace pref="100" max="32767" attributes="0"/>
                                           <Component id="jLabel53" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="kgBol" min="-2" pref="46" max="-2" attributes="0"/>
@@ -1601,7 +1601,7 @@
                               <Component id="jLabel82" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="pzsBol" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="36" max="32767" attributes="0"/>
+                          <EmptySpace pref="31" max="32767" attributes="0"/>
                           <Component id="gdBo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -1793,7 +1793,7 @@
                                           <Component id="jLabel77" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="totalHrBol" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="85" max="32767" attributes="0"/>
+                                          <EmptySpace pref="59" max="32767" attributes="0"/>
                                           <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="costoOpBol" min="-2" pref="46" max="-2" attributes="0"/>
@@ -1895,7 +1895,7 @@
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="agB" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="22" max="32767" attributes="0"/>
+                          <EmptySpace pref="11" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2175,7 +2175,7 @@
                           <Component id="busquedaImp" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="impBus" min="-2" pref="179" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="35" max="32767" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="foVis" min="-2" pref="64" max="-2" attributes="0"/>
@@ -2228,7 +2228,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="125" max="-2" attributes="0"/>
-                  <EmptySpace pref="183" max="32767" attributes="0"/>
+                  <EmptySpace pref="174" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="eliminarP" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="generarPro" alignment="3" min="-2" max="-2" attributes="0"/>

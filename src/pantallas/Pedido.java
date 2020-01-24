@@ -2344,6 +2344,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         return folio;
@@ -2372,6 +2373,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             st.execute(sql);
             st.close();
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -2438,6 +2440,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         } 
         catch (ParseException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         cal.setTime(dtUtil);
@@ -2680,7 +2683,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         } 
         catch(SQLException ex) 
         {
-            JOptionPane.showMessageDialog(null, "Error al actualizar el subtotal", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al actualizar el subtotal" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -2704,6 +2707,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -2903,6 +2907,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -3273,7 +3278,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         catch(ArrayIndexOutOfBoundsException ex)
         {
-            JOptionPane.showMessageDialog(null, "Selecciona con el boton izquierdo del raton", "Avertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Selecciona con el boton izquierdo del raton" + ex.getMessage(), "Avertencia", JOptionPane.WARNING_MESSAGE);
         }
     }
     
@@ -3714,6 +3719,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -3733,6 +3739,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             }
             catch(SQLException ex)
             {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
 
@@ -3750,6 +3757,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             }
             catch(SQLException ex)
             {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
 
@@ -3764,6 +3772,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             }
             catch(SQLException ex)
             {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
             
@@ -3776,6 +3785,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             }
             catch(SQLException ex)
             {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
         }
@@ -3803,6 +3813,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
 
@@ -3820,6 +3831,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
 
@@ -3834,6 +3846,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -4033,6 +4046,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -4050,6 +4064,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         
@@ -4064,6 +4079,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -4097,6 +4113,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -4228,7 +4245,9 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
                 try {
                     dtUtil = new SimpleDateFormat("yyyy-MM-dd").parse(dtf.print(date));
-                } catch (ParseException ex) {
+                } catch (ParseException ex) 
+                {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }
                 cal.setTime(dtUtil);
@@ -4278,6 +4297,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 } 
                 catch (ParseException ex) 
                 {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }
                 cal.setTime(date);
@@ -4289,6 +4309,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 } 
                 catch (ParseException ex) 
                 {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }
                 cal.setTime(date);
@@ -4300,6 +4321,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 } 
                 catch (ParseException ex) 
                 {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }
                 cal.setTime(date);
@@ -4311,6 +4333,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                 } 
                 catch (ParseException ex) 
                 {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }
                 cal.setTime(date);
@@ -4342,6 +4365,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         } 
         catch (SQLException ex) 
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         } 
     }
@@ -4655,6 +4679,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                                     }
                                     catch(SQLException ex)
                                     {
+                                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                         ex.printStackTrace();
                                     }
                                 }
@@ -4663,6 +4688,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                             }
                             catch(SQLException ex)
                             {
+                                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                 ex.printStackTrace();
                             }
                         }
@@ -4671,6 +4697,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     }
                     catch(SQLException ex)
                     {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
                     }
                 }
@@ -4716,6 +4743,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                                     }
                                     catch(SQLException ex)
                                     {
+                                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                         ex.printStackTrace();
                                     }
                                 }
@@ -4724,6 +4752,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                             }
                             catch(SQLException ex)
                             {
+                                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                 ex.printStackTrace();
                             }
                         }
@@ -4732,6 +4761,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     }
                     catch(SQLException ex)
                     {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
                     }
                 }
@@ -4778,6 +4808,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                                     }
                                     catch(SQLException ex)
                                     {
+                                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                         ex.printStackTrace();
                                     }
                                 }
@@ -4786,6 +4817,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                             }
                             catch(SQLException ex)
                             {
+                                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                 ex.printStackTrace();
                             }
                         }
@@ -4794,6 +4826,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     }
                     catch(SQLException ex)
                     {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
                     }
                 }
@@ -4804,6 +4837,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
             
@@ -4832,6 +4866,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         if(gfkg != 0)//si se hizo el calculo correctamente, retorana los gastos fijos por kg
@@ -4873,6 +4908,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
                     }
                     catch(SQLException ex)
                     {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
                     }
                     
@@ -4886,6 +4922,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
                     
@@ -4900,6 +4937,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         }
         catch(SQLException ex)
         {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }   
     }
