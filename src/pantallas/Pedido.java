@@ -3528,7 +3528,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         pig.setText("");
         tp.setText("");
         med.setText("");
-        desa.setText("0.0");
+        desa.setText("0");
         cal1.setText("");
         cal2.setText("");
         c11.setText("");
@@ -4452,23 +4452,23 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
     private void comprobarVacio(){
         
         if(desa.getText().equals("") || desa.getText().equals(".")){
-            desa.setText("0.0");
+            desa.setText("0");
         }
         //Costos
         if(grab.getText().equals("") || grab.getText().equals(".")){
-            grab.setText("0.0");
+            grab.setText("0");
         }
         if(precioUni.getText().equals("") || precioUni.getText().equals(".")){
-            precioUni.setText("0.0");
+            precioUni.setText("0");
         }
         if(disenio.getText().equals("") || disenio.getText().equals(".")){
-            disenio.setText("0.0");
+            disenio.setText("0");
         }
         if(anti.getText().equals("") || anti.getText().equals(".")){
-            anti.setText("0.0");
+            anti.setText("0");
         }
         if(decu.getText().equals("") || decu.getText().equals(".")){
-            decu.setText("0.0");
+            decu.setText("0");
         }
         if(pz.getText().equals("")){
             pz.setText("0");
@@ -4477,10 +4477,10 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
             pzFinales.setText("0");
         }
         if(importe.getText().equals("") || importe.getText().equals(".")){
-            importe.setText("0.0");
+            importe.setText("0");
         }
         if(kgPart.getText().equals("") || kgPart.getText().equals(".")){
-            kgPart.setText("0.0");
+            kgPart.setText("0");
         }
         //Campos de tintas
         if(kgIniT1.getText().equals("") || kgIniT1.getText().equals(".")){
@@ -4568,10 +4568,10 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         estatus.setSelectedIndex(0);
         auto.setText("");
         dev.setText("");
-        grab.setText("0.0");
-        disenio.setText("0.0");
-        anti.setText("0.0");
-        decu.setText("0.0");
+        grab.setText("0");
+        disenio.setText("0");
+        anti.setText("0");
+        decu.setText("0");
         porIVA.setSelectedIndex(0);
         sug.setText("Sugerencia");
         nomImpresion.setText("Impresion");
@@ -4579,7 +4579,7 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         pig.setText("");
         tp.setText("");
         med.setText("");
-        desa.setText("0.0");
+        desa.setText("0");
         sello.setSelectedIndex(0);
         mat1.setSelectedIndex(0);
         mat2.setSelectedIndex(0);
@@ -4597,11 +4597,11 @@ public class Pedido extends javax.swing.JFrame { //permite guadar o modificar un
         c24.setText("");
         c25.setText("");
         c26.setText("");
-        precioUni.setText("0.0");
+        precioUni.setText("0");
         pz.setText("0");
         pzFinales.setText("0");
-        kgPart.setText("0.0");
-        importe.setText("0.0");
+        kgPart.setText("0");
+        importe.setText("0");
         //se vacian las tablas
         modelo.setRowCount(0);
         modeloMod.setRowCount(0);

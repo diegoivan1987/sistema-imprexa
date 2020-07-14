@@ -438,15 +438,15 @@
                                           <Component id="jLabel24" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="grab" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" pref="16" max="32767" attributes="0"/>
+                                          <EmptySpace type="unrelated" pref="13" max="32767" attributes="0"/>
                                           <Component id="jLabel27" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="disenio" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" pref="16" max="32767" attributes="0"/>
+                                          <EmptySpace type="unrelated" pref="13" max="32767" attributes="0"/>
                                           <Component id="jLabel28" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="anti" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" pref="16" max="32767" attributes="0"/>
+                                          <EmptySpace type="unrelated" pref="13" max="32767" attributes="0"/>
                                           <Component id="jLabel30" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="decu" max="-2" attributes="0"/>
@@ -1954,7 +1954,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace pref="40" max="32767" attributes="0"/>
+                          <EmptySpace pref="38" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -2036,7 +2036,7 @@
                                               <Component id="jLabel104" alignment="0" max="-2" attributes="0"/>
                                               <Component id="jLabel112" alignment="0" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace pref="61" max="32767" attributes="0"/>
+                                          <EmptySpace pref="60" max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                                   <Group type="102" alignment="1" attributes="0">
@@ -2126,7 +2126,7 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="47" max="32767" attributes="0"/>
+                                  <EmptySpace pref="46" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="guardCamTintas" min="-2" max="-2" attributes="0"/>
