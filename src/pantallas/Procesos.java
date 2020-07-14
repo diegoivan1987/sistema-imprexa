@@ -2839,7 +2839,7 @@ public class Procesos extends javax.swing.JFrame {//Permite llevar un control de
             ex.printStackTrace();
         }
         
-        sql = "select produccion, prov1, precioKg1, produccion2, prov2, precioKg2, sticky, idImp from impreso where idPar_fk = "+idPart+"";
+        sql = "select produccion, prov1, precioKg1, produccion2, prov2, precioKg2, idImp from impreso where idPar_fk = "+idPart+"";
         try {
             st = con.createStatement();
             rs = st.executeQuery(sql);

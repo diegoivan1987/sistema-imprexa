@@ -985,19 +985,19 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
     //calcula las perdidas y ganancias del pedido
     private void calculaPyG()
     {
-        Statement st2;
-        ResultSet rs2;
+        Statement st2,st3;
+        ResultSet rs2,rs3;
         float subtotal = 0f, costoTotal = 0f, descuento = 0f;
         float PyG = 0;
         String sql = "select fTermino from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
         String sql2 =  "";
         try
         {
-            st = con.createStatement();
-            rs = st.executeQuery(sql);
-            while(rs.next())
+            st3 = con.createStatement();
+            rs3 = st3.executeQuery(sql);
+            while(rs3.next())
             {
-                if(rs.getString("fTermino").equals("2018-01-01") == false)
+                if(rs3.getString("fTermino").equals("2018-01-01") == false)
                 {
                     sql2 = "select subtotal, costoTotal, descuento from pedido where folio = "+dp.get(indicePartida).getFolio().replace("A", "")+"";
                     try
@@ -1024,8 +1024,8 @@ public class DetallesPartida extends javax.swing.JFrame {//permitira hacer cambi
                     PyG = subtotal - costoTotal - descuento - ( kgFnPe * gf);
                 }
             }
-            rs.close();
-            st.close();
+            rs3.close();
+            st3.close();
         }
         catch(SQLException ex)
         {
