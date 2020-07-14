@@ -423,8 +423,8 @@
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
                                                   <Component id="jLabel5" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="auto" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="autoCalendario" min="-2" pref="100" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -438,15 +438,15 @@
                                           <Component id="jLabel24" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="grab" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" pref="13" max="32767" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="32767" attributes="0"/>
                                           <Component id="jLabel27" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="disenio" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" pref="13" max="32767" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="32767" attributes="0"/>
                                           <Component id="jLabel28" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="anti" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" pref="13" max="32767" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="32767" attributes="0"/>
                                           <Component id="jLabel30" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="decu" max="-2" attributes="0"/>
@@ -506,13 +506,11 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel97" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="imp" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="auto" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="autoCalendario" min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -614,20 +612,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="devKeyTyped"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JTextField" name="auto">
-                  <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="99" green="99" red="0" type="rgb"/>
-                    </Property>
-                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[70, 20]"/>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoActionPerformed"/>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="autoKeyTyped"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel95">
@@ -863,6 +847,8 @@
                       </StringArray>
                     </Property>
                   </Properties>
+                </Component>
+                <Component class="datechooser.beans.DateChooserCombo" name="autoCalendario">
                 </Component>
               </SubComponents>
             </Container>
